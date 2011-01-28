@@ -1,73 +1,39 @@
-===================================================================================
-  MiniTwitter v1.64
-===================================================================================
+README
 
-仭 偼偠傔偵
+本程序是MiniTwitter的一个修改版
+相较于原版增加了
+	goo.gl短链接支持与bit.ly用户设置。
+	img.ly图片上传
+	回复所有
+	翻译为中文界面
+	加强过滤器
+	总在最前选项
+	短链接（goo.gl bit.ly）反追踪（反统计）
+	弹出图片预览网址增加
+	更为敏感的链接缩短
+	
+适合用户
+	只需要查看、发送Tweets的用户（客户端内没有用户资料查看功能）
+	直接连接或通过可靠代理（可以建立长时间持续连接的代理）连接Twitter的用户（使用StreamAPI达到实时更新，且减少API限制）
 
-MiniTwitter 偼 WPF 傪棙梡偟偨 Twitter 僋儔僀傾儞僩偱偡丅
-僽儔僂僓傪棫偪忋偘側偔偰傕僞僀儉儔僀儞偺妋擣傗僗僥乕僞僗偺峏怴側偳偑弌棃傑偡丅
+系统要求
+	.Net Framework 4.0 Client Profile
+	（建议）Windows XP SP3 操作系统
+	（推荐）Windows 7 操作系统
+	32位/64位系统均可（64位安装包仅能在64位系统下安装）
+	
+特色功能
+	支持StreamAPI实时更新
+	图片预览
+	自定义标签页，主时间线过滤，支持正则表达式（使用.Net正则表达式，请参阅MSDN）
+	WPF程序，支持主题更换
+	自定义快捷键
+	
+原程序
+	原程序及其源代码在
+		http://minitwitter.codeplex.com
+	源代码采用Apache License 2.0 发布
+	感谢原程序作者
 
-
-仭 摦嶌娐嫬
-
-.NET Framework 4 Client Profile 偑僀儞僗僩乕儖偝傟偰偄傞 Windows XP/Vista/7
-
-
-仭 僀儞僗僩乕儖
-
-揔摉側僼僅儖僟偵揥奐偡傞偩偗偱偡丅
-
-
-仭 娙扨側巊偄曽
-
-1. 弶婜愝掕
-嵟弶偵婲摦偟偨傜丄儗儞僠傾僀僐儞傪僋儕僢僋偟偰 Twitter 偺儐乕僓乕柤偲僷僗儚乕僪傪擖椡偟偰偔偩偝偄丅
-儘僌僀儞偵惉岟偡傞偲奺僞僀儉儔僀儞偑昞帵偝傟丄僗僥乕僞僗偺峏怴偑偱偒傞傛偆偵側傝傑偡丅
-
-2. 僞僀儉儔僀儞偺捛壛
-僞僽傪塃僋儕僢僋偟丄昞帵偝傟偨儊僯儏乕偐傜捛壛偡傞偙偲偑弌棃傑偡丅
-儐乕僓乕柤傗杮暥偵娷傑傟傞扨岅傪僼傿儖僞偲偟偰丄怳傝暘偗偰昞帵偡傞偙偲偑壜擻偵側傝傑偡丅
-
-3. 昞帵曽朄偺曄峏丒敪尵偺暲傋懼偊
-僞僀儉儔僀儞傪塃僋儕僢僋偟偰昞帵偝傟傞儊僯儏乕偵懚嵼偡傞昞帵丒暲傋懼偊儊僯儏乕偐傜
-敪尵偺昞帵僗僞僀儖傗傾僀僐儞偺昞帵丒旕昞帵丄敪尵偺暲傋懼偊曽朄偺曄峏偑弌棃傑偡丅
-
-4. 廔椆
-僂傿儞僪僂偺暵偠傞儃僞儞傪僋儕僢僋偟偨帪偼丄僞僗僋僩儗僀偵奿擺偝傟傞傛偆偵側偭偰偄傑偡丅
-傾僾儕働乕僔儑儞帺懱傪廔椆偝偣傞偵偼丄僞僗僋僩儗僀傾僀僐儞傪塃僋儕僢僋偟偰昞帵偝傟傞儊僯儏乕偐傜
-廔椆傪慖傫偱偔偩偝偄丅
-
-
-仭 柶愑帠崁
-
-杮僜僼僩僂僃傾傪巊梡偡傞偙偲偱敪惗偟偨偄偐側傞懝奞偵偮偄偰傕丄
-僜僼僩僂僃傾惂嶌幰偼堦愗愑擟傪晧偄傑偣傫丅
-
-
-仭 挊嶌尃
-
-杮僜僼僩僂僃傾丄側傜傃偵杮僜僼僩僂僃傾偵娭學偡傞
-偡傋偰偺僼傽僀儖偺挊嶌尃偼僜僼僩僂僃傾惂嶌幰偵婣懏偟傑偡丅
-
-
-仭 幱帿
-
-傾僀僐儞偵 famfamfam.com 偺 Silk Icons 偺堦晹傪巊梡偝偣偰偄偨偩偒傑偟偨丅
-Silk Icons 偼 Creative Commons Attribution 2.5 License 偺儔僀僙儞僗偺尦偵岞奐偝傟偰偄傑偡丅
-http://www.famfamfam.com/lab/icons/silk/
-
-@sasaroku 偝傫偵岠壥壒傪嶌惉偟偰偄偨偩偒傑偟偨丅偁傝偑偲偆偛偞偄傑偡丅
-
-僶僌曬崘傗梫朷丄採埬側偳傪 Twitter 偱戲嶳捀偒傑偟偨丄偁傝偑偲偆偛偞偄傑偡丅
-
-
-仭 楢棈愭側偳
-
-S Software
-http://www.s-software.net/
-
-MiniTwitter - CodePlex
-http://minitwitter.codeplex.com/
-
-Twitter - shibayan
-http://twitter.com/shibayan/
+源代码授权
+	这些代码使用Apache License 2.0发布
