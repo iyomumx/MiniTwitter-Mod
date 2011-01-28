@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="MiniTwitter.Controls.HyperlinkButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="UserControl">
+    <TextBlock>
+        <Hyperlink Command="{Binding ElementName=UserControl, Path=Command}"
+                   CommandParameter="{Binding ElementName=UserControl, Path=CommandParameter}"
+                   CommandTarget="{Binding ElementName=UserControl, Path=CommandTarget}">
+            <Run x:Name="Run"/>
+        </Hyperlink>
+    </TextBlock>
+</UserControl>

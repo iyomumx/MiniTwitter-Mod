@@ -1,0 +1,19 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties"
+    x:Class="MiniTwitter.PopupWindow"
+    x:Name="Window"
+    Width="350" SizeToContent="Height" ShowInTaskbar="False" ResizeMode="NoResize" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
+    Focusable="False" Topmost="True" ShowActivated="False" Style="{DynamicResource PopupWindowStyle}"
+    Loaded="PopupWindow_Loaded" SizeChanged="PopupWindow_SizeChanged" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display"
+	Title="{Binding Path=Timeline.Items.Count, ElementName=Window, StringFormat=MiniTwitter - 新消息 \{0\} 条}">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommand_Executed"/>
+    </Window.CommandBindings>
+    <ListBox x:Name="listBox" Grid.Row="1" ItemsSource="{Binding Path=Timeline.Items, ElementName=Window}"
+             AlternationCount="2" VirtualizingStackPanel.IsVirtualizing="True"
+             VirtualizingStackPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True"
+             Style="{DynamicResource PopupListBoxStyle}" ItemContainerStyle="{DynamicResource PopupListBoxItemStyle}"
+             ItemTemplateSelector="{StaticResource TimelineStyleSelector}" RenderOptions.ClearTypeHint="Enabled"/>
+</Window>

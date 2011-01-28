@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Twitter">
+  <DataContextMoniker Name="/TwitterDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fe6d29c6-3305-4449-a71f-0d92c2ad3f6b" absoluteBounds="0.75, 0.75, 2, 1.6954166666666666">
+      <DataClassMoniker Name="/TwitterDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cdc96e16-d0ae-4994-975b-9d71164398fa" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.1354166666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1959420b-c5bc-42c0-a46d-1dc12a7fa470" absoluteBounds="0.75, 2.75, 2, 1.6954166666666666">
+      <DataClassMoniker Name="/TwitterDataContext/Status" />
+      <nestedChildShapes>
+        <elementListCompartment Id="63888905-09f2-4e7d-aad9-189b68649c59" absoluteBounds="0.765, 3.21, 1.9700000000000002, 1.1354166666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3c314b70-f031-4a67-9d59-aff284c9287e" absoluteBounds="3.375, 0.75, 2, 1.9089583333333331">
+      <DataClassMoniker Name="/TwitterDataContext/DirectMessage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2399d9e0-6101-4b6b-bfe7-466c7123c93e" absoluteBounds="3.39, 1.21, 1.9700000000000002, 1.3489583333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.59770833333333); (3.375 : 1.59770833333333)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/TwitterDataContext/User/User_DirectMessage" />
+      <nodes>
+        <classShapeMoniker Id="fe6d29c6-3305-4449-a71f-0d92c2ad3f6b" />
+        <classShapeMoniker Id="3c314b70-f031-4a67-9d59-aff284c9287e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.11135416666667); (3.375 : 1.11135416666667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/TwitterDataContext/User/User_DirectMessage1" />
+      <nodes>
+        <classShapeMoniker Id="fe6d29c6-3305-4449-a71f-0d92c2ad3f6b" />
+        <classShapeMoniker Id="3c314b70-f031-4a67-9d59-aff284c9287e" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

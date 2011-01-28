@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Class="TwitterDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="Users" Member="User">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Member="Name" Type="System.String" CanBeNull="false" />
+      <Column Member="ScreenName" Type="System.String" CanBeNull="true" />
+      <Column Member="Location" Type="System.String" CanBeNull="true" />
+      <Association Name="User_DirectMessage" Member="DirectMessage" ThisKey="ID" OtherKey="Sender" Type="DirectMessage" />
+      <Association Name="User_DirectMessage1" Member="DirectMessage1" ThisKey="ID" OtherKey="Recipient" Type="DirectMessage" />
+    </Type>
+  </Table>
+  <Table Name="Statuses" Member="Status">
+    <Type Name="Status">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Member="CreatedAt" Type="System.DateTime" CanBeNull="false" />
+      <Column Member="Text" Type="System.String" CanBeNull="false" />
+      <Column Member="Source" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="DirectMessages" Member="DirectMessage">
+    <Type Name="DirectMessage">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Member="CreatedAt" Type="System.DateTime" CanBeNull="false" />
+      <Column Member="Text" Type="System.String" CanBeNull="false" />
+      <Column Member="Sender" Type="System.Int32" CanBeNull="false" />
+      <Column Member="Recipient" Type="System.Int32" CanBeNull="false" />
+      <Association Name="User_DirectMessage" Member="User" ThisKey="Sender" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_DirectMessage1" Member="User1" ThisKey="Recipient" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8CF3DAFB-99BA-416E-948E-BEB656F34CC4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MiniTwitter.Themes.DefaultThemes</RootNamespace>
+    <AssemblyName>MiniTwitter.Themes.DefaultThemes</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\MiniTwitter\bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MiniTwitter_Dark\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MiniTwitter_Standard\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiniTwitter.Themes\MiniTwitter.Themes.csproj">
+      <Project>{3368DA52-1B40-4EFF-A4D7-355610D973AD}</Project>
+      <Name>MiniTwitter.Themes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Standard\Images\account.png" />
+    <Resource Include="MiniTwitter_Standard\Images\addin.png" />
+    <Resource Include="MiniTwitter_Standard\Images\arrow_refresh.png" />
+    <Resource Include="MiniTwitter_Standard\Images\arrow_reply.png" />
+    <Resource Include="MiniTwitter_Standard\Images\cross.png" />
+    <Resource Include="MiniTwitter_Standard\Images\design.png" />
+    <Resource Include="MiniTwitter_Standard\Images\heart.png" />
+    <Resource Include="MiniTwitter_Standard\Images\home.png" />
+    <Resource Include="MiniTwitter_Standard\Images\keyboard.png" />
+    <Resource Include="MiniTwitter_Standard\Images\keyword.png" />
+    <Resource Include="MiniTwitter_Standard\Images\log.png" />
+    <Resource Include="MiniTwitter_Standard\Images\network.png" />
+    <Resource Include="MiniTwitter_Standard\Images\new.png" />
+    <Resource Include="MiniTwitter_Standard\Images\popup.png" />
+    <Resource Include="MiniTwitter_Standard\Images\protect.png" />
+    <Resource Include="MiniTwitter_Standard\Images\search.png" />
+    <Resource Include="MiniTwitter_Standard\Images\setting.png" />
+    <Resource Include="MiniTwitter_Standard\Images\sound.png" />
+    <Resource Include="MiniTwitter_Standard\Images\star.png" />
+    <Resource Include="MiniTwitter_Standard\Images\star_empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Standard\Images\retweet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Standard\Images\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows インストーラー 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Dark\Images\account.png" />
+    <Resource Include="MiniTwitter_Dark\Images\addin.png" />
+    <Resource Include="MiniTwitter_Dark\Images\arrow_left.png" />
+    <Resource Include="MiniTwitter_Dark\Images\arrow_refresh.png" />
+    <Resource Include="MiniTwitter_Dark\Images\arrow_reply.png" />
+    <Resource Include="MiniTwitter_Dark\Images\cross.png" />
+    <Resource Include="MiniTwitter_Dark\Images\design.png" />
+    <Resource Include="MiniTwitter_Dark\Images\heart.png" />
+    <Resource Include="MiniTwitter_Dark\Images\home.png" />
+    <Resource Include="MiniTwitter_Dark\Images\keyboard.png" />
+    <Resource Include="MiniTwitter_Dark\Images\keyword.png" />
+    <Resource Include="MiniTwitter_Dark\Images\log.png" />
+    <Resource Include="MiniTwitter_Dark\Images\network.png" />
+    <Resource Include="MiniTwitter_Dark\Images\new.png" />
+    <Resource Include="MiniTwitter_Dark\Images\popup.png" />
+    <Resource Include="MiniTwitter_Dark\Images\protect.png" />
+    <Resource Include="MiniTwitter_Dark\Images\retweet.png" />
+    <Resource Include="MiniTwitter_Dark\Images\search.png" />
+    <Resource Include="MiniTwitter_Dark\Images\setting.png" />
+    <Resource Include="MiniTwitter_Dark\Images\sound.png" />
+    <Resource Include="MiniTwitter_Dark\Images\star.png" />
+    <Resource Include="MiniTwitter_Dark\Images\star_empty.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
