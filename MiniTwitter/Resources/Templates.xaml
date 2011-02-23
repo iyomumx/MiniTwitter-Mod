@@ -27,6 +27,16 @@
                             </TextBlock.Text>
                         </TextBlock>
                         <TextBlock Text="{Binding Path=Sender.Description}" TextWrapping="Wrap" />
+                        <TextBlock TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
+                                    <Binding Path="Sender.StatusesCount"/>
+                                    <Binding Path="Sender.Friends"/>
+                                    <Binding Path="Sender.Followers"/>
+                                    <Binding Path="Sender.FavouritesCount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </Image.ToolTip>
             </Image>
@@ -95,6 +105,16 @@
                             </TextBlock.Text>
                             </TextBlock>
                             <TextBlock Text="{Binding Path=ReTweetedStatus.Sender.Description}" TextWrapping="Wrap" />
+                            <TextBlock TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
+                                    <Binding Path="ReTweetedStatus.Sender.StatusesCount"/>
+                                    <Binding Path="ReTweetedStatus.Sender.Friends"/>
+                                    <Binding Path="ReTweetedStatus.Sender.Followers"/>
+                                    <Binding Path="ReTweetedStatus.Sender.FavouritesCount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                            </TextBlock>
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
@@ -110,6 +130,16 @@
                             </TextBlock.Text>
                             </TextBlock>
                             <TextBlock Text="{Binding Path=Sender.Description}" TextWrapping="Wrap" />
+                            <TextBlock TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
+                                    <Binding Path="Sender.StatusesCount"/>
+                                    <Binding Path="Sender.Friends"/>
+                                    <Binding Path="Sender.Followers"/>
+                                    <Binding Path="Sender.FavouritesCount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                            </TextBlock>
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>

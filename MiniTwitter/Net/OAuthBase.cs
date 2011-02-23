@@ -347,7 +347,14 @@ namespace MiniTwitter.Net
                 }
             }
             // OAuth の認証ヘッダーを付ける
-            AddOAuthToken(request, query, token, tokenSecret, verifier);
+            if (MiniTwitter.Properties.Settings.Default.UseBasicAuth)
+            {
+                request.Credentials = new System.Net.NetworkCredential(MiniTwitter.Properties.Settings.Default.Token, MiniTwitter.Properties.Settings.Default.TokenSecret);
+            }
+            else
+            {
+                AddOAuthToken(request, query, token, tokenSecret, verifier);
+            }
             return request;
         }
 

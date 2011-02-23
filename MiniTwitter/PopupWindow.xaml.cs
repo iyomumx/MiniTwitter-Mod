@@ -99,7 +99,7 @@ namespace MiniTwitter
             Timeline.Update(appendItems);
             Timeline.View.Refresh();
             // ポップアップを表示
-            if (IsVisible)
+            if (!IsVisible)
             {
                 try
                 {

@@ -99,6 +99,7 @@ namespace MiniTwitter
             //ColorListView.ItemsSource = colorSchemes;
             // メッセージフッタ履歴
             TweetFooterComboBox.ItemsSource = settings.TweetFooterHistory;
+            BitlyProDomains.ItemsSource = settings.BitlyProDomains;
             BindingGroup.BeginEdit();
         }
 
@@ -138,6 +139,10 @@ namespace MiniTwitter
             if (!settings.TweetFooter.IsNullOrEmpty() && !settings.TweetFooterHistory.Contains(settings.TweetFooter))
             {
                 settings.TweetFooterHistory.Add(settings.TweetFooter);
+            }
+            if (!settings.BitlyProDomain.IsNullOrEmpty() && !settings.BitlyProDomains.Contains(settings.BitlyProDomain))
+            {
+                settings.BitlyProDomains.Add(settings.BitlyProDomain);
             }
             DialogResult = true;
         }
@@ -335,6 +340,17 @@ namespace MiniTwitter
                 PlixiUsernameBox.Text = token;
                 PlixiPasswordBox.Password = tokensecret;
                 TwitterClient.googlHelper.WriteToken(token, tokensecret);
+            }
+        }
+
+        private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(Settings.BaseDirectory);
+            }
+            catch
+            {
             }
         }
     }

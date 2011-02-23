@@ -89,7 +89,103 @@ namespace MiniTwitter.Net.Twitter
                 }
             }
         }
+        //添加部分
 
+        private int followers;
+
+        [XmlElement("followers_count")]
+        public int Followers
+        {
+            get
+            {
+                return followers;
+            }
+            set
+            {
+                if (followers != value)
+                {
+                    followers = value;
+                    OnPropertyChanged("Followers");
+                }
+            }
+        }
+
+        private int friends;
+
+        [XmlElement("friends_count")]
+        public int Friends
+        {
+            get
+            {
+                return friends;
+            }
+            set
+            {
+                if (friends != value)
+                {
+                    friends = value;
+                    OnPropertyChanged("Friends");
+                }
+            }
+        }
+
+        private int status_count;
+
+        [XmlElement("statuses_count")]
+        public int StatusesCount
+        {
+            get
+            {
+                return status_count;
+            }
+            set
+            {
+                if (status_count != value)
+                {
+                    status_count = value;
+                    OnPropertyChanged("StatusesCount");
+                }
+            }
+        }
+
+        private int favourites_count;
+
+        [XmlElement("favourites_count")]
+        public int FavouritesCount
+        {
+            get
+            {
+                return favourites_count;
+            }
+            set
+            {
+                if (favourites_count != value)
+                {
+                    favourites_count = value;
+                    OnPropertyChanged("FavouritesCount");
+                }
+            }
+        }
+
+        private bool verified;
+
+        [XmlElement("verified")]
+        public bool Verified
+        {
+            get
+            {
+                return verified;
+            }
+            set
+            {
+                if (verified != value)
+                {
+                    verified = value;
+                    OnPropertyChanged("Verified");
+                }
+            }
+        }
+        //添加部分结束
         private string location;
 
         [XmlElement("location")]

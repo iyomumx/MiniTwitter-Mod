@@ -92,6 +92,87 @@ namespace MiniTwitter.Properties
 
         public bool AntiShortUrlTracking { get; set; }
 
+        public bool UseBitlyPro { get; set; }
+
+        public string ApiBaseUrl { get; set; }
+
+        public string ApiSearchUrl { get; set; }
+
+        public string LinkUrl { get; set; }
+
+        private bool _acceptAllCert;
+
+        public bool AcceptAllCert { 
+            get
+            {
+                return _acceptAllCert;
+            }
+            set 
+            {
+                if (_acceptAllCert != value)
+                {
+                    _acceptAllCert = value;
+                    if (_acceptAllCert)
+                    {
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback =
+                            (_, __, ___, ____) => true;
+                    }
+                    else
+                    {
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback = null;
+                    }
+                    OnPropertyChanged("AcceptAllCert");
+                }
+            }
+        }
+
+        public bool UseBasicAuth { get; set; }
+
+        private string _bitlyProDomain = "bit.ly";
+        public string BitlyProDomain
+        {
+            get 
+            { 
+                return string.IsNullOrEmpty(_bitlyProDomain) ? "bit.ly" : _bitlyProDomain; 
+            }
+            set
+            {
+                if (_bitlyProDomain != value)
+                {
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        if (_bitlyProDomain != "bit.ly")
+                        {
+                            _bitlyProDomain = "bit.ly";
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        _bitlyProDomain = value;
+                    }
+                    OnPropertyChanged("BitlyProDomain");
+                }
+            }
+        }
+        
+        [XmlArray("BitlyProDomains")]
+        public string[] BitlyProDomainsInternal
+        {
+            get { return BitlyProDomains.Count != 0 ? BitlyProDomains.ToArray() : null; }
+            set { BitlyProDomains = new ObservableCollection<string>(value ?? Enumerable.Empty<string>()); }
+        }
+
+        [XmlIgnore()]
+        public ObservableCollection<string> BitlyProDomains
+        {
+            get;
+            private set;
+        }
+
         public bool AlwaysOnTop { get; set; }
 
         /// <summary>
@@ -381,6 +462,10 @@ namespace MiniTwitter.Properties
             {
                 TweetFooterHistory = new ObservableCollection<string>();
             }
+            if (BitlyProDomains == null)
+            {
+                BitlyProDomains = new ObservableCollection<string>();
+            }
             if (Timelines == null)
             {
                 Timelines = new ObservableCollection<Timeline>();
@@ -428,7 +513,7 @@ namespace MiniTwitter.Properties
             InitializeKeywordRegex();
         }
 
-        private static string BaseDirectory { get; set; }
+        public static string BaseDirectory { get; set; }
 
         public static Settings Default { get; private set; }
         

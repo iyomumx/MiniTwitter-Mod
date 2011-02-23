@@ -6,6 +6,8 @@
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties"
     xmlns:MiniTwitter_Themes="clr-namespace:MiniTwitter.Themes"
+    xmlns:MiniTwitter_Net="clr-namespace:MiniTwitter.Net"
+    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter"
     xmlns:System_Deployment_Application="clr-namespace:System.Deployment.Application;assembly=System.Deployment"
     x:Class="MiniTwitter.SettingDialog"
     Title="MiniTwitter Mod: 设置" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
@@ -15,6 +17,10 @@
     <Window.BindingGroup>
         <BindingGroup/>
     </Window.BindingGroup>
+    <Window.Resources>
+        <MiniTwitter:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -102,16 +108,26 @@
             <TextBlock Text="密码（Secret）" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="45"/>
             <TextBox x:Name="UsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="14" Text="{Binding Path=Username}"/>
             <PasswordBox x:Name="PasswordBox" Width="200" Canvas.Left="110" Canvas.Top="42"/>
-            <Button Width="80" x:Name="StartOAuth" Canvas.Left="110" Canvas.Top="70" Content="OAuth认证" Click="StartOAuth_Click" ToolTip="开始OAuth认证（请先配置网络！）"/>
-            <TextBlock Text="Bit.ly 用户名" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98"/>
-            <TextBlock  TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="126">Bit.ly <Hyperlink NavigateUri="http://bit.ly/a/your_api_key" Click="Hyperlink_Click" ToolTip="获取Bit.ly API Key"><Run Text="Key"/></Hyperlink></TextBlock>
-            <TextBox x:Name="BitlyUsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="98" Text="{Binding Path=BitlyUsername}"/>
-            <TextBox x:Name="BitlyApiKeyBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="126" Text="{Binding Path=BitlyApiKey}"/>
-            <TextBlock Text="Google Token" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="154"/>
-            <TextBlock Text="Google Secret" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="182"/>
-            <TextBox x:Name="PlixiUsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="154" Text="{Binding Path=PlixiUsername}"/>
-            <PasswordBox x:Name="PlixiPasswordBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="182"/>
-            <Button x:Name="DoGoogleOAuth" Content="Google OAuth" Width="100" Canvas.Left="14" Canvas.Top="210" Click="DoGoogleOAuth_Click"/>
+            <Button Width="80" x:Name="StartOAuth" Canvas.Left="110" Canvas.Top="70" Content="OAuth认证" Click="StartOAuth_Click" ToolTip="开始OAuth认证（请先配置网络！）" IsEnabled="{Binding Path=IsChecked, ElementName=UseBasicAuthBox,Converter={StaticResource InvertBooleanConverter}}"/>
+            <CheckBox Width="120" Canvas.Left="210" Canvas.Top="70" Content="使用BasicAuth" IsChecked="{Binding Path=UseBasicAuth}" x:Name="UseBasicAuthBox"/>
+            <TextBlock Text="Bit.ly 用户名" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98" Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBlock Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="126">Bit.ly <Hyperlink NavigateUri="http://bit.ly/a/your_api_key" Click="Hyperlink_Click" ToolTip="获取Bit.ly API Key"><Run Text="Key"/></Hyperlink></TextBlock>
+            <TextBox x:Name="BitlyUsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="98" Text="{Binding Path=BitlyUsername}" Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBox x:Name="BitlyApiKeyBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="126" Text="{Binding Path=BitlyApiKey}" Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBlock Text="Google Token" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBlock Text="Google Secret" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="126" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <RadioButton Content="使用goo.gl缩短网址" Canvas.Left="14" Canvas.Top="154" x:Name="UseCommon" IsChecked="{Binding Path=IsChecked,ElementName=UseBitly,Converter={StaticResource InvertBooleanConverter}}"/>
+            <RadioButton Content="使用bit.ly缩短网址" Canvas.Right="14" Canvas.Top="154" x:Name="UseBitly" IsChecked="{Binding Path=UseBitlyPro}"/>
+            <TextBox x:Name="PlixiUsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="98" Text="{Binding Path=PlixiUsername}" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <PasswordBox x:Name="PlixiPasswordBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="126" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="DoGoogleOAuth" Content="Google OAuth" Width="100" Canvas.Left="14" Canvas.Top="182" Click="DoGoogleOAuth_Click" IsEnabled="{Binding Path=IsChecked, ElementName=UseCommon}"/>
+            <Label Content="Bit.ly Pro域名" Canvas.Right="122" Canvas.Top="182"/>
+            <ComboBox x:Name="BitlyProDomains" Width="100" Canvas.Right="14" Canvas.Top="182" IsEditable="True" IsEnabled="{Binding Path=IsChecked, ElementName=UseBitly}" Text="{Binding Path=BitlyProDomain}"/>
+            <TextBlock Text="API URL" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="238"/>
+            <TextBox Width="200" Canvas.Left="110" Canvas.Top="238" Text="{Binding Path=ApiBaseUrl}"/>
+            <TextBlock Text="Search URL" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="266"/>
+            <TextBox Width="200" Canvas.Left="110" Canvas.Top="266" Text="{Binding Path=ApiSearchUrl}"/>
+            <CheckBox Canvas.Left="110" Canvas.Top="294" Content="接受所有证书" IsChecked="{Binding Path=AcceptAllCert}"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=NetworkListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <CheckBox x:Name="UseProxyCheckBox" Content="使用代理服务器连接" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=UseProxy}"/>
@@ -256,6 +272,12 @@
                 <TextBlock Text="{x:Static MiniTwitter:App.VERSION}" FontSize="22" />
             </StackPanel>
             <Button Visibility="Hidden" Click="UpdateCheckButton_Click" Canvas.Left="120" Canvas.Top="150" IsEnabled="{Binding Source={x:Static System_Deployment_Application:ApplicationDeployment.IsNetworkDeployed}}">检查更新</Button>
+            <Label Canvas.Left="120" Canvas.Top="180">
+                <Hyperlink Click="Hyperlink_Click_1" ToolTip="点击打开">
+                    <Run>设置保存目录</Run>
+                </Hyperlink>
+            </Label>
+            <TextBlock Canvas.Left="90" Canvas.Top="200" Text="{Binding Path=BaseDirectory}" TextWrapping="WrapWithOverflow" Width="200"/>
         </Canvas>
     </Grid>
 </Window>

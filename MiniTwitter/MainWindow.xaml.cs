@@ -1920,7 +1920,7 @@ namespace MiniTwitter
                         {
                             var url = (string)state;
 
-                            var shorten = MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url, BitlyHelper.ConvertTo);
+                            var shorten = Settings.Default.UseBitlyPro?BitlyHelper.ConvertTo(url): MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
 
                             this.Invoke(targetUrl =>
                                 {

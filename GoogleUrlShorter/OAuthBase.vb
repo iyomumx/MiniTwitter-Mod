@@ -306,10 +306,7 @@ Public Class OAuthBase
         request.ServicePoint.Expect100Continue = False
         request.Headers.Add("GData-Version", "2.0")
         If verb <> HttpVerbs.GET Then
-            'request.ContentType = "application/x-www-form-urlencoded"
             request.ContentType = "application/json"
-            'Dim nvc = ParseQueryString(queryString)
-            'queryString = CreateQueryStringJ(nvc)
             Using writer = New StreamWriter(request.GetRequestStream)
                 writer.Write(queryString)
             End Using
@@ -390,6 +387,9 @@ Public Class OAuthBase
     End Function
 
     Private Shared Function CreateQueryString(ByVal Collection As NameValueCollection) As String
+        If Collection Is Nothing Then
+            Return String.Empty
+        End If
         If Collection.Count = 0 Then
             Return String.Empty
         End If
@@ -462,7 +462,7 @@ Public Class OAuthBase
                          ByVal method As HttpVerbs, ByVal uri As Uri,
                          ByVal query As NameValueCollection) As String
         Dim url = String.Format("{0}://{1}{2}", uri.Scheme, uri.Host, uri.AbsolutePath)
-        Dim addtionalQuery As String = uri.Query.Substring(1)
+        Dim addtionalQuery As String = If(Not String.IsNullOrEmpty(uri.Query), uri.Query.Substring(1), String.Empty)
         If Not String.IsNullOrEmpty(addtionalQuery) Then
             If query Is Nothing Then
                 query = New NameValueCollection()

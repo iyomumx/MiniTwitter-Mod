@@ -320,111 +320,111 @@ namespace MiniTwitter.Controls
 
                     if (!location.IsNullOrEmpty())
                     {
-                        if (Regex.IsMatch(location, @"http:\/\/twitpic\.com\/(.+?)"))
-                        {
-                            var uri = new Uri("http://twitpic.com/show/large/" + location.Substring(19));
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/img\.ly\/(.+?)"))
-                        {
-                            var uri = new Uri("http://img.ly/show/medium/" + location.Substring(14));
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/plixi\.com\/p\/(.+?)"))
-                        {
-                            var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + location);
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/www\.youtube\.com\/watch\?v\=(.+?)"))
-                        {
-                            var uri = new Uri("http://img.youtube.com/vi/" + location.Substring(31)+"/0.jpg");
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/flic\.kr\/p\/(.+?)"))
-                        {
-                            var uri = new Uri("http://flic.kr/p/img/" + location.Substring(17)+"_m.jpg");
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
-                        {
-                            var uri = new Uri(location + ":small");
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/yfrog\.com\/(.+?)[zf]$"))
-                        {
-                            var uri = new Uri(location + ":frame");
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = uri;
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
-                        {
-                            var client = new WebClient();
-                            var contents = client.DownloadString(url);
-                            var match = Regex.Match(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
-                            match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", match.Groups[2].Value));
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = new Uri(match.Groups[1].Value);
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/movapic\.com\/pic\/(.+?)"))
-                        {
-                            var client = new WebClient();
-                            var contents = client.DownloadString(url);
-                            var match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = new Uri(match.Groups[1].Value);
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else if (Regex.IsMatch(location, @"http:\/\/gyazo\.com\/(.+?)"))
-                        {
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.UriSource = new Uri(location);
-                            bitmap.DecodePixelWidth = 200;
-                            bitmap.EndInit();
-                            hyperlink.ToolTip = new Image { Source = bitmap };
-                        }
-                        else
+                        //if (Regex.IsMatch(location, @"http:\/\/twitpic\.com\/(.+?)"))
+                        //{
+                        //    var uri = new Uri("http://twitpic.com/show/large/" + location.Substring(19));
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/img\.ly\/(.+?)"))
+                        //{
+                        //    var uri = new Uri("http://img.ly/show/medium/" + location.Substring(14));
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/plixi\.com\/p\/(.+?)"))
+                        //{
+                        //    var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + location);
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/www\.youtube\.com\/watch\?v\=(.+?)"))
+                        //{
+                        //    var uri = new Uri("http://img.youtube.com/vi/" + location.Substring(31)+"/0.jpg");
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/flic\.kr\/p\/(.+?)"))
+                        //{
+                        //    var uri = new Uri("http://flic.kr/p/img/" + location.Substring(17)+"_m.jpg");
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
+                        //{
+                        //    var uri = new Uri(location + ":small");
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/yfrog\.com\/(.+?)[zf]$"))
+                        //{
+                        //    var uri = new Uri(location + ":frame");
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = uri;
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
+                        //{
+                        //    var client = new WebClient();
+                        //    var contents = client.DownloadString(url);
+                        //    var match = Regex.Match(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
+                        //    match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", match.Groups[2].Value));
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = new Uri(match.Groups[1].Value);
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/movapic\.com\/pic\/(.+?)"))
+                        //{
+                        //    var client = new WebClient();
+                        //    var contents = client.DownloadString(url);
+                        //    var match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = new Uri(match.Groups[1].Value);
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else if (Regex.IsMatch(location, @"http:\/\/gyazo\.com\/(.+?)"))
+                        //{
+                        //    var bitmap = new BitmapImage();
+                        //    bitmap.BeginInit();
+                        //    bitmap.UriSource = new Uri(location);
+                        //    bitmap.DecodePixelWidth = 200;
+                        //    bitmap.EndInit();
+                        //    hyperlink.ToolTip = new Image { Source = bitmap };
+                        //}
+                        //else
                         {
                             hyperlink.ToolTip = new TextBlock { Text = location };
                         }
