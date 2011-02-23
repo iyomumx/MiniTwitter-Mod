@@ -19,6 +19,11 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GoogleUrlShorter", "GoogleU
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup MiniTwitter Mod", "Setup MiniTwitter Mod\Setup MiniTwitter Mod.vdproj", "{9977B007-D220-474D-A0DA-569158D6481D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEB5682E-A755-4C94-8E31-81888A82E929}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
