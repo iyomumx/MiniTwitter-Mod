@@ -49,6 +49,14 @@ namespace MiniTwitter
         //目前是填自有的Key/Secret
         private TwitterClient client = new TwitterClient("q7mdYYVT3AbbZ7v640CxA", "Z3OXcqH3e505HRiMBthmIwA1U50G1LTVHXhe5TMFmw");
 
+        public TwitterClient TClient
+        {
+            get
+            {
+                return client;
+            }
+        }
+
         private volatile bool _isClosing = false;
 
         private ulong? in_reply_to_status_id = null;
@@ -2359,6 +2367,35 @@ namespace MiniTwitter
 
                 TimelineTabControl.SelectedItem = timeline;
             }
+        }
+
+        private void ReportSpam_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                var user = (User)state;
+                if (client.ReportSpam(user.ScreenName))
+                {
+                    this.Invoke(() => Timelines.RemoveAll(p => p.Sender.ID == user.ID));
+                }
+                else
+                {
+                    this.Invoke(() => StatusText = "报告广告账户失败");
+                }
+            }, ((Status)e.Parameter).Sender);
+        }
+
+        private void ViewRateLimit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if ((e.LeftButton == MouseButtonState.Pressed) && (e.ClickCount == 2))
+            {
+                MessageBox.Show(string.Format("API剩余：\t\t{0}\nAPI总限制：\t{1}\n将在{2}重置", client.RateLimitRemain, client.TotalRateLimit, client.ResetTimeString), "API限制状态", MessageBoxButton.OK);
+            }
+        }
+
+        private void ProgressBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(string.Format("API剩余：\t\t{0}\nAPI总限制：\t{1}\n将在{2}重置", client.RateLimitRemain, client.TotalRateLimit, client.ResetTimeString), "API限制状态", MessageBoxButton.OK);
         }
     }
 }

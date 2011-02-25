@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace MiniTwitter.Net
 {
-    public class OAuthBase
+    public class OAuthBase : PropertyChangedBase
     {
         protected OAuthBase(string consumerKey, string consumerSecret)
         {
@@ -52,6 +52,75 @@ namespace MiniTwitter.Net
         }
 
         #region インスタンスメソッド
+
+        private int _totalRateLimit;
+
+        public int TotalRateLimit
+        {
+            get
+            {
+                return _totalRateLimit;
+            }
+            protected set
+            {
+                if (_totalRateLimit != value)
+                {
+                    _totalRateLimit = value;
+                    OnPropertyChanged("TotalRateLimit");
+                }
+            }
+        }
+
+        private int _rateLimitRemain;
+
+        public int RateLimitRemain
+        {
+            get
+            {
+                return _rateLimitRemain;
+            }
+            protected set
+            {
+                if (_rateLimitRemain != value)
+                {
+                    _rateLimitRemain = value;
+                    OnPropertyChanged("RateLimitRemain");
+                }
+            }
+        }
+
+        private int _resetTime;
+
+        public int ResetTime
+        {
+            get
+            {
+                return _resetTime;
+            }
+            protected set
+            {
+                if (_resetTime != value)
+                {
+                    _resetTime = value;
+                    OnPropertyChanged("ResetTime");
+                    ResetTimeString = TimeZone.CurrentTimeZone.ToLocalTime(_unixEpoch.AddSeconds(value)).ToLongTimeString();
+                }
+            }
+        }
+
+        private string _resetTimeString;
+        public string ResetTimeString
+        {
+            get
+            {
+                return _resetTimeString;
+            }
+            protected set
+            {
+                _resetTimeString = value;
+                OnPropertyChanged("ResetTimeString");
+            }
+        }
 
         protected string Get(string url)
         {
@@ -159,6 +228,22 @@ namespace MiniTwitter.Net
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
+                    try
+                    {
+                        int num;
+                        int.TryParse(response.Headers["X-RateLimit-Limit"], out num);
+                        if (num != 0)
+                        {
+                            TotalRateLimit = num;
+                            int.TryParse(response.Headers["X-RateLimit-Remaining"], out num);
+                            RateLimitRemain = num;
+                            int.TryParse(response.Headers["X-RateLimit-Reset"], out num);
+                            ResetTime = num;
+                        }
+                    }
+                    catch
+                    {
+                    }
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
                         return reader.ReadToEnd();
@@ -200,6 +285,22 @@ namespace MiniTwitter.Net
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
+                    try
+                    {
+                        int num;
+                        int.TryParse(response.Headers["X-RateLimit-Limit"], out num);
+                        if (num != 0)
+                        {
+                            TotalRateLimit = num;
+                            int.TryParse(response.Headers["X-RateLimit-Remaining"], out num);
+                            RateLimitRemain = num;
+                            int.TryParse(response.Headers["X-RateLimit-Reset"], out num);
+                            ResetTime = num;
+                        }
+                    }
+                    catch
+                    {
+                    }
                     using (var stream = response.GetResponseStream())
                     {
                         return Serializer<T>.Deserialize(stream);
@@ -236,7 +337,19 @@ namespace MiniTwitter.Net
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
-
+                    //try
+                    //{
+                    //    int num;
+                    //    int.TryParse(response.Headers["X-RateLimit-Remaining"], out num);
+                    //    RateLimitRemain = num;
+                    //    int.TryParse(response.Headers["X-RateLimit-Limit"], out num);
+                    //    TotalRateLimit = num;
+                    //    int.TryParse(response.Headers["X-RateLimit-Reset"], out num);
+                    //    ResetTime = num;
+                    //}
+                    //catch
+                    //{
+                    //}
                     return response.GetResponseStream();
                 }
                 catch (WebException e)

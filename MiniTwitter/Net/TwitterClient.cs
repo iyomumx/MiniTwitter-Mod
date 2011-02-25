@@ -15,7 +15,7 @@ using MiniTwitter.Net.Twitter;
 
 namespace MiniTwitter.Net
 {
-    class TwitterClient : OAuthBase
+    public class TwitterClient : OAuthBase
     {
         static TwitterClient()
         {
@@ -460,6 +460,20 @@ namespace MiniTwitter.Net
             try
             {
                 Delete(string.Format("{0}1/blocks/destroy.xml", ApiBaseUrl), new { screen_name = screen_name });
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ReportSpam(string screen_name)
+        {
+            try
+            {
+                Post(string.Format("{0}1/report_spam.xml", ApiBaseUrl), new { screen_name = screen_name });
 
                 return true;
             }

@@ -57,6 +57,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Follow" Executed="FollowCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Unfollow" Executed="UnfollowCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Block" Executed="BlockCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ReportSpam" Executed="ReportSpam_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Hashtag" Executed="HashtagCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
@@ -152,8 +153,18 @@
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="14" Height="14" Margin="0,0,5,0" Style="{DynamicResource PopupImageStyle}"/>
-                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}"/>
+                    <ProgressBar x:Name="APICounterProgressBar" Foreground="OrangeRed" Value="{Binding ElementName=Window, Path=TClient.RateLimitRemain, Mode=OneWay}" Maximum="{Binding ElementName=Window, Path=TClient.TotalRateLimit, Mode=OneWay}" Minimum="0" MouseDoubleClick="ProgressBar_MouseDoubleClick" Width="40" Height="14" Margin="0,0,5,0" Tag="{Binding ElementName=Window, Path=TClient.ResetTimeString, Mode=OneWay}">
+                        <ProgressBar.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="API限制" FontWeight="Bold" />
+                                <TextBlock Text="{Binding ElementName=APICounterProgressBar, Path=Value, StringFormat=API剩余：\{0\}}"/>
+                                <TextBlock Text="{Binding ElementName=APICounterProgressBar, Path=Maximum, StringFormat=API总量：\{0\}}"/>
+                                <TextBlock Text="{Binding ElementName=APICounterProgressBar, Path=Tag, StringFormat=重置时间：\{0\}}"/>
+                            </StackPanel>
+                        </ProgressBar.ToolTip>
+                    </ProgressBar>
+                    <Image Width="14" Height="14" Margin="0,0,5,0" Style="{DynamicResource PopupImageStyle}" />
+                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}" Mouse.MouseDown="ViewRateLimit_MouseDown"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>

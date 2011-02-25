@@ -266,7 +266,16 @@ namespace MiniTwitter.Input
         {
             get { return Commands._block; }
         }
+        //ReportSpam 添加代码
 
+        private static readonly RoutedCommand _reportSpam = new RoutedCommand("ReportSpam", typeof(Commands));
+
+        public static RoutedCommand ReportSpam
+        {
+            get { return Commands._reportSpam; }
+        }
+
+        //添加代码结束
         private static readonly RoutedCommand _hashtag = new RoutedCommand("Hashtag", typeof(Commands));
 
         public static RoutedCommand Hashtag

@@ -21,6 +21,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup MiniTwitter Mod", "Se
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEB5682E-A755-4C94-8E31-81888A82E929}"
 	ProjectSection(SolutionItems) = preProject
+		ModLog.txt = ModLog.txt
 		README.txt = README.txt
 	EndProjectSection
 EndProject

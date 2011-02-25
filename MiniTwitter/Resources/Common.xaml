@@ -178,6 +178,7 @@
             <MenuItem Header="取消跟随(_U)" Command="MiniTwitter_Input:Commands.Unfollow" CommandParameter="{Binding}" />
             <Separator />
             <MenuItem Header="阻止(_B)" Command="MiniTwitter_Input:Commands.Block" CommandParameter="{Binding}" />
+            <MenuItem Header="报告广告账户(_R)" Command="MiniTwitter_Input:Commands.ReportSpam" CommandParameter="{Binding}" />
         </MenuItem>
         <Separator/>
         <MenuItem Header="复制(_C)">

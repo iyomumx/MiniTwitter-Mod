@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MiniTwitter.Net.Twitter
 {
-    class UpdateEventArgs : EventArgs
+    public class UpdateEventArgs : EventArgs
     {
         public UpdateEventArgs(ITwitterItem item)
         {
