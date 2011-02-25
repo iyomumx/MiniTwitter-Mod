@@ -91,7 +91,7 @@ namespace MiniTwitter.Controls
                 {
                     diff = 1;
                     value = match.Groups["user"].Value;
-                    Hyperlink link = new Hyperlink { Tag = "http://twitter.com/" + value };
+                    Hyperlink link = new Hyperlink { Tag = "https://twitter.com/" + value };
                     link.Inlines.Add(value);
                     link.Click += Hyperlink_Click;
                     TextBlock.Inlines.Add("@");

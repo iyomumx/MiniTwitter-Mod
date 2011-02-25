@@ -1370,7 +1370,7 @@ namespace MiniTwitter
         {
             try
             {
-                Process.Start("http://twitter.com/home");
+                Process.Start("https://twitter.com/home");
             }
             catch
             {
@@ -1713,7 +1713,7 @@ namespace MiniTwitter
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             try
             {
-                Process.Start("http://twitter.com/" + item.Sender.ScreenName);
+                Process.Start("https://twitter.com/" + item.Sender.ScreenName);
             }
             catch
             {
@@ -1726,7 +1726,7 @@ namespace MiniTwitter
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             try
             {
-                Process.Start(string.Format("http://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
+                Process.Start(string.Format("https://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
             }
             catch
             {
@@ -1739,7 +1739,7 @@ namespace MiniTwitter
             var item = (Status)(e.Parameter ?? GetSelectedItem());
             try
             {
-                Process.Start(string.Format("http://twitter.com/{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID));
+                Process.Start(string.Format("https://twitter.com/{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID));
             }
             catch
             {
@@ -1782,7 +1782,7 @@ namespace MiniTwitter
         private void CopyUrlCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-            Clipboard.SetText(string.Format("http://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
+            Clipboard.SetText(string.Format("https://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
         }
 
         private void SortCategoryCommand_Executed(object sender, ExecutedRoutedEventArgs e)

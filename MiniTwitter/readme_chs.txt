@@ -66,4 +66,4 @@ MiniTwitter - CodePlex
 http://minitwitter.codeplex.com/
 
 Twitter - shibayan
-http://twitter.com/shibayan/
+https://twitter.com/shibayan/
