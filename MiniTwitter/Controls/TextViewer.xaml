@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Name="UserControl">
     <UserControl.Resources>
-        <Popup x:Key="ProgressPopup" Placement="MousePoint" PopupAnimation="Fade" AllowsTransparency="True" SnapsToDevicePixels="True" Focusable="False" StaysOpen="False">
+        <Popup x:Key="ProgressPopup" Placement="MousePoint" PopupAnimation="Fade" AllowsTransparency="True" SnapsToDevicePixels="True" Focusable="True" StaysOpen="False">
             <Border Background="White" BorderThickness="1" BorderBrush="Gray">
                 <Grid Margin="10,2,10,2">
                     <Grid.RowDefinitions>
@@ -15,9 +15,9 @@
                 </Grid>
             </Border>
         </Popup>
-        <Popup x:Key="PreviewPopup" Placement="MousePoint" PopupAnimation="Fade" AllowsTransparency="True" SnapsToDevicePixels="True" Focusable="False" StaysOpen="False">
+        <Popup x:Key="PreviewPopup" Placement="MousePoint" PopupAnimation="Fade" AllowsTransparency="True" SnapsToDevicePixels="True" Focusable="True" StaysOpen="False">
             <Border Background="#90000000" BorderThickness="3" BorderBrush="Gray" CornerRadius="10">
-                <Image Source="{Binding Path=Image}" Tag="{Binding Path=Url}" Margin="10" MouseLeftButtonUp="Image_MouseLeftButtonUp" Cursor="Hand" />
+                <Image Source="{Binding Path=Image}" Tag="{Binding Path=Url}" Margin="10" MouseLeftButtonUp="Image_MouseLeftButtonUp" Cursor="Hand" MaxWidth="500" />
             </Border>
         </Popup>
     </UserControl.Resources>

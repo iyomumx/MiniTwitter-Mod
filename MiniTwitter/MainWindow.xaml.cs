@@ -352,9 +352,13 @@ namespace MiniTwitter
             {
                 // ログインに失敗
                 this.Invoke(() => StatusText = "登录失败");
+
+                Settings.Default.Token = null;
+                Settings.Default.TokenSecret = null;
+
                 // 再ログイン用にタイマーを仕込む
                 refreshTimer.IsEnabled = true;
-                refreshTimer.Interval = TimeSpan.FromSeconds(60);
+                refreshTimer.Interval = TimeSpan.FromSeconds(30);
             }
             else
             {
@@ -2352,11 +2356,6 @@ namespace MiniTwitter
             }, ((Status)e.Parameter).Sender);
         }
 
-        private void TimelineListBox_ScrollChanged(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-        {
-            
-        }
-
         private void HashtagCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var value = e.Parameter as string;
@@ -2379,6 +2378,10 @@ namespace MiniTwitter
 
                 TimelineTabControl.SelectedItem = timeline;
             }
+        }
+
+        private void TimelineListBox_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
         }
 
         private void ReportSpam_Executed(object sender, ExecutedRoutedEventArgs e)

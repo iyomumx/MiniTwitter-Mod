@@ -247,10 +247,6 @@ namespace MiniTwitter.Controls
             var progress = (Popup)FindResource("ProgressPopup");
 
             var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = uri;
-            bitmap.DecodePixelWidth = 400;
-            bitmap.EndInit();
             bitmap.DownloadCompleted += (_, __) =>
             {
                 progress.IsOpen = false;
@@ -261,7 +257,22 @@ namespace MiniTwitter.Controls
                 };
                 popup.IsOpen = true;
             };
-            progress.IsOpen = true;
+            bitmap.BeginInit();
+            bitmap.UriSource = uri;
+            bitmap.DecodePixelWidth = 400;
+            bitmap.EndInit();
+            if (bitmap.IsDownloading)
+            {
+                progress.IsOpen = true;    
+            }
+            else
+            {
+                popup.DataContext = new
+                {
+                    Image = bitmap,
+                    Url = url,
+                };
+            }
         }
 
         private static void HashtagHyperlink_Click(object sender, RoutedEventArgs e)

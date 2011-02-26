@@ -810,159 +810,167 @@ namespace MiniTwitter.Net
 
         public event EventHandler<StatusEventArgs> UserStreamUpdated;
 
+        private Thread _thread;
+
         public void ChirpUserStream()
         {
-            ThreadPool.QueueUserWorkItem(state =>
+            _thread = new Thread(() =>
             {
-                DateTime time;
-
-                try
+                while (true)
                 {
-                    using (var reader = new StreamReader(FetchStream(OAuthBase.HttpVerbs.Get, "https://userstream.twitter.com/2/user.json", null, out time)))
+                    try
                     {
-                        _failureCount = 0;
-
-                        while (!reader.EndOfStream)
+                        DateTime time;
+                        using (var reader = new StreamReader(FetchStream(OAuthBase.HttpVerbs.Get, "https://userstream.twitter.com/2/user.json", null, out time)))
                         {
-                            var line = reader.ReadLine();
+                            _failureCount = 0;
 
-                            if (string.IsNullOrWhiteSpace(line))
+                            while (!reader.EndOfStream)
                             {
-                                continue;
-                            }
+                                var line = reader.ReadLine();
 
-                            using (var jsonReader = JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(line), XmlDictionaryReaderQuotas.Max))
-                            {
-                                var element = XElement.Load(jsonReader);
-
-                                if (element.Element("delete") != null)
+                                if (string.IsNullOrWhiteSpace(line))
                                 {
-                                    var status = new Status
-                                    {
-                                        ID = (ulong)element.Element("delete").Element("status").Element("id")
-                                    };
-
-                                    UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Deleted });
+                                    continue;
                                 }
-                                else if (element.Element("user") != null)
-                                {
-                                    var status = new Status
-                                    {
-                                        ID = (ulong)element.Element("id"),
-                                        CreatedAt = DateTime.ParseExact(element.Element("created_at").Value, "ddd MMM dd HH:mm:ss zzzz yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo),
-                                        Text = element.Element("text").Value,
-                                        Source = element.Element("source").Value,
-                                        Favorited = (bool)element.Element("favorited"),
-                                        Sender = new User
-                                        {
-                                            ID = (int)element.Element("user").Element("id"),
-                                            ScreenName = element.Element("user").Element("screen_name").Value,
-                                            Name = element.Element("user").Element("name").Value,
-                                            ImageUrl = element.Element("user").Element("profile_image_url").Value,
-                                            Description = element.Element("user").Element("description").Value,
-                                            Protected = (bool)element.Element("user").Element("protected"),
-                                            Location = element.Element("user").Element("location").Value,
-                                            Verified = (bool)element.Element("user").Element("verified"),
-                                            FavouritesCount = (int)element.Element("user").Element("favourites_count"),
-                                            Followers = (int)element.Element("user").Element("followers_count"),
-                                            Friends = (int)element.Element("user").Element("friends_count"),
-                                            StatusesCount = (int)element.Element("user").Element("statuses_count"),
-                                        },
-                                    };
 
-                                    if (element.Element("retweeted_status") != null)
+                                using (var jsonReader = JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(line), XmlDictionaryReaderQuotas.Max))
+                                {
+                                    var element = XElement.Load(jsonReader);
+
+                                    if (element.Element("delete") != null)
                                     {
-                                        status.ReTweetedStatus = new Status
+                                        var status = new Status
                                         {
-                                            ID = (ulong)element.Element("retweeted_status").Element("id"),
-                                            CreatedAt = DateTime.ParseExact(element.Element("retweeted_status").Element("created_at").Value, "ddd MMM dd HH:mm:ss zzzz yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo),
-                                            Text = element.Element("retweeted_status").Element("text").Value,
-                                            Source = element.Element("retweeted_status").Element("source").Value,
-                                            Favorited = (bool)element.Element("retweeted_status").Element("favorited"),
+                                            ID = (ulong)element.Element("delete").Element("status").Element("id")
+                                        };
+
+                                        UserStreamUpdated(this, new StatusEventArgs(status) 
+                                        { 
+                                            Action = StatusAction.Deleted 
+                                        });
+                                    }
+                                    else if (element.Element("user") != null)
+                                    {
+                                        var status = new Status
+                                        {
+                                            ID = (ulong)element.Element("id"),
+                                            CreatedAt = DateTime.ParseExact(element.Element("created_at").Value, "ddd MMM dd HH:mm:ss zzzz yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo),
+                                            Text = element.Element("text").Value,
+                                            Source = element.Element("source").Value,
+                                            Favorited = (bool)element.Element("favorited"),
                                             Sender = new User
                                             {
-                                                ID = (int)element.Element("retweeted_status").Element("user").Element("id"),
-                                                ScreenName = element.Element("retweeted_status").Element("user").Element("screen_name").Value,
-                                                Name = element.Element("retweeted_status").Element("user").Element("name").Value,
-                                                ImageUrl = element.Element("retweeted_status").Element("user").Element("profile_image_url").Value,
-                                                Description = element.Element("retweeted_status").Element("user").Element("description").Value,
-                                                Protected = (bool)element.Element("retweeted_status").Element("user").Element("protected"),
-                                                Location = element.Element("retweeted_status").Element("user").Element("location").Value,
-                                                Verified = (bool)element.Element("retweeted_status").Element("user").Element("verified"),
-                                                FavouritesCount = (int)element.Element("retweeted_status").Element("user").Element("favourites_count"),
-                                                Followers = (int)element.Element("retweeted_status").Element("user").Element("followers_count"),
-                                                Friends = (int)element.Element("retweeted_status").Element("user").Element("friends_count"),
-                                                StatusesCount = (int)element.Element("retweeted_status").Element("user").Element("statuses_count"),
+                                                ID = (int)element.Element("user").Element("id"),
+                                                ScreenName = element.Element("user").Element("screen_name").Value,
+                                                Name = element.Element("user").Element("name").Value,
+                                                ImageUrl = element.Element("user").Element("profile_image_url").Value,
+                                                Description = element.Element("user").Element("description").Value,
+                                                Protected = (bool)element.Element("user").Element("protected"),
+                                                Location = element.Element("user").Element("location").Value,
+                                                Verified = (bool)element.Element("user").Element("verified"),
+                                                FavouritesCount = (int)element.Element("user").Element("favourites_count"),
+                                                Followers = (int)element.Element("user").Element("followers_count"),
+                                                Friends = (int)element.Element("user").Element("friends_count"),
+                                                StatusesCount = (int)element.Element("user").Element("statuses_count"),
                                             },
                                         };
-                                    }
 
-                                    if (!string.IsNullOrEmpty(element.Element("in_reply_to_status_id").Value))
-                                    {
-                                        status.InReplyToStatusID = (ulong)element.Element("in_reply_to_status_id");
-                                    }
-
-                                    if (!string.IsNullOrEmpty(element.Element("in_reply_to_user_id").Value))
-                                    {
-                                        status.InReplyToUserID = (int)element.Element("in_reply_to_user_id");
-                                    }
-
-                                    //if (!string.IsNullOrEmpty(element.Element("retweeted_status").Element("in_reply_to_status_id").Value))
-                                    //{
-                                    //    status.InReplyToStatusID = (ulong)element.Element("in_reply_to_status_id");
-                                    //}
-
-                                    //if (!string.IsNullOrEmpty(element.Element("retweeted_status").Element("in_reply_to_user_id").Value))
-                                    //{
-                                    //    status.InReplyToUserID = (int)element.Element("in_reply_to_user_id");
-                                    //}
-
-                                    status.IsAuthor = status.Sender.ID == LoginedUser.ID;
-                                    status.IsMention = status.InReplyToUserID == LoginedUser.ID;
-
-                                    UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Update });
-                                }
-                                else if (element.Element("event") != null)
-                                {
-                                    if (element.Element("event").Value == "favorite")
-                                    {
-                                        var status = new Status
+                                        if (element.Element("retweeted_status") != null)
                                         {
-                                            ID = (ulong)element.Element("target_object").Element("id"),
-                                            Sender = new User { ID = (int)element.Element("source").Element("id") }
-                                        };
+                                            status.ReTweetedStatus = new Status
+                                            {
+                                                ID = (ulong)element.Element("retweeted_status").Element("id"),
+                                                CreatedAt = DateTime.ParseExact(element.Element("retweeted_status").Element("created_at").Value, "ddd MMM dd HH:mm:ss zzzz yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo),
+                                                Text = element.Element("retweeted_status").Element("text").Value,
+                                                Source = element.Element("retweeted_status").Element("source").Value,
+                                                Favorited = (bool)element.Element("retweeted_status").Element("favorited"),
+                                                Sender = new User
+                                                {
+                                                    ID = (int)element.Element("retweeted_status").Element("user").Element("id"),
+                                                    ScreenName = element.Element("retweeted_status").Element("user").Element("screen_name").Value,
+                                                    Name = element.Element("retweeted_status").Element("user").Element("name").Value,
+                                                    ImageUrl = element.Element("retweeted_status").Element("user").Element("profile_image_url").Value,
+                                                    Description = element.Element("retweeted_status").Element("user").Element("description").Value,
+                                                    Protected = (bool)element.Element("retweeted_status").Element("user").Element("protected"),
+                                                    Location = element.Element("retweeted_status").Element("user").Element("location").Value,
+                                                    Verified = (bool)element.Element("retweeted_status").Element("user").Element("verified"),
+                                                    FavouritesCount = (int)element.Element("retweeted_status").Element("user").Element("favourites_count"),
+                                                    Followers = (int)element.Element("retweeted_status").Element("user").Element("followers_count"),
+                                                    Friends = (int)element.Element("retweeted_status").Element("user").Element("friends_count"),
+                                                    StatusesCount = (int)element.Element("retweeted_status").Element("user").Element("statuses_count"),
+                                                },
+                                            };
+                                        }
 
-                                        UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Favorited });
-                                    }
-                                    else if (element.Element("event").Value == "unfavorite")
-                                    {
-                                        var status = new Status
+                                        if (!string.IsNullOrEmpty(element.Element("in_reply_to_status_id").Value))
                                         {
-                                            ID = (ulong)element.Element("target_object").Element("id"),
-                                            Sender = new User { ID = (int)element.Element("source").Element("id") }
-                                        };
+                                            status.InReplyToStatusID = (ulong)element.Element("in_reply_to_status_id");
+                                        }
 
-                                        UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Unfavorited });
+                                        if (!string.IsNullOrEmpty(element.Element("in_reply_to_user_id").Value))
+                                        {
+                                            status.InReplyToUserID = (int)element.Element("in_reply_to_user_id");
+                                        }
+
+                                        status.IsAuthor = status.Sender.ID == LoginedUser.ID;
+                                        status.IsMention = status.InReplyToUserID == LoginedUser.ID;
+
+                                        UserStreamUpdated(this, new StatusEventArgs(status) 
+                                        { 
+                                            Action = StatusAction.Update 
+                                        });
+                                    }
+                                    else if (element.Element("event") != null)
+                                    {
+                                        if (element.Element("event").Value == "favorite")
+                                        {
+                                            var status = new Status
+                                            {
+                                                ID = (ulong)element.Element("target_object").Element("id"),
+                                                Sender = new User 
+                                                { 
+                                                    ID = (int)element.Element("source").Element("id") 
+                                                }
+                                            };
+
+                                            UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Favorited });
+                                        }
+                                        else if (element.Element("event").Value == "unfavorite")
+                                        {
+                                            var status = new Status
+                                            {
+                                                ID = (ulong)element.Element("target_object").Element("id"),
+                                                Sender = new User { ID = (int)element.Element("source").Element("id") }
+                                            };
+
+                                            UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Unfavorited });
+                                        }
                                     }
                                 }
                             }
                         }
+                        _failureCount = 1;
                     }
-                }
-                catch
-                {
-                    _failureCount++;
-
-                    if (_failureCount > 10)
+                    catch
                     {
-                        _failureCount = 10;
+                        _failureCount++;
+
+                        if (_failureCount > 10)
+                        {
+                            _failureCount = 10;
+                        }
                     }
-
-                    Thread.Sleep(1000 * (int)Math.Pow(_failureCount, _failureCount));
-
-                    ChirpUserStream();
+                    finally
+                    {
+                        Thread.Sleep(1000 * (int)Math.Pow(_failureCount, _failureCount));
+                    }
                 }
             });
+
+            _thread.IsBackground = true;
+
+            _thread.Start();
         }
     }
 }

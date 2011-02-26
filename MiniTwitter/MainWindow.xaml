@@ -188,7 +188,7 @@
                 <DataTemplate>
                     <ListBox x:Name="TimelineListBox" IsSynchronizedWithCurrentItem="True" AlternationCount="2"
                              VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling"
-                             ScrollViewer.IsDeferredScrollingEnabled="True" ScrollBar.Scroll="TimelineListBox_ScrollChanged"
+                             ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.ScrollChanged="TimelineListBox_ScrollChanged"
                              SelectionChanged="TimelineListBox_SelectionChanged" PreviewMouseWheel="TimelineListBox_MouseWheel"
                              MouseDoubleClick="TimelineListBox_MouseDoubleClick" ItemsSource="{Binding Path=Items}"
                              Style="{DynamicResource TimelineListBoxStyle}" ItemContainerStyle="{DynamicResource TimelineListBoxItemStyle}"
