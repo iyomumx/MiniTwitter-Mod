@@ -29,6 +29,10 @@
 	WPF程序，支持主题更换
 	自定义快捷键
 	
+本程序发布
+	目前发布在 http://cid-24976eadee7347d1.office.live.com/browse.aspx/.Public/Programs
+	为打包后的安装包
+
 原程序
 	原程序及其源代码在
 		http://minitwitter.codeplex.com

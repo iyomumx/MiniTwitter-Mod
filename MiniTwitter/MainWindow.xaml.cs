@@ -326,8 +326,6 @@ namespace MiniTwitter
                 //TODO:申请个Xauth吧孩子
                 if (string.IsNullOrEmpty(Settings.Default.Username) || string.IsNullOrEmpty(Settings.Default.Password))
                 {
-                    //token = "149516562-PdjKlFpvoo6wl043SMw9NdkYqwCMmTBbxuENDlOB";
-                    //tokenSecret = "4FhEguH2xGbg8ahRxBDl1VcgYolyIKFZ83IB3I4YKow";
                     this.Invoke(() => StatusText = "请进行OAuth认证");
                 }
                 else
@@ -951,6 +949,7 @@ namespace MiniTwitter
                     new CommandBinding(Commands.Delete, DeleteCommand_Executed),
                     new CommandBinding(Commands.Favorite, FavoriteCommand_Executed),
                     new CommandBinding(Commands.MoveToStatusPage, MoveToStatusPageCommand_Executed),
+                    new CommandBinding(Commands.MoveToSourcePage, MoveToSourcePageCommand_Executed),
                     new CommandBinding(Commands.MoveToUserPage, MoveToUserPageCommand_Executed),
                     new CommandBinding(Commands.InReplyTo, InReplyToCommand_Executed),
                 });
@@ -1747,6 +1746,19 @@ namespace MiniTwitter
             }
         }
 
+        private void MoveToSourcePageCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var item = (Status)(e.Parameter ?? GetSelectedItem());
+            try
+            {
+                Process.Start(item.SourceUri.ToString());
+            }
+            catch
+            {
+                MessageBox.Show("无法打开浏览器", App.NAME);
+            }
+        }
+
         private void ReadAllCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Timelines.ReadAll();
@@ -1902,7 +1914,7 @@ namespace MiniTwitter
             timeline.Clear();
         }
 
-        private static readonly Regex schemaRegex = new Regex(@"^(https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex schemaRegex = new Regex(@"^(?<protocol>http|ftp|https|file)://(?<user>[\w\.]+(?<pass>\:[\w\.]+)\@)?(?<domain>[\w\.]+)(?<path>/[\w-_.!*'();/?:@&=+$,%#]*)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private void PasteCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {

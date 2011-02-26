@@ -58,7 +58,12 @@
                             <TextBlock Text="{Binding Path=CreatedAt, StringFormat=yyyy/MM/dd HH:mm:ss}"/>
                         </MiniTwitter_Controls:HyperlinkButton.ToolTip>
                     </MiniTwitter_Controls:HyperlinkButton>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="{Binding Path=Source, StringFormat=via \{0\}}"/>
+                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="via"/>
+                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center">
+                        <Hyperlink NavigateUri="{Binding Path=SourceUri}" Command="MiniTwitter_Input:Commands.MoveToSourcePage" CommandParameter="{Binding}" >
+                            <Run Text="{Binding Path=Source}" />
+                        </Hyperlink>
+                    </TextBlock>
                     <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"  ToolTip="删除"
                             Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>

@@ -113,6 +113,13 @@ namespace MiniTwitter.Input
             get { return Commands.moveToReplyPage; }
         }
 
+        private static readonly RoutedCommand moveToSourcePage = new RoutedCommand("MoveToSourcePage", typeof(Commands));
+
+        public static RoutedCommand MoveToSourcePage
+        {
+            get { return Commands.moveToSourcePage; }
+        }
+
         private static readonly RoutedCommand readAll = new RoutedCommand("ReadAll", typeof(Commands));
 
         public static RoutedCommand ReadAll

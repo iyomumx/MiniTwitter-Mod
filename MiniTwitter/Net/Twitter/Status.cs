@@ -113,9 +113,33 @@ namespace MiniTwitter.Net.Twitter
                 {
                     if (!value.IsNullOrEmpty())
                     {
+                        var match = Regex.Match(value, "href=\"(?<uri>[^\"]+?)\"");
+                        if (match.Success)
+                        {
+                            SourceUri = new Uri(match.Groups["uri"].Value);
+                        }
                         source = Regex.Replace(value, @"<(.|\n)*?>", string.Empty);
                         OnPropertyChanged("Source");
                     }
+                }
+            }
+        }
+
+        private Uri _sourceUri;
+
+        [XmlIgnore()]
+        public Uri SourceUri
+        {
+            get
+            {
+                return _sourceUri;
+            }
+            private set
+            {
+                if (_sourceUri != value)
+                {
+                    _sourceUri = value;
+                    OnPropertyChanged("SourceUri");
                 }
             }
         }
