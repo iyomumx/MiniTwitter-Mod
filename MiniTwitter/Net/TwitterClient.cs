@@ -814,6 +814,17 @@ namespace MiniTwitter.Net
 
         public void ChirpUserStream()
         {
+            if ((_thread!=null)&&(_thread.IsAlive))
+            {
+                try
+                {
+                    _thread.Abort();
+                    _thread = null;
+                }
+                catch
+                {
+                }
+            }
             _thread = new Thread(() =>
             {
                 while (true)
@@ -845,9 +856,9 @@ namespace MiniTwitter.Net
                                             ID = (ulong)element.Element("delete").Element("status").Element("id")
                                         };
 
-                                        UserStreamUpdated(this, new StatusEventArgs(status) 
-                                        { 
-                                            Action = StatusAction.Deleted 
+                                        UserStreamUpdated(this, new StatusEventArgs(status)
+                                        {
+                                            Action = StatusAction.Deleted
                                         });
                                     }
                                     else if (element.Element("user") != null)
@@ -916,9 +927,9 @@ namespace MiniTwitter.Net
                                         status.IsAuthor = status.Sender.ID == LoginedUser.ID;
                                         status.IsMention = status.InReplyToUserID == LoginedUser.ID;
 
-                                        UserStreamUpdated(this, new StatusEventArgs(status) 
-                                        { 
-                                            Action = StatusAction.Update 
+                                        UserStreamUpdated(this, new StatusEventArgs(status)
+                                        {
+                                            Action = StatusAction.Update
                                         });
                                     }
                                     else if (element.Element("event") != null)
@@ -928,9 +939,9 @@ namespace MiniTwitter.Net
                                             var status = new Status
                                             {
                                                 ID = (ulong)element.Element("target_object").Element("id"),
-                                                Sender = new User 
-                                                { 
-                                                    ID = (int)element.Element("source").Element("id") 
+                                                Sender = new User
+                                                {
+                                                    ID = (int)element.Element("source").Element("id")
                                                 }
                                             };
 
@@ -951,6 +962,10 @@ namespace MiniTwitter.Net
                             }
                         }
                         _failureCount = 1;
+                    }
+                    catch (ThreadAbortException)
+                    {
+                        return;
                     }
                     catch
                     {

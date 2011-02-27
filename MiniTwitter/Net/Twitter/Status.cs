@@ -118,6 +118,10 @@ namespace MiniTwitter.Net.Twitter
                         {
                             SourceUri = new Uri(match.Groups["uri"].Value);
                         }
+                        else
+                        {
+                            SourceUri = twitterMainUri;
+                        }
                         source = Regex.Replace(value, @"<(.|\n)*?>", string.Empty);
                         OnPropertyChanged("Source");
                     }
@@ -125,6 +129,7 @@ namespace MiniTwitter.Net.Twitter
             }
         }
 
+        private static readonly Uri twitterMainUri=new Uri("https://twitter.com/");
         private Uri _sourceUri;
 
         [XmlIgnore()]

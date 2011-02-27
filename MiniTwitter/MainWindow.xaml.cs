@@ -391,7 +391,10 @@ namespace MiniTwitter
             switch (target)
             {
                 case RefreshTarget.All:
-                    client.ChirpUserStream();
+                    if (Settings.Default.UseUserStream)
+                    {
+                        client.ChirpUserStream();
+                    }
                     this.AsyncInvoke(() => StatusText = "正在获取全部时间线");
                     // Recent を取得する
                     statuses = client.RecentTimeline;
@@ -467,6 +470,10 @@ namespace MiniTwitter
                 case RefreshTarget.Recent:
                     this.AsyncInvoke(() => StatusText = "正在获取主时间线");
                     statuses = client.RecentTimeline;
+                    if (Settings.Default.UseUserStream)
+                    {
+                        client.ChirpUserStream();
+                    }
                     if (statuses != null)
                     {
                         statuses = Timelines.Normalize(TimelineType.Recent, statuses);
