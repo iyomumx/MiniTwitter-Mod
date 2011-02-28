@@ -235,6 +235,7 @@
     <Compile Include="SettingDialog.xaml.cs">
       <DependentUpon>SettingDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StateToColorConverter.cs" />
     <Compile Include="Themes\ThemeManager.cs" />
     <Compile Include="Timeline.cs" />
     <Compile Include="TimelineDialog.xaml.cs">
@@ -253,6 +254,10 @@
     <ProjectReference Include="..\MiniTwitter.Themes.DefaultThemes\MiniTwitter.Themes.DefaultThemes.csproj">
       <Project>{8CF3DAFB-99BA-416E-948E-BEB656F34CC4}</Project>
       <Name>MiniTwitter.Themes.DefaultThemes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiniTwitter.Themes.iyomumxMod\MiniTwitter.Themes.iyomumxMod.csproj">
+      <Project>{7DD02D2F-9521-463D-BA50-1561CE605146}</Project>
+      <Name>MiniTwitter.Themes.iyomumxMod</Name>
     </ProjectReference>
     <ProjectReference Include="..\MiniTwitter.Themes.Netbook\MiniTwitter.Themes.Netbook.csproj">
       <Project>{0ACFFD29-B490-4468-BC7D-CA7D2480B999}</Project>

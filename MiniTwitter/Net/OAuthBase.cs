@@ -84,7 +84,38 @@ namespace MiniTwitter.Net
                 if (_rateLimitRemain != value)
                 {
                     _rateLimitRemain = value;
+                    double state = (double)_rateLimitRemain / (double)_totalRateLimit;
+                    if (state>0.5)
+                    {
+                        RateLimitState = 0;
+                    }
+                    else if(state>0.2)
+                    {
+                        RateLimitState = 1;
+                    }
+                    else
+                    {
+                        RateLimitState = 2;
+                    }
                     OnPropertyChanged("RateLimitRemain");
+                }
+            }
+        }
+
+        private int _rateLimitState;
+
+        public int RateLimitState
+        {
+            get
+            {
+                return _rateLimitState;
+            }
+            protected set
+            {
+                if (_rateLimitState != value)
+                {
+                    _rateLimitState = value;
+                    OnPropertyChanged("RateLimitState");
                 }
             }
         }
