@@ -268,6 +268,22 @@ namespace MiniTwitter.Net.Twitter
             }
         }
 
+        private int retweetCount;
+
+        [XmlElement("retweet_count")]
+        public int ReTweetCount
+        {
+            get { return retweetCount; }
+            set
+            {
+                if (retweetCount != value)
+                {
+                    retweetCount = value;
+                    OnPropertyChanged("ReTweetCount");
+                }
+            }
+        }
+
         private User sender;
 
         [XmlElement("user")]

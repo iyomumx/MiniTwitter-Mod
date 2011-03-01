@@ -15,7 +15,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <UICulture>ja-JP</UICulture>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -405,22 +405,22 @@
   <ItemGroup>
     <PublishFile Include="MiniTwitter.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Tween.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
@@ -444,7 +444,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>"E:\my documents\visual studio 2010\Projects\StringReplace\StringReplace\bin\Release\StringReplace.exe" -sf "$(ProjectDir)PostBuild.xml"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>"E:\my documents\visual studio 2010\Projects\StringReplace\StringReplace\bin\Release\StringReplace.exe" -sf "$(ProjectDir)PreBuild.xml"</PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -342,10 +342,10 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
-
+                        var msg = (new System.IO.StreamReader(e.Response.GetResponseStream())).ReadToEnd();
                         if ((int)response.StatusCode < 500)
                         {
-                            throw;
+                            throw new ApplicationException(msg, e);
                         }
                     }
                 }

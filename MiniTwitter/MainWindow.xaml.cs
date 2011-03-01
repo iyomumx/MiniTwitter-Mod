@@ -47,7 +47,7 @@ namespace MiniTwitter
         public string TargetValue { get; set; }
         //TODO:在这里填写可用的XAuth API Key/Secret
         //目前是填自有的Key/Secret
-        private TwitterClient client = new TwitterClient("q7mdYYVT3AbbZ7v640CxA", "Z3OXcqH3e505HRiMBthmIwA1U50G1LTVHXhe5TMFmw");
+        private TwitterClient client = new TwitterClient("$CONSUMER_KEY$", "$CONSUMER_SECRET$");
 
         public TwitterClient TClient
         {
@@ -1639,7 +1639,7 @@ namespace MiniTwitter
                     var status = client.ReTweet(itm.ID);
                     if (status != null)
                     {
-                        this.Invoke(() => StatusText = "ReTweet已成功");
+                        this.Invoke(() => StatusText = string.Format("ReTweet已成功 (共{0}次RT)", itm.ReTweetCount));
 
                         this.Invoke(() =>
                             {

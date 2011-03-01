@@ -102,7 +102,7 @@ namespace MiniTwitter
             {
                 Net.TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter("anonymous", "anonymous", Settings.Default.PlixiUsername, Settings.Default.PlixiPassword);
             }
-            Net.TwitterClient.googlHelper.Key = "AIzaSyAHyvzs-9Gf5QnHcszjDHoGcTKb_vcgqfo";
+            Net.TwitterClient.googlHelper.Key = "$GOOGLE_API_KEY$";
 
             MainWindow = new MainWindow();
             MainWindow.Show();
