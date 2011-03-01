@@ -1,4 +1,7 @@
-﻿110227：
+﻿110301：
+	API限制查看器颜色随API剩余量变化
+	Retweet操作后会显示被retweet推的总retweet次数
+110227：
 	代码与原版1.66对应
 		增强UserStream稳定性
 		图片预览Bug修复

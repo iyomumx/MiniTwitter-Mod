@@ -25,3 +25,9 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+/MiniTwitter/PreBuild.xml
+/MiniTwitter/PostBuild.xml
+/Setup MiniTwitter Mod/MiniTwitter Mod x64.7z
+/Setup MiniTwitter Mod/MiniTwitter Mod x64.rar
+/SetupMiniTwitterMod/MiniTwitter Mod x86.7z
+/SetupMiniTwitterMod/MiniTwitter Mod x86.rar
