@@ -1,0 +1,5 @@
+自行编译指南：
+	1.删除MiniTwitter的生成事件
+	2.在MainWindow.xaml.cs里用自己的Twitter Consumer Key / Secret替换$CONSUMER_KEY$, $CONSUMER_SECRET$
+	3.在App.xaml.cs里用Google短链接API Key替换$GOOGLE_API_KEY$
+	4.现在源代码应该可以正常编译运行了
