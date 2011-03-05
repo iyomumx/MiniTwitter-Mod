@@ -21,11 +21,14 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup MiniTwitter Mod", "Se
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEB5682E-A755-4C94-8E31-81888A82E929}"
 	ProjectSection(SolutionItems) = preProject
+		DevNote.txt = DevNote.txt
 		ModLog.txt = ModLog.txt
 		README.txt = README.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTwitter.Themes.iyomumxMod", "MiniTwitter.Themes.iyomumxMod\MiniTwitter.Themes.iyomumxMod.csproj", "{7DD02D2F-9521-463D-BA50-1561CE605146}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AddinRunner", "IronPythonAddinRunner\AddinRunner.vbproj", "{A2E6062B-BEB1-47AA-BCE1-52404262CB60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +150,18 @@ Global
 		{7DD02D2F-9521-463D-BA50-1561CE605146}.Release|x64.Build.0 = Release|x64
 		{7DD02D2F-9521-463D-BA50-1561CE605146}.Release|x86.ActiveCfg = Release|x86
 		{7DD02D2F-9521-463D-BA50-1561CE605146}.Release|x86.Build.0 = Release|x86
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2E6062B-BEB1-47AA-BCE1-52404262CB60}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

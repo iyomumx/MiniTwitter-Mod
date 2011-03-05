@@ -198,7 +198,7 @@
                              SelectionChanged="TimelineListBox_SelectionChanged" PreviewMouseWheel="TimelineListBox_MouseWheel"
                              MouseDoubleClick="TimelineListBox_MouseDoubleClick" ItemsSource="{Binding Path=Items}"
                              Style="{DynamicResource TimelineListBoxStyle}" ItemContainerStyle="{DynamicResource TimelineListBoxItemStyle}"
-                             ItemTemplateSelector="{StaticResource TimelineStyleSelector}" HorizontalContentAlignment="Stretch"/>
+                             ItemTemplateSelector="{StaticResource TimelineStyleSelector}" HorizontalContentAlignment="Stretch" ScrollViewer.CanContentScroll="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

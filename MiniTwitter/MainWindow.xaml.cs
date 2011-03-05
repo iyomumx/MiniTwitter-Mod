@@ -47,7 +47,7 @@ namespace MiniTwitter
         public string TargetValue { get; set; }
         //TODO:在这里填写可用的XAuth API Key/Secret
         //目前是填自有的Key/Secret
-        private TwitterClient client = new TwitterClient("$CONSUMER_KEY$", "$CONSUMER_SECRET$");
+        private TwitterClient client = new TwitterClient(App.consumer_key, App.consumer_secret);
 
         public TwitterClient TClient
         {

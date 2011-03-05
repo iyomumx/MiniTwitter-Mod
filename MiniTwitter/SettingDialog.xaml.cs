@@ -283,7 +283,7 @@ namespace MiniTwitter
         {
             try
             {
-                TwitterClient TC = new TwitterClient("q7mdYYVT3AbbZ7v640CxA", "Z3OXcqH3e505HRiMBthmIwA1U50G1LTVHXhe5TMFmw");
+                TwitterClient TC = new TwitterClient(App.consumer_key, App.consumer_secret);
                 if (UseProxyCheckBox.IsChecked.Value)
                 {
                     var proxy = new System.Net.WebProxy(ProxyAddress.Text, Convert.ToInt32(ProxyPortNumber.Text));

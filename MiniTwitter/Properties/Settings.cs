@@ -175,6 +175,8 @@ namespace MiniTwitter.Properties
 
         public bool AlwaysOnTop { get; set; }
 
+        public bool SmoothScroll { get; set; }
+
         /// <summary>
         /// 自動更新を有効にする
         /// </summary>

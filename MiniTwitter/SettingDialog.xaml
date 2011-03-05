@@ -227,7 +227,7 @@
                       VerticalContentAlignment="Center" Canvas.Left="14" Canvas.Top="14">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="键盘" Width="200">
+                        <GridViewColumn Header="关键字" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -263,6 +263,7 @@
             <CheckBox Content="启用实时更新（需要重启程序）" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
             <CheckBox Content="主窗口总在最顶部" Canvas.Left="14" Canvas.Top="155" IsChecked="{Binding Path=AlwaysOnTop}" />
             <CheckBox Content="短链接反跟踪" Canvas.Left="14" Canvas.Top="177" IsChecked="{Binding Path=AntiShortUrlTracking}" />
+            <CheckBox Content="启用内容平滑滚动（请量力而行）" Canvas.Left="14" Canvas.Top="205" IsChecked="{Binding Path=SmoothScroll}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=VersionListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Canvas.Left="70" Canvas.Top="30" Source="Resources\MiniTwitter.ico" Width="48" />
