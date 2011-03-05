@@ -480,7 +480,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.iyomumxMod, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.iyomumxMod, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_E3BBFD9DB10C91EC84D85174B73B0210"
@@ -574,15 +574,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
-        "ProductCode" = "8:{2E6F36D0-F3FD-48C7-91FF-16CA9F813EE7}"
-        "PackageCode" = "8:{1C32046E-CD7E-4BFD-A42C-6E0C076A0529}"
+        "ProductCode" = "8:{97546406-DC32-4EE7-9A84-2AE004E63612}"
+        "PackageCode" = "8:{4017420F-921F-4FF8-8F22-899B7E8090ED}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.66.92"
+        "ProductVersion" = "8:1.66.94"
         "Manufacturer" = "8:s-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://minitwitter.codeplex.com/"
@@ -1484,7 +1484,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D329D979F452491683D6611DAD671D71"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4499BAD561D240AC81F800E6414AEB77"

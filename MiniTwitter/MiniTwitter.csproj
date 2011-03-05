@@ -444,10 +444,11 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"E:\my documents\visual studio 2010\Projects\StringReplace\StringReplace\bin\Release\StringReplace.exe" -sf "$(ProjectDir)PostBuild.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"E:\my documents\visual studio 2010\Projects\StringReplace\StringReplace\bin\Release\StringReplace.exe" -sf "$(ProjectDir)PreBuild.xml"
-</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
