@@ -194,12 +194,13 @@
                 <DataTemplate>
                     <ListBox x:Name="TimelineListBox" IsSynchronizedWithCurrentItem="True" AlternationCount="2"
                              VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling"
-                             ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.ScrollChanged="TimelineListBox_ScrollChanged"
+                             ScrollViewer.ScrollChanged="TimelineListBox_ScrollChanged"
                              SelectionChanged="TimelineListBox_SelectionChanged" PreviewMouseWheel="TimelineListBox_MouseWheel"
                              MouseDoubleClick="TimelineListBox_MouseDoubleClick" ItemsSource="{Binding Path=Items}"
                              Style="{DynamicResource TimelineListBoxStyle}" ItemContainerStyle="{DynamicResource TimelineListBoxItemStyle}"
                              ItemTemplateSelector="{StaticResource TimelineStyleSelector}" HorizontalContentAlignment="Stretch" 
-                             ScrollViewer.CanContentScroll="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
+                             ScrollViewer.CanContentScroll="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"
+                             ScrollViewer.IsDeferredScrollingEnabled="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}}"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
