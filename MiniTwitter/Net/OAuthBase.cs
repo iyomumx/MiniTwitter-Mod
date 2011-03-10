@@ -285,6 +285,12 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
+                        string msg;
+                        using (var sr = new System.IO.StreamReader(e.Response.GetResponseStream()))
+                        {
+                            msg = sr.ReadToEnd();
+                        }
+                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -342,15 +348,21 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
-                        var msg = (new System.IO.StreamReader(e.Response.GetResponseStream())).ReadToEnd();
+                        string msg;
+                        using (var sr = new System.IO.StreamReader(e.Response.GetResponseStream()))
+                        {
+                            msg = sr.ReadToEnd();
+                        }
+                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw new ApplicationException(msg, e);
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Log.Logger.Default.AddLogItem(new Log.LogItem(ex));
                     return default(T);
                 }
             }
@@ -388,7 +400,12 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
-
+                        string msg;
+                        using (var sr = new System.IO.StreamReader(e.Response.GetResponseStream()))
+                        {
+                            msg = sr.ReadToEnd();
+                        }
+                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -480,7 +497,7 @@ namespace MiniTwitter.Net
             request.Accept = "application/xml, text/xml, */*";
             request.Timeout = 60000;
             request.ServicePoint.Expect100Continue = false;
-            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            //request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             // GET 以外ならリクエストボディに書き込む
             if (verb != HttpVerbs.Get)
             {

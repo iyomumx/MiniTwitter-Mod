@@ -31,3 +31,5 @@ _ReSharper*/
 /Setup MiniTwitter Mod/MiniTwitter Mod x64.rar
 /SetupMiniTwitterMod/MiniTwitter Mod x86.7z
 /SetupMiniTwitterMod/MiniTwitter Mod x86.rar
+/MiniTwitter/postBuild.cmd
+/MiniTwitter/preBuild.cmd

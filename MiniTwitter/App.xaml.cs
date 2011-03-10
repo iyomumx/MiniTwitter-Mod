@@ -106,6 +106,7 @@ namespace MiniTwitter
 
             MainWindow = new MainWindow();
             MainWindow.Show();
+            Log.Logger.Default.AddLogItem(new Log.LogItem("程序启动"));
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -117,8 +118,8 @@ namespace MiniTwitter
                 Application.Current.Shutdown();
                 return;
             }
-
             var exception = (Exception)e.ExceptionObject;
+            Log.Logger.Default.AddLogItem(new Log.LogItem(exception));
             MessageBox.Show("发生内部错误 \n\n" + exception.ToString(), App.NAME);
             Application.Current.Shutdown();
 #endif
@@ -126,6 +127,7 @@ namespace MiniTwitter
 
         private void App_Exit(object sender, ExitEventArgs e)
         {
+            Log.Logger.Default.AddLogItem(new Log.LogItem("程序退出"));
             if (!_isSaved)
             {
                 lock (_syncLock)
@@ -137,6 +139,7 @@ namespace MiniTwitter
                     }
                 }
             }
+            ((IDisposable)Log.Logger.Default).Dispose();
         }
 
         private void App_SessionEnding(object sender, SessionEndingCancelEventArgs e)
@@ -163,7 +166,7 @@ namespace MiniTwitter
                 Application.Current.Shutdown();
                 return;
             }
-
+            Log.Logger.Default.AddLogItem(new Log.LogItem(e.Exception));
             MessageBox.Show("发生内部错误\n\n" + e.Exception.ToString(), App.NAME);
             e.Handled = true;
             Application.Current.Shutdown();
