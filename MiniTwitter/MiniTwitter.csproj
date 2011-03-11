@@ -76,10 +76,11 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>BD058460D5B890AD9330F578A99EC54E02F6160E</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E773F743A10BCE0DB547EEC59AC7C9FA37B9D96C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MiniTwitter_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -117,11 +118,14 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="MinusEngine">
-      <HintPath>..\..\Libraries\MinusUpload\MinusEngine\MinusEngine\bin\Release\MinusEngine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -207,7 +211,6 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Net\MinusUploader.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Net\BitlyHelper.cs" />
     <Compile Include="Net\imglyUploader.cs" />
@@ -386,7 +389,8 @@
     <Resource Include="Resources\MiniTwitter_small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniTwitter_TemporaryKey.pfx" />
+    <None Include="MiniTwitterMod_tmpkey.pfx" />
+    <None Include="ProduceBy_iyome.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\arrow_refresh.png" />
@@ -409,22 +413,22 @@
   <ItemGroup>
     <PublishFile Include="MiniTwitter.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Tween.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

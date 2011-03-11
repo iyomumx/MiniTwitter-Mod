@@ -28,7 +28,7 @@
         "Entry"
         {
         "MsmKey" = "8:_1ED804EBF6731144FFE7E37C8180786A"
-        "OwnerKey" = "8:_F9767F4D0FF04F6AA0DF89EEDFA8B14C"
+        "OwnerKey" = "8:_EDA44AC9F7E8BD101647E4367E9F707C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -40,18 +40,6 @@
         "Entry"
         {
         "MsmKey" = "8:_1ED804EBF6731144FFE7E37C8180786A"
-        "OwnerKey" = "8:_EDA44AC9F7E8BD101647E4367E9F707C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2809A2AAC0FEBB8BBD7714A051D438D9"
-        "OwnerKey" = "8:_AE8C1AC21A2AD45DA125E8F02DE44DBD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2809A2AAC0FEBB8BBD7714A051D438D9"
         "OwnerKey" = "8:_F9767F4D0FF04F6AA0DF89EEDFA8B14C"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -70,12 +58,6 @@
         "Entry"
         {
         "MsmKey" = "8:_ADBF91EB6FC629FED329AD1D2279FBFD"
-        "OwnerKey" = "8:_F9767F4D0FF04F6AA0DF89EEDFA8B14C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AE8C1AC21A2AD45DA125E8F02DE44DBD"
         "OwnerKey" = "8:_F9767F4D0FF04F6AA0DF89EEDFA8B14C"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -131,18 +113,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B2A85E14B7CCAA5CA6820EC511645586"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AE8C1AC21A2AD45DA125E8F02DE44DBD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2809A2AAC0FEBB8BBD7714A051D438D9"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -254,7 +224,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.0, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_0741D20292A050E25F63BAC93615083B"
@@ -285,7 +255,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.0, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_1ED804EBF6731144FFE7E37C8180786A"
@@ -295,37 +265,6 @@
                     }
                 }
             "SourcePath" = "8:MiniTwitter.Themes.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2809A2AAC0FEBB8BBD7714A051D438D9"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2809A2AAC0FEBB8BBD7714A051D438D9"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
@@ -387,7 +326,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.0, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_ADBF91EB6FC629FED329AD1D2279FBFD"
@@ -414,42 +353,11 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AE8C1AC21A2AD45DA125E8F02DE44DBD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MinusEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_AE8C1AC21A2AD45DA125E8F02DE44DBD"
-                    {
-                    "Name" = "8:MinusEngine.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MinusEngine.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B2A85E14B7CCAA5CA6820EC511645586"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_B2A85E14B7CCAA5CA6820EC511645586"
@@ -480,7 +388,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.iyomumxMod, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.iyomumxMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_EDA44AC9F7E8BD101647E4367E9F707C"
@@ -574,15 +482,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
-        "ProductCode" = "8:{7B68D0C2-33BD-46B6-BF4D-F34A5239B695}"
-        "PackageCode" = "8:{BC5DA452-DCC3-46DA-B06C-A196DE26ED9A}"
+        "ProductCode" = "8:{ACA89D33-09BB-49DC-9AFB-ADDE03062D3A}"
+        "PackageCode" = "8:{18325556-63AC-4AAC-BA61-695BEAC18820}"
         "UpgradeCode" = "8:{4C1AF118-8513-407D-A260-58E8455AC4C6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.66.94"
+        "ProductVersion" = "8:1.66.96"
         "Manufacturer" = "8:s-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://minitwitter.codeplex.com/"
@@ -1409,7 +1317,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F9767F4D0FF04F6AA0DF89EEDFA8B14C"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"

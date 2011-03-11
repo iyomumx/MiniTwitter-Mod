@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace MiniTwitter.Net
@@ -45,9 +46,27 @@ namespace MiniTwitter.Net
         {
             private static readonly XmlSerializer _xs = new XmlSerializer(typeof(T));
 
+            //static Serializer()
+            //{
+            //    _xs.UnknownAttribute += (_, __) => { };
+            //    _xs.UnknownElement += (_, __) => { };
+            //    _xs.UnknownNode += (_, __) => { };
+            //    _xs.UnreferencedObject += (_, __) => { };
+            //}
+
             public static T Deserialize(Stream stream)
             {
                 return (T)_xs.Deserialize(stream);
+            }
+
+            public static T Deserialize(XmlReader reader)
+            {
+                return (T)_xs.Deserialize(reader);
+            }
+
+            public static T Deserialize(TextReader reader)
+            {
+                return (T)_xs.Deserialize(reader);
             }
         }
 
@@ -314,7 +333,6 @@ namespace MiniTwitter.Net
         private T Fetch<T>(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified) where T : class
         {
             lastModified = DateTime.Now;
-
             for (int i = 0; i < 5; ++i)
             {
                 var request = CreateRequest(verb, url, param, token, tokenSecret, verifier);
