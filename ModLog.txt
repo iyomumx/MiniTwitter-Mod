@@ -1,4 +1,13 @@
-﻿110311：
+﻿110312（1.66.9.7）：
+	增加对GTAP的支持
+		在API URL里填写		http://yourappid.appspot.com/api/
+		在Search URL里填写	http://yourappid.appspot.com/search/
+		把yourappid替换为你的App ID
+110312（1.66.9.6）：
+	增加对TWIP4 T模式的支持
+		在API URL里填写		http://example.com/twip/t/
+		把域名和子目录填上自己的，如果需要使用SSL填写https，如果使用不可信任证书请勾上“信任所有证书”
+110311：
 	修复连接正常却无法获取TL的Bug
 	增加一个日志记录器，日志文件保存在设置保存目录里
 110305：

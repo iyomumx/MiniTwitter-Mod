@@ -11,10 +11,11 @@
 	短链接（goo.gl bit.ly）反追踪（反统计）
 	弹出图片预览网址增加
 	更为敏感的链接缩短
+更详细的Change Log请见ModLog.txt文件
 	
 适合用户
 	只需要查看、发送Tweets的用户（客户端内没有用户资料查看功能）
-	直接连接或通过可靠代理（可以建立长时间持续连接的代理）连接Twitter的用户（使用StreamAPI达到实时更新，且减少API限制）
+	<推荐>直接连接或通过可靠代理（可以建立长时间持续连接的代理）连接Twitter的用户（使用StreamAPI达到实时更新，且减少API限制）
 
 系统要求
 	.Net Framework 4.0 Client Profile

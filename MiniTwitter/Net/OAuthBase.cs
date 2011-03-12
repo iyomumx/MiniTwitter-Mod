@@ -28,6 +28,7 @@ namespace MiniTwitter.Net
         private readonly string _consumerSecret;
 
         public const string Endpoint = "https://api.twitter.com/";
+        public const string SignEndpoint = "https://api.twitter.com";
 
         private readonly static Random _random = new Random();
         private readonly static DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
@@ -529,6 +530,12 @@ namespace MiniTwitter.Net
             if (MiniTwitter.Properties.Settings.Default.UseBasicAuth)
             {
                 request.Credentials = new System.Net.NetworkCredential(MiniTwitter.Properties.Settings.Default.Token, MiniTwitter.Properties.Settings.Default.TokenSecret);
+                request.Headers[HttpRequestHeader.Authorization] = string.Format("BASICAUTH {0}",
+                    Convert.ToBase64String(
+                        Encoding.UTF8.GetBytes(
+                            String.Format("{0}:{1}", 
+                                            MiniTwitter.Properties.Settings.Default.Token, 
+                                            MiniTwitter.Properties.Settings.Default.TokenSecret))));
             }
             else
             {
@@ -621,7 +628,16 @@ namespace MiniTwitter.Net
             // クエリを文字列に変換する
             var queryString = CreateQueryString(query);
             // URL を正規化する
-            var url = string.Format("{0}://{1}{2}", uri.Scheme, uri.Host, uri.AbsolutePath);
+            string ap;
+            if (uri.AbsolutePath.Contains("/t/"))
+            {
+                ap = uri.AbsolutePath.Substring(uri.AbsolutePath.IndexOf("/t/") + 2);
+            }
+            else
+            {
+                ap = uri.AbsolutePath;
+            }
+            var url = uri.Host.Contains("userstream") ? string.Format("{0}://{1}{2}",uri.Scheme,uri.Host,uri.AbsolutePath) : string.Format("{0}{1}", SignEndpoint, ap);
             // 署名の元になる文字列を作成
             var signatureBase = string.Format("{0}&{1}&{2}", method, UrlEncode(url), UrlEncode(queryString));
             // 署名するためのキーを作成

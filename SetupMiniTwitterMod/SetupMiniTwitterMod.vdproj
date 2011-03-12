@@ -52,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
-        "OwnerKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
+        "OwnerKey" = "8:_D329D979F452491683D6611DAD671D71"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
-        "OwnerKey" = "8:_D329D979F452491683D6611DAD671D71"
+        "OwnerKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -482,15 +482,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
-        "ProductCode" = "8:{EE4BE2AA-0FA3-491B-BE2C-C6B882B2DFFC}"
-        "PackageCode" = "8:{12C21474-AFB6-4812-BD22-25A41FC0654F}"
+        "ProductCode" = "8:{AFB2352F-6C7E-4A3B-8DFE-1D80BA24F6B5}"
+        "PackageCode" = "8:{77E3919B-5D3B-431E-AF96-414BCCC6EDBC}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.66.96"
+        "ProductVersion" = "8:1.66.97"
         "Manufacturer" = "8:s-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://minitwitter.codeplex.com/"
@@ -1392,7 +1392,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D329D979F452491683D6611DAD671D71"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4499BAD561D240AC81F800E6414AEB77"
