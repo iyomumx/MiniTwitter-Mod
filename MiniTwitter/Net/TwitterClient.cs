@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
-using System.Runtime.Serialization.Json;
-using System.Threading;
-
 using MiniTwitter.Extensions;
 using MiniTwitter.Net.Twitter;
 

@@ -45,8 +45,7 @@ namespace MiniTwitter
         }
 
         public string TargetValue { get; set; }
-        //TODO:在这里填写可用的XAuth API Key/Secret
-        //目前是填自有的Key/Secret
+
         private TwitterClient client = new TwitterClient(App.consumer_key, App.consumer_secret);
 
         public TwitterClient TClient
@@ -534,7 +533,8 @@ namespace MiniTwitter
                     return;
                 case RefreshTarget.List:
                     this.AsyncInvoke(() => StatusText = "正在获取列表");
-                    foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.List))
+                    var tls = Timelines.Where(p => p.Type == TimelineType.List).ToArray();
+                    foreach (var timeline in tls)
                     {
                         statuses = client.GetListStatuses(timeline.Tag, timeline.SinceID);
                         if (statuses == null)
@@ -609,7 +609,8 @@ namespace MiniTwitter
                     return;
                 case RefreshTarget.Search:
                     this.AsyncInvoke(() => StatusText = "正在获取搜索结果");
-                    foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.Search))
+                    var stls = Timelines.Where(p => p.Type == TimelineType.Search).ToArray();
+                    foreach (var timeline in stls)
                     {
                         statuses = client.Search(timeline.Tag, timeline.SinceID);
                         if (statuses == null)
@@ -1612,6 +1613,15 @@ namespace MiniTwitter
             ForceActivate();
         }
 
+        private void ReTweetApiCommand_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var item = (Status)e.Parameter ?? GetSelectedItem();
+            if (item.Sender.Protected)
+                e.CanExecute = false;
+            else
+                e.CanExecute = true;
+        }
+
         private void ReTweetCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (Status)e.Parameter ?? GetSelectedItem();
@@ -1623,7 +1633,11 @@ namespace MiniTwitter
             {
                 in_reply_to_status_id = null;
             }
-            TweetTextBox.Text = "RT "+ (item.IsAuthor ? "" : "@") + item.Sender.ScreenName + ": " + item.Text.Replace("@" + client.LoginedUser.ScreenName, client.LoginedUser.ScreenName);
+            TweetTextBox.Text = string.Format("{0} {1}{2}: {3}",
+                Properties.Settings.Default.ReTweetPrefix, 
+                (item.IsAuthor ? "" : "@"), 
+                item.Sender.ScreenName, 
+                item.Text.Replace("@" + client.LoginedUser.ScreenName, client.LoginedUser.ScreenName));
             TweetTextBox.CaretIndex = 0;
             TweetTextBox.Focus();
             ForceActivate();
@@ -1639,7 +1653,7 @@ namespace MiniTwitter
                     var status = client.ReTweet(itm.ID);
                     if (status != null)
                     {
-                        this.Invoke(() => StatusText = string.Format("ReTweet已成功 (共{0}次RT)", itm.ReTweetCount));
+                        this.Invoke(() => StatusText = string.Format("ReTweet已成功 (共{0}次RT)", itm.ReTweetCount.IsNullOrEmpty() ? itm.ReTweetCount : "0"));
 
                         this.Invoke(() =>
                             {

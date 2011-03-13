@@ -11,7 +11,7 @@
     Title="MiniTwitter" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
     Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}" Icon="/MiniTwitter;component/Resources/MiniTwitter.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
-    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}">
+    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" >
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="MiniTwitter">
             <TaskbarItemInfo.ThumbButtonInfos>
@@ -27,7 +27,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Reply" Executed="ReplyCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReplyAll" Executed="ReplyAllCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReTweet" Executed="ReTweetCommand_Executed"/>
-        <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" CanExecute="ReTweetApiCommand_CanExecuted" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ReplyMessage" Executed="ReplyMessageCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Delete" Executed="DeleteCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Favorite" Executed="FavoriteCommand_Executed"/>
@@ -164,7 +164,7 @@
                         <ProgressBar.ToolTip>双击查看详细信息</ProgressBar.ToolTip>
                     </ProgressBar>
                     <Image Width="14" Height="14" Margin="0,0,5,0" Style="{DynamicResource PopupImageStyle}" />
-                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}" Mouse.MouseDown="ViewRateLimit_MouseDown"/>
+                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}" />
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -200,7 +200,7 @@
                              Style="{DynamicResource TimelineListBoxStyle}" ItemContainerStyle="{DynamicResource TimelineListBoxItemStyle}"
                              ItemTemplateSelector="{StaticResource TimelineStyleSelector}" HorizontalContentAlignment="Stretch" 
                              ScrollViewer.CanContentScroll="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"
-                             ScrollViewer.IsDeferredScrollingEnabled="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}}"/>
+                             ScrollViewer.IsDeferredScrollingEnabled="{Binding Path=RealtimeScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, Converter={StaticResource InvertBooleanConverter}}"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

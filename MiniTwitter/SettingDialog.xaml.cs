@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Deployment.Application;
+using System.Linq;
 using System.Media;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 using Microsoft.Win32;
-
 using MiniTwitter.Controls;
 using MiniTwitter.Extensions;
 using MiniTwitter.Input;
@@ -100,6 +93,7 @@ namespace MiniTwitter
             // メッセージフッタ履歴
             TweetFooterComboBox.ItemsSource = settings.TweetFooterHistory;
             BitlyProDomains.ItemsSource = settings.BitlyProDomains;
+            ReTweetPrefixComboBox.ItemsSource = settings.ReTweetPrefixHistory;
             BindingGroup.BeginEdit();
         }
 
@@ -143,6 +137,10 @@ namespace MiniTwitter
             if (!settings.BitlyProDomain.IsNullOrEmpty() && !settings.BitlyProDomains.Contains(settings.BitlyProDomain))
             {
                 settings.BitlyProDomains.Add(settings.BitlyProDomain);
+            }
+            if (!settings.ReTweetPrefix.IsNullOrEmpty() && !settings.ReTweetPrefixHistory.Contains(settings.ReTweetPrefix))
+            {
+                settings.ReTweetPrefixHistory.Add(settings.ReTweetPrefix);
             }
             DialogResult = true;
         }

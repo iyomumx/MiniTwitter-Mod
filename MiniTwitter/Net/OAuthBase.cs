@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
@@ -7,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -310,7 +308,7 @@ namespace MiniTwitter.Net
                         {
                             msg = sr.ReadToEnd();
                         }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri, string.Empty, msg));
+                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -372,7 +370,7 @@ namespace MiniTwitter.Net
                         {
                             msg = sr.ReadToEnd();
                         }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri, string.Empty, msg));
+                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw new ApplicationException(msg, e);
@@ -424,7 +422,7 @@ namespace MiniTwitter.Net
                         {
                             msg = sr.ReadToEnd();
                         }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri, string.Empty, msg));
+                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -516,7 +514,7 @@ namespace MiniTwitter.Net
             request.Accept = "application/xml, text/xml, */*";
             request.Timeout = 60000;
             request.ServicePoint.Expect100Continue = false;
-            //request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             // GET 以外ならリクエストボディに書き込む
             if (verb != HttpVerbs.Get)
             {

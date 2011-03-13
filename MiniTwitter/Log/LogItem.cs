@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -21,7 +18,7 @@ namespace MiniTwitter.Log
             this.Action = null;
         }
 
-        public LogItem(string action,Uri uri,string param,string message)
+        public LogItem(string action,string uri,string param,string message)
         {
             this.IsNetworkLog = true;
             this.Time = DateTime.Now;
@@ -58,7 +55,7 @@ namespace MiniTwitter.Log
         [XmlElement()]
         public string Message { get; set; }
         [XmlElement()]
-        public Uri URL { get; set; }
+        public string URL { get; set; }
         [XmlElement()]
         public bool IsNetworkLog { get; set; }
         [XmlElement()]

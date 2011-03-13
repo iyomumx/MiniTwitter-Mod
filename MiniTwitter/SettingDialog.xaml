@@ -191,7 +191,7 @@
                 <ComboBoxItem Content="全部" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.All}"/>
                 <ComboBoxItem Content="推文输入框" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.TweetTextBox}"/>
                 <ComboBoxItem Content="时间线" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Timeline}"/>
-                <ComboBoxItem Content="全局" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Global}"/>
+                <ComboBoxItem Content="全局（未实现）" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Global}"/>
             </ComboBox>
             <TextBlock Text="快捷键" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="158"/>
             <MiniTwitter_Controls:ShortcutKeyBox x:Name="ShortcutKeyBox" Width="140" Canvas.Left="134" Canvas.Top="156"
@@ -260,10 +260,14 @@
             <ComboBox x:Name="TweetFooterComboBox" Width="180" Canvas.Left="150" Canvas.Top="59" IsEditable="True" Text="{Binding Path=TweetFooter}" IsEnabled="{Binding ElementName=TweetFooterCheckBox, Path=IsChecked}"/>
             <CheckBox Content="关闭到通知图标" Canvas.Left="14" Canvas.Top="89" IsChecked="{Binding Path=EnableNotifyIcon}"/>
             <CheckBox Content="非官方RT时添加in-reply-to信息" Canvas.Left="14" Canvas.Top="111" IsChecked="{Binding Path=IsRetweetWithInReplyTo}" />
-            <CheckBox Content="启用实时更新（需要重启程序）" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
+            <CheckBox Content="启用实时更新(需要重启程序，需要到Twitter的稳定连接)" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
             <CheckBox Content="主窗口总在最顶部" Canvas.Left="14" Canvas.Top="155" IsChecked="{Binding Path=AlwaysOnTop}" />
-            <CheckBox Content="短链接反跟踪" Canvas.Left="14" Canvas.Top="177" IsChecked="{Binding Path=AntiShortUrlTracking}" />
-            <CheckBox Content="启用内容平滑滚动（请量力而行，需要重启程序）" Canvas.Left="14" Canvas.Top="199" IsChecked="{Binding Path=SmoothScroll}" />
+            <CheckBox Content="短链接反跟踪(对goo.gl以及bit.ly有效)" Canvas.Left="14" Canvas.Top="177" IsChecked="{Binding Path=AntiShortUrlTracking}" />
+            <CheckBox Content="内容平滑滚动(请量力而行，需要重启程序)" Canvas.Left="14" Canvas.Top="199" IsChecked="{Binding Path=SmoothScroll}" />
+            <CheckBox Content="内容实时滚动(拖动滚动条内容同时滚动，会降低性能，需重启程序)" Canvas.Left="14" Canvas.Top="221" IsChecked="{Binding Path=RealtimeScroll}" />
+            <CheckBox Content="启用日志（轻微降低性能并最多会占用2M的硬盘空间）" Canvas.Left="14" Canvas.Top="243" IsChecked="{Binding Path=EnableLog}" />
+            <TextBlock Text="RT前缀" Canvas.Left="31" Canvas.Top="265"/>
+            <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="265" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=VersionListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Canvas.Left="70" Canvas.Top="30" Source="Resources\MiniTwitter.ico" Width="48" />
@@ -278,7 +282,7 @@
                     <Run>设置保存目录</Run>
                 </Hyperlink>
             </Label>
-            <TextBlock Canvas.Left="90" Canvas.Top="200" Text="{Binding Path=BaseDirectory}" TextWrapping="WrapWithOverflow" Width="200"/>
+            <TextBlock Canvas.Left="70" Canvas.Top="200" Text="{Binding Path=BaseDirectory}" TextWrapping="WrapWithOverflow" Width="240"/>
         </Canvas>
     </Grid>
 </Window>

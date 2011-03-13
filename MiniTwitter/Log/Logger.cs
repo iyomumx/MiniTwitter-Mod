@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,7 +38,7 @@ namespace MiniTwitter.Log
             FileInfo file = new FileInfo(logFile);
             if (File.Exists(logFile))
             {
-                if (file.Length > 10485760)
+                if (file.Length > 1024576)
                 {
                     file.CopyTo(Path.Combine(file.DirectoryName, "MiniTwitterLog.old"), true);
                     file.Delete();
@@ -90,7 +87,7 @@ namespace MiniTwitter.Log
                         {
                             try
                             {
-                                sw.WriteLine(string.Format("遇到错误，记录日志失败，停止记录：{0} 在方法 {1}",e.Message,e.TargetSite.Name));
+                                sw.WriteLine(string.Format("{2:u}遇到错误，记录日志失败，停止记录：{0} 在方法 {1}", e.Message, e.TargetSite.Name, DateTime.Now));
                             }
                             catch (Exception)
                             {
@@ -117,7 +114,10 @@ namespace MiniTwitter.Log
 
         public void AddLogItem(LogItem item)
         {
-            WorkItem.Enqueue(item);
+            if (MiniTwitter.Properties.Settings.Default.EnableLog)
+            {
+                WorkItem.Enqueue(item);      
+            }
         }
 
         #region Properties

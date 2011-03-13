@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -34,6 +33,9 @@ namespace MiniTwitter.Properties
             PopupCloseTick = 15;
             EnableTweetFooter = false;
             TweetFooter = "*MT*";
+            ReTweetPrefix = "RT";
+            ReTweetPrefixHistory = new ObservableCollection<string>();
+            BitlyProDomains = new ObservableCollection<string>();
             EnableHeartMark = true;
             PopupOnlyFavorite = false;
             PopupOnlyNotActive = false;
@@ -173,9 +175,48 @@ namespace MiniTwitter.Properties
             private set;
         }
 
+        private string _reTweetPrefix = "RT";
+
+        public string ReTweetPrefix
+        {
+            get { return _reTweetPrefix; }
+            set 
+            {
+                if (_reTweetPrefix!=value)
+                {
+                    _reTweetPrefix = value ?? "RT";
+                    OnPropertyChanged("ReTweetPrefix");
+                }
+            }
+        }
+
+        [XmlArray("ReTweetPrefixHistory")]
+        public string[] ReTweetPrefixHistoryInternal
+        {
+            get
+            {
+                return ReTweetPrefixHistory.Count != 0 ? ReTweetPrefixHistory.ToArray() : null;
+            }
+            set
+            {
+                ReTweetPrefixHistory = new ObservableCollection<string>(value ?? Enumerable.Empty<string>());
+            }
+        }
+
+        [XmlIgnore()]
+        public ObservableCollection<string> ReTweetPrefixHistory
+        {
+            get;
+            private set;
+        }
+
         public bool AlwaysOnTop { get; set; }
 
         public bool SmoothScroll { get; set; }
+
+        public bool RealtimeScroll { get; set; }
+
+        public bool EnableLog { get; set; }
 
         /// <summary>
         /// 自動更新を有効にする
