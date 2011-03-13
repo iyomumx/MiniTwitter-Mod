@@ -5,7 +5,7 @@
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties"
     x:Class="MiniTwitter.TimelineDialog" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
-    Title="MiniTwitter Mod: 添加时间线" Width="400" Height="360" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
+    Title="MiniTwitter: タイムライン" Width="400" Height="360" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner" Loaded="TimelineDialog_Loaded" TextOptions.TextFormattingMode="Display" UseLayoutRounding="True">
     <Window.BindingGroup>
         <BindingGroup NotifyOnValidationError="True">
@@ -29,39 +29,33 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="标签页名称" TextWrapping="Wrap" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="タイムライン名" TextWrapping="Wrap" VerticalAlignment="Center"/>
         <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Path=Name}" Margin="0,3,0,3" />
-        <RadioButton x:Name="listRadio" Grid.Column="0" Grid.Row="1" Content="列表绑定" VerticalAlignment="Center" />
+        <RadioButton x:Name="listRadio" Grid.Column="0" Grid.Row="1" Content="リストを割り当てる" VerticalAlignment="Center" />
         <ComboBox Grid.Column="2" Grid.Row="1" x:Name="lists" Margin="0,3,0,3" DisplayMemberPath="Name" SelectedValuePath="Name" />
-        <RadioButton x:Name="searchRadio" Grid.Column="0" Grid.Row="2" Content="搜索时间线" VerticalAlignment="Center" />
+        <RadioButton x:Name="searchRadio" Grid.Column="0" Grid.Row="2" Content="検索タイムライン" VerticalAlignment="Center" />
         <TextBox Grid.Column="2" Grid.Row="2" x:Name="search" Margin="0,3,0,3" />
-        <RadioButton x:Name="filterRadio" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Content="设置筛选器" Margin="0,4,0,4" />
-        <ListView x:Name="FilterListView" Grid.ColumnSpan="3" Grid.Row="4" IsSynchronizedWithCurrentItem="True" SelectionChanged="FilterListView_SelectionChanged">
+        <RadioButton x:Name="filterRadio" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Content="フィルタを指定する" Margin="0,4,0,4" />
+        <ListView x:Name="FilterListView" Grid.ColumnSpan="3" Grid.Row="4" IsSynchronizedWithCurrentItem="True">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="删除(_D)" Click="DeleteFilterButton_Click" />
+                    <MenuItem Header="削除する(_D)" Click="DeleteFilterButton_Click" />
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="表达式" Width="200" DisplayMemberBinding="{Binding Path=Pattern}"/>
-                    <GridViewColumn Header="筛选器类型" Width="150">
+                    <GridViewColumn Header="パターン" Width="200" DisplayMemberBinding="{Binding Path=Pattern}"/>
+                    <GridViewColumn Header="フィルタタイプ" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox SelectedValue="{Binding Path=Type}" SelectedValuePath="Tag" HorizontalAlignment="Stretch">
-                                    <ComboBoxItem Content="无" Tag="{x:Static MiniTwitter:FilterType.None}"/>
-                                    <ComboBoxItem Content="推文" Tag="{x:Static MiniTwitter:FilterType.Text}"/>
-                                    <ComboBoxItem Content="推文 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.RegexText}"/>
-                                    <ComboBoxItem Content="用户名" Tag="{x:Static MiniTwitter:FilterType.Name}"/>
-                                    <ComboBoxItem Content="用户名 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.RegexName}"/>
-                                    <ComboBoxItem Content="来源" Tag="{x:Static MiniTwitter:FilterType.Source}"/>
-                                    <ComboBoxItem Content="来源 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.RegexSource}"/>
-                                    <ComboBoxItem Content="排除推文" Tag="{x:Static MiniTwitter:FilterType.ExText}"/>
-                                    <ComboBoxItem Content="排除推文 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.ExTextRegex}"/>
-                                    <ComboBoxItem Content="排除用户名" Tag="{x:Static MiniTwitter:FilterType.ExName}"/>
-                                    <ComboBoxItem Content="排除用户名 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.ExNameRegex}"/>
-                                    <ComboBoxItem Content="排除来源" Tag="{x:Static MiniTwitter:FilterType.ExSource}"/>
-                                    <ComboBoxItem Content="排除来源 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.ExSourceRegex}"/>
+                                    <ComboBoxItem Content="なし" Tag="{x:Static MiniTwitter:FilterType.None}"/>
+                                    <ComboBoxItem Content="テキスト" Tag="{x:Static MiniTwitter:FilterType.Text}"/>
+                                    <ComboBoxItem Content="テキスト + 正規表現" Tag="{x:Static MiniTwitter:FilterType.RegexText}"/>
+                                    <ComboBoxItem Content="ユーザー名" Tag="{x:Static MiniTwitter:FilterType.Name}"/>
+                                    <ComboBoxItem Content="ユーザー名 + 正規表現" Tag="{x:Static MiniTwitter:FilterType.RegexName}"/>
+                                    <ComboBoxItem Content="ソース" Tag="{x:Static MiniTwitter:FilterType.Source}"/>
+                                    <ComboBoxItem Content="ソース + 正規表現" Tag="{x:Static MiniTwitter:FilterType.RegexSource}"/>
                                 </ComboBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -71,11 +65,11 @@
         </ListView>
         <StackPanel Grid.ColumnSpan="3" Grid.Row="5" Margin="0,4,0,0" Orientation="Horizontal">
         	<TextBox x:Name="FilterTextBox" Width="320" TextWrapping="Wrap"/>
-        	<Button Content="添加" Click="AddFilterButton_Click" Width="50" Margin="4,0,0,0"/>
+        	<Button Content="追加" Click="AddFilterButton_Click" Width="50" Margin="4,0,0,0"/>
         </StackPanel>
         <StackPanel Grid.ColumnSpan="3" Grid.Row="6" Margin="0,6,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="确认" Width="80" IsDefault="True" Click="OkButton_Click" />
-            <Button Content="取消" Width="80" Margin="4,0,0,0" IsCancel="True" Click="CancelButton_Click" />
+            <Button Content="OK" Width="80" IsDefault="True" Click="OkButton_Click" />
+            <Button Content="キャンセル" Width="80" Margin="4,0,0,0" IsCancel="True" Click="CancelButton_Click" />
         </StackPanel>
     </Grid>
 </Window>

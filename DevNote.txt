@@ -1,3 +1,0 @@
-自行编译指南：
-	1.在App.xaml.cs里用Google短链接API Key替换$GOOGLE_API_KEY$，用自己的Twitter Consumer Key / Secret替换$CONSUMER_KEY$, $CONSUMER_SECRET$
-	2.现在源代码应该可以正常编译运行了

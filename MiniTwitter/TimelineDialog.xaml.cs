@@ -128,18 +128,5 @@ namespace MiniTwitter
 
             filters.Remove(item);
         }
-
-        private void FilterListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count != 0)
-            {
-                var item = (Filter)FilterListView.SelectedItem;
-                if (item == null)
-                {
-                    return;
-                }
-                FilterTextBox.Text = item.Pattern;
-            }
-        }
     }
 }

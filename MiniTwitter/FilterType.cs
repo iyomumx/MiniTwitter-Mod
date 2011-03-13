@@ -14,11 +14,5 @@ namespace MiniTwitter
         RegexName,
         Source,
         RegexSource,
-        ExText,
-        ExTextRegex,
-        ExName,
-        ExNameRegex,
-        ExSource,
-        ExSourceRegex,
     }
 }

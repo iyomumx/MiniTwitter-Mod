@@ -7,7 +7,7 @@
     Width="350" SizeToContent="Height" ShowInTaskbar="False" ResizeMode="NoResize" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
     Focusable="False" Topmost="True" ShowActivated="False" Style="{DynamicResource PopupWindowStyle}"
     Loaded="PopupWindow_Loaded" SizeChanged="PopupWindow_SizeChanged" UseLayoutRounding="True" TextOptions.TextFormattingMode="Display"
-	Title="{Binding Path=Timeline.Items.Count, ElementName=Window, StringFormat=MiniTwitter - 新消息 \{0\} 条}">
+	Title="{Binding Path=Timeline.Items.Count, ElementName=Window, StringFormat=MiniTwitter - 新着 \{0\} 件}">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommand_Executed"/>
     </Window.CommandBindings>

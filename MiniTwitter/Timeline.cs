@@ -238,7 +238,7 @@ namespace MiniTwitter
 
         private bool IsFilterMatch(ITwitterItem item)
         {
-            return Filters.Count == 0 || Filters.All(filter => filter.Process(item));//TODO:过滤器/筛选器逻辑（All与Any）
+            return Filters.Count == 0 || Filters.Any(filter => filter.Process(item));
         }
     }
 }

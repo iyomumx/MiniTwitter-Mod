@@ -10,10 +10,6 @@
         <Setter Property="Source" Value=".\Images\account.png" />
     </Style>
 
-    <Style x:Key="ArrowLeftImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
-        <Setter Property="Source" Value=".\Images\arrow_left.png"/>
-    </Style>
-
     <Style x:Key="ArrowRefreshImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
         <Setter Property="Source" Value=".\Images\arrow_refresh.png"/>
     </Style>
@@ -101,8 +97,6 @@
     <SolidColorBrush x:Key="HotTrackBrushKey" Color="#FFAFAFAF"/>
     <SolidColorBrush x:Key="GrayTextBrushKey" Color="#FF9E9E9E"/>
 
-    <SolidColorBrush x:Key="BalloonBackgroundBrush" Color="#FF2D2D00"/>
-    
     <Style x:Key="BaseButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -184,62 +178,6 @@
                 <Setter Property="TextDecorations" Value="Underline"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
-
-    <Style x:Key="ImageButtonBaseStyle" TargetType="{x:Type ButtonBase}">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="3"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <ContentPresenter Name="Presenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" RenderTransformOrigin="0.5,0.5"/>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="RenderTransform" TargetName="Presenter">
-                                <Setter.Value>
-                                    <TranslateTransform X="1" Y="1"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonBaseStyle}">
-        <Setter Property="Background" Value="{StaticResource WindowBrushKey}"/>
-    </Style>
-
-    <Style x:Key="ImageToggleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource ImageButtonBaseStyle}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <ContentPresenter Name="Presenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" RenderTransformOrigin="0.5,0.5"/>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="RenderTransform" TargetName="Presenter">
-                                <Setter.Value>
-                                    <TranslateTransform X="1" Y="1"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="RenderTransform" TargetName="Presenter">
-                                <Setter.Value>
-                                    <TranslateTransform X="1" Y="1"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="{x:Type PasswordBox}" TargetType="{x:Type PasswordBox}">
@@ -521,17 +459,12 @@
     <Style x:Key="TweetTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="Background" Value="{StaticResource HeaderBrushKey}"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Height" Value="55" />
     </Style>
 
     <Style x:Key="UpdateButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="{StaticResource HeaderBrushKey}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Width" Value="100" />
-        <Setter Property="Height" Value="25" />
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="TimelineTabControlStyle" TargetType="{x:Type TabControl}" BasedOn="{StaticResource {x:Type TabControl}}">

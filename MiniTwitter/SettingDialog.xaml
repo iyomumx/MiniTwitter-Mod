@@ -6,21 +6,15 @@
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties"
     xmlns:MiniTwitter_Themes="clr-namespace:MiniTwitter.Themes"
-    xmlns:MiniTwitter_Net="clr-namespace:MiniTwitter.Net"
-    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter"
     xmlns:System_Deployment_Application="clr-namespace:System.Deployment.Application;assembly=System.Deployment"
     x:Class="MiniTwitter.SettingDialog"
-    Title="MiniTwitter Mod: 设置" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
+    Title="MiniTwitter: 設定" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
     ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="SettingDialog_Loaded"
     DataContext="{x:Static MiniTwitter_Properties:Settings.Default}" Style="{DynamicResource SettingDialogStyle}"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True">
     <Window.BindingGroup>
         <BindingGroup/>
     </Window.BindingGroup>
-    <Window.Resources>
-        <MiniTwitter:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -35,13 +29,13 @@
             <ListBoxItem x:Name="AccountListBoxItem" IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AccountImageStyle}"/>
-                    <TextBlock Text="帐号" Margin="4,0,0,0"/>
+                    <TextBlock Text="アカウント" Margin="4,0,0,0"/>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="NetworkListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource NetworkImageStyle}"/>
-                    <TextBlock Text="网络" Margin="4,0,0,0"/>
+                    <TextBlock Text="ネットワーク" Margin="4,0,0,0"/>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="RefreshListBoxItem">
@@ -53,159 +47,139 @@
             <ListBoxItem x:Name="PopupListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource PopupImageStyle}"/>
-                    <TextBlock Text="弹出提示" Margin="4,0,0,0" />
+                    <TextBlock Text="ポップアップ" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="DesignListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource DesignImageStyle}"/>
-                    <TextBlock Text="外观" Margin="4,0,0,0" />
+                    <TextBlock Text="デザイン" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="KeyboardListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource KeyboardImageStyle}"/>
-                    <TextBlock Text="键盘" Margin="4,0,0,0" />
+                    <TextBlock Text="キーボード" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="SoundListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource SoundImageStyle}"/>
-                    <TextBlock Text="声音" Margin="4,0,0,0" />
+                    <TextBlock Text="サウンド" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="KeywordListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource KeywordImageStyle}"/>
-                    <TextBlock Text="关键字" Margin="4,0,0,0" />
+                    <TextBlock Text="キーワード" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="AddInListBoxItem" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AddInImageStyle}"/>
-                    <TextBlock Text="Addin" Margin="4,0,0,0" />
+                    <TextBlock Text="アドイン" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="OtherListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource SettingImageStyle}"/>
-                    <TextBlock Text="其他" Margin="4,0,0,0" />
+                    <TextBlock Text="その他" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="VersionListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource SettingImageStyle}"/>
-                    <TextBlock Text="版本信息" Margin="4,0,0,0" />
+                    <TextBlock Text="バージョン情報" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
         </ListBox>
         <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Content="确认" Width="90" Margin="0,0,5,0" IsDefault="True" Click="OkButton_Click"/>
-            <Button Content="取消" Width="90" IsCancel="True" Click="CancelButton_Click"/>
+            <Button Content="OK" Width="90" Margin="0,0,5,0" IsDefault="True" Click="OkButton_Click"/>
+            <Button Content="キャンセル" Width="90" IsCancel="True" Click="CancelButton_Click"/>
         </StackPanel>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=AccountListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="用户名（Token）" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"/>
-            <TextBlock Text="密码（Secret）" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="45"/>
-            <TextBox x:Name="UsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="14" Text="{Binding Path=Username}"/>
+            <TextBlock Text="ユーザー名" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"/>
+            <TextBlock Text="パスワード" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="45"/>
+            <TextBox Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="14" Text="{Binding Path=Username}"/>
             <PasswordBox x:Name="PasswordBox" Width="200" Canvas.Left="110" Canvas.Top="42"/>
-            <Button Width="80" x:Name="StartOAuth" Canvas.Left="110" Canvas.Top="70" Content="OAuth认证" Click="StartOAuth_Click" ToolTip="开始OAuth认证（请先配置网络！）" IsEnabled="{Binding Path=IsChecked, ElementName=UseBasicAuthBox,Converter={StaticResource InvertBooleanConverter}}"/>
-            <CheckBox Width="120" Canvas.Left="210" Canvas.Top="70" Content="使用BasicAuth" IsChecked="{Binding Path=UseBasicAuth}" x:Name="UseBasicAuthBox"/>
-            <TextBlock Text="Bit.ly 用户名" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98" Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <TextBlock Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="126">Bit.ly <Hyperlink NavigateUri="http://bit.ly/a/your_api_key" Click="Hyperlink_Click" ToolTip="获取Bit.ly API Key"><Run Text="Key"/></Hyperlink></TextBlock>
-            <TextBox x:Name="BitlyUsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="98" Text="{Binding Path=BitlyUsername}" Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <TextBox x:Name="BitlyApiKeyBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="126" Text="{Binding Path=BitlyApiKey}" Visibility="{Binding Path=IsChecked, ElementName=UseBitly, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <TextBlock Text="Google Token" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <TextBlock Text="Google Secret" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="126" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <RadioButton Content="使用goo.gl缩短网址" Canvas.Left="14" Canvas.Top="154" x:Name="UseCommon" IsChecked="{Binding Path=IsChecked,ElementName=UseBitly,Converter={StaticResource InvertBooleanConverter}}"/>
-            <RadioButton Content="使用bit.ly缩短网址" Canvas.Right="14" Canvas.Top="154" x:Name="UseBitly" IsChecked="{Binding Path=UseBitlyPro}"/>
-            <TextBox x:Name="PlixiUsernameBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="98" Text="{Binding Path=PlixiUsername}" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <PasswordBox x:Name="PlixiPasswordBox" Width="200" InputMethod.IsInputMethodEnabled="False" Canvas.Left="110" Canvas.Top="126" Visibility="{Binding Path=IsChecked, ElementName=UseCommon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Button x:Name="DoGoogleOAuth" Content="Google OAuth" Width="100" Canvas.Left="14" Canvas.Top="182" Click="DoGoogleOAuth_Click" IsEnabled="{Binding Path=IsChecked, ElementName=UseCommon}"/>
-            <Label Content="Bit.ly Pro域名" Canvas.Right="122" Canvas.Top="182"/>
-            <ComboBox x:Name="BitlyProDomains" Width="100" Canvas.Right="14" Canvas.Top="182" IsEditable="True" IsEnabled="{Binding Path=IsChecked, ElementName=UseBitly}" Text="{Binding Path=BitlyProDomain}"/>
-            <TextBlock Text="API URL" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="238"/>
-            <TextBox Width="200" Canvas.Left="110" Canvas.Top="238" Text="{Binding Path=ApiBaseUrl}"/>
-            <TextBlock Text="Search URL" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="266"/>
-            <TextBox Width="200" Canvas.Left="110" Canvas.Top="266" Text="{Binding Path=ApiSearchUrl}"/>
-            <CheckBox Canvas.Left="110" Canvas.Top="294" Content="接受所有证书" IsChecked="{Binding Path=AcceptAllCert}"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=NetworkListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <CheckBox x:Name="UseProxyCheckBox" Content="使用代理服务器连接" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=UseProxy}"/>
-            <CheckBox x:Name="UseIEProxyCheckBox" Content="使用Internet Explorer代理设置" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=UseIEProxy}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
-            <TextBlock Text="代理服务器地址" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="74"/>
-            <TextBlock Text="端口" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="102"/>
-            <TextBlock Text="用户名" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="130"/>
-            <TextBlock Text="密码" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="158"/>
-            <TextBox x:Name="ProxyAddress" Width="200" Canvas.Left="120" Canvas.Top="71" Text="{Binding Path=ProxyAddress}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
-            <TextBox x:Name="ProxyPortNumber" Width="70" Canvas.Left="120" Canvas.Top="99" Text="{Binding Path=ProxyPortNumber}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
-            <TextBox x:Name="ProxyUsername" Width="200" Canvas.Left="120" Canvas.Top="127" Text="{Binding Path=ProxyUsername}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
+            <CheckBox x:Name="UseProxyCheckBox" Content="プロキシサーバを使用する" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=UseProxy}"/>
+            <CheckBox x:Name="UseIEProxyCheckBox" Content="Internet Explorer の設定を使用する" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=UseIEProxy}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
+            <TextBlock Text="サーバアドレス" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="74"/>
+            <TextBlock Text="ポート番号" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="102"/>
+            <TextBlock Text="ユーザー名" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="130"/>
+            <TextBlock Text="パスワード" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="158"/>
+            <TextBox Width="200" Canvas.Left="120" Canvas.Top="71" Text="{Binding Path=ProxyAddress}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
+            <TextBox Width="70" Canvas.Left="120" Canvas.Top="99" Text="{Binding Path=ProxyPortNumber}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
+            <TextBox Width="200" Canvas.Left="120" Canvas.Top="127" Text="{Binding Path=ProxyUsername}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
             <PasswordBox x:Name="ProxyPasswordBox" Width="200" Canvas.Left="120" Canvas.Top="155" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=RefreshListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <CheckBox x:Name="AutoRefreshCheckBox" Content="打开自动刷新" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableAutoRefresh}"/>
-            <TextBlock Text="主时间线刷新间隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="42"/>
+            <CheckBox x:Name="AutoRefreshCheckBox" Content="自動更新を有効にする" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableAutoRefresh}"/>
+            <TextBlock Text="フレンドタイムライン更新の間隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="42"/>
             <Slider x:Name="RefreshSlider" Width="270" Canvas.Left="31" Canvas.Top="66" Maximum="120" Minimum="15" TickFrequency="5" SmallChange="5" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Value="{Binding Path=RefreshTick}" IsEnabled="{Binding Path=IsChecked, ElementName=AutoRefreshCheckBox}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="66" Text="{Binding Path=Value, ElementName=RefreshSlider, StringFormat=\{0\} 秒}"/>
-            <TextBlock Text="回复刷新间隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="105"/>
+            <TextBlock Text="返信タイムライン更新の間隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="105"/>
             <Slider x:Name="RefreshReplySlider" Width="270" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" Maximum="20" Minimum="1" SmallChange="1" Canvas.Left="31" Canvas.Top="129" Value="{Binding Path=RefreshReplyTick}" IsEnabled="{Binding Path=IsChecked, ElementName=AutoRefreshCheckBox}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="129" Text="{Binding Path=Value, ElementName=RefreshReplySlider, StringFormat=\{0\} 分}"/>
-            <TextBlock Text="私信刷新间隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="168"/>
+            <TextBlock Text="ダイレクトメッセージ更新の間隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="168"/>
             <Slider x:Name="RefreshMessageSlider" Width="270" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Maximum="30" Minimum="1" SmallChange="1" Canvas.Left="31" Canvas.Top="192" Value="{Binding Path=RefreshMessageTick}" IsEnabled="{Binding Path=IsChecked, ElementName=AutoRefreshCheckBox}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="192" Text="{Binding Path=Value, ElementName=RefreshMessageSlider, StringFormat=\{0\} 分}"/>
-            <TextBlock Text="列表刷新间隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="231"/>
+            <TextBlock Text="リスト更新の間隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="231"/>
             <Slider x:Name="RefreshListSlider" Width="270" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Maximum="30" Minimum="1" SmallChange="1" Canvas.Left="31" Canvas.Top="255" Value="{Binding Path=RefreshListTick}" IsEnabled="{Binding Path=IsChecked, ElementName=AutoRefreshCheckBox}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="255" Text="{Binding Path=Value, ElementName=RefreshListSlider, StringFormat=\{0\} 分}"/>
-            <TextBlock Text="搜索刷新间隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="294"/>
+            <TextBlock Text="検索タイムライン更新の間隔" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="294"/>
             <Slider x:Name="RefreshSearchSlider" Width="270" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Maximum="30" Minimum="1" SmallChange="1" Canvas.Left="31" Canvas.Top="318" Value="{Binding Path=RefreshSearchTick}" IsEnabled="{Binding Path=IsChecked, ElementName=AutoRefreshCheckBox}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="318" Text="{Binding Path=Value, ElementName=RefreshSearchSlider, StringFormat=\{0\} 分}"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=PopupListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <CheckBox x:Name="PopupCheckBox" Content="收到新推弹出提示" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnablePopup}"/>
-            <CheckBox Content="仅在窗口不活动时提示" Canvas.Left="31" Canvas.Top="44" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyNotActive}"/>
-            <CheckBox Content="仅在包含喜欢的项目是提示" Canvas.Left="31" Canvas.Top="66" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyFavorite}"/>
-            <TextBlock Text="弹出提示持续时间" TextWrapping="Wrap" Canvas.Left="31" Canvas.Top="93"/>
+            <CheckBox x:Name="PopupCheckBox" Content="新着項目をポップアップ表示する" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnablePopup}"/>
+            <CheckBox Content="非アクティブ時のみポップアップを表示する" Canvas.Left="31" Canvas.Top="44" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyNotActive}"/>
+            <CheckBox Content="お気に入りワードを含む項目だけ表示する" Canvas.Left="31" Canvas.Top="66" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyFavorite}"/>
+            <TextBlock Text="ポップアップを表示する時間" TextWrapping="Wrap" Canvas.Left="31" Canvas.Top="93"/>
             <Slider x:Name="PopupCloseTickSlider" Width="270" Canvas.Left="31" Canvas.Top="117" IsSnapToTickEnabled="True" TickFrequency="5" TickPlacement="BottomRight" LargeChange="5" Maximum="90" Minimum="5" SmallChange="5" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" Value="{Binding Path=PopupCloseTick}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="117" Text="{Binding Path=Value, ElementName=PopupCloseTickSlider, StringFormat=\{0\} 秒}"/>
-            <TextBlock Text="弹出提示的位置" Canvas.Left="31" Canvas.Top="151"/>
+            <TextBlock Text="表示する位置" Canvas.Left="31" Canvas.Top="151"/>
             <ComboBox Width="180" Canvas.Left="150" Canvas.Top="173" SelectedItem="{Binding Path=PopupLocation}" ItemsSource="{x:Static MiniTwitter:SettingDialog.Locations}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=DesignListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"><Run Text="主题"/></TextBlock>
+            <TextBlock TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"><Run Text="テーマ"/></TextBlock>
             <ComboBox Width="220" IsSynchronizedWithCurrentItem="True" Canvas.Left="110" Canvas.Top="14" ItemsSource="{x:Static MiniTwitter_Themes:ThemeManager.Themes}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding Path=Theme}" />
-            <TextBlock Text="字体" Canvas.Left="14" Canvas.Top="62"/>
+            <TextBlock Text="フォント" Canvas.Left="14" Canvas.Top="62"/>
             <ComboBox Width="180" Canvas.Left="110" Canvas.Top="59" ItemsSource="{x:Static Fonts.SystemFontFamilies}" DisplayMemberPath="Source" SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" />
-            <CheckBox Content="强制打开ClearType" Canvas.Left="20" Canvas.Top="95" IsChecked="{Binding Path=IsClearTypeEnabled}" />
+            <CheckBox Content="ClearType を強制的に ON にする" Canvas.Left="20" Canvas.Top="95" IsChecked="{Binding Path=IsClearTypeEnabled}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=KeyboardListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="使用键盘快捷键映射" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"/>
+            <TextBlock Text="キーボード マップ スキームを適用" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"/>
             <ComboBox x:Name="KeyMappingComboBox" Width="260" IsSynchronizedWithCurrentItem="True" Canvas.Left="14"
                       Canvas.Top="42" DisplayMemberPath="Key" SelectedValuePath="Value" SelectionChanged="KeyMappingComboBox_SelectionChanged"
                       ItemsSource="{x:Static MiniTwitter_Input:KeyMapping.KeyMappings}"/>
-            <Button Width="80" Content="重置" Canvas.Left="278" Canvas.Top="42" Click="ResetKeyMappingButton_Click"/>
-            <TextBlock Text="命令" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98"/>
+            <Button Width="80" Content="リセット" Canvas.Left="278" Canvas.Top="42" Click="ResetKeyMappingButton_Click"/>
+            <TextBlock Text="コマンド" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="98"/>
             <ComboBox x:Name="CommandComboBox" Width="224" IsSynchronizedWithCurrentItem="True" Canvas.Left="134" Canvas.Top="96"
                       DisplayMemberPath="Action"/>
-            <TextBlock Text="使用场合" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="128"/>
+            <TextBlock Text="使用する場所" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="128"/>
             <ComboBox x:Name="ActionSpotComboBox" Width="140" IsSynchronizedWithCurrentItem="True" Canvas.Left="134" Canvas.Top="126"
                       SelectedValuePath="Tag" SelectedValue="{Binding Path=SelectedItem.ActionSpot, ElementName=CommandComboBox}">
-                <ComboBoxItem Content="全部" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.All}"/>
-                <ComboBoxItem Content="推文输入框" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.TweetTextBox}"/>
-                <ComboBoxItem Content="时间线" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Timeline}"/>
-                <ComboBoxItem Content="全局（未实现）" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Global}"/>
+                <ComboBoxItem Content="全体" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.All}"/>
+                <ComboBoxItem Content="ステータスエディタ" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.TweetTextBox}"/>
+                <ComboBoxItem Content="タイムライン" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Timeline}"/>
+                <ComboBoxItem Content="グローバル" Tag="{x:Static MiniTwitter_Input:KeyActionSpot.Global}"/>
             </ComboBox>
-            <TextBlock Text="快捷键" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="158"/>
+            <TextBlock Text="ショートカットキー" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="158"/>
             <MiniTwitter_Controls:ShortcutKeyBox x:Name="ShortcutKeyBox" Width="140" Canvas.Left="134" Canvas.Top="156"
                                                  Key="{Binding Path=SelectedItem.Key, ElementName=CommandComboBox, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
                                                  ModifierKeys="{Binding Path=SelectedItem.ModifierKeys, ElementName=CommandComboBox, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
-            <Button Content="删除" Width="80" Canvas.Left="278" Canvas.Top="126" Click="DeleteKeyButton_Click"/>
-            <Button Content="绑定" Width="80" Canvas.Left="278" Canvas.Top="156" Click="AssignKeyButton_Click"/>
+            <Button Content="削除" Width="80" Canvas.Left="278" Canvas.Top="126" Click="DeleteKeyButton_Click"/>
+            <Button Content="割り当て" Width="80" Canvas.Left="278" Canvas.Top="156" Click="AssignKeyButton_Click"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=SoundListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ListView x:Name="SoundListView" Width="347" Height="328" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"
                       VerticalContentAlignment="Center" Canvas.Left="14" Canvas.Top="14">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="动作" Width="180">
+                        <GridViewColumn Header="アクション" Width="180">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -215,19 +189,19 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="文件名" Width="300" DisplayMemberBinding="{Binding Path=FileName}"/>
+                        <GridViewColumn Header="ファイル名" Width="300" DisplayMemberBinding="{Binding Path=FileName}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="播放" Width="75" Canvas.Left="207" Canvas.Top="346" Click="PlaySoundButton_Click" />
-            <Button Content="浏览" Width="75" Canvas.Left="286" Canvas.Top="346" Click="BrowseSoundButton_Click"/>
+            <Button Content="再生" Width="75" Canvas.Left="207" Canvas.Top="346" Click="PlaySoundButton_Click" />
+            <Button Content="参照" Width="75" Canvas.Left="286" Canvas.Top="346" Click="BrowseSoundButton_Click"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=KeywordListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ListView x:Name="KeywordListView" Width="347" Height="328" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"
                       VerticalContentAlignment="Center" Canvas.Left="14" Canvas.Top="14">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="关键字" Width="200">
+                        <GridViewColumn Header="キーワード" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -237,7 +211,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="动作" Width="120">
+                        <GridViewColumn Header="動作" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox SelectedValue="{Binding Path=Action}" ItemsSource="{x:Static MiniTwitter:SettingDialog.KeywordActions}"/>
@@ -248,26 +222,19 @@
                 </ListView.View>
             </ListView>
             <TextBox x:Name="KeywordTextBox" Width="188" TextWrapping="Wrap" Canvas.Left="15" Canvas.Top="346"/>
-            <Button Content="添加" Width="75" Canvas.Left="207" Canvas.Top="346" Click="AddKeywordButton_Click" />
-            <Button Content="删除" Width="75" Canvas.Left="286" Canvas.Top="346" Click="DeleteKeywordButton_Click" />
+            <Button Content="追加" Width="75" Canvas.Left="207" Canvas.Top="346" Click="AddKeywordButton_Click" />
+            <Button Content="削除" Width="75" Canvas.Left="286" Canvas.Top="346" Click="DeleteKeywordButton_Click" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=AddInListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=OtherListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <CheckBox Content="打开未读管理" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableUnreadManager}"/>
-            <CheckBox x:Name="TweetFooterCheckBox" Content="语尾附加" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=EnableTweetFooter}"/>
-            <TextBlock Text="推文语尾" Canvas.Left="31" Canvas.Top="62"/>
+            <CheckBox Content="未読管理を有効にする" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableUnreadManager}"/>
+            <CheckBox x:Name="TweetFooterCheckBox" Content="メッセージフッタを付加する" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=EnableTweetFooter}"/>
+            <TextBlock Text="メッセージフッタ" Canvas.Left="31" Canvas.Top="62"/>
             <ComboBox x:Name="TweetFooterComboBox" Width="180" Canvas.Left="150" Canvas.Top="59" IsEditable="True" Text="{Binding Path=TweetFooter}" IsEnabled="{Binding ElementName=TweetFooterCheckBox, Path=IsChecked}"/>
-            <CheckBox Content="关闭到通知图标" Canvas.Left="14" Canvas.Top="89" IsChecked="{Binding Path=EnableNotifyIcon}"/>
-            <CheckBox Content="非官方RT时添加in-reply-to信息" Canvas.Left="14" Canvas.Top="111" IsChecked="{Binding Path=IsRetweetWithInReplyTo}" />
-            <CheckBox Content="启用实时更新(需要重启程序，需要到Twitter的稳定连接)" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
-            <CheckBox Content="主窗口总在最顶部" Canvas.Left="14" Canvas.Top="155" IsChecked="{Binding Path=AlwaysOnTop}" />
-            <CheckBox Content="短链接反跟踪(对goo.gl以及bit.ly有效)" Canvas.Left="14" Canvas.Top="177" IsChecked="{Binding Path=AntiShortUrlTracking}" />
-            <CheckBox Content="内容平滑滚动(请量力而行，需要重启程序)" Canvas.Left="14" Canvas.Top="199" IsChecked="{Binding Path=SmoothScroll}" />
-            <CheckBox Content="内容实时滚动(拖动滚动条内容同时滚动，会降低性能，需重启程序)" Canvas.Left="14" Canvas.Top="221" IsChecked="{Binding Path=RealtimeScroll}" />
-            <CheckBox Content="启用日志（轻微降低性能并最多会占用2M的硬盘空间）" Canvas.Left="14" Canvas.Top="243" IsChecked="{Binding Path=EnableLog}" />
-            <TextBlock Text="RT前缀" Canvas.Left="31" Canvas.Top="265"/>
-            <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="265" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
+            <CheckBox Content="閉じられたときに通知領域で常駐する" Canvas.Left="14" Canvas.Top="89" IsChecked="{Binding Path=EnableNotifyIcon}"/>
+            <CheckBox Content="コメント付き RT 時に in-reply-to を付加する" Canvas.Left="14" Canvas.Top="111" IsChecked="{Binding Path=IsRetweetWithInReplyTo}" />
+            <CheckBox Content="リアルタイム更新を有効にする（要再起動）" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=VersionListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Canvas.Left="70" Canvas.Top="30" Source="Resources\MiniTwitter.ico" Width="48" />
@@ -276,13 +243,7 @@
                 <TextBlock Text="Version " FontSize="22" />
                 <TextBlock Text="{x:Static MiniTwitter:App.VERSION}" FontSize="22" />
             </StackPanel>
-            <Button Visibility="Hidden" Click="UpdateCheckButton_Click" Canvas.Left="120" Canvas.Top="150" IsEnabled="{Binding Source={x:Static System_Deployment_Application:ApplicationDeployment.IsNetworkDeployed}}">检查更新</Button>
-            <Label Canvas.Left="120" Canvas.Top="180">
-                <Hyperlink Click="Hyperlink_Click_1" ToolTip="点击打开">
-                    <Run>设置保存目录</Run>
-                </Hyperlink>
-            </Label>
-            <TextBlock Canvas.Left="70" Canvas.Top="200" Text="{Binding Path=BaseDirectory}" TextWrapping="WrapWithOverflow" Width="240"/>
+            <Button Click="UpdateCheckButton_Click" Canvas.Left="120" Canvas.Top="150" IsEnabled="{Binding Source={x:Static System_Deployment_Application:ApplicationDeployment.IsNetworkDeployed}}">更新をチェックする</Button>
         </Canvas>
     </Grid>
 </Window>

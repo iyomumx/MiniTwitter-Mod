@@ -77,34 +77,6 @@ namespace MiniTwitter
                         }
                     }
                     break;
-                case FilterType.ExSourceRegex:
-                    {
-                        var status = item as Status;
-
-                        if (status != null)
-                        {
-                            return !(Regex.IsMatch(status.Source, Pattern, RegexOptions.IgnoreCase));
-                        }
-                    }
-                    break;
-                case FilterType.ExSource:
-                    {
-                        var status = item as Status;
-
-                        if (status != null)
-                        {
-                            return !(string.Compare(status.Source, Pattern, true) == 0);
-                        }
-                    }
-                    break;
-                case FilterType.ExText:
-                    return !(item.Text.IndexOf(Pattern, StringComparison.OrdinalIgnoreCase) != -1);
-                case FilterType.ExTextRegex:
-                    return !(Regex.IsMatch(item.Text, Pattern, RegexOptions.IgnoreCase));
-                case FilterType.ExName:
-                    return !(string.Compare(item.Sender.ScreenName, Pattern, true) == 0);
-                case FilterType.ExNameRegex:
-                    return !(Regex.IsMatch(item.Sender.ScreenName, Pattern, RegexOptions.IgnoreCase));
             }
             return false;
         }

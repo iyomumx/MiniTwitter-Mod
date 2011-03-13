@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+
 using MiniTwitter.Extensions;
 
 namespace MiniTwitter.Net.Twitter
@@ -107,38 +113,9 @@ namespace MiniTwitter.Net.Twitter
                 {
                     if (!value.IsNullOrEmpty())
                     {
-                        var match = Regex.Match(value, "href=\"(?<uri>[^\"]+?)\"");
-                        if (match.Success)
-                        {
-                            SourceUri = new Uri(match.Groups["uri"].Value);
-                        }
-                        else
-                        {
-                            SourceUri = twitterMainUri;
-                        }
                         source = Regex.Replace(value, @"<(.|\n)*?>", string.Empty);
                         OnPropertyChanged("Source");
                     }
-                }
-            }
-        }
-
-        private static readonly Uri twitterMainUri=new Uri("https://twitter.com/");
-        private Uri _sourceUri;
-
-        [XmlIgnore()]
-        public Uri SourceUri
-        {
-            get
-            {
-                return _sourceUri;
-            }
-            private set
-            {
-                if (_sourceUri != value)
-                {
-                    _sourceUri = value;
-                    OnPropertyChanged("SourceUri");
                 }
             }
         }
@@ -258,22 +235,6 @@ namespace MiniTwitter.Net.Twitter
                     retweetedStatus = value;
                     OnPropertyChanged("ReTweetedStatus");
                     OnPropertyChanged("IsReTweeted");
-                }
-            }
-        }
-
-        private string retweetCount = "0";
-
-        [XmlElement("retweet_count")]
-        public string ReTweetCount
-        {
-            get { return retweetCount; }
-            set
-            {
-                if (retweetCount != value && value != null)
-                {
-                    retweetCount = value;
-                    OnPropertyChanged("ReTweetCount");
                 }
             }
         }

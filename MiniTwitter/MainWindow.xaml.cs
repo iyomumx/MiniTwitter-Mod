@@ -46,15 +46,7 @@ namespace MiniTwitter
 
         public string TargetValue { get; set; }
 
-        private TwitterClient client = new TwitterClient(App.consumer_key, App.consumer_secret);
-
-        public TwitterClient TClient
-        {
-            get
-            {
-                return client;
-            }
-        }
+        private TwitterClient client = new TwitterClient("CONSUMER KEY", "CONSUMER SECRET");
 
         private volatile bool _isClosing = false;
 
@@ -121,7 +113,6 @@ namespace MiniTwitter
                 catch
                 {
                 }
-                
             }
         }
 
@@ -130,12 +121,14 @@ namespace MiniTwitter
         private void UpdateHashtagList(IEnumerable<Status> updateStatuses)
         {
             int count = 0;
+
             foreach (var status in updateStatuses)
             {
                 if (string.IsNullOrEmpty(status.Text))
                 {
                     continue;
                 }
+
                 var matches = _hashtagRegex.Matches(status.Text);
 
                 foreach (Match match in matches)
@@ -149,13 +142,14 @@ namespace MiniTwitter
                     }
                 }
             }
+
             if (count > 0)
             {
                 try
                 {
                     hashtags.Sort();
                 }
-                catch 
+                catch
                 {
                 }
             }
@@ -299,7 +293,7 @@ namespace MiniTwitter
         private void Login()
         {
             // ログインを開始
-            this.AsyncInvoke(() => StatusText = "正在登录…");
+            this.AsyncInvoke(() => StatusText = "ログインしています...");
             ThreadPool.QueueUserWorkItem(LoginCallback);
         }
 
@@ -309,7 +303,7 @@ namespace MiniTwitter
             {
                 string token = null;
                 string tokenSecret = null;
-                /*
+
                 if (string.IsNullOrEmpty(Settings.Default.Username) || string.IsNullOrEmpty(Settings.Default.Password))
                 {
                     this.Invoke(() => StatusText = "ユーザー名、パスワードが入力されていません");
@@ -320,19 +314,7 @@ namespace MiniTwitter
                     this.Invoke(() => StatusText = "OAuth での認証に失敗しました");
                     return;
                 }
-                */
-                //Modified
-                //TODO:申请个Xauth吧孩子
-                if (string.IsNullOrEmpty(Settings.Default.Username) || string.IsNullOrEmpty(Settings.Default.Password))
-                {
-                    this.Invoke(() => StatusText = "请进行OAuth认证");
-                }
-                else
-                {
-                    token = Settings.Default.Username;
-                    tokenSecret = Settings.Default.Password;
-                }
-                //Modified End
+
                 Settings.Default.Token = token;
                 Settings.Default.TokenSecret = tokenSecret;
             }
@@ -341,7 +323,7 @@ namespace MiniTwitter
             var result = client.Login(Settings.Default.Token, Settings.Default.TokenSecret);
             if (result == null)
             {
-                this.Invoke(() => StatusText = "OAuth认证失败");
+                this.Invoke(() => StatusText = "OAuth での認証に失敗しました");
 
                 Settings.Default.Token = null;
                 Settings.Default.TokenSecret = null;
@@ -350,7 +332,7 @@ namespace MiniTwitter
             if (!result.Value || !client.IsLogined)
             {
                 // ログインに失敗
-                this.Invoke(() => StatusText = "登录失败");
+                this.Invoke(() => StatusText = "ログインに失敗しました");
 
                 Settings.Default.Token = null;
                 Settings.Default.TokenSecret = null;
@@ -378,7 +360,7 @@ namespace MiniTwitter
 
         private void SetStatusMessage(bool isSuccess)
         {
-            this.AsyncInvoke(p => StatusText = p, isSuccess ? DateTime.Now.ToString("G") + " 完成刷新" : "无法取得时间线");
+            this.AsyncInvoke(p => StatusText = p, isSuccess ? DateTime.Now.ToString("G") + " に取得完了" : "タイムラインの取得に失敗しました");
         }
 
         private void RefreshTimeline(RefreshTarget target)
@@ -390,11 +372,7 @@ namespace MiniTwitter
             switch (target)
             {
                 case RefreshTarget.All:
-                    if (Settings.Default.UseUserStream)
-                    {
-                        client.ChirpUserStream();
-                    }
-                    this.AsyncInvoke(() => StatusText = "正在获取全部时间线");
+                    this.AsyncInvoke(() => StatusText = "全てのタイムラインを取得しています...");
                     // Recent を取得する
                     statuses = client.RecentTimeline;
                     // 取得できたか確認する
@@ -467,12 +445,8 @@ namespace MiniTwitter
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.Recent:
-                    this.AsyncInvoke(() => StatusText = "正在获取主时间线");
+                    this.AsyncInvoke(() => StatusText = "フレンドタイムラインを取得しています...");
                     statuses = client.RecentTimeline;
-                    if (Settings.Default.UseUserStream)
-                    {
-                        client.ChirpUserStream();
-                    }
                     if (statuses != null)
                     {
                         statuses = Timelines.Normalize(TimelineType.Recent, statuses);
@@ -482,7 +456,7 @@ namespace MiniTwitter
                     }
                     break;
                 case RefreshTarget.Replies:
-                    this.AsyncInvoke(() => StatusText = "正在获取回复");
+                    this.AsyncInvoke(() => StatusText = "返信タイムラインを取得しています...");
                     statuses = client.RepliesTimeline;
                     if (statuses != null)
                     {
@@ -493,7 +467,7 @@ namespace MiniTwitter
                     }
                     break;
                 case RefreshTarget.Archive:
-                    this.AsyncInvoke(() => StatusText = "正在获取个人时间线");
+                    this.AsyncInvoke(() => StatusText = "ユーザータイムラインを取得しています...");
                     statuses = client.ArchiveTimeline;
                     if (statuses == null)
                     {
@@ -504,7 +478,7 @@ namespace MiniTwitter
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.Message:
-                    this.AsyncInvoke(() => StatusText = "正在获取私信");
+                    this.AsyncInvoke(() => StatusText = "ダイレクトメッセージを取得しています...");
                     var messages = client.ReceivedMessages;
                     if (messages == null)
                     {
@@ -532,9 +506,8 @@ namespace MiniTwitter
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.List:
-                    this.AsyncInvoke(() => StatusText = "正在获取列表");
-                    var tls = Timelines.Where(p => p.Type == TimelineType.List).ToArray();
-                    foreach (var timeline in tls)
+                    this.AsyncInvoke(() => StatusText = "リストを取得しています...");
+                    foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.List))
                     {
                         statuses = client.GetListStatuses(timeline.Tag, timeline.SinceID);
                         if (statuses == null)
@@ -608,9 +581,8 @@ namespace MiniTwitter
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.Search:
-                    this.AsyncInvoke(() => StatusText = "正在获取搜索结果");
-                    var stls = Timelines.Where(p => p.Type == TimelineType.Search).ToArray();
-                    foreach (var timeline in stls)
+                    this.AsyncInvoke(() => StatusText = "検索結果を取得しています...");
+                    foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.Search))
                     {
                         statuses = client.Search(timeline.Tag, timeline.SinceID);
                         if (statuses == null)
@@ -783,6 +755,7 @@ namespace MiniTwitter
             }
 
             Activate();
+
             if (isTextFocus)
             {
                 TweetTextBox.Focus();
@@ -822,8 +795,10 @@ namespace MiniTwitter
                     {
                         return;
                     }
+
                     UpdateHashtagList(new[] { item });
                     UpdateUsersList(new[] { item.Sender });
+
                     if (__.Action == StatusAction.Deleted)
                     {
                         var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
@@ -952,23 +927,19 @@ namespace MiniTwitter
             // ポップアップウィンドウのイベントを登録
             popupWindow.CommandBindings.AddRange(new[]
                 {
-                    //TODO:此处为命令绑定行
                     new CommandBinding(Commands.Reply, ReplyCommand_Executed),
-                    new CommandBinding(Commands.ReplyAll, ReplyAllCommand_Executed),
                     new CommandBinding(Commands.ReTweet, ReTweetCommand_Executed),
                     new CommandBinding(Commands.ReTweetApi, ReTweetApiCommand_Executed),
                     new CommandBinding(Commands.ReplyMessage, ReplyMessageCommand_Executed),
                     new CommandBinding(Commands.Delete, DeleteCommand_Executed),
                     new CommandBinding(Commands.Favorite, FavoriteCommand_Executed),
                     new CommandBinding(Commands.MoveToStatusPage, MoveToStatusPageCommand_Executed),
-                    new CommandBinding(Commands.MoveToSourcePage, MoveToSourcePageCommand_Executed),
                     new CommandBinding(Commands.MoveToUserPage, MoveToUserPageCommand_Executed),
                     new CommandBinding(Commands.InReplyTo, InReplyToCommand_Executed),
                 });
             popupWindow.MouseLeftButtonDown += new MouseButtonEventHandler(PopupWindow_MouseLeftButtonDown);
 
             _uploader.UploadCompleted += new EventHandler<TwitpicUploadCompletedEventArgs>(Uploader_UploadCompleted);
-            _iuploader.UploadCompleted += new EventHandler<imglyUploadCompletedEventArgs>(imglyUploader_UploadCompleted);
             // タイムラインタブを作成
             InitializeTimeline();
             // プロキシサーバの設定を反映
@@ -1043,7 +1014,6 @@ namespace MiniTwitter
                 // Twitter へログイン
                 Login();
             }
-            this.Topmost = Settings.Default.AlwaysOnTop;
         }
 
         private void MainWindow_Activated(object sender, EventArgs e)
@@ -1381,11 +1351,11 @@ namespace MiniTwitter
         {
             try
             {
-                Process.Start("https://twitter.com/home");
+                Process.Start("http://twitter.com/home");
             }
             catch
             {
-                MessageBox.Show("无法打开浏览器", App.NAME);
+                MessageBox.Show("移動に失敗しました", App.NAME);
             }
         }
 
@@ -1398,7 +1368,6 @@ namespace MiniTwitter
             {
                 return;
             }
-            this.Topmost = Settings.Default.AlwaysOnTop;
             // 正規表現を組みなおす
             Settings.Default.InitializeKeywordRegex();
             // プロキシサーバの設定を反映
@@ -1462,7 +1431,7 @@ namespace MiniTwitter
                 return;
             }
             UpdateButton.IsEnabled = false;
-            StatusText = "正在更新状态…";
+            StatusText = "ステータスを更新しています...";
             //client.Update((string)e.Parameter ?? TweetTextBox.Text, in_reply_to_status_id);
             ThreadPool.QueueUserWorkItem(text => client.Update((string)text, in_reply_to_status_id, _latitude, _longitude), status);
         }
@@ -1501,7 +1470,7 @@ namespace MiniTwitter
                 _latitude = null;
                 _longitude = null;
                 TweetTextBox.Clear();
-                StatusText = "已发送";
+                StatusText = "ステータスを更新しました";
             });
         }
 
@@ -1510,7 +1479,7 @@ namespace MiniTwitter
             this.Invoke(() =>
             {
                 UpdateButton.IsEnabled = true;
-                StatusText = "发送失败";
+                StatusText = "更新に失敗しました";
             });
         }
 
@@ -1573,55 +1542,6 @@ namespace MiniTwitter
             ForceActivate();
         }
 
-        private void ReplyAllCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-            if (item is Status)
-            {
-                var screenName = item.Sender.ScreenName;
-                Regex ureg = new Regex(@"(?<=(?<email>[a-zA-Z0-9])?)@[_a-zA-Z0-9]+(?(email)(?((\.)|[_a-zA-Z0-9])(?!)))",RegexOptions.Compiled);
-                HashSet<string> names = new HashSet<string>();
-                names.Add("@" + client.LoginedUser.ScreenName);
-                foreach (Match user in ureg.Matches(item.Text))
-                {
-                    if (!(names.Contains(user.Value)))
-                    {
-                        TweetTextBox.Text = user.Value + " " + TweetTextBox.Text;
-                        names.Add(user.Value);
-                    }
-                }
-                if (!(names.Contains("@" + screenName))) { 
-                    TweetTextBox.Text = "@" + screenName + " " + TweetTextBox.Text;
-                    names.Add("@" + screenName);
-                }
-                if (((Status)item).ReTweetedStatus != null)
-                {
-                    if (!(names.Contains("@" + ((Status)item).ReTweetedStatus.Sender.ScreenName)))
-                    { 
-                        TweetTextBox.Text = "@" + ((Status)item).ReTweetedStatus.Sender.ScreenName + " " + TweetTextBox.Text; 
-                    }
-                }
-
-                in_reply_to_status_id = item.ID;
-            }
-            else
-            {
-                TweetTextBox.Text = "D " + item.Sender.ScreenName + " " + TweetTextBox.Text;
-            }
-            TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
-            TweetTextBox.Focus();
-            ForceActivate();
-        }
-
-        private void ReTweetApiCommand_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
-        {
-            var item = (Status)e.Parameter ?? GetSelectedItem();
-            if (item.Sender.Protected)
-                e.CanExecute = false;
-            else
-                e.CanExecute = true;
-        }
-
         private void ReTweetCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (Status)e.Parameter ?? GetSelectedItem();
@@ -1633,11 +1553,7 @@ namespace MiniTwitter
             {
                 in_reply_to_status_id = null;
             }
-            TweetTextBox.Text = string.Format("{0} {1}{2}: {3}",
-                Properties.Settings.Default.ReTweetPrefix, 
-                (item.IsAuthor ? "" : "@"), 
-                item.Sender.ScreenName, 
-                item.Text.Replace("@" + client.LoginedUser.ScreenName, client.LoginedUser.ScreenName));
+            TweetTextBox.Text = "RT @" + item.Sender.ScreenName + ": " + item.Text;
             TweetTextBox.CaretIndex = 0;
             TweetTextBox.Focus();
             ForceActivate();
@@ -1646,14 +1562,14 @@ namespace MiniTwitter
         private void ReTweetApiCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (Status)e.Parameter ?? GetSelectedItem();
-            StatusText = "正在发送ReTweet…";
+            StatusText = "ReTweet しています...";
             ThreadPool.QueueUserWorkItem(p =>
                 {
                     var itm = (Status)p;
                     var status = client.ReTweet(itm.ID);
                     if (status != null)
                     {
-                        this.Invoke(() => StatusText = string.Format("ReTweet已成功 (共{0}次RT)", itm.ReTweetCount.IsNullOrEmpty() ? itm.ReTweetCount : "0"));
+                        this.Invoke(() => StatusText = "ReTweet に成功しました");
 
                         this.Invoke(() =>
                             {
@@ -1670,7 +1586,7 @@ namespace MiniTwitter
                     }
                     else
                     {
-                        this.Invoke(() => StatusText = "ReTweet失败！");
+                        this.Invoke(() => StatusText = "ReTweet に失敗しました");
                     }
                 }, item);
         }
@@ -1691,7 +1607,7 @@ namespace MiniTwitter
             {
                 return;
             }
-            if (MessageBox.Show("确认要删除吗？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            if (MessageBox.Show("削除してよろしいですか？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
             {
                 return;
             }
@@ -1737,11 +1653,11 @@ namespace MiniTwitter
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             try
             {
-                Process.Start("https://twitter.com/" + item.Sender.ScreenName);
+                Process.Start("http://twitter.com/" + item.Sender.ScreenName);
             }
             catch
             {
-                MessageBox.Show("无法打开浏览器", App.NAME);
+                MessageBox.Show("移動に失敗しました", App.NAME);
             }
         }
 
@@ -1750,11 +1666,11 @@ namespace MiniTwitter
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             try
             {
-                Process.Start(string.Format("https://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
+                Process.Start(string.Format("http://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
             }
             catch
             {
-                MessageBox.Show("无法打开浏览器", App.NAME);
+                MessageBox.Show("移動に失敗しました", App.NAME);
             }
         }
 
@@ -1763,24 +1679,11 @@ namespace MiniTwitter
             var item = (Status)(e.Parameter ?? GetSelectedItem());
             try
             {
-                Process.Start(string.Format("https://twitter.com/{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID));
+                Process.Start(string.Format("http://twitter.com/{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID));
             }
             catch
             {
-                MessageBox.Show("无法打开浏览器", App.NAME);
-            }
-        }
-
-        private void MoveToSourcePageCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            var item = (Status)(e.Parameter ?? GetSelectedItem());
-            try
-            {
-                Process.Start(item.SourceUri.ToString());
-            }
-            catch
-            {
-                MessageBox.Show("无法打开浏览器", App.NAME);
+                MessageBox.Show("移動に失敗しました", App.NAME);
             }
         }
 
@@ -1819,7 +1722,7 @@ namespace MiniTwitter
         private void CopyUrlCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-            Clipboard.SetText(string.Format("https://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
+            Clipboard.SetText(string.Format("http://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
         }
 
         private void SortCategoryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -1882,7 +1785,7 @@ namespace MiniTwitter
             var timeline = (Timeline)TimelineTabControl.SelectedItem;
             if (timeline.Type != TimelineType.User && timeline.Type != TimelineType.List && timeline.Type != TimelineType.Search)
             {
-                MessageBox.Show("无法编辑此标签页", App.NAME);
+                MessageBox.Show("このタイムラインは編集できません。", App.NAME);
                 return;
             }
             var dialog = new TimelineDialog { Timeline = timeline, Owner = this, Lists = lists };
@@ -1939,7 +1842,8 @@ namespace MiniTwitter
             timeline.Clear();
         }
 
-        private static readonly Regex schemaRegex = new Regex(@"^(?<protocol>http|ftp|https|file)://(?<user>[\w\.]+(?<pass>\:[\w\.]+)\@)?(?<domain>[\w\.]+)(?<path>/[\w-_.!*'();/?:@&=+$,%#]*)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private static readonly Regex schemaRegex = new Regex(@"^(https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private void PasteCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -1958,23 +1862,24 @@ namespace MiniTwitter
                     TweetTextBox.Text = TweetTextBox.Text.Remove(index, TweetTextBox.SelectionLength).Insert(index, text);
                     TweetTextBox.CaretIndex = index + text.Length;
                 }
-                if (schemaRegex.IsMatch(text) && text.Length > 40 || text.IndexOfAny(new[] {'?','!'}) != -1 || TweetTextBox.Text.Length > 140)
+
+                if (schemaRegex.IsMatch(text) && (text.Length > 50 || text.IndexOfAny(new[] { '!', '?' }) != -1 || TweetTextBox.Text.Length > 140))
                 {
-                    StatusText = "正在缩短URL";
+                    StatusText = "URL を短く変換しています...";
                     ThreadPool.QueueUserWorkItem(state =>
+                    {
+                        var url = (string)state;
+
+                        var shorten = BitlyHelper.ConvertTo(url);
+
+                        this.Invoke(targetUrl =>
                         {
-                            var url = (string)state;
-
-                            var shorten = Settings.Default.UseBitlyPro?BitlyHelper.ConvertTo(url): MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
-
-                            this.Invoke(targetUrl =>
-                                {
-                                    var index = TweetTextBox.Text.IndexOf(url);
-                                    TweetTextBox.Text = TweetTextBox.Text.Replace(url, shorten);
-                                    TweetTextBox.CaretIndex = index + shorten.Length;
-                                    StatusText = "缩短URL完成";
-                                }, shorten);
-                        }, text);
+                            var index = TweetTextBox.Text.IndexOf(url);
+                            TweetTextBox.Text = TweetTextBox.Text.Replace(url, targetUrl);
+                            TweetTextBox.CaretIndex = index + targetUrl.Length;
+                            StatusText = "URL の短縮が完了しました。";
+                        }, shorten);
+                    }, text);
                 }
             }
         }
@@ -2128,7 +2033,6 @@ namespace MiniTwitter
         }
 
         private TwitpicUploader _uploader = new TwitpicUploader();
-        private imglyUploader _iuploader = new imglyUploader();
 
         private void TwitpicCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -2137,7 +2041,7 @@ namespace MiniTwitter
             if (dialog.ShowDialog() ?? false)
             {
                 _uploader.UploadAsync(dialog.FileName, client.GetOAuthToken(new Uri("https://api.twitter.com/1/account/verify_credentials.json")), "");
-                StatusText = "正在向 Twitpic 上传";
+                StatusText = "Twitpic へアップロードしています...";
             }
         }
 
@@ -2145,29 +2049,8 @@ namespace MiniTwitter
         {
             this.Invoke(url =>
             {
-                StatusText = "完成向 Twitpic 的上传";
+                StatusText = "Twitpic へのアップロードが完了しました";
 
-                TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, url);
-                TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
-            }, e.MediaUrl);
-        }
-
-        private void imglyCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog { Multiselect = false };
-
-            if (dialog.ShowDialog() ?? false)
-            {
-                _iuploader.UploadAsync(dialog.FileName, client.GetOAuthToken(new Uri("https://api.twitter.com/1/account/verify_credentials.json")), "");
-                StatusText = "正在向 img.ly 上传";
-            }
-        }
-
-        private void imglyUploader_UploadCompleted(object sender, imglyUploadCompletedEventArgs e)
-        {
-            this.Invoke(url =>
-            {
-                StatusText = "完成向 img.ly 的上传";
                 TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, url);
                 TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
             }, e.MediaUrl);
@@ -2175,7 +2058,7 @@ namespace MiniTwitter
 
         private void PlayTitleCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var iTunes = new iTunesLib.iTunesApp();
+            var iTunes = new iTunesLib.iTunesAppClass();
 
             try
             {
@@ -2203,19 +2086,13 @@ namespace MiniTwitter
         {
             var processes = Process.GetProcessesByName("iTunes");
 
-            if (processes.Length != 0)
+            if (processes.Length == 0)
             {
-                e.CanExecute = true;
+                e.CanExecute = false;
                 return;
             }
-            //TODO:Winamp万岁！
-            //processes = Process.GetProcessesByName("Winamp");
-            if (processes.Length != 0)
-            {
-                e.CanExecute = true;
-                return;
-            }
-            e.CanExecute = false;
+
+            e.CanExecute = true;
         }
 
         private ListBox _listBox;
@@ -2232,6 +2109,7 @@ namespace MiniTwitter
             var currentTimeline = (Timeline)TimelineTabControl.SelectedItem;
 
             var replyTo = currentTimeline.Items.FirstOrDefault(p => p.ID == status.InReplyToStatusID);
+
             if (replyTo == null)
             {
                 var timeline = Timelines.TypeAt(TimelineType.Recent);
@@ -2255,9 +2133,11 @@ namespace MiniTwitter
                 else
                 {
                     currentTimeline = timeline;
+
                     Timelines.Update(new[] { replyTo });
                 }
             }
+
             if (_listBox == null)
             {
                 Func<DependencyObject, ListBox> getChildVisual = null;
@@ -2274,6 +2154,7 @@ namespace MiniTwitter
                 };
                 _listBox = getChildVisual(TimelineTabControl);
             }
+
             if (_listBox == null) return;
 
             currentTimeline.View.MoveCurrentTo(replyTo);
@@ -2340,7 +2221,7 @@ namespace MiniTwitter
             {
                 if (!client.CreateFollow((string)state))
                 {
-                    this.Invoke(() => StatusText = "跟随用户失败（被block？)");
+                    this.Invoke(() => StatusText = "フォローに失敗しました。");
                 }
             }, ((Status)e.Parameter).Sender.ScreenName);
         }
@@ -2356,7 +2237,7 @@ namespace MiniTwitter
                 }
                 else
                 {
-                    this.Invoke(() => StatusText = "取消跟随用户失败（网络错误？）");
+                    this.Invoke(() => StatusText = "フォロー解除に失敗しました。");
                 }
             }, ((Status)e.Parameter).Sender);
         }
@@ -2372,7 +2253,7 @@ namespace MiniTwitter
                 }
                 else
                 {
-                    this.Invoke(() => StatusText = "阻止用户失败");
+                    this.Invoke(() => StatusText = "ブロックに失敗しました。");
                 }
             }, ((Status)e.Parameter).Sender);
         }
@@ -2403,35 +2284,6 @@ namespace MiniTwitter
 
         private void TimelineListBox_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-        }
-
-        private void ReportSpam_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            ThreadPool.QueueUserWorkItem(state =>
-            {
-                var user = (User)state;
-                if (client.ReportSpam(user.ScreenName))
-                {
-                    this.Invoke(() => Timelines.RemoveAll(p => p.Sender.ID == user.ID));
-                }
-                else
-                {
-                    this.Invoke(() => StatusText = "报告广告账户失败");
-                }
-            }, ((Status)e.Parameter).Sender);
-        }
-
-        private void ViewRateLimit_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if ((e.LeftButton == MouseButtonState.Pressed) && (e.ClickCount == 2))
-            {
-                MessageBox.Show(string.Format("API剩余：\t\t{0}\nAPI总限制：\t{1}\n将在{2}重置", client.RateLimitRemain, client.TotalRateLimit, client.ResetTimeString), "API限制状态", MessageBoxButton.OK);
-            }
-        }
-
-        private void ProgressBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show(string.Format("API剩余：\t\t{0}\nAPI总限制：\t{1}\n将在{2}重置", client.RateLimitRemain, client.TotalRateLimit, client.ResetTimeString), "API限制状态", MessageBoxButton.OK);
         }
     }
 }

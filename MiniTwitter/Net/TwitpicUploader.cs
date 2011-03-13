@@ -34,28 +34,6 @@ namespace MiniTwitter.Net
             //WebRequestの作成
             var req = (HttpWebRequest)WebRequest.Create(url);
 
-            if (MiniTwitter.Properties.Settings.Default.UseProxy)
-            {
-                if (MiniTwitter.Properties.Settings.Default.UseIEProxy)
-                {
-                    req.Proxy = System.Net.WebRequest.GetSystemWebProxy();
-                }
-                else
-                {
-                    int pn = 0;
-                    if (!(int.TryParse(MiniTwitter.Properties.Settings.Default.ProxyPortNumber,out pn)))
-                    {
-                        var p = new System.Net.WebProxy(MiniTwitter.Properties.Settings.Default.ProxyAddress, pn);
-                        if (!(string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ProxyUsername) || string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ProxyPassword)))
-                        {
-                            p.Credentials = new System.Net.NetworkCredential(MiniTwitter.Properties.Settings.Default.ProxyUsername, MiniTwitter.Properties.Settings.Default.ProxyPassword);
-                        }
-                        req.Proxy = p;
-                    }
-                    
-                }
-                
-            }
             //メソッドにPOSTを指定
             req.Method = "POST";
 
@@ -65,7 +43,7 @@ namespace MiniTwitter.Net
             req.Headers["X-Verify-Credentials-Authorization"] = token;
             req.Headers["X-Auth-Service-Provider"] = "https://api.twitter.com/1/account/verify_credentials.json";
 
-            var key = "7ddf581b03e0ac5d637ae8c103470311";
+            var key = "YOUR TWITPIC KEY";
 
             //POST送信するデータを作成
             string postData = "";

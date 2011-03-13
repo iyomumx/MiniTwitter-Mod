@@ -20,7 +20,7 @@ namespace MiniTwitter.Controls
             var name = (string)bindingGroup.GetValue(timeline, "Name");
             if (name.IsNullOrEmpty())
             {
-                return new ValidationResult(false, "请输入时间线名字");
+                return new ValidationResult(false, "名前を入力してください");
             }
             return ValidationResult.ValidResult;
         }

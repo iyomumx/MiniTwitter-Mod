@@ -10,14 +10,14 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10,5,10,2" HorizontalAlignment="Center">正在下载数据...</TextBlock>
+                    <TextBlock Grid.Row="0" Margin="10,5,10,2" HorizontalAlignment="Center">ダウンロード中です...</TextBlock>
                     <ProgressBar Grid.Row="1" Margin="10,2,10,5" IsIndeterminate="True" Width="100" Height="20" HorizontalAlignment="Center"></ProgressBar>
                 </Grid>
             </Border>
         </Popup>
         <Popup x:Key="PreviewPopup" Placement="MousePoint" PopupAnimation="Fade" AllowsTransparency="True" SnapsToDevicePixels="True" Focusable="True" StaysOpen="False">
             <Border Background="#90000000" BorderThickness="3" BorderBrush="Gray" CornerRadius="10">
-                <Image Source="{Binding Path=Image}" Tag="{Binding Path=Url}" Margin="10" MouseLeftButtonUp="Image_MouseLeftButtonUp" Cursor="Hand" MaxWidth="500" />
+                <Image Source="{Binding Path=Image}" Tag="{Binding Path=Url}" Margin="10" MouseLeftButtonUp="Image_MouseLeftButtonUp" Cursor="Hand" MaxWidth="600" />
             </Border>
         </Popup>
     </UserControl.Resources>

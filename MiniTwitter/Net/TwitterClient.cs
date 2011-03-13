@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
+using System.Runtime.Serialization.Json;
+using System.Threading;
+
 using MiniTwitter.Extensions;
 using MiniTwitter.Net.Twitter;
 
 namespace MiniTwitter.Net
 {
-    public class TwitterClient : OAuthBase
+    class TwitterClient : OAuthBase
     {
         static TwitterClient()
         {
@@ -35,35 +36,12 @@ namespace MiniTwitter.Net
 
         private static readonly Regex unescapeRegex = new Regex("&([gl]t);", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        private const string _TwitterApiBase = "https://api.twitter.com/";
-        
-        public static string ApiBaseUrl
-        {
-            get
-            {
-                return string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ApiBaseUrl) ? _TwitterApiBase : MiniTwitter.Properties.Settings.Default.ApiBaseUrl;
-            }
-        }
-
-
-        private const string _TwitterSearchBase = "https://search.twitter.com/";
-
-        public static string SearchApiUrl 
-        {
-            get 
-            {
-                return string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ApiSearchUrl) ? _TwitterSearchBase : (MiniTwitter.Properties.Settings.Default.ApiSearchUrl);
-            }
-        }
-
         public static string Unescape(string text)
         {
             return unescapeRegex.Replace(text, match => match.Groups[1].Value == "gt" ? ">" : "<");
         }
 
         private const string clientName = "MiniTwitter";
-
-        public static Google.UrlShorter.UrlShorter googlHelper;
 
         public IWebProxy Proxy
         {
@@ -94,50 +72,50 @@ namespace MiniTwitter.Net
 
         public Status[] RecentTimeline
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/home_timeline.xml", ApiBaseUrl), new { count = 200 }, ref recentId) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses("http://api.twitter.com/1/statuses/home_timeline.xml", new { count = 200 }, ref recentId) : Statuses.Empty; }
         }
 
         private ulong? repliesId;
 
         public Status[] RepliesTimeline
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/mentions.xml", ApiBaseUrl), new { count = 100 }, ref repliesId) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses("http://api.twitter.com/1/statuses/mentions.xml", new { count = 100 }, ref repliesId) : Statuses.Empty; }
         }
 
         private ulong? archiveId;
 
         public Status[] ArchiveTimeline
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/user_timeline.xml", ApiBaseUrl), new { count = 100 }, ref archiveId) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses("http://api.twitter.com/1/statuses/user_timeline.xml", new { count = 100 }, ref archiveId) : Statuses.Empty; }
         }
 
         private ulong? receivedId;
 
         public DirectMessage[] ReceivedMessages
         {
-            get { return IsLogined ? GetMessages(string.Format("{0}1/direct_messages.xml", ApiBaseUrl), ref receivedId) : DirectMessages.Empty; }
+            get { return IsLogined ? GetMessages("http://api.twitter.com/1/direct_messages.xml", ref receivedId) : DirectMessages.Empty; }
         }
 
         private ulong? sentId;
 
         public DirectMessage[] SentMessages
         {
-            get { return IsLogined ? GetMessages(string.Format("{0}1/direct_messages/sent.xml", ApiBaseUrl), ref sentId) : DirectMessages.Empty; }
+            get { return IsLogined ? GetMessages("http://api.twitter.com/1/direct_messages/sent.xml", ref sentId) : DirectMessages.Empty; }
         }
 
         public Status[] Favorites
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/favorites.xml", ApiBaseUrl), new { count = 200 }) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses("http://api.twitter.com/1/favorites.xml", new { count = 200 }) : Statuses.Empty; }
         }
 
         public User[] Friends
         {
-            get { return IsLogined ? GetUsers(string.Format("{0}1/statuses/friends.xml", ApiBaseUrl)) : Users.Empty; }
+            get { return IsLogined ? GetUsers("http://api.twitter.com/1/statuses/friends.xml") : Users.Empty; }
         }
 
         public User[] Followers
         {
-            get { return IsLogined ? GetUsers(string.Format("{0}1/statuses/followers.xml", ApiBaseUrl)) : Users.Empty; }
+            get { return IsLogined ? GetUsers("http://api.twitter.com/1/statuses/followers.xml") : Users.Empty; }
         }
 
         public List[] Lists
@@ -207,26 +185,14 @@ namespace MiniTwitter.Net
             {
                 text = schemaRegex.Replace(text,
                                              match =>
-                                             {
-                                                 var url = match.Groups[1].Value;
-                                                 return MiniTwitter.Properties.Settings.Default.UseBitlyPro ? BitlyHelper.ConvertTo(url) : MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
-                                             });
+                                             BitlyHelper.ConvertTo(match.Groups[1].Value));
             }
             else
             {
                 text = schemaRegex.Replace(text,
                                              match =>
-                                             {
-                                                 var url = match.Groups[1].Value;
-                                                 if (match.Groups[1].Length > 32 || match.Groups[1].Value.IndexOfAny(new[] { '!', '?' }) != -1)
-                                                 {
-                                                     return MiniTwitter.Properties.Settings.Default.UseBitlyPro ? BitlyHelper.ConvertTo(url) : MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
-                                                 }
-                                                 else
-                                                 {
-                                                     return match.Groups[1].Value;
-                                                 }
-                                             });
+                                             match.Groups[1].Length > 50 || match.Groups[1].Value.IndexOfAny(new[] { '!', '?' }) != -1
+                                             ? BitlyHelper.ConvertTo(match.Groups[1].Value) : match.Groups[1].Value);
             }
             Match m = messageRegex.Match(text);
             if (m.Success)
@@ -245,7 +211,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Post<Status>(string.Format("{1}1/statuses/retweet/{0}.xml", id, ApiBaseUrl));
+                return Post<Status>(string.Format("http://api.twitter.com/1/statuses/retweet/{0}.xml", id));
             }
             catch
             {
@@ -277,22 +243,22 @@ namespace MiniTwitter.Net
                 {
                     if (latitude.HasValue && longitude.HasValue)
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value, lat = latitude.Value, @long = longitude.Value });
+                        status = Post<Status>("http://api.twitter.com/1/statuses/update.xml", new { status = text, in_reply_to_status_id = replyId.Value, lat = latitude.Value, @long = longitude.Value });
                     }
                     else
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value });
+                        status = Post<Status>("http://api.twitter.com/1/statuses/update.xml", new { status = text, in_reply_to_status_id = replyId.Value });
                     }
                 }
                 else
                 {
                     if (latitude.HasValue && longitude.HasValue)
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, lat = latitude.Value, @long = longitude.Value });
+                        status = Post<Status>("http://api.twitter.com/1/statuses/update.xml", new { status = text, lat = latitude.Value, @long = longitude.Value });
                     }
                     else
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text });
+                        status = Post<Status>("http://api.twitter.com/1/statuses/update.xml", new { status = text });
                     }
                 }
                 status.IsAuthor = true;
@@ -314,7 +280,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                var message = Post<DirectMessage>(string.Format("{0}1/direct_messages/new.xml", ApiBaseUrl), new { user = user, text = text });
+                var message = Post<DirectMessage>("http://api.twitter.com/1/direct_messages/new.xml", new { user = user, text = text });
                 message.IsAuthor = true;
                 if (Updated != null)
                 {
@@ -347,7 +313,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Delete(string.Format("{1}1/statuses/destroy/{0}.xml", id, ApiBaseUrl));
+                Delete(string.Format("http://api.twitter.com/1/statuses/destroy/{0}.xml", id));
 
                 return true;
             }
@@ -361,7 +327,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Delete(string.Format("{1}1/direct_messages/destroy/{0}.xml", id, ApiBaseUrl));
+                Delete(string.Format("http://api.twitter.com/1/direct_messages/destroy/{0}.xml", id));
 
                 return true;
             }
@@ -388,7 +354,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Post(string.Format("{1}1/favorites/create/{0}.xml", id, ApiBaseUrl));
+                Post(string.Format("http://api.twitter.com/1/favorites/create/{0}.xml", id));
 
                 return true;
             }
@@ -402,7 +368,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Delete(string.Format("{1}1/favorites/destroy/{0}.xml", id, ApiBaseUrl));
+                Delete(string.Format("http://api.twitter.com/1/favorites/destroy/{0}.xml", id));
 
                 return true;
             }
@@ -416,7 +382,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Post(string.Format("{0}1/friendships/create.xml",ApiBaseUrl), new { screen_name = screen_name });
+                Post("http://api.twitter.com/1/friendships/create.xml", new { screen_name = screen_name });
 
                 return true;
             }
@@ -430,7 +396,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Post(string.Format("{0}1/friendships/destroy.xml", ApiBaseUrl), new { screen_name = screen_name });
+                Post("http://api.twitter.com/1/friendships/destroy.xml", new { screen_name = screen_name });
 
                 return true;
             }
@@ -444,7 +410,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Post(string.Format("{0}1/blocks/create.xml", ApiBaseUrl), new { screen_name = screen_name });
+                Post("http://api.twitter.com/1/blocks/create.xml", new { screen_name = screen_name });
 
                 return true;
             }
@@ -458,21 +424,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Delete(string.Format("{0}1/blocks/destroy.xml", ApiBaseUrl), new { screen_name = screen_name });
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool ReportSpam(string screen_name)
-        {
-            try
-            {
-                Post(string.Format("{0}1/report_spam.xml", ApiBaseUrl), new { screen_name = screen_name });
+                Delete("http://api.twitter.com/1/blocks/destroy.xml", new { screen_name = screen_name });
 
                 return true;
             }
@@ -486,7 +438,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<User>(string.Format("{0}1/account/verify_credentials.xml", ApiBaseUrl));
+                return Get<User>("http://api.twitter.com/1/account/verify_credentials.xml");
             }
             catch
             {
@@ -498,7 +450,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<User>(string.Format("{0}1/users/show.xml", ApiBaseUrl), new { user_id = id });
+                return Get<User>("http://api.twitter.com/1/users/show.xml", new { user_id = id });
             }
             catch
             {
@@ -510,7 +462,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<User>(string.Format("{0}1/users/show.xml", ApiBaseUrl), new { screen_name = name });
+                return Get<User>("http://api.twitter.com/1/users/show.xml", new { screen_name = name });
             }
             catch
             {
@@ -534,7 +486,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl));
+                return Get<Status>(string.Format("http://api.twitter.com/1/statuses/show/{0}.xml", id));
             }
             catch
             {
@@ -600,7 +552,7 @@ namespace MiniTwitter.Net
 
                 while (true)
                 {
-                    var response = Get(string.Format("{1}1/{0}/lists.xml", name, ApiBaseUrl), new { cursor = cursor });
+                    var response = Get(string.Format("http://api.twitter.com/1/{0}/lists.xml", name), new { cursor = cursor });
 
                     var xd = XDocument.Parse(response);
 
@@ -643,7 +595,7 @@ namespace MiniTwitter.Net
 
                 while (true)
                 {
-                    var response = Get(string.Format("{1}1/{0}/lists/subscriptions.xml", name, ApiBaseUrl), new { cursor = cursor });
+                    var response = Get(string.Format("http://api.twitter.com/1/{0}/lists/subscriptions.xml", name), new { cursor = cursor });
 
                     var xd = XDocument.Parse(response);
 
@@ -681,7 +633,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Post(string.Format("{2}1/{0}/{1}/members.xml", name, id, ApiBaseUrl), new { id = user_id });
+                Post(string.Format("http://api.twitter.com/1/{0}/{1}/members.xml", name, id), new { id = user_id });
 
                 return true;
             }
@@ -700,7 +652,7 @@ namespace MiniTwitter.Net
 
                 while (true)
                 {
-                    var response = Get(string.Format("{2}1/{0}/{1}/members.xml", name, id, ApiBaseUrl), new { cursor = cursor });
+                    var response = Get(string.Format("http://api.twitter.com/1/{0}/{1}/members.xml", name, id), new { cursor = cursor });
 
                     var xd = XDocument.Parse(response);
 
@@ -747,7 +699,7 @@ namespace MiniTwitter.Net
                     name = name.Substring(index + 1);
                 }
 
-                var statuses = Get<Statuses>(string.Format("{2}1/{0}/lists/{1}/statuses.xml", screen_name, name, ApiBaseUrl), new { per_page = 200 }).Status;
+                var statuses = Get<Statuses>(string.Format("http://api.twitter.com/1/{0}/lists/{1}/statuses.xml", screen_name, name), new { per_page = 200 }).Status;
 
                 if (statuses == null)
                 {
@@ -769,7 +721,7 @@ namespace MiniTwitter.Net
             try
             {
                 var list = new List<Status>();
-                using (var reader = XmlReader.Create(string.Format("{2}search.atom?q={0}&since_id={1}&rpp=100&lang=ja", Uri.EscapeDataString(query), since_id, SearchApiUrl)))
+                using (var reader = XmlReader.Create(string.Format("http://search.twitter.com/search.atom?q={0}&since_id={1}&rpp=100&lang=ja", Uri.EscapeDataString(query), since_id)))
                 {
                     var doc = XDocument.Load(reader);
                     var xmlns = XNamespace.Get("http://www.w3.org/2005/Atom");
@@ -813,17 +765,6 @@ namespace MiniTwitter.Net
 
         public void ChirpUserStream()
         {
-            if ((_thread!=null)&&(_thread.IsAlive))
-            {
-                try
-                {
-                    _thread.Abort();
-                    _thread = null;
-                }
-                catch
-                {
-                }
-            }
             _thread = new Thread(() =>
             {
                 while (true)
@@ -831,6 +772,7 @@ namespace MiniTwitter.Net
                     try
                     {
                         DateTime time;
+
                         using (var reader = new StreamReader(FetchStream(OAuthBase.HttpVerbs.Get, "https://userstream.twitter.com/2/user.json", null, out time)))
                         {
                             _failureCount = 0;
@@ -878,11 +820,6 @@ namespace MiniTwitter.Net
                                                 Description = element.Element("user").Element("description").Value,
                                                 Protected = (bool)element.Element("user").Element("protected"),
                                                 Location = element.Element("user").Element("location").Value,
-                                                Verified = (bool)element.Element("user").Element("verified"),
-                                                FavouritesCount = (int)element.Element("user").Element("favourites_count"),
-                                                Followers = (int)element.Element("user").Element("followers_count"),
-                                                Friends = (int)element.Element("user").Element("friends_count"),
-                                                StatusesCount = (int)element.Element("user").Element("statuses_count"),
                                             },
                                         };
 
@@ -904,11 +841,6 @@ namespace MiniTwitter.Net
                                                     Description = element.Element("retweeted_status").Element("user").Element("description").Value,
                                                     Protected = (bool)element.Element("retweeted_status").Element("user").Element("protected"),
                                                     Location = element.Element("retweeted_status").Element("user").Element("location").Value,
-                                                    Verified = (bool)element.Element("retweeted_status").Element("user").Element("verified"),
-                                                    FavouritesCount = (int)element.Element("retweeted_status").Element("user").Element("favourites_count"),
-                                                    Followers = (int)element.Element("retweeted_status").Element("user").Element("followers_count"),
-                                                    Friends = (int)element.Element("retweeted_status").Element("user").Element("friends_count"),
-                                                    StatusesCount = (int)element.Element("retweeted_status").Element("user").Element("statuses_count"),
                                                 },
                                             };
                                         }
@@ -944,27 +876,33 @@ namespace MiniTwitter.Net
                                                 }
                                             };
 
-                                            UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Favorited });
+                                            UserStreamUpdated(this, new StatusEventArgs(status)
+                                            {
+                                                Action = StatusAction.Favorited
+                                            });
                                         }
                                         else if (element.Element("event").Value == "unfavorite")
                                         {
                                             var status = new Status
                                             {
                                                 ID = (ulong)element.Element("target_object").Element("id"),
-                                                Sender = new User { ID = (int)element.Element("source").Element("id") }
+                                                Sender = new User
+                                                {
+                                                    ID = (int)element.Element("source").Element("id")
+                                                }
                                             };
 
-                                            UserStreamUpdated(this, new StatusEventArgs(status) { Action = StatusAction.Unfavorited });
+                                            UserStreamUpdated(this, new StatusEventArgs(status)
+                                            {
+                                                Action = StatusAction.Unfavorited
+                                            });
                                         }
                                     }
                                 }
                             }
                         }
+
                         _failureCount = 1;
-                    }
-                    catch (ThreadAbortException)
-                    {
-                        return;
                     }
                     catch
                     {

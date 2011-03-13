@@ -13,7 +13,7 @@ using MiniTwitter.Extensions;
 using MiniTwitter.Input;
 using MiniTwitter.Themes;
 using MiniTwitter.Properties;
-using System.Globalization;
+
 namespace MiniTwitter
 {
     /// <summary>
@@ -21,47 +21,15 @@ namespace MiniTwitter
     /// </summary>
     public partial class App : Application
     {
-        private void LoadLanguage()
-        {
-            CultureInfo currentCultureInfo = CultureInfo.CurrentCulture;
-            ResourceDictionary langRd = null;
-            try
-            {
-                langRd =
-                    Application.LoadComponent(
-                             new Uri(@"Resources\Translation\" + currentCultureInfo.Name + ".xaml", UriKind.Relative))
-                    as ResourceDictionary;
-            }
-            catch
-            {
-                try
-                {
-                    langRd =
-                    Application.LoadComponent(
-                             new Uri(@"Resources\Translation\DefaultLanguage.xaml", UriKind.Relative))
-                    as ResourceDictionary;
-                }
-                catch
-                {
-                }
-            }
-            if (langRd != null)
-            {
-                if (!(this.Resources.MergedDictionaries.Contains(langRd)))
-                {
-                    this.Resources.MergedDictionaries.Add(langRd);
-                }
-            }
-        }
         private void App_Startup(object sender, StartupEventArgs e)
         {
             if (!mutex.WaitOne(0, false))
             {
-                MessageBox.Show("已经启动了一个MiniTwitter!", App.NAME, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("既に起動しています。", App.NAME, MessageBoxButton.OK, MessageBoxImage.Information);
                 Shutdown();
                 return;
             }
-            LoadLanguage();
+
             var exeDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             KeyMapping.LoadFrom(exeDirectory);
@@ -69,14 +37,14 @@ namespace MiniTwitter
 
             if (KeyMapping.KeyMappings.Count == 0)
             {
-                MessageBox.Show("键盘映射文件读取失败", App.NAME);
+                MessageBox.Show("キーボードマッピングの読み込みに失敗しました。", App.NAME);
                 Shutdown();
                 return;
             }
 
             if (ThemeManager.Themes.Count == 0)
             {
-                MessageBox.Show("主题文件读取失败", App.NAME);
+                MessageBox.Show("テーマの読み込みに失敗しました。", App.NAME);
                 Shutdown();
                 return;
             }
@@ -94,19 +62,8 @@ namespace MiniTwitter
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            if (Settings.Default.PlixiPassword.IsNullOrEmpty() || Settings.Default.PlixiUsername.IsNullOrEmpty())
-            {
-                Net.TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter();
-            }
-            else
-            {
-                Net.TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter("anonymous", "anonymous", Settings.Default.PlixiUsername, Settings.Default.PlixiPassword);
-            }
-            Net.TwitterClient.googlHelper.Key = "$GOOGLE_API_KEY$";
-
             MainWindow = new MainWindow();
             MainWindow.Show();
-            Log.Logger.Default.AddLogItem(new Log.LogItem("程序启动"));
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -118,16 +75,15 @@ namespace MiniTwitter
                 Application.Current.Shutdown();
                 return;
             }
+
             var exception = (Exception)e.ExceptionObject;
-            Log.Logger.Default.AddLogItem(new Log.LogItem(exception));
-            MessageBox.Show("发生内部错误 \n\n" + exception.ToString(), App.NAME);
+            MessageBox.Show("内部エラーが発生しました。\n\n" + exception.ToString(), App.NAME);
             Application.Current.Shutdown();
 #endif
         }
 
         private void App_Exit(object sender, ExitEventArgs e)
         {
-            Log.Logger.Default.AddLogItem(new Log.LogItem("程序退出"));
             if (!_isSaved)
             {
                 lock (_syncLock)
@@ -139,7 +95,6 @@ namespace MiniTwitter
                     }
                 }
             }
-            ((IDisposable)Log.Logger.Default).Dispose();
         }
 
         private void App_SessionEnding(object sender, SessionEndingCancelEventArgs e)
@@ -166,8 +121,8 @@ namespace MiniTwitter
                 Application.Current.Shutdown();
                 return;
             }
-            Log.Logger.Default.AddLogItem(new Log.LogItem(e.Exception));
-            MessageBox.Show("发生内部错误\n\n" + e.Exception.ToString(), App.NAME);
+
+            MessageBox.Show("内部エラーが発生しました。\n\n" + e.Exception.ToString(), App.NAME);
             e.Handled = true;
             Application.Current.Shutdown();
 #endif
@@ -180,10 +135,7 @@ namespace MiniTwitter
 
         private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
 
-        public const string VERSION = "1.66.⑨.7";
-        public const string NAME = "MiniTwitter Mod";
-
-        public const string consumer_key = "$CONSUMER_KEY$";
-        public const string consumer_secret = "$CONSUMER_SECRET$";
+        public const string VERSION = "1.66";
+        public const string NAME = "MiniTwitter";
     }
 }

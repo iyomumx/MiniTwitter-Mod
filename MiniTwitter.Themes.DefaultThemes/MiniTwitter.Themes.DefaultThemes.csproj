@@ -12,14 +12,10 @@
     <AssemblyName>MiniTwitter.Themes.DefaultThemes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>%24/MiniTwitter/MiniTwitter.Themes.DefaultThemes</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>https://tfs.codeplex.com/tfs/tfs01</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -61,41 +57,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>..\MiniTwitter\bin\x86\Debug\MiniTwitter.Themes.DefaultThemes.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>bin\x86\Release\MiniTwitter.Themes.DefaultThemes.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore">
@@ -166,8 +127,7 @@
     <Resource Include="MiniTwitter_Standard\Images\arrow_left.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniTwitterMod_tmpkey.pfx" />
-    <None Include="ProduceBy_iyome.pfx" />
+    <Folder Include="MiniTwitter_Dark\Images\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -185,30 +145,6 @@
       <ProductName>Windows インストーラー 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MiniTwitter_Dark\Images\account.png" />
-    <Resource Include="MiniTwitter_Dark\Images\addin.png" />
-    <Resource Include="MiniTwitter_Dark\Images\arrow_left.png" />
-    <Resource Include="MiniTwitter_Dark\Images\arrow_refresh.png" />
-    <Resource Include="MiniTwitter_Dark\Images\arrow_reply.png" />
-    <Resource Include="MiniTwitter_Dark\Images\cross.png" />
-    <Resource Include="MiniTwitter_Dark\Images\design.png" />
-    <Resource Include="MiniTwitter_Dark\Images\heart.png" />
-    <Resource Include="MiniTwitter_Dark\Images\home.png" />
-    <Resource Include="MiniTwitter_Dark\Images\keyboard.png" />
-    <Resource Include="MiniTwitter_Dark\Images\keyword.png" />
-    <Resource Include="MiniTwitter_Dark\Images\log.png" />
-    <Resource Include="MiniTwitter_Dark\Images\network.png" />
-    <Resource Include="MiniTwitter_Dark\Images\new.png" />
-    <Resource Include="MiniTwitter_Dark\Images\popup.png" />
-    <Resource Include="MiniTwitter_Dark\Images\protect.png" />
-    <Resource Include="MiniTwitter_Dark\Images\retweet.png" />
-    <Resource Include="MiniTwitter_Dark\Images\search.png" />
-    <Resource Include="MiniTwitter_Dark\Images\setting.png" />
-    <Resource Include="MiniTwitter_Dark\Images\sound.png" />
-    <Resource Include="MiniTwitter_Dark\Images\star.png" />
-    <Resource Include="MiniTwitter_Dark\Images\star_empty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -20,10 +20,10 @@
     </Style>
 
     <Style x:Key="FavoriteMenuItemStyle" TargetType="{x:Type MenuItem}">
-        <Setter Property="Header" Value="添加到收藏(_F)"/>
+        <Setter Property="Header" Value="お気に入りに追加(_F)"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Favorited}" Value="True">
-                <Setter Property="Header" Value="从收藏删除(_U)"/>
+                <Setter Property="Header" Value="お気に入りから削除(_U)"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -115,24 +115,23 @@
     </Style>
 
     <ContextMenu x:Key="TextBoxContextMenu">
-        <MenuItem Header="撤销(_U)" Command="ApplicationCommands.Undo"/>
+        <MenuItem Header="元に戻す(_U)" Command="ApplicationCommands.Undo"/>
         <Separator/>
-        <MenuItem Header="剪切(_T)" Command="ApplicationCommands.Cut"/>
-        <MenuItem Header="复制(_C)" Command="ApplicationCommands.Copy"/>
-        <MenuItem Header="粘贴(_P)" Command="ApplicationCommands.Paste"/>
-        <MenuItem Header="删除(_D)" Command="EditingCommands.Delete"/>
+        <MenuItem Header="切り取り(_T)" Command="ApplicationCommands.Cut"/>
+        <MenuItem Header="コピー(_C)" Command="ApplicationCommands.Copy"/>
+        <MenuItem Header="貼り付け(_P)" Command="ApplicationCommands.Paste"/>
+        <MenuItem Header="削除(_D)" Command="EditingCommands.Delete"/>
         <Separator/>
-        <MenuItem Header="全选(_A)" Command="ApplicationCommands.SelectAll"/>
+        <MenuItem Header="すべて選択(_A)" Command="ApplicationCommands.SelectAll"/>
         <Separator/>
-        <MenuItem Header="插入(_I)">
-            <MenuItem Header="上传照片至Twitpic(_P)" Command="MiniTwitter_Input:Commands.Twitpic" />
-            <MenuItem Header="上传照片至img.ly(_M)" Command="MiniTwitter_Input:Commands.Imgly" />
+        <MenuItem Header="挿入(_I)">
+            <MenuItem Header="Twitpic へアップロード(_P)" Command="MiniTwitter_Input:Commands.Twitpic" />
             <Separator />
-            <MenuItem Header="正在播放信息(_I)" Command="MiniTwitter_Input:Commands.PlayTitle" />
-            <MenuItem Header="所在地信息(_G)" Command="MiniTwitter_Input:Commands.GpsLocation" />
+            <MenuItem Header="再生中の曲情報(_I)" Command="MiniTwitter_Input:Commands.PlayTitle" />
+            <MenuItem Header="現在地の情報(_G)" Command="MiniTwitter_Input:Commands.GpsLocation" />
         </MenuItem>
         <Separator/>
-        <MenuItem Header="推文语尾(_F)" ItemsSource="{Binding Path=TweetFooterHistory, Source={x:Static MiniTwitter_Properties:Settings.Default}}">
+        <MenuItem Header="フッター(_F)" ItemsSource="{Binding Path=TweetFooterHistory, Source={x:Static MiniTwitter_Properties:Settings.Default}}">
             <MenuItem.ItemContainerStyle>
                 <Style TargetType="{x:Type MenuItem}">
                     <Setter Property="IsChecked" Value="{Binding Converter={StaticResource FooterConverter}, Mode=OneWay}" />
@@ -144,24 +143,23 @@
     </ContextMenu>
 
     <ContextMenu x:Key="StatusContextMenu">
-        <MenuItem Header="回复(_R)" Command="MiniTwitter_Input:Commands.Reply" CommandParameter="{Binding}" />
-        <MenuItem Header="回复所有(_P)" Command="MiniTwitter_Input:Commands.ReplyAll" CommandParameter="{Binding}" />
-        <MenuItem Header="发送私信(_D)" Command="MiniTwitter_Input:Commands.ReplyMessage" CommandParameter="{Binding}"/>
+        <MenuItem Header="返信(_R)" Command="MiniTwitter_Input:Commands.Reply" CommandParameter="{Binding}" />
+        <MenuItem Header="メッセージを送信(_D)" Command="MiniTwitter_Input:Commands.ReplyMessage" CommandParameter="{Binding}"/>
         <Separator />
         <MenuItem Header="ReTweet(_T)" Command="MiniTwitter_Input:Commands.ReTweetApi" CommandParameter="{Binding}" />
-        <MenuItem Header="带评论 ReTweet(_Q)" Command="MiniTwitter_Input:Commands.ReTweet" CommandParameter="{Binding}" />
+        <MenuItem Header="コメント付き ReTweet(_Q)" Command="MiniTwitter_Input:Commands.ReTweet" CommandParameter="{Binding}" />
         <Separator/>
         <MenuItem Command="MiniTwitter_Input:Commands.Favorite" CommandParameter="{Binding}" Style="{StaticResource FavoriteMenuItemStyle}"/>
         <Separator/>
-        <MenuItem Header="删除此推(_X)" IsEnabled="{Binding Path=IsAuthor}" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
+        <MenuItem Header="ステータスを削除(_X)" IsEnabled="{Binding Path=IsAuthor}" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
         <Separator/>
-        <MenuItem Header="全部设为已读(_R)" Command="MiniTwitter_Input:Commands.ReadAll" />
+        <MenuItem Header="すべて既読にする(_R)" Command="MiniTwitter_Input:Commands.ReadAll" />
         <Separator/>
-        <MenuItem Header="打开网页到(_M)" >
-            <MenuItem Header="用户页(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+        <MenuItem Header="移動(_M)" >
+            <MenuItem Header="ユーザーページ(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
             <Separator />
-            <MenuItem Header="推文页(_S)" Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}"/>
-            <MenuItem Header="回复页(_T)" Command="MiniTwitter_Input:Commands.MoveToReplyPage" CommandParameter="{Binding}">
+            <MenuItem Header="ステータスページ(_S)" Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}"/>
+            <MenuItem Header="宛先のステータスページ(_T)" Command="MiniTwitter_Input:Commands.MoveToReplyPage" CommandParameter="{Binding}">
                 <MenuItem.Style>
                     <Style TargetType="{x:Type MenuItem}">
                         <Style.Triggers>
@@ -173,37 +171,36 @@
                 </MenuItem.Style>
             </MenuItem>
         </MenuItem>
-        <MenuItem Header="用户(_A)">
-            <MenuItem Header="跟随(_F)" Command="MiniTwitter_Input:Commands.Follow" CommandParameter="{Binding}" />
-            <MenuItem Header="取消跟随(_U)" Command="MiniTwitter_Input:Commands.Unfollow" CommandParameter="{Binding}" />
+        <MenuItem Header="フレンド(_A)">
+            <MenuItem Header="フォローする(_F)" Command="MiniTwitter_Input:Commands.Follow" CommandParameter="{Binding}" />
+            <MenuItem Header="フォローを解除する(_U)" Command="MiniTwitter_Input:Commands.Unfollow" CommandParameter="{Binding}" />
             <Separator />
-            <MenuItem Header="阻止(_B)" Command="MiniTwitter_Input:Commands.Block" CommandParameter="{Binding}" />
-            <MenuItem Header="报告广告账户(_R)" Command="MiniTwitter_Input:Commands.ReportSpam" CommandParameter="{Binding}" />
+            <MenuItem Header="ブロックする(_B)" Command="MiniTwitter_Input:Commands.Block" CommandParameter="{Binding}" />
         </MenuItem>
         <Separator/>
-        <MenuItem Header="复制(_C)">
-            <MenuItem Header="用户名(_I)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Sender.ScreenName}"/>
+        <MenuItem Header="コピー(_C)">
+            <MenuItem Header="ユーザー名(_I)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Sender.ScreenName}"/>
             <Separator/>
-            <MenuItem Header="推文(_S)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Text}" />
-            <MenuItem Header="推文页URL(_U)" Command="MiniTwitter_Input:Commands.CopyUrl" CommandParameter="{Binding}"/>
+            <MenuItem Header="ステータス(_S)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Text}" />
+            <MenuItem Header="ステータスURL(_U)" Command="MiniTwitter_Input:Commands.CopyUrl" CommandParameter="{Binding}"/>
         </MenuItem>
         <Separator/>
-        <MenuItem Header="显示(_V)">
-            <MenuItem Header="标准(_S)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Standard}" Style="{StaticResource StandardMenuItemStyle}"/>
-            <MenuItem Header="气泡(_B)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Balloon}" Style="{StaticResource BalloonMenuItemStyle}"/>
-            <MenuItem Header="列表(_L)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.List}" Style="{StaticResource ListMenuItemStyle}"/>
+        <MenuItem Header="表示(_V)">
+            <MenuItem Header="標準(_S)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Standard}" Style="{StaticResource StandardMenuItemStyle}"/>
+            <MenuItem Header="吹き出し(_B)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Balloon}" Style="{StaticResource BalloonMenuItemStyle}"/>
+            <MenuItem Header="一覧(_L)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.List}" Style="{StaticResource ListMenuItemStyle}"/>
             <Separator/>
-            <MenuItem Header="显示头像(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
+            <MenuItem Header="アイコンを表示(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
         </MenuItem>
-        <MenuItem Header="排序(_O)">
-            <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
-            <MenuItem Header="时间" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
+        <MenuItem Header="並べ替え(_O)">
+            <MenuItem Header="ユーザー名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
+            <MenuItem Header="更新日時" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
             <Separator/>
-            <MenuItem Header="升序(_A)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Ascending}" Style="{StaticResource AscendingMenuItemStyle}"/>
-            <MenuItem Header="降序(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>
+            <MenuItem Header="昇順(_A)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Ascending}" Style="{StaticResource AscendingMenuItemStyle}"/>
+            <MenuItem Header="降順(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>
         </MenuItem>
         <Separator />
-        <MenuItem Header="添加到标签页(_T)" DisplayMemberPath="Name" ItemsSource="{Binding Path=Timelines, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+        <MenuItem Header="振り分け(_T)" DisplayMemberPath="Name" ItemsSource="{Binding Path=Timelines, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
             <MenuItem.ItemContainerStyle>
                 <Style TargetType="{x:Type MenuItem}">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -220,41 +217,41 @@
     </ContextMenu>
 
     <ContextMenu x:Key="MessageContextMenu">
-        <MenuItem Header="回复私信(_R)" Command="MiniTwitter_Input:Commands.ReplyMessage" CommandParameter="{Binding}"/>
+        <MenuItem Header="返信(_R)" Command="MiniTwitter_Input:Commands.ReplyMessage" CommandParameter="{Binding}"/>
         <Separator/>
-        <MenuItem Header="打开用户页(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+        <MenuItem Header="ユーザーページ(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
         <Separator/>
-        <MenuItem Header="删除私信(_X)" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
+        <MenuItem Header="メッセージを削除(_X)" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
         <Separator/>
-        <MenuItem Header="复制(_C)">
-            <MenuItem Header="用户名(_I)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Sender.ScreenName}"/>
+        <MenuItem Header="コピー(_C)">
+            <MenuItem Header="ユーザー名(_I)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Sender.ScreenName}"/>
             <Separator/>
-            <MenuItem Header="文字(_S)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Text}" />
+            <MenuItem Header="メッセージ(_S)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Text}" />
         </MenuItem>
         <Separator/>
-        <MenuItem Header="显示(_V)">
-            <MenuItem Header="标准(_S)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Standard}" Style="{StaticResource StandardMenuItemStyle}"/>
-            <MenuItem Header="气泡(_B)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Balloon}" Style="{StaticResource BalloonMenuItemStyle}"/>
-            <MenuItem Header="列表(_L)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.List}" Style="{StaticResource ListMenuItemStyle}"/>
+        <MenuItem Header="表示(_V)">
+            <MenuItem Header="標準(_S)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Standard}" Style="{StaticResource StandardMenuItemStyle}"/>
+            <MenuItem Header="吹き出し(_B)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Balloon}" Style="{StaticResource BalloonMenuItemStyle}"/>
+            <MenuItem Header="一覧(_L)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.List}" Style="{StaticResource ListMenuItemStyle}"/>
             <Separator/>
-            <MenuItem Header="图标表示(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
+            <MenuItem Header="アイコンを表示(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
         </MenuItem>
-        <MenuItem Header="排序(_O)">
-            <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
-            <MenuItem Header="时间" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
+        <MenuItem Header="並べ替え(_O)">
+            <MenuItem Header="ユーザー名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
+            <MenuItem Header="更新日時" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
             <Separator/>
-            <MenuItem Header="升序(_A)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Ascending}" Style="{StaticResource AscendingMenuItemStyle}"/>
-            <MenuItem Header="降序(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>
+            <MenuItem Header="昇順(_A)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Ascending}" Style="{StaticResource AscendingMenuItemStyle}"/>
+            <MenuItem Header="降順(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>
         </MenuItem>
     </ContextMenu>
     
     <ContextMenu x:Key="TimelineContextMenu">
-        <MenuItem Header="添加标签页(_A)..." Command="MiniTwitter_Input:Commands.AddTimeline" />
-        <MenuItem Header="改变设置(_E)..." Command="MiniTwitter_Input:Commands.EditTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
+        <MenuItem Header="新しいタイムライン(_A)..." Command="MiniTwitter_Input:Commands.AddTimeline" />
+        <MenuItem Header="設定を変更(_E)..." Command="MiniTwitter_Input:Commands.EditTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
         <Separator/>
-        <MenuItem Header="删除(_D)" Command="MiniTwitter_Input:Commands.DeleteTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
+        <MenuItem Header="削除(_D)" Command="MiniTwitter_Input:Commands.DeleteTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
         <Separator/>
-        <MenuItem Header="全部删除(_C)" Command="MiniTwitter_Input:Commands.ClearTimeline"/>
+        <MenuItem Header="すべての項目を削除(_C)" Command="MiniTwitter_Input:Commands.ClearTimeline"/>
     </ContextMenu>
 
 </ResourceDictionary>

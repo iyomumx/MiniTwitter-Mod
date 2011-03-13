@@ -63,7 +63,7 @@ namespace MiniTwitter.Controls
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
         }
 
-        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})", RegexOptions.Compiled);
+        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|@(?<user>[a-zA-Z_0-9]+)\s?|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})", RegexOptions.Compiled);
 
         private void OnTextChanged(string text)
         {
@@ -91,7 +91,7 @@ namespace MiniTwitter.Controls
                 {
                     diff = 1;
                     value = match.Groups["user"].Value;
-                    Hyperlink link = new Hyperlink { Tag = "https://twitter.com/" + value };
+                    Hyperlink link = new Hyperlink { Tag = "http://twitter.com/" + value };
                     link.Inlines.Add(value);
                     link.Click += Hyperlink_Click;
                     TextBlock.Inlines.Add("@");
@@ -157,39 +157,9 @@ namespace MiniTwitter.Controls
                 var hyperlink = (Hyperlink)sender;
                 var url = (string)hyperlink.Tag;
 
-                if (Keyboard.Modifiers == ModifierKeys.Control)
-                {
-                    Process.Start(url);
-                    return;
-                }
-
                 if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
-
-                    ShowPopup(uri, url);
-                }
-                else if (Regex.IsMatch(url, @"http:\/\/img\.ly\/(.+?)"))
-                {
-                    var uri = new Uri("http://img.ly/show/medium/" + url.Substring(14));
-
-                    ShowPopup(uri, url);
-                }
-                else if (Regex.IsMatch(url, @"http:\/\/plixi\.com\/p\/(.+?)"))
-                {
-                    var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + url);
-
-                    ShowPopup(uri, url);
-                }
-                else if (Regex.IsMatch(url, @"http:\/\/flic\.kr\/p\/(.+?)"))
-                {
-                    var uri = new Uri("http://flic.kr/p/img/" + url.Substring(17) + "_m.jpg");
-
-                    ShowPopup(uri, url);
-                }
-                else if (Regex.IsMatch(url, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
-                {
-                    var uri = new Uri(url + ":iphone");
 
                     ShowPopup(uri, url);
                 }
@@ -237,7 +207,7 @@ namespace MiniTwitter.Controls
             }
             catch
             {
-                MessageBox.Show("无法打开浏览器", App.NAME);
+                MessageBox.Show("移動に失敗しました", App.NAME);
             }
         }
 
@@ -259,11 +229,10 @@ namespace MiniTwitter.Controls
             };
             bitmap.BeginInit();
             bitmap.UriSource = uri;
-            bitmap.DecodePixelWidth = 400;
             bitmap.EndInit();
             if (bitmap.IsDownloading)
             {
-                progress.IsOpen = true;    
+                progress.IsOpen = true;
             }
             else
             {
@@ -272,6 +241,7 @@ namespace MiniTwitter.Controls
                     Image = bitmap,
                     Url = url,
                 };
+                popup.IsOpen = true;
             }
         }
 
@@ -306,24 +276,6 @@ namespace MiniTwitter.Controls
             if (hyperlink.ToolTip is string)
             {
                 var url = (string)hyperlink.Tag;
-                //goo.gl反解析
-                if (Regex.IsMatch(url, @"http://goo\.gl\/(.+?)"))
-                {
-                    var gc = MiniTwitter.Net.TwitterClient.googlHelper;
-                    url = gc.GetOriginalUrl(url);
-                    if (Settings.Default.AntiShortUrlTracking)
-                    {
-                        hyperlink.Tag = url;
-                    }
-                }
-                if (Regex.IsMatch(url, @"http://bit\.ly/[A-Za-z0-9_/.;%&\-]+"))
-                {
-                    url = MiniTwitter.Net.BitlyHelper.ConvertFrom(url);
-                    if (Settings.Default.AntiShortUrlTracking)
-                    {
-                        hyperlink.Tag = url;
-                    }
-                }
                 hyperlink.ToolTip = null;
                 try
                 {
@@ -331,114 +283,10 @@ namespace MiniTwitter.Controls
 
                     if (!location.IsNullOrEmpty())
                     {
-                        //if (Regex.IsMatch(location, @"http:\/\/twitpic\.com\/(.+?)"))
-                        //{
-                        //    var uri = new Uri("http://twitpic.com/show/large/" + location.Substring(19));
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/img\.ly\/(.+?)"))
-                        //{
-                        //    var uri = new Uri("http://img.ly/show/medium/" + location.Substring(14));
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/plixi\.com\/p\/(.+?)"))
-                        //{
-                        //    var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + location);
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/www\.youtube\.com\/watch\?v\=(.+?)"))
-                        //{
-                        //    var uri = new Uri("http://img.youtube.com/vi/" + location.Substring(31)+"/0.jpg");
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/flic\.kr\/p\/(.+?)"))
-                        //{
-                        //    var uri = new Uri("http://flic.kr/p/img/" + location.Substring(17)+"_m.jpg");
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
-                        //{
-                        //    var uri = new Uri(location + ":small");
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/yfrog\.com\/(.+?)[zf]$"))
-                        //{
-                        //    var uri = new Uri(location + ":frame");
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = uri;
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
-                        //{
-                        //    var client = new WebClient();
-                        //    var contents = client.DownloadString(url);
-                        //    var match = Regex.Match(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
-                        //    match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", match.Groups[2].Value));
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = new Uri(match.Groups[1].Value);
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/movapic\.com\/pic\/(.+?)"))
-                        //{
-                        //    var client = new WebClient();
-                        //    var contents = client.DownloadString(url);
-                        //    var match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = new Uri(match.Groups[1].Value);
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else if (Regex.IsMatch(location, @"http:\/\/gyazo\.com\/(.+?)"))
-                        //{
-                        //    var bitmap = new BitmapImage();
-                        //    bitmap.BeginInit();
-                        //    bitmap.UriSource = new Uri(location);
-                        //    bitmap.DecodePixelWidth = 200;
-                        //    bitmap.EndInit();
-                        //    hyperlink.ToolTip = new Image { Source = bitmap };
-                        //}
-                        //else
+                        hyperlink.ToolTip = new TextBlock
                         {
-                            hyperlink.ToolTip = new TextBlock { Text = location };
-                        }
+                            Text = location
+                        };
                     }
                 }
                 catch { }

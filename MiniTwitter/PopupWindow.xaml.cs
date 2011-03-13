@@ -103,13 +103,13 @@ namespace MiniTwitter
             {
                 try
                 {
-                    Show(); 
+                    Show();
                 }
-                catch 
+                catch
                 {
+                    return;
                 }
             }
-
             // 自動閉じタイマーを開始
             closeTimer.Start();
         }

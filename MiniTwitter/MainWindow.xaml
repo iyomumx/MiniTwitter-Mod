@@ -9,14 +9,14 @@
     xmlns:s="clr-namespace:System;assembly=mscorlib"
     x:Name="Window"
     Title="MiniTwitter" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
-    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}" Icon="/MiniTwitter;component/Resources/MiniTwitter.ico"
+    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}" Icon="Resources\MiniTwitter_small.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
-    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" >
+    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="MiniTwitter">
             <TaskbarItemInfo.ThumbButtonInfos>
                 <ThumbButtonInfo DismissWhenClicked="False" Command="MiniTwitter_Input:Commands.Refresh"
-                                 CommandTarget="{Binding ElementName=Window}" Description="刷新"
+                                 CommandTarget="{Binding ElementName=Window}" Description="更新"
                                  ImageSource="/MiniTwitter;component/Resources/arrow_refresh.png" />
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
@@ -25,9 +25,8 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Update" Executed="UpdateCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Refresh" Executed="RefreshCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Reply" Executed="ReplyCommand_Executed"/>
-        <CommandBinding Command="MiniTwitter_Input:Commands.ReplyAll" Executed="ReplyAllCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReTweet" Executed="ReTweetCommand_Executed"/>
-        <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" CanExecute="ReTweetApiCommand_CanExecuted" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ReplyMessage" Executed="ReplyMessageCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Delete" Executed="DeleteCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Favorite" Executed="FavoriteCommand_Executed"/>
@@ -35,7 +34,6 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.MoveToUserPage" Executed="MoveToUserPageCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.MoveToStatusPage" Executed="MoveToStatusPageCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.MoveToReplyPage" Executed="MoveToReplyPageCommand_Executed" />
-        <CommandBinding Command="MiniTwitter_Input:Commands.MoveToSourcePage" Executed="MoveToSourcePageCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReadAll" Executed="ReadAllCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ScrollUp" Executed="ScrollUpCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ScrollDown" Executed="ScrollDownCommand_Executed" />
@@ -51,24 +49,21 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Footer" Executed="FooterCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Search" Executed="SearchCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Twitpic" Executed="TwitpicCommand_Executed" />
-        <CommandBinding Command="MiniTwitter_Input:Commands.Imgly" Executed="imglyCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.PlayTitle" Executed="PlayTitleCommand_Executed" CanExecute="PlayTitleCommand_CanExecuted" />
         <CommandBinding Command="MiniTwitter_Input:Commands.InReplyTo" Executed="InReplyToCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.GpsLocation" Executed="GpsLocationCommand_Executed" CanExecute="GpsLocationCommand_CanExecute" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Follow" Executed="FollowCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Unfollow" Executed="UnfollowCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Block" Executed="BlockCommand_Executed" />
-        <CommandBinding Command="MiniTwitter_Input:Commands.ReportSpam" Executed="ReportSpam_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Hashtag" Executed="HashtagCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
-            <MenuItem Header="无声模式(_Q)" IsCheckable="True" Checked="SilentMenuItem_Checked" Unchecked="SilentMenuItem_Unchecked" />
+            <MenuItem Header="サイレントモード(_Q)" IsCheckable="True" Checked="SilentMenuItem_Checked" Unchecked="SilentMenuItem_Unchecked" />
             <Separator />
-            <MenuItem Header="退出(_X)" Click="CloseMenuItem_Click" />
+            <MenuItem Header="終了(_X)" Click="CloseMenuItem_Click" />
         </ContextMenu>
         <MiniTwitter:InvertBooleanConverter x:Key="InvertBooleanConverter" />
-        <MiniTwitter:StateToColorConverter x:Key="StateToColorConverter" />
     </Window.Resources>
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="6">
@@ -87,7 +82,7 @@
                        Visibility="{Binding Path=EnableTweetFooter, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Static MiniTwitter_Properties:Settings.Default}}" />
             <TextBox x:Name="TweetTextBox" Grid.Row="1" Margin="0,4,0,6" AcceptsTab="True" TextWrapping="Wrap" TextChanged="TweetTextBox_TextChanged" KeyUp="TweetTextBox_KeyUp"
                      VerticalScrollBarVisibility="Auto" KeyDown="TweetTextBox_KeyDown" PreviewKeyDown="TweetTextBox_PreviewKeyDown"  Style="{DynamicResource TweetTextBoxStyle}"
-                     >
+                     Background="Transparent">
                 <TextBox.CommandBindings>
                     <CommandBinding Command="Paste" Executed="PasteCommand_Executed" />
                 </TextBox.CommandBindings>
@@ -142,7 +137,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="搜索:" Grid.Column="0" FontWeight="Bold" Margin="0,0,3,0" VerticalAlignment="Center" />
+                <TextBlock Text="検索:" Grid.Column="0" FontWeight="Bold" Margin="0,0,3,0" VerticalAlignment="Center" />
                 <TextBox x:Name="searchTermTextBox" Grid.Column="1" HorizontalAlignment="Stretch" KeyUp="SearchTermTextBox_KeyUp" />
                 <Button Grid.Column="2" Style="{DynamicResource ImageButtonStyle}" Click="SearchCancelButton_Click">
                     <Image Style="{DynamicResource CrossImageStyle}" />
@@ -155,16 +150,8 @@
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <ProgressBar x:Name="APICounterProgressBar" Value="{Binding ElementName=Window, Path=TClient.RateLimitRemain, Mode=OneWay}" 
-                                 Maximum="{Binding ElementName=Window, Path=TClient.TotalRateLimit, Mode=OneWay}" Minimum="0" 
-                                 MouseDoubleClick="ProgressBar_MouseDoubleClick" 
-                                 Width="40" Height="14" Margin="0,0,5,0" 
-                                 Tag="{Binding ElementName=Window, Path=TClient.ResetTimeString, Mode=OneWay}"
-                                 Foreground="{Binding ElementName=Window, Path=TClient.RateLimitState, Mode=OneWay, Converter={StaticResource StateToColorConverter}}">
-                        <ProgressBar.ToolTip>双击查看详细信息</ProgressBar.ToolTip>
-                    </ProgressBar>
-                    <Image Width="14" Height="14" Margin="0,0,5,0" Style="{DynamicResource PopupImageStyle}" />
-                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}" />
+                    <Image Width="14" Height="14" Margin="0,0,5,0" Style="{DynamicResource PopupImageStyle}"/>
+                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 件}"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -194,13 +181,11 @@
                 <DataTemplate>
                     <ListBox x:Name="TimelineListBox" IsSynchronizedWithCurrentItem="True" AlternationCount="2"
                              VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling"
-                             ScrollViewer.ScrollChanged="TimelineListBox_ScrollChanged"
+                             ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.ScrollChanged="TimelineListBox_ScrollChanged"
                              SelectionChanged="TimelineListBox_SelectionChanged" PreviewMouseWheel="TimelineListBox_MouseWheel"
                              MouseDoubleClick="TimelineListBox_MouseDoubleClick" ItemsSource="{Binding Path=Items}"
                              Style="{DynamicResource TimelineListBoxStyle}" ItemContainerStyle="{DynamicResource TimelineListBoxItemStyle}"
-                             ItemTemplateSelector="{StaticResource TimelineStyleSelector}" HorizontalContentAlignment="Stretch" 
-                             ScrollViewer.CanContentScroll="{Binding Path=SmoothScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"
-                             ScrollViewer.IsDeferredScrollingEnabled="{Binding Path=RealtimeScroll, Source={x:Static MiniTwitter_Properties:Settings.Default}, Converter={StaticResource InvertBooleanConverter}}"/>
+                             ItemTemplateSelector="{StaticResource TimelineStyleSelector}" HorizontalContentAlignment="Stretch"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

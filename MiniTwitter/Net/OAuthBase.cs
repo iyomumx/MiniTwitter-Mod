@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
@@ -6,12 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Xml;
+using System.Web;
 using System.Xml.Serialization;
 
 namespace MiniTwitter.Net
 {
-    public class OAuthBase : PropertyChangedBase
+    public class OAuthBase
     {
         protected OAuthBase(string consumerKey, string consumerSecret)
         {
@@ -26,7 +27,6 @@ namespace MiniTwitter.Net
         private readonly string _consumerSecret;
 
         public const string Endpoint = "https://api.twitter.com/";
-        public const string SignEndpoint = "https://api.twitter.com";
 
         private readonly static Random _random = new Random();
         private readonly static DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
@@ -45,131 +45,13 @@ namespace MiniTwitter.Net
         {
             private static readonly XmlSerializer _xs = new XmlSerializer(typeof(T));
 
-            //static Serializer()
-            //{
-            //    _xs.UnknownAttribute += (_, __) => { };
-            //    _xs.UnknownElement += (_, __) => { };
-            //    _xs.UnknownNode += (_, __) => { };
-            //    _xs.UnreferencedObject += (_, __) => { };
-            //}
-
             public static T Deserialize(Stream stream)
             {
                 return (T)_xs.Deserialize(stream);
             }
-
-            public static T Deserialize(XmlReader reader)
-            {
-                return (T)_xs.Deserialize(reader);
-            }
-
-            public static T Deserialize(TextReader reader)
-            {
-                return (T)_xs.Deserialize(reader);
-            }
         }
 
         #region インスタンスメソッド
-
-        private int _totalRateLimit;
-
-        public int TotalRateLimit
-        {
-            get
-            {
-                return _totalRateLimit;
-            }
-            protected set
-            {
-                if (_totalRateLimit != value)
-                {
-                    _totalRateLimit = value;
-                    OnPropertyChanged("TotalRateLimit");
-                }
-            }
-        }
-
-        private int _rateLimitRemain;
-
-        public int RateLimitRemain
-        {
-            get
-            {
-                return _rateLimitRemain;
-            }
-            protected set
-            {
-                if (_rateLimitRemain != value)
-                {
-                    _rateLimitRemain = value;
-                    double state = (double)_rateLimitRemain / (double)_totalRateLimit;
-                    if (state>0.5)
-                    {
-                        RateLimitState = 0;
-                    }
-                    else if(state>0.2)
-                    {
-                        RateLimitState = 1;
-                    }
-                    else
-                    {
-                        RateLimitState = 2;
-                    }
-                    OnPropertyChanged("RateLimitRemain");
-                }
-            }
-        }
-
-        private int _rateLimitState;
-
-        public int RateLimitState
-        {
-            get
-            {
-                return _rateLimitState;
-            }
-            protected set
-            {
-                if (_rateLimitState != value)
-                {
-                    _rateLimitState = value;
-                    OnPropertyChanged("RateLimitState");
-                }
-            }
-        }
-
-        private int _resetTime;
-
-        public int ResetTime
-        {
-            get
-            {
-                return _resetTime;
-            }
-            protected set
-            {
-                if (_resetTime != value)
-                {
-                    _resetTime = value;
-                    OnPropertyChanged("ResetTime");
-                    ResetTimeString = TimeZone.CurrentTimeZone.ToLocalTime(_unixEpoch.AddSeconds(value)).ToLongTimeString();
-                }
-            }
-        }
-
-        private string _resetTimeString;
-        public string ResetTimeString
-        {
-            get
-            {
-                return _resetTimeString;
-            }
-            protected set
-            {
-                _resetTimeString = value;
-                OnPropertyChanged("ResetTimeString");
-            }
-        }
 
         protected string Get(string url)
         {
@@ -277,22 +159,6 @@ namespace MiniTwitter.Net
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
-                    try
-                    {
-                        int num;
-                        int.TryParse(response.Headers["X-RateLimit-Limit"], out num);
-                        if (num != 0)
-                        {
-                            TotalRateLimit = num;
-                            int.TryParse(response.Headers["X-RateLimit-Remaining"], out num);
-                            RateLimitRemain = num;
-                            int.TryParse(response.Headers["X-RateLimit-Reset"], out num);
-                            ResetTime = num;
-                        }
-                    }
-                    catch
-                    {
-                    }
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
                         return reader.ReadToEnd();
@@ -303,12 +169,6 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
-                        string msg;
-                        using (var sr = new System.IO.StreamReader(e.Response.GetResponseStream()))
-                        {
-                            msg = sr.ReadToEnd();
-                        }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -332,6 +192,7 @@ namespace MiniTwitter.Net
         private T Fetch<T>(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified) where T : class
         {
             lastModified = DateTime.Now;
+
             for (int i = 0; i < 5; ++i)
             {
                 var request = CreateRequest(verb, url, param, token, tokenSecret, verifier);
@@ -339,22 +200,6 @@ namespace MiniTwitter.Net
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
-                    try
-                    {
-                        int num;
-                        int.TryParse(response.Headers["X-RateLimit-Limit"], out num);
-                        if (num != 0)
-                        {
-                            TotalRateLimit = num;
-                            int.TryParse(response.Headers["X-RateLimit-Remaining"], out num);
-                            RateLimitRemain = num;
-                            int.TryParse(response.Headers["X-RateLimit-Reset"], out num);
-                            ResetTime = num;
-                        }
-                    }
-                    catch
-                    {
-                    }
                     using (var stream = response.GetResponseStream())
                     {
                         return Serializer<T>.Deserialize(stream);
@@ -365,21 +210,15 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
-                        string msg;
-                        using (var sr = new System.IO.StreamReader(e.Response.GetResponseStream()))
-                        {
-                            msg = sr.ReadToEnd();
-                        }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
+
                         if ((int)response.StatusCode < 500)
                         {
-                            throw new ApplicationException(msg, e);
+                            throw;
                         }
                     }
                 }
-                catch(Exception ex)
+                catch
                 {
-                    Log.Logger.Default.AddLogItem(new Log.LogItem(ex));
                     return default(T);
                 }
             }
@@ -397,19 +236,7 @@ namespace MiniTwitter.Net
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
-                    //try
-                    //{
-                    //    int num;
-                    //    int.TryParse(response.Headers["X-RateLimit-Remaining"], out num);
-                    //    RateLimitRemain = num;
-                    //    int.TryParse(response.Headers["X-RateLimit-Limit"], out num);
-                    //    TotalRateLimit = num;
-                    //    int.TryParse(response.Headers["X-RateLimit-Reset"], out num);
-                    //    ResetTime = num;
-                    //}
-                    //catch
-                    //{
-                    //}
+
                     return response.GetResponseStream();
                 }
                 catch (WebException e)
@@ -417,12 +244,7 @@ namespace MiniTwitter.Net
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
-                        string msg;
-                        using (var sr = new System.IO.StreamReader(e.Response.GetResponseStream()))
-                        {
-                            msg = sr.ReadToEnd();
-                        }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
+
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -525,20 +347,7 @@ namespace MiniTwitter.Net
                 }
             }
             // OAuth の認証ヘッダーを付ける
-            if (MiniTwitter.Properties.Settings.Default.UseBasicAuth)
-            {
-                request.Credentials = new System.Net.NetworkCredential(MiniTwitter.Properties.Settings.Default.Token, MiniTwitter.Properties.Settings.Default.TokenSecret);
-                request.Headers[HttpRequestHeader.Authorization] = string.Format("BASICAUTH {0}",
-                    Convert.ToBase64String(
-                        Encoding.UTF8.GetBytes(
-                            String.Format("{0}:{1}", 
-                                            MiniTwitter.Properties.Settings.Default.Token, 
-                                            MiniTwitter.Properties.Settings.Default.TokenSecret))));
-            }
-            else
-            {
-                AddOAuthToken(request, query, token, tokenSecret, verifier);
-            }
+            AddOAuthToken(request, query, token, tokenSecret, verifier);
             return request;
         }
 
@@ -626,16 +435,7 @@ namespace MiniTwitter.Net
             // クエリを文字列に変換する
             var queryString = CreateQueryString(query);
             // URL を正規化する
-            string ap;
-            if (uri.AbsolutePath.Contains("/t/"))
-            {
-                ap = uri.AbsolutePath.Substring(uri.AbsolutePath.IndexOf("/t/") + 2);
-            }
-            else
-            {
-                ap = uri.AbsolutePath;
-            }
-            var url = uri.Host.Contains("userstream") ? string.Format("{0}://{1}{2}",uri.Scheme,uri.Host,uri.AbsolutePath) : string.Format("{0}{1}", SignEndpoint, ap);
+            var url = string.Format("{0}://{1}{2}", uri.Scheme, uri.Host, uri.AbsolutePath);
             // 署名の元になる文字列を作成
             var signatureBase = string.Format("{0}&{1}&{2}", method, UrlEncode(url), UrlEncode(queryString));
             // 署名するためのキーを作成

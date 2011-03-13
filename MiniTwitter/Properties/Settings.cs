@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -33,9 +34,6 @@ namespace MiniTwitter.Properties
             PopupCloseTick = 15;
             EnableTweetFooter = false;
             TweetFooter = "*MT*";
-            ReTweetPrefix = "RT";
-            ReTweetPrefixHistory = new ObservableCollection<string>();
-            BitlyProDomains = new ObservableCollection<string>();
             EnableHeartMark = true;
             PopupOnlyFavorite = false;
             PopupOnlyNotActive = false;
@@ -46,8 +44,6 @@ namespace MiniTwitter.Properties
             IsRetweetWithInReplyTo = true;
             UseUserStream = false;
             Version = 1;
-            BitlyApiKey = "R_276fb4934824bf8ee936ad0daf0e6745";
-            BitlyUsername = "shibayan";
         }
 
         /// <summary>
@@ -83,140 +79,6 @@ namespace MiniTwitter.Properties
         public string Token { get; set; }
 
         public string TokenSecret { get; set; }
-
-        public string BitlyUsername { get; set; }
-
-        public string BitlyApiKey { get; set; }
-
-        public string PlixiUsername { get; set; }
-
-        public string PlixiPassword { get; set; }
-
-        public bool AntiShortUrlTracking { get; set; }
-
-        public bool UseBitlyPro { get; set; }
-
-        public string ApiBaseUrl { get; set; }
-
-        public string ApiSearchUrl { get; set; }
-
-        public string LinkUrl { get; set; }
-
-        private bool _acceptAllCert;
-
-        public bool AcceptAllCert { 
-            get
-            {
-                return _acceptAllCert;
-            }
-            set 
-            {
-                if (_acceptAllCert != value)
-                {
-                    _acceptAllCert = value;
-                    if (_acceptAllCert)
-                    {
-                        System.Net.ServicePointManager.ServerCertificateValidationCallback =
-                            (_, __, ___, ____) => true;
-                    }
-                    else
-                    {
-                        System.Net.ServicePointManager.ServerCertificateValidationCallback = null;
-                    }
-                    OnPropertyChanged("AcceptAllCert");
-                }
-            }
-        }
-
-        public bool UseBasicAuth { get; set; }
-
-        private string _bitlyProDomain = "bit.ly";
-        public string BitlyProDomain
-        {
-            get 
-            { 
-                return string.IsNullOrEmpty(_bitlyProDomain) ? "bit.ly" : _bitlyProDomain; 
-            }
-            set
-            {
-                if (_bitlyProDomain != value)
-                {
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        if (_bitlyProDomain != "bit.ly")
-                        {
-                            _bitlyProDomain = "bit.ly";
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        _bitlyProDomain = value;
-                    }
-                    OnPropertyChanged("BitlyProDomain");
-                }
-            }
-        }
-        
-        [XmlArray("BitlyProDomains")]
-        public string[] BitlyProDomainsInternal
-        {
-            get { return BitlyProDomains.Count != 0 ? BitlyProDomains.ToArray() : null; }
-            set { BitlyProDomains = new ObservableCollection<string>(value ?? Enumerable.Empty<string>()); }
-        }
-
-        [XmlIgnore()]
-        public ObservableCollection<string> BitlyProDomains
-        {
-            get;
-            private set;
-        }
-
-        private string _reTweetPrefix = "RT";
-
-        public string ReTweetPrefix
-        {
-            get { return _reTweetPrefix; }
-            set 
-            {
-                if (_reTweetPrefix!=value)
-                {
-                    _reTweetPrefix = value ?? "RT";
-                    OnPropertyChanged("ReTweetPrefix");
-                }
-            }
-        }
-
-        [XmlArray("ReTweetPrefixHistory")]
-        public string[] ReTweetPrefixHistoryInternal
-        {
-            get
-            {
-                return ReTweetPrefixHistory.Count != 0 ? ReTweetPrefixHistory.ToArray() : null;
-            }
-            set
-            {
-                ReTweetPrefixHistory = new ObservableCollection<string>(value ?? Enumerable.Empty<string>());
-            }
-        }
-
-        [XmlIgnore()]
-        public ObservableCollection<string> ReTweetPrefixHistory
-        {
-            get;
-            private set;
-        }
-
-        public bool AlwaysOnTop { get; set; }
-
-        public bool SmoothScroll { get; set; }
-
-        public bool RealtimeScroll { get; set; }
-
-        public bool EnableLog { get; set; }
 
         /// <summary>
         /// 自動更新を有効にする
@@ -505,10 +367,6 @@ namespace MiniTwitter.Properties
             {
                 TweetFooterHistory = new ObservableCollection<string>();
             }
-            if (BitlyProDomains == null)
-            {
-                BitlyProDomains = new ObservableCollection<string>();
-            }
             if (Timelines == null)
             {
                 Timelines = new ObservableCollection<Timeline>();
@@ -556,7 +414,7 @@ namespace MiniTwitter.Properties
             InitializeKeywordRegex();
         }
 
-        public static string BaseDirectory { get; set; }
+        private static string BaseDirectory { get; set; }
 
         public static Settings Default { get; private set; }
         

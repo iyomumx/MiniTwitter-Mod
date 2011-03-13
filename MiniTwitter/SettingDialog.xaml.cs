@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Deployment.Application;
 using System.Linq;
+using System.Deployment.Application;
 using System.Media;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
 using Microsoft.Win32;
+
 using MiniTwitter.Controls;
 using MiniTwitter.Extensions;
 using MiniTwitter.Input;
@@ -64,7 +71,6 @@ namespace MiniTwitter
             // パスワード、プロキシパスワード
             PasswordBox.Password = settings.Password;
             ProxyPasswordBox.Password = settings.ProxyPassword;
-            PlixiPasswordBox.Password = settings.PlixiPassword;
             // キーボードショートカット設定
             var array = Enum.GetValues(typeof(KeyAction));
             keyBindings = new ObservableCollection<MiniTwitter.Input.KeyBinding>(settings.KeyBindings ?? Enumerable.Empty<MiniTwitter.Input.KeyBinding>());
@@ -92,8 +98,6 @@ namespace MiniTwitter
             //ColorListView.ItemsSource = colorSchemes;
             // メッセージフッタ履歴
             TweetFooterComboBox.ItemsSource = settings.TweetFooterHistory;
-            BitlyProDomains.ItemsSource = settings.BitlyProDomains;
-            ReTweetPrefixComboBox.ItemsSource = settings.ReTweetPrefixHistory;
             BindingGroup.BeginEdit();
         }
 
@@ -105,7 +109,6 @@ namespace MiniTwitter
             Settings settings = Settings.Default;
             // パスワードを保存
             settings.Password = PasswordBox.Password;
-            settings.PlixiPassword = PlixiPasswordBox.Password;
             settings.ProxyPassword = ProxyPasswordBox.Password;
             // キーボードショートカットを保存
             if (KeyMappingComboBox.SelectedValue != null)
@@ -133,14 +136,6 @@ namespace MiniTwitter
             if (!settings.TweetFooter.IsNullOrEmpty() && !settings.TweetFooterHistory.Contains(settings.TweetFooter))
             {
                 settings.TweetFooterHistory.Add(settings.TweetFooter);
-            }
-            if (!settings.BitlyProDomain.IsNullOrEmpty() && !settings.BitlyProDomains.Contains(settings.BitlyProDomain))
-            {
-                settings.BitlyProDomains.Add(settings.BitlyProDomain);
-            }
-            if (!settings.ReTweetPrefix.IsNullOrEmpty() && !settings.ReTweetPrefixHistory.Contains(settings.ReTweetPrefix))
-            {
-                settings.ReTweetPrefixHistory.Add(settings.ReTweetPrefix);
             }
             DialogResult = true;
         }
@@ -239,7 +234,7 @@ namespace MiniTwitter
                 }
                 catch
                 {
-                    MessageBox.Show("不支持此格式！", App.NAME);
+                    MessageBox.Show("対応していないフォーマットです", App.NAME);
                 }
             }
         }
@@ -248,7 +243,7 @@ namespace MiniTwitter
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "声音文件|*.wav",
+                Filter = "サウンドファイル|*.wav",
                 Multiselect = false,
             };
             if (dialog.ShowDialog() ?? false)
@@ -274,81 +269,6 @@ namespace MiniTwitter
             else
             {
                 MessageBox.Show("利用可能な更新はありません", App.NAME);
-            }
-        }
-
-        private void StartOAuth_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                TwitterClient TC = new TwitterClient(App.consumer_key, App.consumer_secret);
-                if (UseProxyCheckBox.IsChecked.Value)
-                {
-                    var proxy = new System.Net.WebProxy(ProxyAddress.Text, Convert.ToInt32(ProxyPortNumber.Text));
-                    if (!(String.IsNullOrEmpty(ProxyUsername.Text)||String.IsNullOrEmpty(ProxyPasswordBox.Password)))
-                    {
-                        proxy.Credentials = new System.Net.NetworkCredential(ProxyUsername.Text, ProxyPasswordBox.Password);
-                    }
-                    TC.Proxy = proxy;
-                }
-                string token;
-                string tokensecret="";
-                TC.GetRequestToken(out token);
-                string url = TC.RedirectToAuthorize(token);
-                MessageBox.Show("将打开默认浏览器以获取PIN，请确认你的浏览器能正确连接Twitter（你懂的）", "即将跳转", MessageBoxButton.OK);
-                System.Diagnostics.Process.Start(url);
-                string PIN = Microsoft.VisualBasic.Interaction.InputBox("请输入PIN（一串数字）", "输入PIN");
-                TC.GetAccessToken(ref token, ref tokensecret, PIN);
-                UsernameBox.Text = token;
-                PasswordBox.Password = tokensecret;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("出错啦\n"+ex.ToString(), "出错啦");
-            }
-            
-        }
-
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start("http://bit.ly/a/your_api_key");
-            }
-            catch 
-            {
-            }
-        }
-
-        private void DoGoogleOAuth_Click(object sender, RoutedEventArgs e)
-        {
-            if (TwitterClient.googlHelper == null)
-            {
-                TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter();
-            }
-            string token = string.Empty;
-            string tokensecret = string.Empty;
-            if (TwitterClient.googlHelper.GetRequestToken(ref token, new { scope = "https://www.googleapis.com/auth/urlshortener", xoauth_displayname = "iyomumx Mod", oauth_callback="oob" }, ref tokensecret))
-            {
-                string url = TwitterClient.googlHelper.RedirectToAuthorize(token);
-                MessageBox.Show("将打开默认浏览器以获取PIN，请确认你的浏览器能正确连接Google", "即将跳转", MessageBoxButton.OK);
-                System.Diagnostics.Process.Start(url);
-                string PIN = Microsoft.VisualBasic.Interaction.InputBox("请输入PIN(不含空格)", "输入PIN");
-                TwitterClient.googlHelper.GetAccessToken(ref token, ref tokensecret, PIN);
-                PlixiUsernameBox.Text = token;
-                PlixiPasswordBox.Password = tokensecret;
-                TwitterClient.googlHelper.WriteToken(token, tokensecret);
-            }
-        }
-
-        private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start(Settings.BaseDirectory);
-            }
-            catch
-            {
             }
         }
     }

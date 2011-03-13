@@ -17,7 +17,7 @@ namespace MiniTwitter.Controls
 
             if (text.Length > 140)
             {
-                return new ValidationResult(false, "超过了140字！");
+                return new ValidationResult(false, "140文字を超えています。");
             }
 
             return ValidationResult.ValidResult;

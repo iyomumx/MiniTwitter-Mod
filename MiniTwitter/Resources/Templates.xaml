@@ -27,16 +27,6 @@
                             </TextBlock.Text>
                         </TextBlock>
                         <TextBlock Text="{Binding Path=Sender.Description}" TextWrapping="Wrap" />
-                        <TextBlock TextWrapping="Wrap">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
-                                    <Binding Path="Sender.StatusesCount"/>
-                                    <Binding Path="Sender.Friends"/>
-                                    <Binding Path="Sender.Followers"/>
-                                    <Binding Path="Sender.FavouritesCount"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
                     </StackPanel>
                 </Image.ToolTip>
             </Image>
@@ -58,29 +48,24 @@
                             <TextBlock Text="{Binding Path=CreatedAt, StringFormat=yyyy/MM/dd HH:mm:ss}"/>
                         </MiniTwitter_Controls:HyperlinkButton.ToolTip>
                     </MiniTwitter_Controls:HyperlinkButton>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="via"/>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center">
-                        <Hyperlink Command="MiniTwitter_Input:Commands.MoveToSourcePage" CommandParameter="{Binding}" >
-                            <Run Text="{Binding Path=Source}" />
-                        </Hyperlink>
-                    </TextBlock>
-                    <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"  ToolTip="删除"
+                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="{Binding Path=Source, StringFormat=via \{0\}}"/>
+                    <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite" ToolTip="收藏"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="Reply"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="コメント付き ReTweet"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到回复条目"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="リプライ元へ移動"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
                             Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
@@ -110,16 +95,6 @@
                             </TextBlock.Text>
                             </TextBlock>
                             <TextBlock Text="{Binding Path=ReTweetedStatus.Sender.Description}" TextWrapping="Wrap" />
-                            <TextBlock TextWrapping="Wrap">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
-                                    <Binding Path="ReTweetedStatus.Sender.StatusesCount"/>
-                                    <Binding Path="ReTweetedStatus.Sender.Friends"/>
-                                    <Binding Path="ReTweetedStatus.Sender.Followers"/>
-                                    <Binding Path="ReTweetedStatus.Sender.FavouritesCount"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                            </TextBlock>
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
@@ -135,16 +110,6 @@
                             </TextBlock.Text>
                             </TextBlock>
                             <TextBlock Text="{Binding Path=Sender.Description}" TextWrapping="Wrap" />
-                            <TextBlock TextWrapping="Wrap">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
-                                    <Binding Path="Sender.StatusesCount"/>
-                                    <Binding Path="Sender.Friends"/>
-                                    <Binding Path="Sender.Followers"/>
-                                    <Binding Path="Sender.FavouritesCount"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                            </TextBlock>
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
@@ -165,29 +130,24 @@
                             <TextBlock Text="{Binding Path=CreatedAt, StringFormat=yyyy/MM/dd HH:mm:ss}"/>
                         </MiniTwitter_Controls:HyperlinkButton.ToolTip>
                     </MiniTwitter_Controls:HyperlinkButton>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="via"/>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center">
-                        <Hyperlink Command="MiniTwitter_Input:Commands.MoveToSourcePage" CommandParameter="{Binding Path=ReTweetedStatus}" >
-                            <Run Text="{Binding Path=ReTweetedStatus.Source}" />
-                        </Hyperlink>
-                    </TextBlock>
-                    <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" ToolTip="删除"
+                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="{Binding Path=ReTweetedStatus.Source, StringFormat=via \{0\}}"/>
+                    <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite" ToolTip="收藏"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="Reply"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="コメント付き ReTweet"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到回复条目"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="リプライ元へ移動"
                             CommandParameter="{Binding ReTweetedStatus}" Style="{DynamicResource ImageButtonStyle}"
                             Visibility="{Binding Path=ReTweetedStatus.IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
@@ -198,12 +158,6 @@
                     <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}"
                                                           FontSize="11" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                           Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text=" via"/>
-                    <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center">
-                        <Hyperlink Command="MiniTwitter_Input:Commands.MoveToSourcePage" CommandParameter="{Binding}" >
-                            <Run Text="{Binding Path=Source}" />
-                        </Hyperlink>
-                    </TextBlock>
                 </WrapPanel>
             </StackPanel>
         </Grid>
@@ -262,23 +216,23 @@
                             </MiniTwitter_Controls:HyperlinkButton.ToolTip>
                         </MiniTwitter_Controls:HyperlinkButton>
                         <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="{Binding Path=Source, StringFormat=via \{0\}}"/>
-                        <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" ToolTip="删除"
+                        <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite" ToolTip="收藏"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="Reply"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="コメント付き ReTweet"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到回复条目"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="リプライ元へ移動"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
                             Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
@@ -327,19 +281,19 @@
                             </MiniTwitter_Controls:HyperlinkButton.ToolTip>
                         </MiniTwitter_Controls:HyperlinkButton>
                         <TextBlock Margin="0,0,3,0" FontSize="11" VerticalAlignment="Center" Text="{Binding Path=ReTweetedStatus.Source, StringFormat=via \{0\}}"/>
-                        <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" ToolTip="删除"
+                        <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite" ToolTip="收藏"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Favorite"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="Reply"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="コメント付き ReTweet"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                         </Button>
@@ -413,7 +367,7 @@
                                 <TextBlock Text="{Binding Path=CreatedAt, StringFormat=yyyy/MM/dd HH:mm:ss}"/>
                             </MiniTwitter_Controls:HyperlinkButton.ToolTip>
                         </MiniTwitter_Controls:HyperlinkButton>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Delete" ToolTip="删除"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Delete"
                                 CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                             <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>
                         </Button>

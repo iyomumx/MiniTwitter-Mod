@@ -7,11 +7,11 @@ using System.Windows;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("MiniTwitter - iyomumx Mod")]
+[assembly: AssemblyTitle("MiniTwitter")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MiniTwitter Mod")]
+[assembly: AssemblyProduct("MiniTwitter")]
 [assembly: AssemblyCopyright("Copyright(C) 2008-2011 S Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Windows;
 // ComVisible を false に設定すると、その型はこのアセンブリ内で COM コンポーネントから
 // 参照不可能になります。COM からこのアセンブリ内の型にアクセスする場合は、
 // その型の ComVisible 属性を true に設定してください。
-[assembly: ComVisible(true)]
+[assembly: ComVisible(false)]
 
 //ローカライズ可能なアプリケーションのビルドを開始するには、
 //.csproj ファイルの <UICulture>CultureYouAreCodingWith</UICulture> を
@@ -51,4 +51,4 @@ using System.Windows;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.6.6.9")]
+[assembly: AssemblyVersion("1.6.6.0")]

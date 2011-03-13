@@ -28,14 +28,7 @@ namespace MiniTwitter.Input
         {
             get { return Commands.reply; }
         }
-        //Reply All增加代码：
-        private static readonly RoutedCommand replyAll = new RoutedCommand("ReplyAll", typeof(Commands));
 
-        public static RoutedCommand ReplyAll
-        {
-            get { return Commands.replyAll; }
-        }
-        //End of Reply All增加代码
         private static readonly RoutedCommand reTweet = new RoutedCommand("ReTweet", typeof(Commands));
 
         public static RoutedCommand ReTweet
@@ -111,13 +104,6 @@ namespace MiniTwitter.Input
         public static RoutedCommand MoveToReplyPage
         {
             get { return Commands.moveToReplyPage; }
-        }
-
-        private static readonly RoutedCommand moveToSourcePage = new RoutedCommand("MoveToSourcePage", typeof(Commands));
-
-        public static RoutedCommand MoveToSourcePage
-        {
-            get { return Commands.moveToSourcePage; }
         }
 
         private static readonly RoutedCommand readAll = new RoutedCommand("ReadAll", typeof(Commands));
@@ -224,14 +210,7 @@ namespace MiniTwitter.Input
         {
             get { return Commands.twitpic; }
         }
-        //img.ly增加代码
-        private static readonly RoutedCommand imgly = new RoutedCommand("Imgly", typeof(Commands));
 
-        public static RoutedCommand Imgly
-        {
-            get { return Commands.imgly; }
-        }
-        //img.ly增加代码 结束
         private static readonly RoutedCommand playTitle = new RoutedCommand("PlayTitle", typeof(Commands));
 
         public static RoutedCommand PlayTitle
@@ -273,16 +252,7 @@ namespace MiniTwitter.Input
         {
             get { return Commands._block; }
         }
-        //ReportSpam 添加代码
 
-        private static readonly RoutedCommand _reportSpam = new RoutedCommand("ReportSpam", typeof(Commands));
-
-        public static RoutedCommand ReportSpam
-        {
-            get { return Commands._reportSpam; }
-        }
-
-        //添加代码结束
         private static readonly RoutedCommand _hashtag = new RoutedCommand("Hashtag", typeof(Commands));
 
         public static RoutedCommand Hashtag

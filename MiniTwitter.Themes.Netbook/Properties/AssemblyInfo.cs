@@ -16,7 +16,7 @@ using MiniTwitter.Themes;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: Theme("MiniTwitter 上网本适用", ThemeDictionaryLocation = "MiniTwitter_Netbook/Theme.xaml")]
+[assembly: Theme("MiniTwitter ネットブック最適化", ThemeDictionaryLocation = "MiniTwitter_Netbook/Theme.xaml")]
 
 // ComVisible を false に設定すると、その型はこのアセンブリ内で COM コンポーネントから 
 // 参照不可能になります。COM からこのアセンブリ内の型にアクセスする場合は、
