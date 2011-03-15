@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
 using MiniTwitter.Extensions;
@@ -41,7 +42,7 @@ namespace MiniTwitter.Properties
             PopupOnlyNotActive = false;
             PopupLocation = PopupLocation.Auto;
             EnableNotifyIcon = false;
-            FontName = "Meiryo";
+            FontName = "Microsoft YaHei";
             IsClearTypeEnabled = false;
             IsRetweetWithInReplyTo = true;
             UseUserStream = false;
@@ -374,7 +375,22 @@ namespace MiniTwitter.Properties
             set
             {
                 _fontName = value;
+                FontFamilyInternal = new FontFamily(new Uri("pack://application:,,,/"), value + ", ./emojiFont/#Emoji Regular");
                 OnPropertyChanged("FontName");
+            }
+        }
+
+        private FontFamily _fontFamilyInternal;
+        [XmlIgnore()]
+        public FontFamily FontFamilyInternal
+        {
+            get
+            {
+                return _fontFamilyInternal;
+            }
+            set
+            {
+                _fontFamilyInternal = value ?? new FontFamily(new Uri("pack://application:,,,/"), "./emojiFont/#Emoji Regular, Microsoft YaHei");
             }
         }
 

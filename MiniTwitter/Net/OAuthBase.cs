@@ -439,12 +439,12 @@ namespace MiniTwitter.Net
 
         public string RedirectToAuthorize(string token)
         {
-            return string.Format("{0}?oauth_token={1}", Endpoint + "oauth/authorize", token);
+            return string.Format("{0}?oauth_token={1}", ((Properties.Settings.Default.ApiBaseUrl != null) && (Properties.Settings.Default.ApiBaseUrl.EndsWith("/t/"))) ? Properties.Settings.Default.ApiBaseUrl : Endpoint + "oauth/authorize", token);
         }
 
         public bool GetRequestToken(out string token)
         {
-            var response = Fetch(HttpVerbs.Post, Endpoint + "oauth/request_token", null, null, null, null);
+            var response = Fetch(HttpVerbs.Post, ((Properties.Settings.Default.ApiBaseUrl != null) && (Properties.Settings.Default.ApiBaseUrl.EndsWith("/t/"))) ? Properties.Settings.Default.ApiBaseUrl : Endpoint + "oauth/request_token", null, null, null, null);
             if (string.IsNullOrEmpty(response))
             {
                 token = null;
@@ -457,7 +457,7 @@ namespace MiniTwitter.Net
 
         public bool GetAccessToken(ref string token, ref string tokenSecret, string verifier)
         {
-            var response = Fetch(HttpVerbs.Post, Endpoint + "oauth/access_token", null, token, null, verifier);
+            var response = Fetch(HttpVerbs.Post, ((Properties.Settings.Default.ApiBaseUrl != null) && (Properties.Settings.Default.ApiBaseUrl.EndsWith("/t/"))) ? Properties.Settings.Default.ApiBaseUrl : Endpoint + "oauth/access_token", null, token, null, verifier);
             if (string.IsNullOrEmpty(response))
             {
                 return false;
@@ -472,7 +472,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                var response = Fetch(HttpVerbs.Post, Endpoint + "oauth/access_token", new { x_auth_mode = "client_auth", x_auth_password = password, x_auth_username = username }, null, null, null);
+                var response = Fetch(HttpVerbs.Post, ((Properties.Settings.Default.ApiBaseUrl != null) && (Properties.Settings.Default.ApiBaseUrl.EndsWith("/t/"))) ? Properties.Settings.Default.ApiBaseUrl : Endpoint + "oauth/access_token", new { x_auth_mode = "client_auth", x_auth_password = password, x_auth_username = username }, null, null, null);
 
                 if (string.IsNullOrEmpty(response))
                 {

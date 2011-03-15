@@ -162,7 +162,7 @@
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=PopupListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <CheckBox x:Name="PopupCheckBox" Content="收到新推弹出提示" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnablePopup}"/>
             <CheckBox Content="仅在窗口不活动时提示" Canvas.Left="31" Canvas.Top="44" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyNotActive}"/>
-            <CheckBox Content="仅在包含喜欢的项目是提示" Canvas.Left="31" Canvas.Top="66" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyFavorite}"/>
+            <CheckBox Content="仅在包含喜欢的项目时提示" Canvas.Left="31" Canvas.Top="66" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" IsChecked="{Binding Path=PopupOnlyFavorite}"/>
             <TextBlock Text="弹出提示持续时间" TextWrapping="Wrap" Canvas.Left="31" Canvas.Top="93"/>
             <Slider x:Name="PopupCloseTickSlider" Width="270" Canvas.Left="31" Canvas.Top="117" IsSnapToTickEnabled="True" TickFrequency="5" TickPlacement="BottomRight" LargeChange="5" Maximum="90" Minimum="5" SmallChange="5" IsEnabled="{Binding Path=IsChecked, ElementName=PopupCheckBox}" Value="{Binding Path=PopupCloseTick}"/>
             <TextBlock TextAlignment="Right" Canvas.Right="20" Canvas.Top="117" Text="{Binding Path=Value, ElementName=PopupCloseTickSlider, StringFormat=\{0\} 秒}"/>

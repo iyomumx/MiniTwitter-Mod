@@ -21,6 +21,12 @@ namespace MiniTwitter.Log
         {
             get
             {
+                if (defaultInstance==null)
+                {
+                    defaultInstance = new Logger(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), App.NAME), "MiniTwitterLog.log"));
+                    defaultInstance.Format = LogFormat.PlainText;
+                    defaultInstance.WorkItem = new ConcurrentQueue<LogItem>();
+                }
                 return defaultInstance;
             }
         }
@@ -116,7 +122,10 @@ namespace MiniTwitter.Log
         {
             if (MiniTwitter.Properties.Settings.Default.EnableLog)
             {
-                WorkItem.Enqueue(item);      
+                if (WorkItem != null)
+                {
+                    WorkItem.Enqueue(item); 
+                }
             }
         }
 

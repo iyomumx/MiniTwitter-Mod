@@ -163,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MiniTwitterMod_tmpkey.pfx" />
-    <None Include="ProduceBy_iyome.pfx" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

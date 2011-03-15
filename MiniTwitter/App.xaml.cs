@@ -166,7 +166,13 @@ namespace MiniTwitter
                 Application.Current.Shutdown();
                 return;
             }
-            Log.Logger.Default.AddLogItem(new Log.LogItem(e.Exception));
+            try
+            {
+                Log.Logger.Default.AddLogItem(new Log.LogItem(e.Exception));
+            }
+            catch
+            {
+            }
             MessageBox.Show("发生内部错误\n\n" + e.Exception.ToString(), App.NAME);
             e.Handled = true;
             Application.Current.Shutdown();
@@ -180,7 +186,7 @@ namespace MiniTwitter
 
         private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
 
-        public const string VERSION = "1.66.⑨.7";
+        public const string VERSION = "1.66.⑨.8";
         public const string NAME = "MiniTwitter Mod";
 
         public const string consumer_key = "$CONSUMER_KEY$";

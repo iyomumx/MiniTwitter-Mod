@@ -59,6 +59,7 @@ namespace MiniTwitter
         private volatile bool _isClosing = false;
 
         private ulong? in_reply_to_status_id = null;
+        private string in_reply_to_user_screen_name = null;
 
         private readonly PopupWindow popupWindow = new PopupWindow();
         private readonly WinForms.NotifyIcon notifyIcon = new WinForms.NotifyIcon();
@@ -1044,6 +1045,20 @@ namespace MiniTwitter
                 Login();
             }
             this.Topmost = Settings.Default.AlwaysOnTop;
+            this.client.PropertyChanged += new PropertyChangedEventHandler((Sender, eventArg) => {
+                if (eventArg.PropertyName == "RateLimitRemain")
+                {
+                    this.AsyncInvoke(() => APILimitLeftText.Text = "API 限制剩余：\t" + client.RateLimitRemain.ToString());
+                }
+                else if (eventArg.PropertyName == "TotalRateLimit")
+                {
+                    this.AsyncInvoke(() => APILimitTotalText.Text = "API 限制总量：\t" + client.TotalRateLimit.ToString());
+                }
+                else if (eventArg.PropertyName == "ResetTimeString")
+                {
+                    this.AsyncInvoke(() => APILimitRecoverTime.Text = "下次重置时间：\t" + client.ResetTimeString);
+                }
+            });
         }
 
         private void MainWindow_Activated(object sender, EventArgs e)
@@ -1372,6 +1387,7 @@ namespace MiniTwitter
             {
                 TweetTextBox.AppendText("@" + item.Sender.ScreenName + " ");
                 in_reply_to_status_id = item.ID;
+                in_reply_to_user_screen_name = item.Sender.ScreenName;
             }
             TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
             TweetTextBox.Focus();
@@ -1498,6 +1514,7 @@ namespace MiniTwitter
             {
                 UpdateButton.IsEnabled = true;
                 in_reply_to_status_id = null;
+                in_reply_to_user_screen_name = null;
                 _latitude = null;
                 _longitude = null;
                 TweetTextBox.Clear();
@@ -1563,6 +1580,7 @@ namespace MiniTwitter
 
                 TweetTextBox.Text = "@" + screenName + " " + TweetTextBox.Text;
                 in_reply_to_status_id = item.ID;
+                in_reply_to_user_screen_name = item.Sender.ScreenName;
             }
             else
             {
@@ -1603,6 +1621,7 @@ namespace MiniTwitter
                 }
 
                 in_reply_to_status_id = item.ID;
+                in_reply_to_user_screen_name = item.Sender.ScreenName;
             }
             else
             {
@@ -1628,10 +1647,12 @@ namespace MiniTwitter
             if (Settings.Default.IsRetweetWithInReplyTo)
             {
                 in_reply_to_status_id = item.ID;
+                in_reply_to_user_screen_name = item.Sender.ScreenName;
             }
             else
             {
                 in_reply_to_status_id = null;
+                in_reply_to_user_screen_name = null;
             }
             TweetTextBox.Text = string.Format("{0} {1}{2}: {3}",
                 Properties.Settings.Default.ReTweetPrefix, 

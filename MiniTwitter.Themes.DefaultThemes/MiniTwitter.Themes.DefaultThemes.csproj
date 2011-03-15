@@ -138,6 +138,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="MiniTwitter_Dark\Images\heart.png" />
     <Resource Include="MiniTwitter_Standard\Images\account.png" />
     <Resource Include="MiniTwitter_Standard\Images\addin.png" />
     <Resource Include="MiniTwitter_Standard\Images\arrow_refresh.png" />
@@ -167,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MiniTwitterMod_tmpkey.pfx" />
-    <None Include="ProduceBy_iyome.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -194,7 +194,6 @@
     <Resource Include="MiniTwitter_Dark\Images\arrow_reply.png" />
     <Resource Include="MiniTwitter_Dark\Images\cross.png" />
     <Resource Include="MiniTwitter_Dark\Images\design.png" />
-    <Resource Include="MiniTwitter_Dark\Images\heart.png" />
     <Resource Include="MiniTwitter_Dark\Images\home.png" />
     <Resource Include="MiniTwitter_Dark\Images\keyboard.png" />
     <Resource Include="MiniTwitter_Dark\Images\keyword.png" />
