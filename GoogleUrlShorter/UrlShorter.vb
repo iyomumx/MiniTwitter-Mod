@@ -18,6 +18,7 @@ Public Class UrlShorter
         MyBase.New(consumerKey, consumerSecret)
         Me.WriteToken(token, tokenSecret)
     End Sub
+
     Dim acfun() As String = (From ip In Net.Dns.GetHostAddresses("acfun.cn") Select value = ip.ToString).ToArray
     Private tmpToken As String = String.Empty
 

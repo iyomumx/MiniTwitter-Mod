@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -51,6 +52,7 @@ namespace MiniTwitter.Log
             {
                 file.Create();
             }
+            Properties.Settings.Default.PropertyChanged += new PropertyChangedEventHandler(this.OnLogEnableChange);
             StartLogTask();
         }
 
@@ -109,7 +111,25 @@ namespace MiniTwitter.Log
                     //其他错误
                 }
             }, LogTaskToken);
-            LogTask.Start();
+            //LogTask.Start();
+
+        }
+
+        private void OnLogEnableChange(object sender , PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "")
+            {
+                if (Properties.Settings.Default.EnableLog)
+                {
+                    TokenSource.Cancel();
+                }
+                else
+                {
+                    TokenSource.Dispose();
+                    TokenSource = new CancellationTokenSource();
+                    StartLogTask();
+                }
+            }
         }
 
         public void AddLogItem(LogItem item)

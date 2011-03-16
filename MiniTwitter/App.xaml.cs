@@ -102,11 +102,11 @@ namespace MiniTwitter
             {
                 Net.TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter("anonymous", "anonymous", Settings.Default.PlixiUsername, Settings.Default.PlixiPassword);
             }
-            Net.TwitterClient.googlHelper.Key = "$GOOGLE_API_KEY$";
+            Net.TwitterClient.googlHelper.Key = google_key;
 
             MainWindow = new MainWindow();
             MainWindow.Show();
-            Log.Logger.Default.AddLogItem(new Log.LogItem("程序启动"));
+            //Log.Logger.Default.AddLogItem(new Log.LogItem("程序启动"));
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -119,7 +119,7 @@ namespace MiniTwitter
                 return;
             }
             var exception = (Exception)e.ExceptionObject;
-            Log.Logger.Default.AddLogItem(new Log.LogItem(exception));
+            //Log.Logger.Default.AddLogItem(new Log.LogItem(exception));
             MessageBox.Show("发生内部错误 \n\n" + exception.ToString(), App.NAME);
             Application.Current.Shutdown();
 #endif
@@ -127,7 +127,7 @@ namespace MiniTwitter
 
         private void App_Exit(object sender, ExitEventArgs e)
         {
-            Log.Logger.Default.AddLogItem(new Log.LogItem("程序退出"));
+            //Log.Logger.Default.AddLogItem(new Log.LogItem("程序退出"));
             if (!_isSaved)
             {
                 lock (_syncLock)
@@ -166,7 +166,7 @@ namespace MiniTwitter
                 Application.Current.Shutdown();
                 return;
             }
-            Log.Logger.Default.AddLogItem(new Log.LogItem(e.Exception));
+            //Log.Logger.Default.AddLogItem(new Log.LogItem(e.Exception));
             MessageBox.Show("发生内部错误\n\n" + e.Exception.ToString(), App.NAME);
             e.Handled = true;
             Application.Current.Shutdown();
@@ -183,7 +183,8 @@ namespace MiniTwitter
         public const string VERSION = "1.66.⑨.7";
         public const string NAME = "MiniTwitter Mod";
 
-        public const string consumer_key = "$CONSUMER_KEY$";
-        public const string consumer_secret = "$CONSUMER_SECRET$";
+        public const string google_key = GoogleAPIKey;
+        public const string consumer_key = TwitterConsumerKey;
+        public const string consumer_secret = TwitterConsumerSecret;
     }
 }

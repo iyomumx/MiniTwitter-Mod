@@ -389,8 +389,8 @@
     <Resource Include="Resources\MiniTwitter_small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.Private.cs" />
     <None Include="MiniTwitterMod_tmpkey.pfx" />
-    <None Include="ProduceBy_iyome.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\arrow_refresh.png" />

@@ -8,7 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source=".\Resources\Common.xaml"/>
                 <ResourceDictionary Source=".\Resources\Templates.xaml"/>
-                <ResourceDictionary Source=".\Resources\Translation\ja-JP.xaml"/>
+                <!--<ResourceDictionary Source=".\Resources\Translation\ja-JP.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

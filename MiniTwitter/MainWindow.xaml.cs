@@ -1044,6 +1044,21 @@ namespace MiniTwitter
                 Login();
             }
             this.Topmost = Settings.Default.AlwaysOnTop;
+            this.client.PropertyChanged+=new PropertyChangedEventHandler((Sender,eventArg)=>
+            {
+                if (eventArg.PropertyName=="RateLimitRemain")
+                {
+                    this.AsyncInvoke(() => { this.APILimitRemainText.Text = string.Format("API请求剩余：\t{0}", client.RateLimitRemain); });
+                }
+                else if (eventArg.PropertyName=="TotalRateLimit")
+                {
+                    this.AsyncInvoke(() => { this.APILimitTotalText.Text = string.Format("API请求总量：\t{0}", client.TotalRateLimit); });
+                }
+                else if (eventArg.PropertyName=="ResetTimeString")
+                {
+                    this.AsyncInvoke(() => { this.APILimitResetText.Text = string.Format("下次重置时间：\t{0}", client.ResetTimeString); });
+                }
+            });
         }
 
         private void MainWindow_Activated(object sender, EventArgs e)

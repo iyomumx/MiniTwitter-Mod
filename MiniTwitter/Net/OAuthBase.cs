@@ -308,7 +308,7 @@ namespace MiniTwitter.Net
                         {
                             msg = sr.ReadToEnd();
                         }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
+                        //Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;
@@ -370,7 +370,7 @@ namespace MiniTwitter.Net
                         {
                             msg = sr.ReadToEnd();
                         }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
+                        //Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw new ApplicationException(msg, e);
@@ -379,7 +379,7 @@ namespace MiniTwitter.Net
                 }
                 catch(Exception ex)
                 {
-                    Log.Logger.Default.AddLogItem(new Log.LogItem(ex));
+                    //Log.Logger.Default.AddLogItem(new Log.LogItem(ex));
                     return default(T);
                 }
             }
@@ -422,7 +422,7 @@ namespace MiniTwitter.Net
                         {
                             msg = sr.ReadToEnd();
                         }
-                        Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
+                        //Log.Logger.Default.AddLogItem(new Log.LogItem(ToMethodString(verb), response.ResponseUri.AbsolutePath, string.Empty, msg));
                         if ((int)response.StatusCode < 500)
                         {
                             throw;

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
 using MiniTwitter.Extensions;
@@ -374,7 +375,24 @@ namespace MiniTwitter.Properties
             set
             {
                 _fontName = value;
+                FontFamilyInternal = new FontFamily(string.Format("{0}, Emoji", value));
                 OnPropertyChanged("FontName");
+            }
+        }
+
+        private FontFamily _fontFamilyInternal;
+
+        [XmlIgnore()]
+        public FontFamily FontFamilyInternal
+        {
+            get
+            {
+                return _fontFamilyInternal;
+            }
+            set
+            {
+                _fontFamilyInternal = value;
+                OnPropertyChanged("FontFamilyInternal");
             }
         }
 

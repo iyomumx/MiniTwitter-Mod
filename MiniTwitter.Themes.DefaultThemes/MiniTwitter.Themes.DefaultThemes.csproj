@@ -167,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MiniTwitterMod_tmpkey.pfx" />
-    <None Include="ProduceBy_iyome.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
