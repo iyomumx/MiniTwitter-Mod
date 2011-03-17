@@ -52,7 +52,7 @@ namespace MiniTwitter.Log
             {
                 file.Create();
             }
-            Properties.Settings.Default.PropertyChanged += new PropertyChangedEventHandler(this.OnLogEnableChange);
+            //Properties.Settings.Default.PropertyChanged += new PropertyChangedEventHandler(this.OnLogEnableChange);
             StartLogTask();
         }
 

@@ -82,9 +82,6 @@
             <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
                        Text="{Binding ElementName=TweetTextBox, Path=Text.Length, Converter={StaticResource TextCountConverter}}"
                        Style="{DynamicResource CounterTextBlockStyle}"/>
-            <TextBlock Grid.Row="1" Text="{Binding Path=TweetFooter, Source={x:Static MiniTwitter_Properties:Settings.Default}}"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,8" Foreground="#FFA0A0A0"
-                       Visibility="{Binding Path=EnableTweetFooter, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Static MiniTwitter_Properties:Settings.Default}}" />
             <TextBox x:Name="TweetTextBox" Grid.Row="1" Margin="0,4,0,6" AcceptsTab="True" TextWrapping="Wrap" TextChanged="TweetTextBox_TextChanged" KeyUp="TweetTextBox_KeyUp"
                      VerticalScrollBarVisibility="Auto" KeyDown="TweetTextBox_KeyDown" PreviewKeyDown="TweetTextBox_PreviewKeyDown"  Style="{DynamicResource TweetTextBoxStyle}"
                      >
@@ -99,6 +96,9 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
+            <TextBlock Grid.Row="1" Text="{Binding Path=TweetFooter, Source={x:Static MiniTwitter_Properties:Settings.Default}}"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,8" Foreground="#FFA0A0A0"
+                       Visibility="{Binding Path=EnableTweetFooter, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Static MiniTwitter_Properties:Settings.Default}}" />
             <Popup x:Name="popup" PopupAnimation="None" StaysOpen="False" Focusable="False" MaxHeight="250" MinWidth="180">
                 <ListBox x:Name="usersListBox" Focusable="False" Background="White" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                          MouseUp="UsersListBox_MouseUp" MouseDoubleClick="UsersListBox_MouseDoubleClick">

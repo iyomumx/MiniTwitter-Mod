@@ -39,26 +39,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_36E4273C74FB0F6DBF2D8995B1EE689A"
-        "OwnerKey" = "8:_D329D979F452491683D6611DAD671D71"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_36E4273C74FB0F6DBF2D8995B1EE689A"
-        "OwnerKey" = "8:_32BC4C909370D0EC37A57E770B0CC326"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_36E4273C74FB0F6DBF2D8995B1EE689A"
+        "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
         "OwnerKey" = "8:_28A4DCEF985E0DAF690922BE961BF11E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_36E4273C74FB0F6DBF2D8995B1EE689A"
+        "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
         "OwnerKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
+        "OwnerKey" = "8:_D329D979F452491683D6611DAD671D71"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
+        "OwnerKey" = "8:_32BC4C909370D0EC37A57E770B0CC326"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -100,6 +100,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0139E157FA050BDE24F7ADF12FE15459"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -107,12 +113,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_36E4273C74FB0F6DBF2D8995B1EE689A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -333,14 +333,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_36E4273C74FB0F6DBF2D8995B1EE689A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_81F3F865C3C7DFCF3F624614E861A924"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_36E4273C74FB0F6DBF2D8995B1EE689A"
+                    "_81F3F865C3C7DFCF3F624614E861A924"
                     {
                     "Name" = "8:MiniTwitter.Themes.dll"
                     "Attributes" = "3:512"
@@ -494,7 +494,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{44349709-3FF1-4152-AD10-61FF6AD6FF72}"
-        "PackageCode" = "8:{26408B8E-DA68-4FD3-96A7-F83C2E0DC250}"
+        "PackageCode" = "8:{33373E20-F302-482B-B356-958C78739E1B}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1403,7 +1403,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D329D979F452491683D6611DAD671D71"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4499BAD561D240AC81F800E6414AEB77"

@@ -377,7 +377,7 @@ namespace MiniTwitter.Net
                         }
                     }
                 }
-                catch(Exception ex)
+                catch//(Exception ex)
                 {
                     //Log.Logger.Default.AddLogItem(new Log.LogItem(ex));
                     return default(T);

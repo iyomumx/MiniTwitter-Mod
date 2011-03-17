@@ -1973,7 +1973,7 @@ namespace MiniTwitter
                     TweetTextBox.Text = TweetTextBox.Text.Remove(index, TweetTextBox.SelectionLength).Insert(index, text);
                     TweetTextBox.CaretIndex = index + text.Length;
                 }
-                if (schemaRegex.IsMatch(text) && text.Length > 40 || text.IndexOfAny(new[] {'?','!'}) != -1 || TweetTextBox.Text.Length > 140)
+                if (schemaRegex.IsMatch(text) && (text.Length > 40 || text.IndexOfAny(new[] {'?','!'}) != -1 || TweetTextBox.Text.Length > 140))
                 {
                     StatusText = "正在缩短URL";
                     ThreadPool.QueueUserWorkItem(state =>

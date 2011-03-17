@@ -220,7 +220,7 @@ namespace MiniTwitter.Controls
 
                     ShowPopup(uri, url);
                 }
-                else if (Regex.IsMatch(url, @"http:\/\/instagr.am\/p\/(.+?)"))
+                else if (Regex.IsMatch(url, @"http:\/\/instagr\.am\/p\/(.+?)"))
                 {
                     var client = new WebClient();
                     var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", url));
