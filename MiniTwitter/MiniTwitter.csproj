@@ -204,10 +204,6 @@
     <Compile Include="Input\SoundAction.cs" />
     <Compile Include="Input\SoundBinding.cs" />
     <Compile Include="Input\Commands.cs" />
-    <Compile Include="Log\LogFormat.cs" />
-    <Compile Include="Log\Logger.cs" />
-    <Compile Include="Log\LogItem.cs" />
-    <Compile Include="Log\LogLevel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

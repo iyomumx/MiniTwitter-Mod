@@ -7,19 +7,28 @@ Public Class UrlShorter
     Public Const scope As String = "https://www.googleapis.com/auth/urlshortener"
 
     Public Sub New()
-        MyBase.New("anonymous", "anonymous")
+        Me.New("anonymous", "anonymous")
     End Sub
 
     Public Sub New(ByVal consumerKey As String, ByVal consumerSecret As String)
         MyBase.New(consumerKey, consumerSecret)
+        initAcfun()
     End Sub
 
     Public Sub New(ByVal consumerKey As String, ByVal consumerSecret As String, ByVal token As String, ByVal tokenSecret As String)
-        MyBase.New(consumerKey, consumerSecret)
+        Me.New(consumerKey, consumerSecret)
         Me.WriteToken(token, tokenSecret)
     End Sub
 
-    Dim acfun() As String = (From ip In Net.Dns.GetHostAddresses("acfun.cn") Select value = ip.ToString).ToArray
+    Sub initAcfun()
+        Try
+            acfun = (From ip In Net.Dns.GetHostAddresses("acfun.cn") Select value = ip.ToString).ToArray
+        Catch ex As Exception
+            acfun = Enumerable.Empty(Of String)().ToArray
+        End Try
+    End Sub
+
+    Dim acfun() As String
     Private tmpToken As String = String.Empty
 
     Public Function ReadToken() As Tuple(Of String, String)

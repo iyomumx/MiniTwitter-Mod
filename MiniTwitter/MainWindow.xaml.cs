@@ -1631,7 +1631,7 @@ namespace MiniTwitter
         private void ReTweetApiCommand_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             var item = (Status)e.Parameter ?? GetSelectedItem();
-            if (item.Sender.Protected)
+            if ((item.Sender.Protected)&&(!item.IsReTweeted))
                 e.CanExecute = false;
             else
                 e.CanExecute = true;
@@ -1668,7 +1668,7 @@ namespace MiniTwitter
                     var status = client.ReTweet(itm.ID);
                     if (status != null)
                     {
-                        this.Invoke(() => StatusText = string.Format("ReTweet已成功 (共{0}次RT)", itm.ReTweetCount.IsNullOrEmpty() ? itm.ReTweetCount : "0"));
+                        this.Invoke(() => StatusText = string.Format("ReTweet已成功 (共{0}次RT)", itm.ReTweetCount ?? "0"));
 
                         this.Invoke(() =>
                             {

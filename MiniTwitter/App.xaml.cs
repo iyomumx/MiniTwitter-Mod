@@ -139,7 +139,6 @@ namespace MiniTwitter
                     }
                 }
             }
-            ((IDisposable)Log.Logger.Default).Dispose();
         }
 
         private void App_SessionEnding(object sender, SessionEndingCancelEventArgs e)
@@ -180,7 +179,7 @@ namespace MiniTwitter
 
         private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
 
-        public const string VERSION = "1.66.⑨.8";
+        public const string VERSION = "1.66.⑨.9";
         public const string NAME = "MiniTwitter Mod";
 
         public const string google_key = GoogleAPIKey;

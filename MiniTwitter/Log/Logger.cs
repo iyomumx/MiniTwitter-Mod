@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniTwitter.Log
 {
+    [Obsolete("应当弃用")]
     public class Logger : PropertyChangedBase, IDisposable
     {
         private string logFile;
@@ -131,7 +132,7 @@ namespace MiniTwitter.Log
                 }
             }
         }
-
+        [Obsolete("应当弃用")]
         public void AddLogItem(LogItem item)
         {
             if (MiniTwitter.Properties.Settings.Default.EnableLog)

@@ -512,7 +512,7 @@ namespace MiniTwitter.Net
             var request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = ToMethodString(verb);
             request.Accept = "application/xml, text/xml, */*";
-            request.Timeout = 60000;
+            request.Timeout = 6000;
             request.ServicePoint.Expect100Continue = false;
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             // GET 以外ならリクエストボディに書き込む

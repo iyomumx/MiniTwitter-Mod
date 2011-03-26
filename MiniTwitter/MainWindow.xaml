@@ -11,7 +11,7 @@
     Title="MiniTwitter" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
     Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontFamilyInternal, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}" Icon="/MiniTwitter;component/Resources/MiniTwitter.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
-    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" >
+    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="MiniTwitter">
             <TaskbarItemInfo.ThumbButtonInfos>

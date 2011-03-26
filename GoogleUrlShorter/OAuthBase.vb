@@ -277,7 +277,7 @@ Public Class OAuthBase
         Dim request As HttpWebRequest = WebRequest.Create(url)
         request.Method = ToMethodString(verb)
         request.Accept = "application/json, text/json, */*"
-        request.Timeout = 60000
+        request.Timeout = 2000
         request.ServicePoint.Expect100Continue = False
         request.AutomaticDecompression =
             DecompressionMethods.Deflate Or DecompressionMethods.GZip
@@ -302,7 +302,7 @@ Public Class OAuthBase
         Dim request As HttpWebRequest = WebRequest.Create(url)
         request.Method = ToMethodString(verb)
         request.Accept = "*/*"
-        request.Timeout = 60000
+        request.Timeout = 2000
         request.ServicePoint.Expect100Continue = False
         request.Headers.Add("GData-Version", "2.0")
         If verb <> HttpVerbs.GET Then
