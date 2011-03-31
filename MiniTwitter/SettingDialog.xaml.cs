@@ -297,7 +297,9 @@ namespace MiniTwitter
                 string url = TC.RedirectToAuthorize(token);
                 MessageBox.Show("将打开默认浏览器以获取PIN，请确认你的浏览器能正确连接Twitter（你懂的）", "即将跳转", MessageBoxButton.OK);
                 System.Diagnostics.Process.Start(url);
-                string PIN = Microsoft.VisualBasic.Interaction.InputBox("请输入PIN（一串数字）", "输入PIN");
+
+                string PIN = PinInputWindow.PinBox();
+
                 TC.GetAccessToken(ref token, ref tokensecret, PIN);
                 UsernameBox.Text = token;
                 PasswordBox.Password = tokensecret;

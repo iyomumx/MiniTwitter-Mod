@@ -1,3 +1,3 @@
 自行编译指南：
-	1.在App.xaml.cs里用Google短链接API Key替换$GOOGLE_API_KEY$，用自己的Twitter Consumer Key / Secret替换$CONSUMER_KEY$, $CONSUMER_SECRET$
+	1.在项目里有一个丢失的文件App.Private.cs，添加这个文件并定义GoogleAPIKey， TwitterConsumerKey， TwitterConsumerSecret 三个字符串常量
 	2.现在源代码应该可以正常编译运行了
