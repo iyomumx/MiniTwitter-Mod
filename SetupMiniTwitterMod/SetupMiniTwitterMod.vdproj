@@ -57,20 +57,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_81F3F865C3C7DFCF3F624614E861A924"
-        "OwnerKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D329D979F452491683D6611DAD671D71"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
-        "OwnerKey" = "8:_D329D979F452491683D6611DAD671D71"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -89,12 +77,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_32BC4C909370D0EC37A57E770B0CC326"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E3BBFD9DB10C91EC84D85174B73B0210"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -364,37 +346,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E3BBFD9DB10C91EC84D85174B73B0210"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.iyomumxMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_E3BBFD9DB10C91EC84D85174B73B0210"
-                    {
-                    "Name" = "8:MiniTwitter.Themes.iyomumxMod.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MiniTwitter.Themes.iyomumxMod.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_4499BAD561D240AC81F800E6414AEB77"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EEBFA78197B242D09A9BB1EBF3CA9C64"
             {
             "SourcePath" = "8:..\\MiniTwitter\\emojiFont\\Emoji.ttf"
@@ -493,15 +444,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
-        "ProductCode" = "8:{F504DBCA-ED0B-43A7-8206-7341B58233CA}"
-        "PackageCode" = "8:{26896A4C-D0D9-4E2D-B9E8-275FC0447C74}"
+        "ProductCode" = "8:{E2A9054D-8A7A-4F8A-81D8-DC9ED7885F2E}"
+        "PackageCode" = "8:{A360793B-E0B3-48DE-9474-133F4475AC3F}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.66.99"
+        "ProductVersion" = "8:1.66.995"
         "Manufacturer" = "8:s-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://minitwitter.codeplex.com/"

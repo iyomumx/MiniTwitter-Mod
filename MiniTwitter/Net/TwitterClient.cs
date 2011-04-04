@@ -561,7 +561,7 @@ namespace MiniTwitter.Net
 
                 Array.ForEach(statuses, item => { item.IsAuthor = item.Sender.ID == LoginedUser.ID; item.IsMention = item.InReplyToUserID == LoginedUser.ID; });
 
-                return statuses;
+                return statuses.AsParallel().Where((status) => Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true).ToArray();
             }
             catch
             {
@@ -756,7 +756,7 @@ namespace MiniTwitter.Net
 
                 Array.ForEach(statuses, item => { item.IsAuthor = item.Sender.ID == LoginedUser.ID; item.IsMention = item.InReplyToUserID == LoginedUser.ID; });
 
-                return statuses;
+                return statuses.AsParallel().Where((status) => Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true).ToArray();
             }
             catch
             {
@@ -797,7 +797,7 @@ namespace MiniTwitter.Net
 
                 list.ForEach(item => { item.IsAuthor = item.Sender.ScreenName == LoginedUser.ScreenName; });
 
-                return list.ToArray();
+                return list.AsParallel().Where((status) => Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true).ToArray();
             }
             catch
             {
@@ -925,11 +925,14 @@ namespace MiniTwitter.Net
 
                                         status.IsAuthor = status.Sender.ID == LoginedUser.ID;
                                         status.IsMention = status.InReplyToUserID == LoginedUser.ID;
-
-                                        UserStreamUpdated(this, new StatusEventArgs(status)
+                                        if (Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true)
                                         {
-                                            Action = StatusAction.Update
-                                        });
+                                            UserStreamUpdated(this, new StatusEventArgs(status)
+                                                                    {
+                                                                        Action = StatusAction.Update
+                                                                    });
+                                        }
+
                                     }
                                     else if (element.Element("event") != null)
                                     {

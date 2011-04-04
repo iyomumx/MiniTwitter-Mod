@@ -37,6 +37,7 @@ namespace MiniTwitter.Properties
             ReTweetPrefix = "RT";
             ReTweetPrefixHistory = new ObservableCollection<string>();
             BitlyProDomains = new ObservableCollection<string>();
+            GlobalFilter = new ObservableCollection<Filter>();
             EnableHeartMark = true;
             PopupOnlyFavorite = false;
             PopupOnlyNotActive = false;
@@ -176,6 +177,19 @@ namespace MiniTwitter.Properties
             private set;
         }
 
+        [XmlArray("GlobalFilter")]
+        public Filter[] GlobalFilterInternal
+        {
+            get { return GlobalFilter.Count != 0 ? GlobalFilter.ToArray() : null; }
+            set { GlobalFilter = new ObservableCollection<Filter>(value ?? Enumerable.Empty<Filter>()); }
+        }
+
+        [XmlIgnore()]
+        public ObservableCollection<Filter> GlobalFilter
+        {
+            get;
+            private set;
+        }
         private string _reTweetPrefix = "RT";
 
         public string ReTweetPrefix

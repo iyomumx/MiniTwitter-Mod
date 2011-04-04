@@ -209,6 +209,12 @@
     <Resource Include="MiniTwitter_Dark\Images\star.png" />
     <Resource Include="MiniTwitter_Dark\Images\star_empty.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Standard\Images\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Dark\Images\filter.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

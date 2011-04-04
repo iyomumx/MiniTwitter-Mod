@@ -97,6 +97,10 @@
         <Setter Property="Source" Value=".\Images\keyword.png"/>
     </Style>
 
+    <Style x:Key="GlobalFilterImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
+        <Setter Property="Source" Value=".\Images\filter.png"/>
+    </Style>
+
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="WindowForegroundBrush" Color="#FF000000"/>
     <SolidColorBrush x:Key="WindowBorderBrush" Color="#FFA0A0A0"/>

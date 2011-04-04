@@ -35,6 +35,7 @@ namespace MiniTwitter
         private ObservableCollection<MiniTwitter.Input.KeyBinding> keyBindings;
         private ObservableCollection<SoundBinding> soundBindings;
         private ObservableCollection<KeywordBinding> keywordBindings;
+        private ObservableCollection<Filter> filters;
 
         private static readonly PopupLocation[] locations = new[]
         {
@@ -90,11 +91,15 @@ namespace MiniTwitter
             //colorSchemes = new ObservableCollection<ColorScheme>(settings.ColorSchemes ?? Enumerable.Empty<ColorScheme>());
             //colorSchemes.BeginEdit();
             //ColorListView.ItemsSource = colorSchemes;
+            filters = new ObservableCollection<Filter>(settings.GlobalFilter ?? Enumerable.Empty<Filter>());
+            FilterListView.ItemsSource = filters;
+            filters.BeginEdit();
             // メッセージフッタ履歴
             TweetFooterComboBox.ItemsSource = settings.TweetFooterHistory;
             BitlyProDomains.ItemsSource = settings.BitlyProDomains;
             ReTweetPrefixComboBox.ItemsSource = settings.ReTweetPrefixHistory;
             BindingGroup.BeginEdit();
+
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -129,6 +134,11 @@ namespace MiniTwitter
             {
                 settings.KeywordBindings.Add(item);
             }
+            settings.GlobalFilter.Clear();
+            foreach (var item in filters)
+            {
+                settings.GlobalFilter.Add(item);
+            }
             // メッセージフッタの履歴を保存
             if (!settings.TweetFooter.IsNullOrEmpty() && !settings.TweetFooterHistory.Contains(settings.TweetFooter))
             {
@@ -151,6 +161,7 @@ namespace MiniTwitter
             keyBindings.CancelEdit();
             soundBindings.CancelEdit();
             keywordBindings.CancelEdit();
+            filters.CancelEdit();
             DialogResult = false;
         }
 
@@ -353,5 +364,40 @@ namespace MiniTwitter
             {
             }
         }
+
+        private void FilterListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count != 0)
+            {
+                var item = (Filter)FilterListView.SelectedItem;
+                if (item == null)
+                {
+                    return;
+                }
+                FilterTextBox.Text = item.Pattern;
+            }
+        }
+
+        private void AddFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            var filter = new Filter { Pattern = FilterTextBox.Text, Type = FilterType.None };
+            filters.Add(filter);
+            filter.BeginEdit();
+            FilterListView.ScrollIntoView(filter);
+            FilterTextBox.Clear();
+        }
+
+        private void DeleteFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (Filter)FilterListView.SelectedItem;
+
+            if (item == null)
+            {
+                return;
+            }
+
+            filters.Remove(item);
+        }
+
     }
 }

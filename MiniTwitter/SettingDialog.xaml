@@ -31,7 +31,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}">
+        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="8">
             <ListBoxItem x:Name="AccountListBoxItem" IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AccountImageStyle}"/>
@@ -78,6 +78,12 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource KeywordImageStyle}"/>
                     <TextBlock Text="关键字" Margin="4,0,0,0" />
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem x:Name="GlobalFilterListBoxItem">
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{DynamicResource GlobalFilterImageStyle}"/>
+                    <TextBlock Text="全局过滤" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="AddInListBoxItem" Visibility="Collapsed">
@@ -251,6 +257,43 @@
             <Button Content="添加" Width="75" Canvas.Left="207" Canvas.Top="346" Click="AddKeywordButton_Click" />
             <Button Content="删除" Width="75" Canvas.Left="286" Canvas.Top="346" Click="DeleteKeywordButton_Click" />
         </Canvas>
+        <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=GlobalFilterListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ListView Canvas.Left="6" Canvas.Top="6" IsSynchronizedWithCurrentItem="True" Name="FilterListView" Height="315" Width="341" SelectionChanged="FilterListView_SelectionChanged">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Click="DeleteFilterButton_Click" Header="删除(_D)" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Pattern}" Header="表达式" Width="200" />
+                        <GridViewColumn Header="筛选器类型" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox HorizontalAlignment="Stretch" SelectedValue="{Binding Path=Type}" SelectedValuePath="Tag">
+                                        <ComboBoxItem Content="无" Tag="{x:Static MiniTwitter:FilterType.None}" />
+                                        <ComboBoxItem Content="推文" Tag="{x:Static MiniTwitter:FilterType.Text}" />
+                                        <ComboBoxItem Content="推文 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.RegexText}" />
+                                        <ComboBoxItem Content="用户名" Tag="{x:Static MiniTwitter:FilterType.Name}" />
+                                        <ComboBoxItem Content="用户名 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.RegexName}" />
+                                        <ComboBoxItem Content="来源" Tag="{x:Static MiniTwitter:FilterType.Source}" />
+                                        <ComboBoxItem Content="来源 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.RegexSource}" />
+                                        <ComboBoxItem Content="排除推文" Tag="{x:Static MiniTwitter:FilterType.ExText}" />
+                                        <ComboBoxItem Content="排除推文 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.ExTextRegex}" />
+                                        <ComboBoxItem Content="排除用户名" Tag="{x:Static MiniTwitter:FilterType.ExName}" />
+                                        <ComboBoxItem Content="排除用户名 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.ExNameRegex}" />
+                                        <ComboBoxItem Content="排除来源" Tag="{x:Static MiniTwitter:FilterType.ExSource}" />
+                                        <ComboBoxItem Content="排除来源 + 正则表达式" Tag="{x:Static MiniTwitter:FilterType.ExSourceRegex}" />
+                                    </ComboBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBox Name="FilterTextBox" TextWrapping="Wrap" Grid.Column="2" Width="285" Canvas.Left="6" Canvas.Top="327" />
+            <Button Content="添加" Width="50" Canvas.Left="297" Canvas.Top="327" Click="AddFilterButton_Click" />
+        </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=AddInListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=OtherListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -284,5 +327,6 @@
             </Label>
             <TextBlock Canvas.Left="70" Canvas.Top="200" Text="{Binding Path=BaseDirectory}" TextWrapping="WrapWithOverflow" Width="240"/>
         </Canvas>
+        
     </Grid>
 </Window>
