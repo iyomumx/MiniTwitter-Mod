@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -25,7 +26,16 @@ namespace MiniTwitter
             Type = TimelineType.User;
             Items = new ObservableCollection<ITwitterItem>();
             View = (ListCollectionView)CollectionViewSource.GetDefaultView(Items);
+            View.Filter = commonPredicate;
         }
+
+        public static readonly Predicate<Object> commonPredicate= item =>
+            {
+                var settings = Properties.Settings.Default;
+                var twitterItem = (ITwitterItem)item;
+                return settings.GlobalFilter.Count == 0 || settings.GlobalFilter.AsParallel().All(filter => filter.Process(twitterItem));
+            };
+        
 
         private readonly object _thisLock = new object();
 
@@ -180,7 +190,7 @@ namespace MiniTwitter
             lock (_thisLock)
             {
                 UnreadCount = 0;
-                View.Filter = null;
+                View.Filter = commonPredicate;
                 Items.Clear();
                 //View.Refresh();
             }
@@ -218,14 +228,14 @@ namespace MiniTwitter
             {
                 if (term.IsNullOrEmpty())
                 {
-                    View.Filter = null;
+                    View.Filter = commonPredicate;
                 }
                 else
                 {
                     View.Filter = state =>
                         {
                             var item = (ITwitterItem)state;
-                            return item.Text.IndexOf(term, StringComparison.OrdinalIgnoreCase) != -1 || item.Sender.ScreenName.IndexOf(term, StringComparison.OrdinalIgnoreCase) != -1;
+                            return (item.Text.IndexOf(term, StringComparison.OrdinalIgnoreCase) != -1 || item.Sender.ScreenName.IndexOf(term, StringComparison.OrdinalIgnoreCase) != -1) && (commonPredicate(item));
                         };
                 }
                 View.Refresh();
@@ -238,7 +248,8 @@ namespace MiniTwitter
 
         private bool IsFilterMatch(ITwitterItem item)
         {
-            return Filters.Count == 0 || Filters.All(filter => filter.Process(item));//TODO:过滤器/筛选器逻辑（All与Any）
+            return (Filters.Count == 0 || Filters.AsParallel().All(filter => filter.Process(item)));
+            //TODO:过滤器/筛选器逻辑（All与Any）
         }
     }
 }

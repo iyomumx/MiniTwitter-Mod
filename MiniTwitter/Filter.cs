@@ -105,6 +105,8 @@ namespace MiniTwitter
                     return !(string.Compare(item.Sender.ScreenName, Pattern, true) == 0);
                 case FilterType.ExNameRegex:
                     return !(Regex.IsMatch(item.Sender.ScreenName, Pattern, RegexOptions.IgnoreCase));
+                case FilterType.None:
+                    return true;
             }
             return false;
         }

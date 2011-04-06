@@ -215,6 +215,11 @@
             "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
+                    "_0741D20292A050E25F63BAC93615083B"
+                    {
+                    "Name" = "8:MiniTwitter.Themes.Netbook.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:MiniTwitter.Themes.Netbook.dll"
             "TargetName" = "8:"
@@ -241,6 +246,11 @@
             "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
+                    "_1ED804EBF6731144FFE7E37C8180786A"
+                    {
+                    "Name" = "8:MiniTwitter.Themes.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:MiniTwitter.Themes.dll"
             "TargetName" = "8:"
@@ -307,6 +317,11 @@
             "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
+                    "_ADBF91EB6FC629FED329AD1D2279FBFD"
+                    {
+                    "Name" = "8:MiniTwitter.Themes.DefaultThemes.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:MiniTwitter.Themes.DefaultThemes.dll"
             "TargetName" = "8:"
@@ -333,6 +348,11 @@
             "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
+                    "_B2A85E14B7CCAA5CA6820EC511645586"
+                    {
+                    "Name" = "8:GoogleUrlShorter.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:GoogleUrlShorter.dll"
             "TargetName" = "8:"
@@ -450,15 +470,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
-        "ProductCode" = "8:{031178EA-EE1C-4592-B683-6244D9C4E4E8}"
-        "PackageCode" = "8:{6D79F9FE-0B78-4A43-91F4-BABBC17BBA5D}"
+        "ProductCode" = "8:{27F1EC44-23A4-4825-8133-ACF6E6B75DFC}"
+        "PackageCode" = "8:{A47D8EF8-2B26-48BD-9DDA-6588ADA7A988}"
         "UpgradeCode" = "8:{4C1AF118-8513-407D-A260-58E8455AC4C6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.66.995"
+        "ProductVersion" = "8:1.66.996"
         "Manufacturer" = "8:s-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://minitwitter.codeplex.com/"

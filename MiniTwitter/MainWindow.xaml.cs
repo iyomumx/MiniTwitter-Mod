@@ -1429,6 +1429,8 @@ namespace MiniTwitter
 
             UpdateFooterMenu();
 
+            Timelines.AsParallel().ForEach(timeline => timeline.View.Refresh());
+
             if (Settings.Default.IsClearTypeEnabled)
             {
                 TextOptions.SetTextRenderingMode(this, TextRenderingMode.ClearType);
