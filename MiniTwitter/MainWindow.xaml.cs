@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -42,6 +43,11 @@ namespace MiniTwitter
             {
                 TextOptions.SetTextRenderingMode(this, TextRenderingMode.ClearType);
             }
+            Binding TooltipBinding = new Binding("In_Reply_To_Status_User_Name");
+            TooltipBinding.Source = this;
+            TooltipBinding.Mode = BindingMode.OneWay;
+            TooltipBinding.FallbackValue = "";
+            ReplyToUserNameText.SetBinding(TextBlock.TextProperty, TooltipBinding);
         }
 
         public string TargetValue { get; set; }
@@ -58,7 +64,25 @@ namespace MiniTwitter
 
         private volatile bool _isClosing = false;
 
-        private ulong? in_reply_to_status_id = null;
+        //private ulong? in_reply_to_status_id = null;
+
+        public static DependencyProperty InReplyToStatusIdProperty =
+            DependencyProperty.Register("In_Reply_To_Status_Id", typeof(ulong?), typeof(MainWindow), new PropertyMetadata(null));
+
+        public static DependencyProperty InReplyToStatusUserNameProperty =
+            DependencyProperty.Register("In_Reply_To_Status_User_Name", typeof(string), typeof(MainWindow), new PropertyMetadata(null));
+
+        public ulong? In_Reply_To_Status_Id
+        {
+            get { return (ulong?)GetValue(InReplyToStatusIdProperty); }
+            set { SetValue(InReplyToStatusIdProperty, value); }
+        }
+
+        public string In_Reply_To_Status_User_Name
+        {
+            get { return (string)GetValue(InReplyToStatusUserNameProperty); }
+            set { SetValue(InReplyToStatusUserNameProperty, value); }
+        }
 
         private readonly PopupWindow popupWindow = new PopupWindow();
         private readonly WinForms.NotifyIcon notifyIcon = new WinForms.NotifyIcon();
@@ -1386,7 +1410,8 @@ namespace MiniTwitter
             else
             {
                 TweetTextBox.AppendText("@" + item.Sender.ScreenName + " ");
-                in_reply_to_status_id = item.ID;
+                In_Reply_To_Status_Id = item.ID;
+                In_Reply_To_Status_User_Name = string.Format("{0} / {1}", item.Sender.ScreenName, item.Sender.Name);
             }
             TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
             TweetTextBox.Focus();
@@ -1481,7 +1506,7 @@ namespace MiniTwitter
             UpdateButton.IsEnabled = false;
             StatusText = "正在更新状态…";
             //client.Update((string)e.Parameter ?? TweetTextBox.Text, in_reply_to_status_id);
-            ThreadPool.QueueUserWorkItem(text => client.Update((string)text, in_reply_to_status_id, _latitude, _longitude), status);
+            ThreadPool.QueueUserWorkItem(text => client.Update((string)text, this.Invoke<ulong?>(() => In_Reply_To_Status_Id), _latitude, _longitude, stp => { if (stp != OAuthBase.ProccessStep.Error)App.MainTokenSource.Token.ThrowIfCancellationRequested(); }), status);
         }
 
         private void TwitterClient_Updated(object sender, UpdateEventArgs e)
@@ -1514,7 +1539,8 @@ namespace MiniTwitter
             this.Invoke(() =>
             {
                 UpdateButton.IsEnabled = true;
-                in_reply_to_status_id = null;
+                In_Reply_To_Status_Id = null;
+                In_Reply_To_Status_User_Name = null;
                 _latitude = null;
                 _longitude = null;
                 TweetTextBox.Clear();
@@ -1579,7 +1605,8 @@ namespace MiniTwitter
                 }
 
                 TweetTextBox.Text = "@" + screenName + " " + TweetTextBox.Text;
-                in_reply_to_status_id = item.ID;
+                In_Reply_To_Status_Id = item.ID;
+                In_Reply_To_Status_User_Name = string.Format("{0} / {1}", item.Sender.ScreenName, item.Sender.Name);
             }
             else
             {
@@ -1619,7 +1646,8 @@ namespace MiniTwitter
                     }
                 }
 
-                in_reply_to_status_id = item.ID;
+                In_Reply_To_Status_Id = item.ID;
+                In_Reply_To_Status_User_Name = string.Format("{0} / {1}", item.Sender.ScreenName, item.Sender.Name);
             }
             else
             {
@@ -1644,11 +1672,13 @@ namespace MiniTwitter
             var item = (Status)e.Parameter ?? GetSelectedItem();
             if (Settings.Default.IsRetweetWithInReplyTo)
             {
-                in_reply_to_status_id = item.ID;
+                In_Reply_To_Status_Id = item.ID;
+                In_Reply_To_Status_User_Name = string.Format("{0} / {1}", item.Sender.ScreenName, item.Sender.Name);
             }
             else
             {
-                in_reply_to_status_id = null;
+                In_Reply_To_Status_Id = null;
+                In_Reply_To_Status_User_Name = null;
             }
             TweetTextBox.Text = string.Format("{0} {1}{2}: {3}",
                 Properties.Settings.Default.ReTweetPrefix, 
@@ -2192,27 +2222,56 @@ namespace MiniTwitter
 
         private void PlayTitleCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var iTunes = new iTunesLib.iTunesApp();
-
-            try
+            var processes = Process.GetProcessesByName("iTunes");
+            if (processes.Length!=0)
             {
-                var track = iTunes.CurrentTrack;
+                var iTunes = new iTunesLib.iTunesApp();
 
-                if (track == null)
+                try
                 {
-                    return;
+                    var track = iTunes.CurrentTrack;
+
+                    if (track == null)
+                    {
+                        return;
+                    }
+
+                    var text = string.Format("♪{0} - {1}({2})", track.Name, track.Album, track.Artist);
+
+                    TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, text);
+                    TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
                 }
+                finally
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(iTunes);
 
-                var text = string.Format("♪{0} - {1}({2})", track.Name, track.Album, track.Artist);
-
-                TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, text);
-                TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
+                    iTunes = null;
+                }
             }
-            finally
+            else
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(iTunes);
+                var Winamp = new ActiveWinamp.Application();
 
-                iTunes = null;
+                try
+                {
+                    var track = Winamp.Playlist[Winamp.Playlist.Position];
+
+                    if (track == null)
+                    {
+                        return;
+                    }
+
+                    var text = string.Format("♪{0} - {1}({2})", track.Title, track.Album, track.Artist);
+
+                    TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, text);
+                    TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
+                }
+                finally
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(Winamp);
+
+                    Winamp = null;
+                }
             }
         }
 
@@ -2226,7 +2285,7 @@ namespace MiniTwitter
                 return;
             }
             //TODO:Winamp万岁！
-            //processes = Process.GetProcessesByName("Winamp");
+            processes = Process.GetProcessesByName("Winamp");
             if (processes.Length != 0)
             {
                 e.CanExecute = true;
@@ -2449,6 +2508,105 @@ namespace MiniTwitter
         private void ProgressBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show(string.Format("API剩余：\t\t{0}\nAPI总限制：\t{1}\n将在{2}重置", client.RateLimitRemain, client.TotalRateLimit, client.ResetTimeString), "API限制状态", MessageBoxButton.OK);
+        }
+
+        private ITwitterItem GetReplyToItem()
+        {
+            var timeline = (Timeline)TimelineTabControl.SelectedItem;
+            return timeline != null ? 
+                (ITwitterItem)timeline.Items.FirstOrDefault(p => 
+                    p.ID == this.Invoke<ulong?>(() => In_Reply_To_Status_Id)) :
+                null;
+        }
+
+        private void MoveToReplyTweetButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (In_Reply_To_Status_Id == null)
+            {
+                return;
+            }
+            //var status = (Status)(GetReplyToItem());
+
+            //if (status == null || status.InReplyToStatusID == 0)
+            //{
+            //    return;
+            //}
+
+            var currentTimeline = (Timeline)TimelineTabControl.SelectedItem;
+
+            var replyTo = GetReplyToItem();
+            if (replyTo == null)
+            {
+                var timeline = Timelines.TypeAt(TimelineType.Recent);
+
+                replyTo = timeline.Items.FirstOrDefault(p => p.ID == In_Reply_To_Status_Id);
+
+                if (replyTo == null)
+                {
+                    replyTo = client.GetStatus(In_Reply_To_Status_Id.Value);
+
+                    if (replyTo == null)
+                    {
+                        return;
+                    }
+                }
+
+                if (currentTimeline.Type == TimelineType.List || currentTimeline.Type == TimelineType.Search)
+                {
+                    currentTimeline.Update(new[] { replyTo });
+                }
+                else
+                {
+                    currentTimeline = timeline;
+                    Timelines.Update(new[] { replyTo });
+                }
+            }
+            if (_listBox == null)
+            {
+                Func<DependencyObject, ListBox> getChildVisual = null;
+                getChildVisual = dobj =>
+                {
+                    if (dobj is ListBox) return dobj as ListBox;
+                    int count = VisualTreeHelper.GetChildrenCount(dobj);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var ret = getChildVisual(VisualTreeHelper.GetChild(dobj, i));
+                        if (ret != null) return ret;
+                    }
+                    return null;
+                };
+                _listBox = getChildVisual(TimelineTabControl);
+            }
+            if (_listBox == null) return;
+
+            currentTimeline.View.MoveCurrentTo(replyTo);
+
+            if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search)
+            {
+                TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
+            }
+
+            this.AsyncInvoke(p => _listBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);
+
+            ForceActivate(false);
+        }
+
+        private void MoveToReplyStatusButton_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                In_Reply_To_Status_Id = null;
+                In_Reply_To_Status_User_Name = null;
+            }
+        }
+
+        private void TweetTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!TweetTextBox.Text.IsRegexMatch("@"+client.LoginedUser.ScreenName))
+            {
+                In_Reply_To_Status_Id = null;
+                In_Reply_To_Status_User_Name = null;
+            }
         }
     }
 }

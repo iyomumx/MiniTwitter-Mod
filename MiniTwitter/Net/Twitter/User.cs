@@ -17,7 +17,7 @@ namespace MiniTwitter.Net.Twitter
 {
     [Serializable]
     [XmlRoot("user")]
-    public class User : PropertyChangedBase, IEquatable<User>
+    public class User : PropertyChangedBase, IEquatable<User>, ITimeTaged
     {
         static User()
         {
@@ -405,6 +405,31 @@ namespace MiniTwitter.Net.Twitter
         public override int GetHashCode()
         {
             return this.ID;
+        }
+
+        private DateTime lastModified;
+
+        [XmlIgnore()]
+        public DateTime LastModified
+        {
+            get
+            {
+                return lastModified;
+            }
+            set
+            {
+                if (lastModified<value)
+                {
+                    lastModified = value;
+                    OnPropertyChanged("LastModified");
+                    UpdateChild();
+                }
+            }
+        }
+
+        public void UpdateChild()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Windows.Data;
 using System.Xml.Serialization;
 
@@ -35,9 +34,9 @@ namespace MiniTwitter
                 var twitterItem = (ITwitterItem)item;
                 return settings.GlobalFilter.Count == 0 || settings.GlobalFilter.AsParallel().All(filter => filter.Process(twitterItem));
             };
-        
 
-        private readonly object _thisLock = new object();
+        [NonSerialized]
+        private SpinLock _thisLock = new SpinLock();
 
         private string _name;
 
@@ -103,8 +102,10 @@ namespace MiniTwitter
 
         public void Update<T>(IEnumerable<T> appendItems) where T : ITwitterItem
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 if (appendItems == null)
                 {
                     return;
@@ -139,12 +140,18 @@ namespace MiniTwitter
                 }
                 //View.Refresh();
             }
+            finally
+            {
+                if (lockTaken) _thisLock.Exit();
+            }
         }
 
         public void Remove(ITwitterItem removeItem)
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 if (removeItem == null)
                 {
                     return;
@@ -158,12 +165,21 @@ namespace MiniTwitter
                     //View.Refresh();
                 }
             }
+            finally
+            {
+                if (lockTaken)
+                {
+                    _thisLock.Exit();
+                }
+            }
         }
 
         public void RemoveAll(Predicate<ITwitterItem> match)
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 int count = 0;
                 for (int i = 0; i < Items.Count; i++)
                 {
@@ -183,35 +199,56 @@ namespace MiniTwitter
                     //View.Refresh();
                 }
             }
+            finally
+            {
+                if (lockTaken)
+                {
+                    _thisLock.Exit();
+                }
+            }
         }
 
         public void Clear()
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 UnreadCount = 0;
                 View.Filter = commonPredicate;
                 Items.Clear();
                 //View.Refresh();
             }
+            finally
+            {
+                if (lockTaken) _thisLock.Exit();
+            }
         }
 
         public T[] Normalize<T>(IEnumerable<T> items) where T : ITwitterItem
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 if (items == null)
                 {
                     return null;
                 }
                 return items.Where(x => !Items.Contains(x) && IsFilterMatch(x)).ToArray();
             }
+            finally
+            {
+                if (lockTaken) _thisLock.Exit();
+            }
         }
 
         public void Sort(ListSortCategory category, ListSortDirection direction)
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 View.SortDescriptions.Clear();
                 View.SortDescriptions.Add(new SortDescription(category.ToPropertyPath(), direction));
                 if (category != ListSortCategory.CreatedAt)
@@ -220,12 +257,18 @@ namespace MiniTwitter
                 }
                 View.SortDescriptions.Add(new SortDescription(ListSortCategory.ID.ToPropertyPath(), direction));
             }
+            finally
+            {
+                if (lockTaken) _thisLock.Exit();
+            }
         }
 
         public void Search(string term)
         {
-            lock (_thisLock)
+            bool lockTaken = false;
+            try
             {
+                _thisLock.Enter(ref lockTaken);
                 if (term.IsNullOrEmpty())
                 {
                     View.Filter = commonPredicate;
@@ -240,6 +283,10 @@ namespace MiniTwitter
                 }
                 View.Refresh();
             }
+            finally
+            {
+                if (lockTaken) _thisLock.Exit();
+            }
         }
 
         public void Trim()
@@ -248,7 +295,7 @@ namespace MiniTwitter
 
         private bool IsFilterMatch(ITwitterItem item)
         {
-            return (Filters.Count == 0 || Filters.AsParallel().All(filter => filter.Process(item)));
+            return ((Filters.Count == 0 || Filters.AsParallel().All(filter => filter.Process(item))) && (!Properties.Settings.Default.ThrowFilteredTweets || commonPredicate(item)));
             //TODO:过滤器/筛选器逻辑（All与Any）
         }
     }

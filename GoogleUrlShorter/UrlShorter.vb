@@ -6,6 +6,8 @@ Public Class UrlShorter
 
     Public Const scope As String = "https://www.googleapis.com/auth/urlshortener"
 
+    Private Shared ReadOnly cache As Dictionary(Of String, String) = New Dictionary(Of String, String)()
+
     Public Sub New()
         Me.New("anonymous", "anonymous")
     End Sub
@@ -50,6 +52,9 @@ Public Class UrlShorter
                 LongUrl = IPreg.Replace(LongUrl, "${head}acfun.cn/")
             End If
         End If
+        If cache.ContainsKey(LongUrl) Then
+            Return cache(LongUrl)
+        End If
         Dim o As Object = New With {.longUrl = LongUrl}
         Dim url = "https://www.googleapis.com/urlshortener/v1/url"
         If Not String.IsNullOrEmpty(Key) Then
@@ -61,11 +66,28 @@ Public Class UrlShorter
         Catch ex As Exception
             Debug.WriteLine(ex.Message)
         End Try
-        Return If(r IsNot Nothing, r.id, If(optFunc Is Nothing, LongUrl, optFunc(LongUrl)))
+        If r IsNot Nothing Then
+            If r.id <> LongUrl Then
+                cache.Add(LongUrl, r.id)
+                Return r.id
+            ElseIf optFunc IsNot Nothing Then
+                Dim r2 = optFunc(LongUrl)
+                If r2 <> LongUrl Then
+                    cache.Add(LongUrl, r2)
+                    Return r2
+                End If
+            End If
+        End If
+        Return LongUrl
     End Function
 
     Public Function GetOriginalUrl(ByVal shortUrl As String) As String
-        Return GetExpandReturn(shortUrl).longUrl
+        If cache.ContainsValue(shortUrl) Then
+            Return (From kvp In cache.AsParallel() Where kvp.Value = shortUrl Select kvp.Key).First()
+        Else
+            Dim ret = GetExpandReturn(shortUrl).longUrl
+            Return ret
+        End If
     End Function
 
     Public Function GetExpandReturn(ByVal shortUrl As String) As ExpandReutrn

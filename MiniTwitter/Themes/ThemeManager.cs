@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -23,6 +24,7 @@ namespace MiniTwitter.Themes
 
         public static void LoadFrom(string directory)
         {
+            Contract.Requires(directory != null, "路径不能为空");
             foreach (var file in Directory.GetFiles(directory, "MiniTwitter.Themes.*.dll"))
             {
                 try
@@ -44,6 +46,7 @@ namespace MiniTwitter.Themes
 
         public static string GetTheme(int index)
         {
+            Contract.Requires(index >= 0, "索引必须大于0");
             return Themes.ElementAt(index).Value;
         }
 

@@ -9,7 +9,7 @@
     xmlns:s="clr-namespace:System;assembly=mscorlib"
     x:Name="Window"
     Title="MiniTwitter" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
-    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontFamilyInternal, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}" Icon="/MiniTwitter;component/Resources/MiniTwitter.ico"
+    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontFamilyInternal, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei}" Icon="/MiniTwitter;component/Resources/MiniTwitter.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}">
     <Window.TaskbarItemInfo>
@@ -69,6 +69,7 @@
         </ContextMenu>
         <MiniTwitter:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <MiniTwitter:StateToColorConverter x:Key="StateToColorConverter" />
+        <MiniTwitter:HasValueToVisibilityConverter x:Key="HasValueToVisibilityConverter" />
     </Window.Resources>
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="6">
@@ -80,11 +81,11 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="What's happening?" VerticalAlignment="Center" Style="{DynamicResource HeaderTextBlockStyle}"/>
             <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
-                       Text="{Binding ElementName=TweetTextBox, Path=Text.Length, Converter={StaticResource TextCountConverter}}"
+                       Text="{Binding ElementName=TweetTextBox, Path=Text, Converter={StaticResource TextCountConverter}}"
                        Style="{DynamicResource CounterTextBlockStyle}"/>
             <TextBox x:Name="TweetTextBox" Grid.Row="1" Margin="0,4,0,6" AcceptsTab="True" TextWrapping="Wrap" TextChanged="TweetTextBox_TextChanged" KeyUp="TweetTextBox_KeyUp"
                      VerticalScrollBarVisibility="Auto" KeyDown="TweetTextBox_KeyDown" PreviewKeyDown="TweetTextBox_PreviewKeyDown"  Style="{DynamicResource TweetTextBoxStyle}"
-                     >
+                     LostFocus="TweetTextBox_LostFocus" >
                 <TextBox.CommandBindings>
                     <CommandBinding Command="Paste" Executed="PasteCommand_Executed" />
                 </TextBox.CommandBindings>
@@ -122,6 +123,20 @@
             <Button x:Name="UpdateButton" Grid.Row="2" Content="update" Command="MiniTwitter_Input:Commands.Update"
                     CommandParameter="{Binding ElementName=TweetTextBox, Path=Text}" Style="{DynamicResource UpdateButtonStyle}"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Margin="0,0,3,0" Click="MoveToReplyTweetButton_Click" 
+                        Style="{DynamicResource ImageButtonStyle}" MouseRightButtonUp="MoveToReplyStatusButton_MouseUp"
+                        Visibility="{Binding ElementName=Window, Path=In_Reply_To_Status_Id, Converter={StaticResource HasValueToVisibilityConverter}}">
+                    <Button.ToolTip>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock Text="正在回复：" />
+                                <TextBlock x:Name="ReplyToUserNameText" />
+                            </StackPanel>
+                            <TextBlock Text="点击转到回复条目，右击删除回复信息" />
+                        </StackPanel>
+                    </Button.ToolTip>
+                    <Image Style="{DynamicResource ArrowLeftImageStyle}"/>
+                </Button>
                 <Button Margin="0,0,3,0" Click="HomeButton_Click" Style="{DynamicResource ImageButtonStyle}">
                     <Image Style="{DynamicResource HomeImageStyle}"/>
                 </Button>

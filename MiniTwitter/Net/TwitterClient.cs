@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -57,7 +58,7 @@ namespace MiniTwitter.Net
         }
 
         public static string Unescape(string text)
-        {
+        {            
             return unescapeRegex.Replace(text, match => match.Groups[1].Value == "gt" ? ">" : "<");
         }
 
@@ -196,12 +197,12 @@ namespace MiniTwitter.Net
             }
         }
 
-        public void Update(string text)
+        public void Update(string text, Action<ProccessStep> proccessCallBack = null)
         {
-            Update(text, null, null, null);
+            Update(text, null, null, null, proccessCallBack);
         }
 
-        public void Update(string text, ulong? replyId, double? latitude, double? longitude)
+        public void Update(string text, ulong? replyId, double? latitude, double? longitude, Action<ProccessStep> proccessCallBack = null)
         {
             if (text.Length > 140)
             {
@@ -233,19 +234,19 @@ namespace MiniTwitter.Net
             {
                 string user = m.Groups[1].Value;
                 text = text.Substring(m.Length);
-                UpdateMessage(user, text);
+                UpdateMessage(user, text, proccessCallBack);
             }
             else
             {
-                UpdateStatus(text, replyId, latitude, longitude);
+                UpdateStatus(text, replyId, latitude, longitude, proccessCallBack);
             }
         }
 
-        public Status ReTweet(ulong id)
+        public Status ReTweet(ulong id, Action<ProccessStep> proccessCallBack = null)
         {
             try
             {
-                return Post<Status>(string.Format("{1}1/statuses/retweet/{0}.xml", id, ApiBaseUrl));
+                return Post<Status>(string.Format("{1}1/statuses/retweet/{0}.xml", id, ApiBaseUrl), proccessCallBack);
             }
             catch
             {
@@ -253,7 +254,7 @@ namespace MiniTwitter.Net
             }
         }
 
-        private void UpdateStatus(string text, ulong? replyId, double? latitude, double? longitude)
+        private void UpdateStatus(string text, ulong? replyId, double? latitude, double? longitude, Action<ProccessStep> proccessCallBack = null)
         {
             if (!Footer.IsNullOrEmpty())
             {
@@ -277,22 +278,22 @@ namespace MiniTwitter.Net
                 {
                     if (latitude.HasValue && longitude.HasValue)
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value, lat = latitude.Value, @long = longitude.Value });
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value, lat = latitude.Value, @long = longitude.Value }, proccessCallBack);
                     }
                     else
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value });
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value }, proccessCallBack);
                     }
                 }
                 else
                 {
                     if (latitude.HasValue && longitude.HasValue)
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, lat = latitude.Value, @long = longitude.Value });
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, lat = latitude.Value, @long = longitude.Value }, proccessCallBack);
                     }
                     else
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text });
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text }, proccessCallBack);
                     }
                 }
                 status.IsAuthor = true;
@@ -310,11 +311,11 @@ namespace MiniTwitter.Net
             }
         }
 
-        private void UpdateMessage(string user, string text)
+        private void UpdateMessage(string user, string text, Action<ProccessStep> proccessCallBack = null)
         {
             try
             {
-                var message = Post<DirectMessage>(string.Format("{0}1/direct_messages/new.xml", ApiBaseUrl), new { user = user, text = text });
+                var message = Post<DirectMessage>(string.Format("{0}1/direct_messages/new.xml", ApiBaseUrl), new { user = user, text = text }, proccessCallBack);
                 message.IsAuthor = true;
                 if (Updated != null)
                 {
@@ -980,7 +981,7 @@ namespace MiniTwitter.Net
                     }
                     finally
                     {
-                        Thread.Sleep(1000 * (int)Math.Pow(_failureCount, _failureCount));
+                        Thread.SpinWait(1000 * (int)Math.Pow(_failureCount, _failureCount));
                     }
                 }
             });

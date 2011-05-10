@@ -128,6 +128,14 @@ namespace MiniTwitter
         private void App_Exit(object sender, ExitEventArgs e)
         {
             //Log.Logger.Default.AddLogItem(new Log.LogItem("程序退出"));
+            try
+            {
+                MainTokenSource.Cancel();
+            }
+            finally
+            {
+                MainTokenSource.Dispose();   
+            }
             if (!_isSaved)
             {
                 lock (_syncLock)
@@ -159,6 +167,15 @@ namespace MiniTwitter
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             _isSaved = true;
+            try
+            {
+                MainTokenSource.Cancel();
+            }
+            finally
+            {
+                MainTokenSource.Dispose();
+            }
+                
 #if !DEBUG
             if (e.Exception == null)
             {
@@ -177,13 +194,21 @@ namespace MiniTwitter
         private readonly object _syncLock = new object();
         private readonly Mutex mutex = new Mutex(false, NAME);
 
+        private static CancellationTokenSource _MainTokenSource = new CancellationTokenSource();
+
+        public static CancellationTokenSource MainTokenSource
+        {
+            get { return App._MainTokenSource; }
+        }
+        
+
         private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
 
         public const string VERSION = "1.66.⑨.96";
         public const string NAME = "MiniTwitter Mod";
 
-        public const string google_key = GoogleAPIKey;
-        public const string consumer_key = TwitterConsumerKey;
-        public const string consumer_secret = TwitterConsumerSecret;
+        public static string google_key { get { return GoogleAPIKey; } }
+        public static string consumer_key { get { return TwitterConsumerKey; } }
+        public static string consumer_secret { get { return TwitterConsumerSecret; } }
     }
 }

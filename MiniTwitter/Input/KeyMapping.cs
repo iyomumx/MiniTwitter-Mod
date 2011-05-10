@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.IO;
 using System.Text;
@@ -24,11 +25,13 @@ namespace MiniTwitter.Input
 
         public static KeyMapping GetKeyMapping(int index)
         {
+            Contract.Requires(index >= 0, "索引必须大于0");
             return KeyMappings.ElementAt(index).Value;
         }
 
         public static void LoadFrom(string directory)
         {
+            Contract.Requires(directory != null, "路径不能为空");
             foreach (var file in Directory.GetFiles(directory, "*.xml"))
             {
                 using (var stream = File.Open(file, FileMode.Open, FileAccess.Read))

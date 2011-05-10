@@ -78,35 +78,49 @@ namespace MiniTwitter.Net
             byte[] startData = enc.GetBytes(postData);
             postData = "\r\n--" + boundary + "--\r\n";
             byte[] endData = enc.GetBytes(postData);
-
-            //送信するファイルを開く
-            var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-            //POST送信するデータの長さを指定
-            req.ContentLength = startData.Length + endData.Length + fs.Length;
-
-            //データをPOST送信するためのStreamを取得
-            var reqStream = req.GetRequestStream();
-
-            //送信するデータを書き込む
-            reqStream.Write(startData, 0, startData.Length);
-
-            //ファイルの内容を送信
-            byte[] readData = new byte[0x10000];
-            int readSize = 0;
-            while (true)
+            FileStream fs = null;
+            try
             {
-                readSize = fs.Read(readData, 0, readData.Length);
-                if (readSize == 0)
+                //送信するファイルを開く
+                fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+                //POST送信するデータの長さを指定
+                req.ContentLength = startData.Length + endData.Length + fs.Length;
+
+                //データをPOST送信するためのStreamを取得
+                var reqStream = req.GetRequestStream();
+
+                //送信するデータを書き込む
+                reqStream.Write(startData, 0, startData.Length);
+
+                //ファイルの内容を送信
+                byte[] readData = new byte[0x10000];
+                int readSize = 0;
+                while (true)
                 {
-                    break;
+                    readSize = fs.Read(readData, 0, readData.Length);
+                    if (readSize == 0)
+                    {
+                        break;
+                    }
+                    reqStream.Write(readData, 0, readSize);
                 }
-                reqStream.Write(readData, 0, readSize);
+                fs.Close();
+                reqStream.Write(endData, 0, endData.Length);
+                reqStream.Close();
             }
-            fs.Close();
-            fs.Dispose();
-            reqStream.Write(endData, 0, endData.Length);
-            reqStream.Close();
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
+            }
+
+
 
             //サーバーからの応答を受信するためのWebResponseを取得
             var res = (HttpWebResponse)req.GetResponse();

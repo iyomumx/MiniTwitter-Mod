@@ -15,7 +15,8 @@ namespace MiniTwitter.Net
 	/// <summary>
 	/// Simply a class that describes a set of geo coordinates
 	/// </summary>
-	[DataContract(Namespace = "http://api.plixi.com")]
+    [DataContract(Namespace = "http://api.plixi.com")]
+    [Serializable]
 	public class GeoLocation
 	{
 		public GeoLocation() { }

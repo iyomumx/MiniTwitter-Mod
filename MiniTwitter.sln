@@ -32,6 +32,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AddinRunner", "IronPythonAd
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExtensionManager", "ExtensionManager\ExtensionManager.vbproj", "{534BBE39-3D65-447C-87A8-25EE475AF405}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MyCommandLink", "MyCommandLink\MyCommandLink.vbproj", "{DAE29315-DC52-4286-8B87-CF2638C69F41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,6 +178,20 @@ Global
 		{534BBE39-3D65-447C-87A8-25EE475AF405}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{534BBE39-3D65-447C-87A8-25EE475AF405}.Release|x64.ActiveCfg = Release|Any CPU
 		{534BBE39-3D65-447C-87A8-25EE475AF405}.Release|x86.ActiveCfg = Release|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|x64.ActiveCfg = Release|x64
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|x64.Build.0 = Release|x64
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|x86.ActiveCfg = Release|x86
+		{DAE29315-DC52-4286-8B87-CF2638C69F41}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

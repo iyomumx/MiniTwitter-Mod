@@ -256,5 +256,5 @@
         <Separator/>
         <MenuItem Header="全部删除(_C)" Command="MiniTwitter_Input:Commands.ClearTimeline"/>
     </ContextMenu>
-
+  <SolidColorBrush x:Key="NavigationPageTitleBrushKey">#FF003399</SolidColorBrush>
 </ResourceDictionary>

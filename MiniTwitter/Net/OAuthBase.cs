@@ -7,6 +7,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace MiniTwitter.Net
@@ -32,6 +33,16 @@ namespace MiniTwitter.Net
         private readonly static DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
         private const string _unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
+
+        private static readonly Action<ProccessStep> EmptyProccessCallBack = _ => { };
+
+        public enum ProccessStep
+        {
+            CreatRequest,
+            GetResponse,
+            PraseData,
+            Error,
+        }
 
         public enum HttpVerbs
         {
@@ -171,112 +182,115 @@ namespace MiniTwitter.Net
             }
         }
 
-        protected string Get(string url)
+        protected string Get(string url, Action<ProccessStep> proccessCallBack = null)
         {
-            return Get(url, null);
+            return Get(url, null, proccessCallBack);
         }
 
-        protected string Get(string url, object param)
+        protected string Get(string url, object param, Action<ProccessStep> proccessCallBack = null)
         {
-            return Fetch(HttpVerbs.Get, url, param, _token, _tokenSecret, null);
+            return Fetch(HttpVerbs.Get, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected T Get<T>(string url) where T : class
+        protected T Get<T>(string url, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Get<T>(url, null);
+            return Get<T>(url, null, proccessCallBack);
         }
 
-        protected T Get<T>(string url, object param) where T : class
+        protected T Get<T>(string url, object param, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Fetch<T>(HttpVerbs.Get, url, param, _token, _tokenSecret, null);
+            return Fetch<T>(HttpVerbs.Get, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected T Get<T>(string url, object param, out DateTime lastModified) where T : class
+        protected T Get<T>(string url, object param, out DateTime lastModified, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Fetch<T>(HttpVerbs.Get, url, param, _token, _tokenSecret, null, out lastModified);
+            return Fetch<T>(HttpVerbs.Get, url, param, _token, _tokenSecret, null, out lastModified, proccessCallBack);
         }
 
-        protected string Post(string url)
+        protected string Post(string url, Action<ProccessStep> proccessCallBack = null)
         {
-            return Post(url, null);
+            return Post(url, null, proccessCallBack);
         }
 
-        protected string Post(string url, object param)
+        protected string Post(string url, object param, Action<ProccessStep> proccessCallBack = null)
         {
-            return Fetch(HttpVerbs.Post, url, param, _token, _tokenSecret, null);
+            return Fetch(HttpVerbs.Post, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected T Post<T>(string url) where T : class
+        protected T Post<T>(string url, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Post<T>(url, null);
+            return Post<T>(url, null, proccessCallBack);
         }
 
-        protected T Post<T>(string url, object param) where T : class
+        protected T Post<T>(string url, object param, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Fetch<T>(HttpVerbs.Post, url, param, _token, _tokenSecret, null);
+            return Fetch<T>(HttpVerbs.Post, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected string Put(string url)
+        protected string Put(string url, Action<ProccessStep> proccessCallBack = null)
         {
-            return Put(url, null);
+            return Put(url, null, proccessCallBack);
         }
 
-        protected string Put(string url, object param)
+        protected string Put(string url, object param, Action<ProccessStep> proccessCallBack = null)
         {
-            return Fetch(HttpVerbs.Put, url, param, _token, _tokenSecret, null);
+            return Fetch(HttpVerbs.Put, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected T Put<T>(string url) where T : class
+        protected T Put<T>(string url, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Put<T>(url, null);
+            return Put<T>(url, null, proccessCallBack);
         }
 
-        protected T Put<T>(string url, object param) where T : class
+        protected T Put<T>(string url, object param, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Fetch<T>(HttpVerbs.Put, url, param, _token, _tokenSecret, null);
+            return Fetch<T>(HttpVerbs.Put, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected string Delete(string url)
+        protected string Delete(string url, Action<ProccessStep> proccessCallBack = null)
         {
             return Delete(url, null);
         }
 
-        protected string Delete(string url, object param)
+        protected string Delete(string url, object param, Action<ProccessStep> proccessCallBack = null)
         {
-            return Fetch(HttpVerbs.Delete, url, param, _token, _tokenSecret, null);
+            return Fetch(HttpVerbs.Delete, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
-        protected T Delete<T>(string url) where T : class
+        protected T Delete<T>(string url, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Delete<T>(url, null);
+            return Delete<T>(url, null, proccessCallBack);
         }
 
-        protected T Delete<T>(string url, object param) where T : class
+        protected T Delete<T>(string url, object param, Action<ProccessStep> proccessCallBack = null) where T : class
         {
-            return Fetch<T>(HttpVerbs.Delete, url, param, _token, _tokenSecret, null);
+            return Fetch<T>(HttpVerbs.Delete, url, param, _token, _tokenSecret, null, proccessCallBack);
         }
 
         #endregion
 
         #region static メソッド
 
-        private string Fetch(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier)
+        private string Fetch(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, Action<ProccessStep> proccessCallBack = null)
         {
             DateTime temp;
             return Fetch(verb, url, param, token, tokenSecret, verifier, out temp);
         }
 
-        private string Fetch(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified)
+        private string Fetch(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified, Action<ProccessStep> proccessCallBack = null)
         {
             lastModified = DateTime.Now;
-
+            if (proccessCallBack == null) proccessCallBack = EmptyProccessCallBack;
             for (int i = 0; i < 5; ++i)
             {
+                proccessCallBack(ProccessStep.CreatRequest);
                 var request = CreateRequest(verb, url, param, token, tokenSecret, verifier);
+                proccessCallBack(ProccessStep.GetResponse);
                 try
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
+                    proccessCallBack(ProccessStep.PraseData);
                     try
                     {
                         int num;
@@ -295,11 +309,17 @@ namespace MiniTwitter.Net
                     }
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
+#if DEBUG
+                        var s = reader.ReadToEnd();
+                        return s;
+#else
                         return reader.ReadToEnd();
+#endif
                     }
                 }
                 catch (WebException e)
                 {
+                    proccessCallBack(ProccessStep.Error);
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
@@ -323,22 +343,29 @@ namespace MiniTwitter.Net
             return null;
         }
 
-        private T Fetch<T>(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier) where T : class
+        private T Fetch<T>(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, Action<ProccessStep> proccessCallBack = null) where T : class
         {
             DateTime temp;
             return Fetch<T>(verb, url, param, token, tokenSecret, verifier, out temp);
         }
 
-        private T Fetch<T>(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified) where T : class
+        private T Fetch<T>(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified, Action<ProccessStep> proccessCallBack = null) where T : class
         {
+            if (proccessCallBack == null) proccessCallBack = EmptyProccessCallBack;
             lastModified = DateTime.Now;
+#if DEBUG
+            string s;
+#endif
             for (int i = 0; i < 5; ++i)
             {
+                proccessCallBack(ProccessStep.CreatRequest);
                 var request = CreateRequest(verb, url, param, token, tokenSecret, verifier);
+                proccessCallBack(ProccessStep.GetResponse);
                 try
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
+                    proccessCallBack(ProccessStep.PraseData);
                     try
                     {
                         int num;
@@ -357,11 +384,22 @@ namespace MiniTwitter.Net
                     }
                     using (var stream = response.GetResponseStream())
                     {
+#if DEBUG
+                        //卧槽DEBUG要性能能当饭吃？
+                        using (var reader = new StreamReader(stream))
+                        {
+                            s = reader.ReadToEnd();                     //反序列化有问题请找字符串
+                        }
+                        XElement xml = XElement.Parse(s);
+                        return Serializer<T>.Deserialize(xml.CreateReader());
+#else
                         return Serializer<T>.Deserialize(stream);
+#endif
                     }
                 }
                 catch (WebException e)
                 {
+                    proccessCallBack(ProccessStep.Error);
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
@@ -386,17 +424,21 @@ namespace MiniTwitter.Net
             return default(T);
         }
 
-        public Stream FetchStream(HttpVerbs verb, string url, object param, out DateTime lastModified)
+        public Stream FetchStream(HttpVerbs verb, string url, object param, out DateTime lastModified, Action<ProccessStep> proccessCallBack = null)
         {
+            if (proccessCallBack == null) proccessCallBack = EmptyProccessCallBack;
             lastModified = DateTime.Now;
 
             for (int i = 0; i < 5; ++i)
             {
+                proccessCallBack(ProccessStep.CreatRequest);
                 var request = CreateRequest(verb, url, param, _token, _tokenSecret, null);
+                proccessCallBack(ProccessStep.GetResponse);
                 try
                 {
                     var response = (HttpWebResponse)request.GetResponse();
                     lastModified = response.LastModified;
+                    proccessCallBack(ProccessStep.PraseData);
                     //try
                     //{
                     //    int num;
@@ -414,6 +456,7 @@ namespace MiniTwitter.Net
                 }
                 catch (WebException e)
                 {
+                    proccessCallBack(ProccessStep.Error);
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = (HttpWebResponse)e.Response;
@@ -431,6 +474,7 @@ namespace MiniTwitter.Net
                 }
                 catch
                 {
+                    proccessCallBack(ProccessStep.Error);
                     return null;
                 }
             }

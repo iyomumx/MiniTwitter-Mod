@@ -258,7 +258,7 @@
             <Button Content="删除" Width="75" Canvas.Left="286" Canvas.Top="346" Click="DeleteKeywordButton_Click" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=GlobalFilterListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <ListView Canvas.Left="6" Canvas.Top="6" IsSynchronizedWithCurrentItem="True" Name="FilterListView" Height="315" Width="341" SelectionChanged="FilterListView_SelectionChanged">
+            <ListView Canvas.Left="6" Canvas.Top="6" IsSynchronizedWithCurrentItem="True" Name="FilterListView" Height="284" Width="341" SelectionChanged="FilterListView_SelectionChanged">
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Click="DeleteFilterButton_Click" Header="删除(_D)" />
@@ -291,8 +291,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TextBox Name="FilterTextBox" TextWrapping="Wrap" Grid.Column="2" Width="285" Canvas.Left="6" Canvas.Top="327" />
-            <Button Content="添加" Width="50" Canvas.Left="297" Canvas.Top="327" Click="AddFilterButton_Click" />
+            <TextBox Name="FilterTextBox" TextWrapping="Wrap" Grid.Column="2" Width="285" Canvas.Left="6" Canvas.Top="296" />
+            <Button Content="添加" Width="50" Canvas.Left="297" Canvas.Top="296" Click="AddFilterButton_Click" />
+            <CheckBox Canvas.Left="8" Canvas.Top="327" Content="丢弃被过滤的信息" Height="18" Width="118" IsChecked="{Binding Path=ThrowFilteredTweets}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=AddInListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
         </Canvas>
@@ -306,8 +307,8 @@
             <CheckBox Content="启用实时更新(需要重启程序，需要到Twitter的稳定连接)" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
             <CheckBox Content="主窗口总在最顶部" Canvas.Left="14" Canvas.Top="155" IsChecked="{Binding Path=AlwaysOnTop}" />
             <CheckBox Content="短链接反跟踪(对goo.gl以及bit.ly有效)" Canvas.Left="14" Canvas.Top="177" IsChecked="{Binding Path=AntiShortUrlTracking}" />
-            <CheckBox Content="内容平滑滚动(请量力而行，需要重启程序)" Canvas.Left="14" Canvas.Top="199" IsChecked="{Binding Path=SmoothScroll}" />
-            <CheckBox Content="内容实时滚动(拖动滚动条内容同时滚动，会降低性能，需重启程序)" Canvas.Left="14" Canvas.Top="221" IsChecked="{Binding Path=RealtimeScroll}" />
+            <CheckBox Content="内容平滑滚动(请量力而行，可能需要重启程序)" Canvas.Left="14" Canvas.Top="199" IsChecked="{Binding Path=SmoothScroll}" />
+            <CheckBox Content="内容实时滚动(拖动滚动条内容同时滚动，会轻微降低性能)" Canvas.Left="14" Canvas.Top="221" IsChecked="{Binding Path=RealtimeScroll}" />
             <CheckBox Content="启用日志（轻微降低性能并最多会占用2M的硬盘空间）" Canvas.Left="14" Canvas.Top="243" IsChecked="{Binding Path=EnableLog}" Visibility="Collapsed" />
             <TextBlock Text="RT前缀" Canvas.Left="31" Canvas.Top="265"/>
             <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="265" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>

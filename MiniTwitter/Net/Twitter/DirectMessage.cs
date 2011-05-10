@@ -12,7 +12,7 @@ namespace MiniTwitter.Net.Twitter
 {
     [Serializable]
     [XmlRoot("direct_message")]
-    public class DirectMessage : PropertyChangedBase, ITwitterItem
+    public class DirectMessage : PropertyChangedBase, ITwitterItem, ITimeTaged
     {
         private DateTime createdAt;
 
@@ -179,6 +179,30 @@ namespace MiniTwitter.Net.Twitter
         public override int GetHashCode()
         {
             return this.ID.GetHashCode();
+        }
+
+        private DateTime lastModified;
+
+        [XmlIgnore()]
+        public DateTime LastModified
+        {
+            get
+            {
+                return lastModified;
+            }
+            set
+            {
+                if (lastModified<value)
+                {
+                    lastModified = value;
+                    OnPropertyChanged("LastModified");
+                }
+            }
+        }
+
+        public void UpdateChild()
+        {
+            
         }
     }
 }

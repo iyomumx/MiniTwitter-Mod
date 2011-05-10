@@ -7,7 +7,7 @@ namespace MiniTwitter.Net.Twitter
 {
     [Serializable]
     [XmlRoot("status")]
-    public class Status : PropertyChangedBase, ITwitterItem
+    public class Status : PropertyChangedBase, ITwitterItem, ITimeTaged
     {
         private DateTime createdAt;
 
@@ -376,6 +376,32 @@ namespace MiniTwitter.Net.Twitter
         public override int GetHashCode()
         {
             return this.id.GetHashCode();
+        }
+
+        private DateTime lastModified;
+
+        [XmlIgnore()]
+        public DateTime LastModified
+        {
+            get
+            {
+                return lastModified;
+            }
+            set
+            {
+                if (lastModified<value)
+                {
+                    lastModified = value;
+                    OnPropertyChanged("LastModified");
+                    UpdateChild();
+                }
+            }
+        }
+
+        public void UpdateChild()
+        {
+            this.Recipient.LastModified = this.LastModified;
+            this.Sender.LastModified = this.LastModified;
         }
     }
 }

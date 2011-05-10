@@ -48,6 +48,7 @@ namespace MiniTwitter.Properties
             IsRetweetWithInReplyTo = true;
             UseUserStream = false;
             Version = 1;
+            ThrowFilteredTweets = false;
             BitlyApiKey = "R_276fb4934824bf8ee936ad0daf0e6745";
             BitlyUsername = "shibayan";
         }
@@ -103,6 +104,8 @@ namespace MiniTwitter.Properties
         public string ApiSearchUrl { get; set; }
 
         public string LinkUrl { get; set; }
+
+        public bool ThrowFilteredTweets { get; set; }
 
         private bool _acceptAllCert;
 
@@ -225,11 +228,57 @@ namespace MiniTwitter.Properties
             private set;
         }
 
-        public bool AlwaysOnTop { get; set; }
+        private bool _AlwaysOnTop;
 
-        public bool SmoothScroll { get; set; }
+        public bool AlwaysOnTop 
+        {
+            get 
+            {
+                return _AlwaysOnTop;
+            }
+            set
+            {
+                if (_AlwaysOnTop!=value)
+                {
+                    _AlwaysOnTop = value;
+                    OnPropertyChanged("AlwaysOnTop");
+                }
+            }
+        }
 
-        public bool RealtimeScroll { get; set; }
+        private bool _SmoothScroll;
+        public bool SmoothScroll 
+        { 
+            get
+            {
+                return _SmoothScroll;
+            }
+            set
+            {
+                if (_SmoothScroll!=value)
+                {
+                    _SmoothScroll = value;
+                    OnPropertyChanged("SmoothScroll");
+                }
+            }
+        }
+
+        private bool _RealtimeScroll;
+        public bool RealtimeScroll 
+        {
+            get
+            {
+                return _RealtimeScroll;
+            }
+            set
+            {
+                if (_RealtimeScroll!=value)
+                {
+                    _RealtimeScroll = value;
+                    OnPropertyChanged("RealtimeScroll");
+                }
+            }
+        }
 
         public bool EnableLog { get; set; }
 
@@ -394,6 +443,7 @@ namespace MiniTwitter.Properties
             }
         }
 
+        [XmlIgnore, NonSerialized]
         private FontFamily _fontFamilyInternal;
 
         [XmlIgnore()]
