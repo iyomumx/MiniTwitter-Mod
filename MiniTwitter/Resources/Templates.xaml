@@ -80,10 +80,15 @@
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到回复条目"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到所回复的条目"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
                             Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
+                    </Button>
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.BeReplied" ToolTip="查看回复"
+                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                            Visibility="{Binding Path=IsReplied, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Image Width="14" Height="14" Style="{DynamicResource ArrowRightImageStyle}"/>
                     </Button>
                 </WrapPanel>
             </StackPanel>

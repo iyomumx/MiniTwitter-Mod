@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Xml.Serialization;
 
@@ -38,6 +40,7 @@ namespace MiniTwitter
         [NonSerialized]
         private SpinLock _thisLock = new SpinLock();
 
+        [NonSerialized]
         private string _name;
 
         [XmlAttribute]
@@ -112,17 +115,40 @@ namespace MiniTwitter
                 }
                 int count = 0;
                 int unreadCount = 0;
-                foreach (var item in appendItems.Where(x => !Items.Contains(x) && IsFilterMatch(x)))
-                {
+                ConcurrentBag<T> buffer=new ConcurrentBag<T>();
+                appendItems.AsParallel().Where(x => !Items.Contains(x) && IsFilterMatch(x)).ForAll(item => { 
                     if (Type == TimelineType.Archive && item.IsReTweeted)
                     {
-                        continue;
+                        return;
                     }
-                    count++;
+                    Interlocked.Increment(ref count);
                     if (item.IsNewest)
                     {
-                        unreadCount++;
+                        Interlocked.Increment(ref unreadCount);
                     }
+                    buffer.Add(item);
+                    if (item is Status)
+                    {
+                        var itm = ((Status)Convert.ChangeType(item, typeof(Status)));
+                        if (itm.IsReply)
+                        {
+                            var target = Items.AsParallel().OfType<Status>().Where((it, _) => it.ID == itm.InReplyToStatusID).FirstOrDefault();
+                            if (target==null)
+                            {
+                                target = appendItems.AsParallel().OfType<Status>().Where((it, _) => it.ID == itm.InReplyToStatusID).FirstOrDefault();
+                                if (target==null)
+                                {
+                                    return;
+                                }
+                            }
+                            target.IsReplied = true;
+                            target.MentionStatus = itm;
+                            itm.InReplyToStatus = target;
+                        }
+                    }
+                });
+                foreach (var item in buffer)
+                {
                     Items.Add(item);
                 }
                 UnreadCount += unreadCount;

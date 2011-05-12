@@ -132,9 +132,13 @@ namespace MiniTwitter
             {
                 MainTokenSource.Cancel();
             }
+            catch { }
             finally
             {
-                MainTokenSource.Dispose();   
+                if (MainTokenSource != null)
+                {
+                    MainTokenSource.Dispose();
+                }
             }
             if (!_isSaved)
             {
@@ -170,6 +174,9 @@ namespace MiniTwitter
             try
             {
                 MainTokenSource.Cancel();
+            }
+            catch
+            {
             }
             finally
             {

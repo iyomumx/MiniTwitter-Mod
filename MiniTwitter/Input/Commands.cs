@@ -246,6 +246,13 @@ namespace MiniTwitter.Input
             get { return Commands.inReplyTo; }
         }
 
+        private static readonly RoutedCommand beReplied = new RoutedCommand("BeReplied", typeof(Commands));
+
+        public static RoutedCommand BeReplied
+        {
+            get { return Commands.beReplied; }
+        }
+
         private static readonly RoutedCommand _gpsLocation = new RoutedCommand("GpsLocation", typeof(Commands));
 
         public static RoutedCommand GpsLocation

@@ -54,6 +54,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Imgly" Executed="imglyCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.PlayTitle" Executed="PlayTitleCommand_Executed" CanExecute="PlayTitleCommand_CanExecuted" />
         <CommandBinding Command="MiniTwitter_Input:Commands.InReplyTo" Executed="InReplyToCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.BeReplied" Executed="BeRepliedCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.GpsLocation" Executed="GpsLocationCommand_Executed" CanExecute="GpsLocationCommand_CanExecute" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Follow" Executed="FollowCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Unfollow" Executed="UnfollowCommand_Executed" />

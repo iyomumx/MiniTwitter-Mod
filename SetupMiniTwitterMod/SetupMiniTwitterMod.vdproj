@@ -206,7 +206,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_0139E157FA050BDE24F7ADF12FE15459"
@@ -257,7 +257,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_28A4DCEF985E0DAF690922BE961BF11E"
@@ -288,7 +288,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_32BC4C909370D0EC37A57E770B0CC326"
@@ -319,7 +319,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_81F3F865C3C7DFCF3F624614E861A924"
@@ -445,7 +445,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{69BCE386-A387-41D0-BD20-42D41950EE06}"
-        "PackageCode" = "8:{F126E033-2021-4214-A8E4-2B4C7FBDF36A}"
+        "PackageCode" = "8:{7DD949EB-89AD-4584-B656-A36E9F50BF5C}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1354,7 +1354,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D329D979F452491683D6611DAD671D71"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4499BAD561D240AC81F800E6414AEB77"

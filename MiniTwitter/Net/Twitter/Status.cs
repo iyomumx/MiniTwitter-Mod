@@ -245,6 +245,13 @@ namespace MiniTwitter.Net.Twitter
             }
         }
 
+        [XmlIgnore]
+        public Status InReplyToStatus
+        {
+            get;
+            set;
+        }
+
         private Status retweetedStatus;
 
         [XmlElement("retweeted_status")]
@@ -334,6 +341,26 @@ namespace MiniTwitter.Net.Twitter
             get { return InReplyToStatusID != 0; }
         }
 
+        private bool isReplied;
+
+        [XmlIgnore]
+        public bool IsReplied
+        {
+            get { return isReplied; }
+            set
+            {
+                if (isReplied != value)
+                {
+                    isReplied = value;
+                    OnPropertyChanged("IsReplied");
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public Status MentionStatus { get; set; }
+
+        [XmlIgnore]
         public bool IsMention { get; set; }
 
         [XmlIgnore]

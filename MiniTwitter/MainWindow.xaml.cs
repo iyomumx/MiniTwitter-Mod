@@ -855,6 +855,15 @@ namespace MiniTwitter
                         if (status != null)
                         {
                             Timelines.Remove(status);
+                            if (status.IsReply)
+                            {
+                                if (status.InReplyToStatus != null)
+                                {
+                                    status.InReplyToStatus.IsReplied = false;
+                                    status.InReplyToStatus.MentionStatus = null;
+                                    status.InReplyToStatus = null;
+                                }
+                            }
                         }
                         return;
                     }
@@ -2351,7 +2360,14 @@ namespace MiniTwitter
                 _listBox = getChildVisual(TimelineTabControl);
             }
             if (_listBox == null) return;
-
+            
+            if (replyTo is Status)
+            {
+                status.InReplyToStatus = (Status)replyTo;
+                ((Status)replyTo).IsReplied = true;
+                ((Status)replyTo).MentionStatus = status;
+            }
+            
             currentTimeline.View.MoveCurrentTo(replyTo);
 
             if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search)
@@ -2525,12 +2541,6 @@ namespace MiniTwitter
             {
                 return;
             }
-            //var status = (Status)(GetReplyToItem());
-
-            //if (status == null || status.InReplyToStatusID == 0)
-            //{
-            //    return;
-            //}
 
             var currentTimeline = (Timeline)TimelineTabControl.SelectedItem;
 
@@ -2607,6 +2617,54 @@ namespace MiniTwitter
                 In_Reply_To_Status_Id = null;
                 In_Reply_To_Status_User_Name = null;
             }
+        }
+
+        private ListBox _UpListBox;
+
+        private void BeRepliedCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Status replyTo = ((Status)e.Parameter).MentionStatus;
+
+            var currentTimeline = (Timeline)TimelineTabControl.SelectedItem;
+
+            currentTimeline = currentTimeline.Items.Contains(replyTo) ? currentTimeline : Timelines.Where(tl => tl.Items.Contains(replyTo)).FirstOrDefault();
+
+            if (currentTimeline == null)
+            {
+                ((Status)e.Parameter).IsReplied = false;
+                ((Status)e.Parameter).MentionStatus = null;
+            }
+
+            if (replyTo == null) return;
+
+            if (_UpListBox == null)
+            {
+                Func<DependencyObject, ListBox> getChildVisual = null;
+                getChildVisual = dobj =>
+                {
+                    if (dobj is ListBox) return dobj as ListBox;
+                    int count = VisualTreeHelper.GetChildrenCount(dobj);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var ret = getChildVisual(VisualTreeHelper.GetChild(dobj, i));
+                        if (ret != null) return ret;
+                    }
+                    return null;
+                };
+                _UpListBox = getChildVisual(TimelineTabControl);
+            }
+            if (_UpListBox == null) return;
+
+            currentTimeline.View.MoveCurrentTo(replyTo);
+
+            if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search)
+            {
+                TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
+            }
+
+            this.AsyncInvoke(p => _UpListBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);
+
+            ForceActivate(false);
         }
     }
 }
