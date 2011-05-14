@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
 using System.Deployment.Application;
+using System.Globalization;
 using System.Linq;
 using System.Media;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,6 +25,20 @@ namespace MiniTwitter
     /// </summary>
     public partial class SettingDialog : Window
     {
+        static SettingDialog()
+        {
+            SysFonts = 
+                new ObservableCollection<FontInfo>();
+            foreach (var font in Fonts.SystemFontFamilies)
+            {
+                if (font == null)
+                {
+                    continue;
+                }
+                SysFonts.Add(new FontInfo(font));
+            }
+        }
+
         public SettingDialog()
         {
             InitializeComponent();
@@ -30,6 +47,12 @@ namespace MiniTwitter
             {
                 TextOptions.SetTextRenderingMode(this, TextRenderingMode.ClearType);
             }
+        }
+
+        public static ObservableCollection<FontInfo> SysFonts
+        {
+            private set;
+            get;
         }
 
         private ObservableCollection<MiniTwitter.Input.KeyBinding> keyBindings;
@@ -399,5 +422,110 @@ namespace MiniTwitter
             filters.Remove(item);
         }
 
+        private void TextBlock_Initialized(object sender, EventArgs e)
+        {
+
+        }
+
+        private ConcurrentBag<int> InitializedTextBlocks = new ConcurrentBag<int>();
+
+        private void TextBlock_MouseWheel(object sender, EventArgs e)
+        {
+            try
+            {
+                if (InitializedTextBlocks.Contains(sender.GetHashCode()))
+                {
+                    return;
+                }
+                InitializedTextBlocks.Add(sender.GetHashCode());
+                if (sender is TextBlock)
+                {
+                    TextBlock text = (TextBlock)sender;
+                    ThreadPool.QueueUserWorkItem(_ =>
+                        text.Invoke(() =>
+                            text.FontFamily = (FontFamily)text.Tag));
+                }
+            }
+            catch { }
+        }
+
     }
+
+    public class FontInfo : PropertyChangedBase
+    {
+        public FontInfo(FontFamily font)
+        {
+            Source = font.Source;
+            Font = font;
+            if (font.FamilyNames.Count == 0)
+            {
+                Name = Source;
+            }
+            else
+            {
+                var k = font.FamilyNames.Where(kvp =>
+                    kvp.Key.GetEquivalentCulture() == CultureInfo.CurrentUICulture ||
+                    !kvp.Key.IetfLanguageTag.ToLower().StartsWith("en")).FirstOrDefault();
+                object o = k;
+                if (o == null || k.Key == null || k.Key.ToString().IsNullOrEmpty())
+                {
+                    Name = font.FamilyNames.FirstOrDefault().Value;
+                }
+                else
+                {
+                    Name = k.Value;
+                }
+            }
+        }
+        private string _source;
+
+        public string Source
+        {
+            get { return _source; }
+            set 
+            {
+                if (_source!=value)
+                {
+                    _source = value;
+                    OnPropertyChanged("Source");
+                }
+            }
+        }
+        private string _name;
+
+        public string Name
+        {
+            get { return _name; }
+            set 
+            {
+                if (_name!=value)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        private FontFamily _font;
+
+        public FontFamily Font
+        {
+            get { return _font; }
+            set 
+            {
+                if (_font!=value)
+                {
+                    _font = value;
+                    OnPropertyChanged("Font");
+                }
+            }
+        }
+
+    }
+
 }

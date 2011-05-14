@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 using MiniTwitter.Extensions;
@@ -14,7 +15,7 @@ namespace MiniTwitter.Extensions
     {
         public static void ClearAll(this IEnumerable<Timeline> timelines)
         {
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines)
             {
                 Application.Current.Invoke(timeline.Clear);
             }
@@ -22,7 +23,7 @@ namespace MiniTwitter.Extensions
 
         public static void RefreshAll(this IEnumerable<Timeline> timelines)
         {
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines)
             {
                 Application.Current.Invoke(timeline.View.Refresh);
             }
@@ -30,20 +31,20 @@ namespace MiniTwitter.Extensions
 
         public static void ReadAll(this IEnumerable<Timeline> timelines)
         {
-            foreach (var timeline in timelines.Where(p => p.Type != TimelineType.Archive))
+            foreach(var timeline in timelines.AsParallel().Where(p => p.Type != TimelineType.Archive))
             {
                 timeline.UnreadCount = 0;
 
-                foreach (var item in timeline.Items)
+                timeline.Items.AsParallel().ForAll(item =>
                 {
                     item.IsNewest = false;
-                }
+                });
             }
         }
 
         public static void SearchAll(this IEnumerable<Timeline> timelines, string term)
         {
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines)
             {
                 timeline.Search(term);
             }
@@ -56,7 +57,7 @@ namespace MiniTwitter.Extensions
 
         public static void ForEach(this IEnumerable<Timeline> timelines, Action<Timeline> action)
         {
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines)
             {
                 action(timeline);
             }
@@ -68,7 +69,7 @@ namespace MiniTwitter.Extensions
             {
                 return;
             }
-            foreach (var timeline in timelines.Where(p => p.Type != TimelineType.Message && p.Type != TimelineType.List && p.Type != TimelineType.Search))
+            foreach(var timeline in timelines.AsParallel().Where(p => p.Type != TimelineType.Message && p.Type != TimelineType.List && p.Type != TimelineType.Search))
             {
                 Application.Current.Invoke(timeline.Update, appendItems);
             }
@@ -80,7 +81,7 @@ namespace MiniTwitter.Extensions
             {
                 return;
             }
-            foreach (var timeline in timelines.Where(p => p.Type == type))
+            foreach(var timeline in timelines.AsParallel().Where(p => p.Type == type))
             {
                 Application.Current.Invoke(timeline.Update, appendItems);
             }
@@ -92,7 +93,7 @@ namespace MiniTwitter.Extensions
             {
                 return;
             }
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines.AsParallel())
             {
                 Application.Current.Invoke(timeline.Remove, removeItem);
             }
@@ -100,7 +101,7 @@ namespace MiniTwitter.Extensions
 
         public static void RemoveAll(this IEnumerable<Timeline> timelines, Predicate<ITwitterItem> match)
         {
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines)
             {
                 timeline.RemoveAll(match);
             }
@@ -118,7 +119,7 @@ namespace MiniTwitter.Extensions
 
         public static void Sort(this IEnumerable<Timeline> timelines, ListSortCategory category, ListSortDirection direction)
         {
-            foreach (var timeline in timelines)
+            foreach(var timeline in timelines)
             {
                 timeline.Sort(category, direction);
             }

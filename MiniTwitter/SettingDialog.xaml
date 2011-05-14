@@ -179,7 +179,15 @@
             <TextBlock TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"><Run Text="主题"/></TextBlock>
             <ComboBox Width="220" IsSynchronizedWithCurrentItem="True" Canvas.Left="110" Canvas.Top="14" ItemsSource="{x:Static MiniTwitter_Themes:ThemeManager.Themes}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding Path=Theme}" />
             <TextBlock Text="字体" Canvas.Left="14" Canvas.Top="62"/>
-            <ComboBox Width="180" Canvas.Left="110" Canvas.Top="59" ItemsSource="{x:Static Fonts.SystemFontFamilies}" DisplayMemberPath="Source" SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" />
+            <ComboBox Width="180" Canvas.Left="110" Canvas.Top="59" ItemsSource="{x:Static MiniTwitter:SettingDialog.SysFonts}" SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name, FallbackValue=未知字体}"
+                                   FontSize="16" Tag="{Binding Path=Font}"
+                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" MouseEnter="TextBlock_MouseWheel" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <CheckBox Content="强制打开ClearType" Canvas.Left="20" Canvas.Top="95" IsChecked="{Binding Path=IsClearTypeEnabled}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=KeyboardListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -312,6 +320,8 @@
             <CheckBox Content="启用日志（轻微降低性能并最多会占用2M的硬盘空间）" Canvas.Left="14" Canvas.Top="243" IsChecked="{Binding Path=EnableLog}" Visibility="Collapsed" />
             <TextBlock Text="RT前缀" Canvas.Left="31" Canvas.Top="265"/>
             <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="265" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
+            <TextBlock Text="NowPlaying格式（{0}-歌曲名 {1}-专辑名 {2}-歌手名）：" Canvas.Left="31" Canvas.Top="287"/>
+            <TextBox Width="240" Canvas.Left="50" Canvas.Top="309" Text="{Binding Path=NowPlayingFormat}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=VersionListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Canvas.Left="70" Canvas.Top="30" Source="Resources\MiniTwitter.ico" Width="48" />

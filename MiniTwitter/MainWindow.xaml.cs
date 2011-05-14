@@ -9,6 +9,7 @@ using System.Media;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -99,6 +100,8 @@ namespace MiniTwitter
 
         private readonly ObservableCollection<Timeline> timelines = new ObservableCollection<Timeline>();
 
+        private readonly object _TimelinesLock = new object();
+
         public ObservableCollection<Timeline> Timelines
         {
             get { return timelines; }
@@ -187,29 +190,35 @@ namespace MiniTwitter
 
         private void InitializeTimeline()
         {
-            // 初期タイムラインを作成
-            Timelines.Add(new Timeline { Type = TimelineType.Recent, Name = "Recent" });
-            Timelines.Add(new Timeline { Type = TimelineType.Replies, Name = "Replies" });
-            Timelines.Add(new Timeline { Type = TimelineType.Archive, Name = "Archive" });
-            Timelines.Add(new Timeline { Type = TimelineType.Message, Name = "Message" });
-            // ユーザータイムラインを作成
-            foreach (var item in Settings.Default.Timelines)
+            
             {
-                Timelines.Add(item);
+                // 初期タイムラインを作成
+                Timelines.Add(new Timeline { Type = TimelineType.Recent, Name = "Recent" });
+                Timelines.Add(new Timeline { Type = TimelineType.Replies, Name = "Replies" });
+                Timelines.Add(new Timeline { Type = TimelineType.Archive, Name = "Archive" });
+                Timelines.Add(new Timeline { Type = TimelineType.Message, Name = "Message" });
+                // ユーザータイムラインを作成
+                foreach (var item in Settings.Default.Timelines)
+                {
+                    Timelines.Add(item);
+                }
+                // タイムラインをソート
+                Timelines.Sort(Settings.Default.SortCategory, Settings.Default.SortDirection);
             }
-            // タイムラインをソート
-            Timelines.Sort(Settings.Default.SortCategory, Settings.Default.SortDirection);
             popupWindow.Timeline.Sort(Settings.Default.SortCategory, Settings.Default.SortDirection);
         }
 
         private void InitializeFilter()
         {
-            var replies = Timelines.TypeAt(TimelineType.Replies);
-            replies.Filters.Clear();
-            replies.Filters.Add(new Filter { Type = FilterType.RegexText, Pattern = string.Format(@"@{0}[^a-zA-Z_0-9]", client.LoginedUser.ScreenName) });
-            var archive = Timelines.TypeAt(TimelineType.Archive);
-            archive.Filters.Clear();
-            archive.Filters.Add(new Filter { Type = FilterType.Name, Pattern = client.LoginedUser.ScreenName });
+            
+            {
+                var replies = Timelines.TypeAt(TimelineType.Replies);
+                replies.Filters.Clear();
+                replies.Filters.Add(new Filter { Type = FilterType.RegexText, Pattern = string.Format(@"@{0}[^a-zA-Z_0-9]", client.LoginedUser.ScreenName) });
+                var archive = Timelines.TypeAt(TimelineType.Archive);
+                archive.Filters.Clear();
+                archive.Filters.Add(new Filter { Type = FilterType.Name, Pattern = client.LoginedUser.ScreenName });
+            }
         }
 
         private void InitializeAutoRefresh()
@@ -386,7 +395,8 @@ namespace MiniTwitter
             else
             {
                 // すべてのタイムラインの項目を削除する
-                Timelines.ClearAll();
+                
+                    Timelines.ClearAll();
                 // フィルタを初期化
                 InitializeFilter();
                 // すべてのタイムラインを取得する
@@ -435,7 +445,8 @@ namespace MiniTwitter
                     UpdateUsersList(statuses.Select(p => p.Sender).Distinct());
                     UpdateHashtagList(statuses);
                     // ステータスを反映させる
-                    Timelines.Update(statuses);
+                    
+                        Timelines.Update(statuses);
                     // 返信タイムラインを反映させる
                     statuses = client.RepliesTimeline;
                     if (Settings.Default.IgnoreRegex != null)
@@ -449,8 +460,11 @@ namespace MiniTwitter
                         UpdateHashtagList(statuses);
                     }
                     // ステータスを反映させる
-                    Timelines.Update(TimelineType.Replies, statuses);
-                    Timelines.Update(TimelineType.User, statuses);
+                    
+                    {
+                        Timelines.Update(TimelineType.Replies, statuses);
+                        Timelines.Update(TimelineType.User, statuses);
+                    }
                     // アーカイブを反映させる
                     statuses = client.ArchiveTimeline;
                     if (statuses != null)
@@ -462,30 +476,36 @@ namespace MiniTwitter
                         UpdateHashtagList(statuses);
                     }
                     // ステータスを反映させる
-                    Timelines.Update(TimelineType.Archive, statuses);
-                    Timelines.Update(TimelineType.User, statuses);
-                    // メッセージを受信
-                    Timelines.Update(TimelineType.Message, client.ReceivedMessages);
-                    Timelines.Update(TimelineType.Message, client.SentMessages);
+                    
+                    {
+                        Timelines.Update(TimelineType.Archive, statuses);
+                        Timelines.Update(TimelineType.User, statuses);
+                        // メッセージを受信
+                        Timelines.Update(TimelineType.Message, client.ReceivedMessages);
+                        Timelines.Update(TimelineType.Message, client.SentMessages);
+                    }
                     // リストを取得
                     lists = client.Lists;
-                    foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.List))
+                    
                     {
-                        statuses = client.GetListStatuses(timeline.Tag, timeline.SinceID);
-                        if (statuses == null)
+                        foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.List))
                         {
-                            continue;
+                            statuses = client.GetListStatuses(timeline.Tag, timeline.SinceID);
+                            if (statuses == null)
+                            {
+                                continue;
+                            }
+                            this.Invoke(p => timeline.Update(p), statuses);
                         }
-                        this.Invoke(p => timeline.Update(p), statuses);
-                    }
-                    foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.Search))
-                    {
-                        statuses = client.Search(timeline.Tag, timeline.SinceID);
-                        if (statuses == null)
+                        foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.Search))
                         {
-                            continue;
+                            statuses = client.Search(timeline.Tag, timeline.SinceID);
+                            if (statuses == null)
+                            {
+                                continue;
+                            }
+                            this.Invoke(p => timeline.Update(p), statuses);
                         }
-                        this.Invoke(p => timeline.Update(p), statuses);
                     }
                     // 取得完了
                     SetStatusMessage(true);
@@ -499,7 +519,8 @@ namespace MiniTwitter
                     }
                     if (statuses != null)
                     {
-                        statuses = Timelines.Normalize(TimelineType.Recent, statuses);
+                        
+                            statuses = Timelines.Normalize(TimelineType.Recent, statuses);
                         // ユーザーリストを更新
                         UpdateUsersList(statuses.Select(p => p.Sender).Distinct());
                         UpdateHashtagList(statuses);
@@ -510,7 +531,8 @@ namespace MiniTwitter
                     statuses = client.RepliesTimeline;
                     if (statuses != null)
                     {
-                        statuses = Timelines.Normalize(TimelineType.Replies, statuses);
+                        
+                            statuses = Timelines.Normalize(TimelineType.Replies, statuses);
                         // ユーザーリストを更新
                         UpdateUsersList(statuses.Select(p => p.Sender).Distinct());
                         UpdateHashtagList(statuses);
@@ -524,7 +546,8 @@ namespace MiniTwitter
                         SetStatusMessage(false);
                         return;
                     }
-                    Timelines.Update(statuses);
+                    
+                        Timelines.Update(statuses);
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.Message:
@@ -535,174 +558,183 @@ namespace MiniTwitter
                         SetStatusMessage(false);
                         return;
                     }
-                    var normalized = Timelines.Normalize(messages);
-                    if (normalized.Length > 0 && !_isSilentMode)
+                    
                     {
-                        if (Settings.Default.EnablePopup)
+                        var normalized = Timelines.Normalize(messages);
+                        if (normalized.Length > 0 && !_isSilentMode)
                         {
-                            popupWindow.Show(normalized);
-                        }
-                        var sound = Settings.Default.SoundBindings.Where(p => p.IsEnabled && p.Action == SoundAction.Message).FirstOrDefault();
-                        if (sound != null)
-                        {
-                            try
+                            if (Settings.Default.EnablePopup)
                             {
-                                new SoundPlayer(sound.FileName).Play();
+                                popupWindow.Show(normalized);
                             }
-                            catch { }
+                            var sound = Settings.Default.SoundBindings.Where(p => p.IsEnabled && p.Action == SoundAction.Message).FirstOrDefault();
+                            if (sound != null)
+                            {
+                                try
+                                {
+                                    new SoundPlayer(sound.FileName).Play();
+                                }
+                                catch { }
+                            }
                         }
+                        Timelines.Update(TimelineType.Message, messages);
                     }
-                    Timelines.Update(TimelineType.Message, messages);
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.List:
                     this.AsyncInvoke(() => StatusText = "正在获取列表");
-                    var tls = Timelines.Where(p => p.Type == TimelineType.List).ToArray();
-                    foreach (var timeline in tls)
+                    
                     {
-                        statuses = client.GetListStatuses(timeline.Tag, timeline.SinceID);
-                        if (statuses == null)
+                        var tls = Timelines.Where(p => p.Type == TimelineType.List).ToArray();
+                        foreach (var timeline in tls)
                         {
-                            SetStatusMessage(false);
-                            continue;
-                        }
-                        statuses = timeline.Normalize(statuses);
-                        if (Settings.Default.EnableUnreadManager)
-                        {
-                            Array.ForEach(statuses, item => item.IsNewest = !item.IsAuthor);
-                        }
-                        if (Settings.Default.IgnoreRegex != null)
-                        {
-                            statuses = statuses.Where(p => !Settings.Default.IgnoreRegex.IsMatch(p.Text)).ToArray();
-                        }
-                        notAuthorStatuses = Timelines.TypeAt(TimelineType.Recent).Normalize(statuses.Where(p => !p.IsAuthor));
-                        if (notAuthorStatuses.Length > 0 && !_isSilentMode)
-                        {
-                            if (Settings.Default.EnablePopup)
+                            statuses = client.GetListStatuses(timeline.Tag, timeline.SinceID);
+                            if (statuses == null)
                             {
-                                if (!Settings.Default.PopupOnlyNotActive || this.Invoke<bool>(() => !IsActive))
+                                SetStatusMessage(false);
+                                continue;
+                            }
+                            statuses = timeline.Normalize(statuses);
+                            if (Settings.Default.EnableUnreadManager)
+                            {
+                                Array.ForEach(statuses, item => item.IsNewest = !item.IsAuthor);
+                            }
+                            if (Settings.Default.IgnoreRegex != null)
+                            {
+                                statuses = statuses.Where(p => !Settings.Default.IgnoreRegex.IsMatch(p.Text)).ToArray();
+                            }
+                            notAuthorStatuses = Timelines.TypeAt(TimelineType.Recent).Normalize(statuses.Where(p => !p.IsAuthor));
+                            if (notAuthorStatuses.Length > 0 && !_isSilentMode)
+                            {
+                                if (Settings.Default.EnablePopup)
                                 {
-                                    if (Settings.Default.PopupOnlyFavorite)
+                                    if (!Settings.Default.PopupOnlyNotActive || this.Invoke<bool>(() => !IsActive))
                                     {
-                                        if (Settings.Default.FavoriteRegex != null)
+                                        if (Settings.Default.PopupOnlyFavorite)
                                         {
-                                            popupWindow.Show(notAuthorStatuses.Where(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)));
+                                            if (Settings.Default.FavoriteRegex != null)
+                                            {
+                                                popupWindow.Show(notAuthorStatuses.Where(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            popupWindow.Show(notAuthorStatuses);
                                         }
                                     }
-                                    else
-                                    {
-                                        popupWindow.Show(notAuthorStatuses);
-                                    }
+                                }
+                                var action = notAuthorStatuses.Any(p => Regex.IsMatch(p.Text, string.Format(@"{0}[^a-zA-Z_0-9]", client.LoginedUser.ScreenName))) ? SoundAction.Reply : SoundAction.Status;
+                                var sound = Settings.Default.SoundBindings.Where(p => p.IsEnabled && p.Action == action).FirstOrDefault();
+                                if (Settings.Default.FavoriteRegex != null && notAuthorStatuses.Any(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)))
+                                {
+                                    isKeyword = true;
                                 }
                             }
-                            var action = notAuthorStatuses.Any(p => Regex.IsMatch(p.Text, string.Format(@"{0}[^a-zA-Z_0-9]", client.LoginedUser.ScreenName))) ? SoundAction.Reply : SoundAction.Status;
-                            var sound = Settings.Default.SoundBindings.Where(p => p.IsEnabled && p.Action == action).FirstOrDefault();
-                            if (Settings.Default.FavoriteRegex != null && notAuthorStatuses.Any(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)))
+                            var recent = Timelines.TypeAt(TimelineType.Recent);
+                            for (int i = 0; i < statuses.Length; ++i)
                             {
-                                isKeyword = true;
+                                var item = statuses[i];
+
+                                var status = (Status)recent.Items.FirstOrDefault(p => p.ID == item.ID);
+
+                                if (status != null)
+                                {
+                                    statuses[i] = status;
+                                }
                             }
+                            this.Invoke(p => timeline.Update(p), statuses);
                         }
-                        var recent = Timelines.TypeAt(TimelineType.Recent);
-                        for (int i = 0; i < statuses.Length; ++i)
+                        if (isKeyword)
                         {
-                            var item = statuses[i];
+                            var keywordSound = Settings.Default.SoundBindings.FirstOrDefault(p => p.IsEnabled && p.Action == SoundAction.Keyword);
 
-                            var status = (Status)recent.Items.FirstOrDefault(p => p.ID == item.ID);
-
-                            if (status != null)
+                            if (keywordSound != null)
                             {
-                                statuses[i] = status;
+                                try
+                                {
+                                    new SoundPlayer(keywordSound.FileName).Play();
+                                }
+                                catch { }
                             }
-                        }
-                        this.Invoke(p => timeline.Update(p), statuses);
-                    }
-                    if (isKeyword)
-                    {
-                        var keywordSound = Settings.Default.SoundBindings.FirstOrDefault(p => p.IsEnabled && p.Action == SoundAction.Keyword);
-
-                        if (keywordSound != null)
-                        {
-                            try
-                            {
-                                new SoundPlayer(keywordSound.FileName).Play();
-                            }
-                            catch { }
                         }
                     }
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.Search:
                     this.AsyncInvoke(() => StatusText = "正在获取搜索结果");
-                    var stls = Timelines.Where(p => p.Type == TimelineType.Search).ToArray();
-                    foreach (var timeline in stls)
+                    
                     {
-                        statuses = client.Search(timeline.Tag, timeline.SinceID);
-                        if (statuses == null)
+                        var stls = Timelines.Where(p => p.Type == TimelineType.Search).ToArray();
+                        foreach (var timeline in stls)
                         {
-                            SetStatusMessage(false);
-                            continue;
-                        }
-                        statuses = timeline.Normalize(statuses);
-                        if (Settings.Default.EnableUnreadManager)
-                        {
-                            Array.ForEach(statuses, item => item.IsNewest = !item.IsAuthor);
-                        }
-                        if (Settings.Default.IgnoreRegex != null)
-                        {
-                            statuses = statuses.Where(p => !Settings.Default.IgnoreRegex.IsMatch(p.Text)).ToArray();
-                        }
-                        notAuthorStatuses = Timelines.TypeAt(TimelineType.Recent).Normalize(statuses.Where(p => !p.IsAuthor));
-                        if (notAuthorStatuses.Length > 0 && !_isSilentMode)
-                        {
-                            if (Settings.Default.EnablePopup)
+                            statuses = client.Search(timeline.Tag, timeline.SinceID);
+                            if (statuses == null)
                             {
-                                if (!Settings.Default.PopupOnlyNotActive || this.Invoke<bool>(() => !IsActive))
+                                SetStatusMessage(false);
+                                continue;
+                            }
+                            statuses = timeline.Normalize(statuses);
+                            if (Settings.Default.EnableUnreadManager)
+                            {
+                                Array.ForEach(statuses, item => item.IsNewest = !item.IsAuthor);
+                            }
+                            if (Settings.Default.IgnoreRegex != null)
+                            {
+                                statuses = statuses.Where(p => !Settings.Default.IgnoreRegex.IsMatch(p.Text)).ToArray();
+                            }
+                            notAuthorStatuses = Timelines.TypeAt(TimelineType.Recent).Normalize(statuses.Where(p => !p.IsAuthor));
+                            if (notAuthorStatuses.Length > 0 && !_isSilentMode)
+                            {
+                                if (Settings.Default.EnablePopup)
                                 {
-                                    if (Settings.Default.PopupOnlyFavorite)
+                                    if (!Settings.Default.PopupOnlyNotActive || this.Invoke<bool>(() => !IsActive))
                                     {
-                                        if (Settings.Default.FavoriteRegex != null)
+                                        if (Settings.Default.PopupOnlyFavorite)
                                         {
-                                            popupWindow.Show(notAuthorStatuses.Where(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)));
+                                            if (Settings.Default.FavoriteRegex != null)
+                                            {
+                                                popupWindow.Show(notAuthorStatuses.Where(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            popupWindow.Show(notAuthorStatuses);
                                         }
                                     }
-                                    else
-                                    {
-                                        popupWindow.Show(notAuthorStatuses);
-                                    }
+                                }
+                                var action = notAuthorStatuses.Any(p => Regex.IsMatch(p.Text, string.Format(@"{0}[^a-zA-Z_0-9]", client.LoginedUser.ScreenName))) ? SoundAction.Reply : SoundAction.Status;
+                                var sound = Settings.Default.SoundBindings.Where(p => p.IsEnabled && p.Action == action).FirstOrDefault();
+                                if (Settings.Default.FavoriteRegex != null && notAuthorStatuses.Any(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)))
+                                {
+                                    isKeyword = true;
                                 }
                             }
-                            var action = notAuthorStatuses.Any(p => Regex.IsMatch(p.Text, string.Format(@"{0}[^a-zA-Z_0-9]", client.LoginedUser.ScreenName))) ? SoundAction.Reply : SoundAction.Status;
-                            var sound = Settings.Default.SoundBindings.Where(p => p.IsEnabled && p.Action == action).FirstOrDefault();
-                            if (Settings.Default.FavoriteRegex != null && notAuthorStatuses.Any(p => Settings.Default.FavoriteRegex.IsMatch(p.Text)))
+                            var recent = Timelines.TypeAt(TimelineType.Recent);
+                            for (int i = 0; i < statuses.Length; ++i)
                             {
-                                isKeyword = true;
+                                var item = statuses[i];
+
+                                var status = (Status)recent.Items.FirstOrDefault(p => p.ID == item.ID);
+
+                                if (status != null)
+                                {
+                                    statuses[i] = status;
+                                }
                             }
+                            this.Invoke(p => timeline.Update(p), statuses);
                         }
-                        var recent = Timelines.TypeAt(TimelineType.Recent);
-                        for (int i = 0; i < statuses.Length; ++i)
+                        if (isKeyword)
                         {
-                            var item = statuses[i];
+                            var keywordSound = Settings.Default.SoundBindings.FirstOrDefault(p => p.IsEnabled && p.Action == SoundAction.Keyword);
 
-                            var status = (Status)recent.Items.FirstOrDefault(p => p.ID == item.ID);
-
-                            if (status != null)
+                            if (keywordSound != null)
                             {
-                                statuses[i] = status;
+                                try
+                                {
+                                    new SoundPlayer(keywordSound.FileName).Play();
+                                }
+                                catch { }
                             }
-                        }
-                        this.Invoke(p => timeline.Update(p), statuses);
-                    }
-                    if (isKeyword)
-                    {
-                        var keywordSound = Settings.Default.SoundBindings.FirstOrDefault(p => p.IsEnabled && p.Action == SoundAction.Keyword);
-
-                        if (keywordSound != null)
-                        {
-                            try
-                            {
-                                new SoundPlayer(keywordSound.FileName).Play();
-                            }
-                            catch { }
                         }
                     }
                     SetStatusMessage(true);
@@ -771,7 +803,8 @@ namespace MiniTwitter
                     ((Timeline)TimelineTabControl.SelectedItem).VerticalOffset = _mainViewer.VerticalOffset;
                 }
             });
-            Timelines.Update(statuses);
+            
+                Timelines.Update(statuses);
             this.AsyncInvoke(() =>
             {
                 if (TimelineTabControl.SelectedItem != null)
@@ -850,18 +883,21 @@ namespace MiniTwitter
                     UpdateUsersList(new[] { item.Sender });
                     if (__.Action == StatusAction.Deleted)
                     {
-                        var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
-
-                        if (status != null)
+                        
                         {
-                            Timelines.Remove(status);
-                            if (status.IsReply)
+                            var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
+
+                            if (status != null)
                             {
-                                if (status.InReplyToStatus != null)
+                                Timelines.Remove(status);
+                                if (status.IsReply)
                                 {
-                                    status.InReplyToStatus.IsReplied = false;
-                                    status.InReplyToStatus.MentionStatus = null;
-                                    status.InReplyToStatus = null;
+                                    if (status.InReplyToStatus != null)
+                                    {
+                                        status.InReplyToStatus.IsReplied = false;
+                                        status.InReplyToStatus.MentionStatus = null;
+                                        status.InReplyToStatus = null;
+                                    }
                                 }
                             }
                         }
@@ -869,26 +905,32 @@ namespace MiniTwitter
                     }
                     else if (__.Action == StatusAction.Favorited)
                     {
-                        var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
-
-                        if (status != null)
+                        
                         {
-                            if (status.Sender.ID == item.Sender.ID)
+                            var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
+
+                            if (status != null)
                             {
-                                status.Favorited = true;
+                                if (status.Sender.ID == item.Sender.ID)
+                                {
+                                    status.Favorited = true;
+                                }
                             }
                         }
                         return;
                     }
                     else if (__.Action == StatusAction.Unfavorited)
                     {
-                        var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
-
-                        if (status != null)
+                        
                         {
-                            if (status.Sender.ID == item.Sender.ID)
+                            var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
+
+                            if (status != null)
                             {
-                                status.Favorited = false;
+                                if (status.Sender.ID == item.Sender.ID)
+                                {
+                                    status.Favorited = false;
+                                }
                             }
                         }
                         return;
@@ -957,12 +999,14 @@ namespace MiniTwitter
 
                     if (!item.IsMessage)
                     {
-                        Timelines.Update(new[] { item });
+                        
+                            Timelines.Update(new[] { item });
                         UpdateHashtagList(new[] { (Status)item });
                     }
                     else
                     {
-                        Timelines.Update(TimelineType.Message, new[] { item });
+                        
+                            Timelines.Update(TimelineType.Message, new[] { item });
                     }
 
                     _mainViewer.ScrollToVerticalOffset(((Timeline)TimelineTabControl.SelectedItem).VerticalOffset);
@@ -1371,10 +1415,14 @@ namespace MiniTwitter
             Settings.Default.WindowState = WindowState;
             // ユーザータイムラインを保存する
             Settings.Default.Timelines.Clear();
-            foreach (var item in Timelines.Where(p => p.Type == TimelineType.User || p.Type == TimelineType.List || p.Type == TimelineType.Search))
+            
             {
-                Settings.Default.Timelines.Add(item);
+                Parallel.ForEach(Timelines.Where(p => p.Type == TimelineType.User || p.Type == TimelineType.List || p.Type == TimelineType.Search), item =>
+                {
+                    Settings.Default.Timelines.Add(item);
+                });
             }
+
             // その他のウィンドウを破棄
             popupWindow.Close();
             notifyIcon.Dispose();
@@ -1387,14 +1435,17 @@ namespace MiniTwitter
                 if (item.IsNewest)
                 {
                     item.IsNewest = false;
-
-                    foreach (var timeline in Timelines)
+                    
                     {
-                        if (timeline.Items.Contains(item))
+                        Parallel.ForEach(Timelines, timeline =>
                         {
-                            timeline.UnreadCount--;
-                        }
+                            if (timeline.Items.Contains(item))
+                            {
+                                timeline.UnreadCount--;
+                            }
+                        });
                     }
+
                 }
             }
         }
@@ -1462,8 +1513,10 @@ namespace MiniTwitter
             Application.Current.ApplyTheme(Settings.Default.Theme);
 
             UpdateFooterMenu();
-
-            Timelines.AsParallel().ForEach(timeline => timeline.View.Refresh());
+            
+            {
+                Timelines.AsParallel().ForEach(timeline => timeline.View.Refresh());
+            }
 
             if (Settings.Default.IsClearTypeEnabled)
             {
@@ -1526,7 +1579,10 @@ namespace MiniTwitter
                 this.Invoke(() => ((Timeline)TimelineTabControl.SelectedItem).VerticalOffset = _mainViewer.VerticalOffset);
                 if (!item.IsMessage)
                 {
-                    Timelines.Update(new[] { item });
+                    
+                    {
+                        Timelines.Update(new[] { item });
+                    }
                     UpdateHashtagList(new[] { (Status)item });
                 }
                 else
@@ -1949,7 +2005,8 @@ namespace MiniTwitter
             timeline.Clear();
             if (timeline.Type == TimelineType.User)
             {
-                timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
+                
+                    timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
             }
             else if (timeline.Type == TimelineType.Search)
             {
@@ -1975,7 +2032,8 @@ namespace MiniTwitter
             {
                 return;
             }
-            Timelines.Remove(timeline);
+            
+                Timelines.Remove(timeline);
             RefreshTimelineSettings();
         }
 
@@ -1983,10 +2041,11 @@ namespace MiniTwitter
         {
             // ユーザータイムラインを保存する
             Settings.Default.Timelines.Clear();
-            foreach (var item in Timelines.Where(p => p.Type == TimelineType.User || p.Type == TimelineType.List || p.Type == TimelineType.Search))
-            {
-                Settings.Default.Timelines.Add(item);
-            }
+            
+                foreach (var item in Timelines.Where(p => p.Type == TimelineType.User || p.Type == TimelineType.List || p.Type == TimelineType.Search))
+                {
+                    Settings.Default.Timelines.Add(item);
+                }
         }
 
         private void ClearTimelineCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2043,7 +2102,8 @@ namespace MiniTwitter
 
         private void QuickSearch()
         {
-            Timelines.SearchAll(searchTermTextBox.Text);
+            
+                Timelines.SearchAll(searchTermTextBox.Text);
         }
 
         private void SearchTermTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -2081,8 +2141,8 @@ namespace MiniTwitter
             }
 
             timeline.Filters.Add(new Filter { Pattern = item.Sender.ScreenName, Type = FilterType.Name });
-
-            timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
+            
+                timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
         }
 
         private void FooterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2245,7 +2305,7 @@ namespace MiniTwitter
                         return;
                     }
 
-                    var text = string.Format("♪{0} - {1}({2})", track.Name, track.Album, track.Artist);
+                    var text = string.Format(Settings.Default.NowPlayingFormat, track.Name, track.Album, track.Artist);
 
                     TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, text);
                     TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
@@ -2259,10 +2319,11 @@ namespace MiniTwitter
             }
             else
             {
-                var Winamp = new ActiveWinamp.Application();
+                ActiveWinamp.Application Winamp = null;
 
                 try
                 {
+                    Winamp = new ActiveWinamp.Application();
                     var track = Winamp.Playlist[Winamp.Playlist.Position];
 
                     if (track == null)
@@ -2270,16 +2331,21 @@ namespace MiniTwitter
                         return;
                     }
 
-                    var text = string.Format("♪{0} - {1}({2})", track.Title, track.Album, track.Artist);
+                    var text = string.Format(Settings.Default.NowPlayingFormat, track.Title, track.Album, track.Artist);
 
                     TweetTextBox.Text = TweetTextBox.Text.Insert(TweetTextBox.CaretIndex, text);
                     TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
                 }
+                catch
+                {
+                }
                 finally
                 {
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(Winamp);
-
-                    Winamp = null;
+                    if (Winamp != null)
+                    {
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(Winamp);
+                        Winamp = null;
+                    }
                 }
             }
         }
@@ -2319,7 +2385,8 @@ namespace MiniTwitter
             var replyTo = currentTimeline.Items.FirstOrDefault(p => p.ID == status.InReplyToStatusID);
             if (replyTo == null)
             {
-                var timeline = Timelines.TypeAt(TimelineType.Recent);
+                Timeline timeline;
+                timeline = Timelines.TypeAt(TimelineType.Recent);
 
                 replyTo = timeline.Items.FirstOrDefault(p => p.ID == status.InReplyToStatusID);
 
@@ -2547,7 +2614,9 @@ namespace MiniTwitter
             var replyTo = GetReplyToItem();
             if (replyTo == null)
             {
-                var timeline = Timelines.TypeAt(TimelineType.Recent);
+                Timeline timeline;
+                 
+                    timeline = Timelines.TypeAt(TimelineType.Recent);
 
                 replyTo = timeline.Items.FirstOrDefault(p => p.ID == In_Reply_To_Status_Id);
 
@@ -2568,7 +2637,8 @@ namespace MiniTwitter
                 else
                 {
                     currentTimeline = timeline;
-                    Timelines.Update(new[] { replyTo });
+                    
+                        Timelines.Update(new[] { replyTo });
                 }
             }
             if (_listBox == null)
@@ -2593,7 +2663,8 @@ namespace MiniTwitter
 
             if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search)
             {
-                TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
+                
+                    TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
             }
 
             this.AsyncInvoke(p => _listBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);
@@ -2612,7 +2683,11 @@ namespace MiniTwitter
 
         private void TweetTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!TweetTextBox.Text.IsRegexMatch("@"+client.LoginedUser.ScreenName))
+            if (In_Reply_To_Status_User_Name==null)
+            {
+                return;
+            }
+            if (!TweetTextBox.Text.IsRegexMatch("@" + In_Reply_To_Status_User_Name.Substring(0, In_Reply_To_Status_User_Name.IndexOf(' '))))
             {
                 In_Reply_To_Status_Id = null;
                 In_Reply_To_Status_User_Name = null;
@@ -2627,7 +2702,8 @@ namespace MiniTwitter
 
             var currentTimeline = (Timeline)TimelineTabControl.SelectedItem;
 
-            currentTimeline = currentTimeline.Items.Contains(replyTo) ? currentTimeline : Timelines.Where(tl => tl.Items.Contains(replyTo)).FirstOrDefault();
+            
+                currentTimeline = currentTimeline.Items.Contains(replyTo) ? currentTimeline : Timelines.Where(tl => tl.Items.Contains(replyTo)).FirstOrDefault();
 
             if (currentTimeline == null)
             {
@@ -2659,7 +2735,8 @@ namespace MiniTwitter
 
             if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search)
             {
-                TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
+                
+                    TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
             }
 
             this.AsyncInvoke(p => _UpListBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);

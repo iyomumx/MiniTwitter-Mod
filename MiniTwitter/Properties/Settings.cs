@@ -43,7 +43,7 @@ namespace MiniTwitter.Properties
             PopupOnlyNotActive = false;
             PopupLocation = PopupLocation.Auto;
             EnableNotifyIcon = false;
-            FontName = "Meiryo";
+            FontName = "Global User Interface";
             IsClearTypeEnabled = false;
             IsRetweetWithInReplyTo = true;
             UseUserStream = false;
@@ -51,6 +51,7 @@ namespace MiniTwitter.Properties
             ThrowFilteredTweets = false;
             BitlyApiKey = "R_276fb4934824bf8ee936ad0daf0e6745";
             BitlyUsername = "shibayan";
+            NowPlayingFormat = "♪{0} - {1}({2})";
         }
 
         /// <summary>
@@ -104,6 +105,31 @@ namespace MiniTwitter.Properties
         public string ApiSearchUrl { get; set; }
 
         public string LinkUrl { get; set; }
+
+        private string _nowPlayingFormat;
+
+        public string NowPlayingFormat
+        {
+            get
+            {
+                return _nowPlayingFormat;
+            }
+            set
+            {
+                try
+                {
+                    if (string.Format(value, "{0}", "{1}", "{2}") == value)
+                    {
+                        _nowPlayingFormat = value;
+                        OnPropertyChanged("NowPlayingFormat");
+                    }
+                }
+                catch (Exception)
+                {
+                    return;    
+                }
+            }
+        }
 
         public bool ThrowFilteredTweets { get; set; }
 

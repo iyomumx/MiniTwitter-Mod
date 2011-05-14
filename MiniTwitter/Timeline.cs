@@ -38,7 +38,7 @@ namespace MiniTwitter
             };
 
         [NonSerialized]
-        private SpinLock _thisLock = new SpinLock();
+        private Object _thisLock = new Object();
 
         [NonSerialized]
         private string _name;
@@ -76,7 +76,7 @@ namespace MiniTwitter
             {
                 if (_unreadCount != value)
                 {
-                    _unreadCount = value;
+                    Interlocked.Exchange(ref _unreadCount, value);
                     OnPropertyChanged("UnreadCount");
                 }
             }
@@ -105,28 +105,26 @@ namespace MiniTwitter
 
         public void Update<T>(IEnumerable<T> appendItems) where T : ITwitterItem
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 if (appendItems == null)
                 {
                     return;
                 }
                 int count = 0;
                 int unreadCount = 0;
-                ConcurrentBag<T> buffer=new ConcurrentBag<T>();
-                appendItems.AsParallel().Where(x => !Items.Contains(x) && IsFilterMatch(x)).ForAll(item => { 
+                foreach(var item in appendItems.Where(x => !Items.Contains(x) && IsFilterMatch(x)))
+                { 
                     if (Type == TimelineType.Archive && item.IsReTweeted)
                     {
-                        return;
+                        continue;
                     }
                     Interlocked.Increment(ref count);
                     if (item.IsNewest)
                     {
                         Interlocked.Increment(ref unreadCount);
                     }
-                    buffer.Add(item);
+                    Items.Add(item);
                     if (item is Status)
                     {
                         var itm = ((Status)Convert.ChangeType(item, typeof(Status)));
@@ -138,7 +136,7 @@ namespace MiniTwitter
                                 target = appendItems.AsParallel().OfType<Status>().Where((it, _) => it.ID == itm.InReplyToStatusID).FirstOrDefault();
                                 if (target==null)
                                 {
-                                    return;
+                                    continue;
                                 }
                             }
                             target.IsReplied = true;
@@ -146,10 +144,6 @@ namespace MiniTwitter
                             itm.InReplyToStatus = target;
                         }
                     }
-                });
-                foreach (var item in buffer)
-                {
-                    Items.Add(item);
                 }
                 UnreadCount += unreadCount;
                 if (Items.Count > MaxCount)
@@ -166,18 +160,12 @@ namespace MiniTwitter
                 }
                 //View.Refresh();
             }
-            finally
-            {
-                if (lockTaken) _thisLock.Exit();
-            }
         }
 
         public void Remove(ITwitterItem removeItem)
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 if (removeItem == null)
                 {
                     return;
@@ -191,21 +179,12 @@ namespace MiniTwitter
                     //View.Refresh();
                 }
             }
-            finally
-            {
-                if (lockTaken)
-                {
-                    _thisLock.Exit();
-                }
-            }
         }
 
         public void RemoveAll(Predicate<ITwitterItem> match)
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 int count = 0;
                 for (int i = 0; i < Items.Count; i++)
                 {
@@ -225,56 +204,35 @@ namespace MiniTwitter
                     //View.Refresh();
                 }
             }
-            finally
-            {
-                if (lockTaken)
-                {
-                    _thisLock.Exit();
-                }
-            }
         }
 
         public void Clear()
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 UnreadCount = 0;
                 View.Filter = commonPredicate;
                 Items.Clear();
                 //View.Refresh();
             }
-            finally
-            {
-                if (lockTaken) _thisLock.Exit();
-            }
         }
 
         public T[] Normalize<T>(IEnumerable<T> items) where T : ITwitterItem
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 if (items == null)
                 {
                     return null;
                 }
                 return items.Where(x => !Items.Contains(x) && IsFilterMatch(x)).ToArray();
             }
-            finally
-            {
-                if (lockTaken) _thisLock.Exit();
-            }
         }
 
         public void Sort(ListSortCategory category, ListSortDirection direction)
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 View.SortDescriptions.Clear();
                 View.SortDescriptions.Add(new SortDescription(category.ToPropertyPath(), direction));
                 if (category != ListSortCategory.CreatedAt)
@@ -283,18 +241,12 @@ namespace MiniTwitter
                 }
                 View.SortDescriptions.Add(new SortDescription(ListSortCategory.ID.ToPropertyPath(), direction));
             }
-            finally
-            {
-                if (lockTaken) _thisLock.Exit();
-            }
         }
 
         public void Search(string term)
         {
-            bool lockTaken = false;
-            try
+            lock(_thisLock)
             {
-                _thisLock.Enter(ref lockTaken);
                 if (term.IsNullOrEmpty())
                 {
                     View.Filter = commonPredicate;
@@ -308,10 +260,6 @@ namespace MiniTwitter
                         };
                 }
                 View.Refresh();
-            }
-            finally
-            {
-                if (lockTaken) _thisLock.Exit();
             }
         }
 
