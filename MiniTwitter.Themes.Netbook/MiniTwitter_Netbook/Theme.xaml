@@ -27,6 +27,10 @@
         <Setter Property="Source" Value=".\Images\arrow_left.png"/>
     </Style>
 
+    <Style x:Key="ArrowRightImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
+        <Setter Property="Source" Value=".\Images\arrow_up.png"/>
+    </Style>
+
     <Style x:Key="ArrowRefreshImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
         <Setter Property="Source" Value=".\Images\arrow_refresh.png"/>
     </Style>

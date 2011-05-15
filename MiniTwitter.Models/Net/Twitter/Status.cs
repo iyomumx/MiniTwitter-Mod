@@ -98,7 +98,7 @@ namespace MiniTwitter.Net.Twitter
             {
                 if (text != value)
                 {
-                    text = TwitterClient.Unescape(value);
+                    text =CommonTypes.Unescape(value);
                     OnPropertyChanged("Text");
                 }
             }
@@ -439,5 +439,6 @@ namespace MiniTwitter.Net.Twitter
             this.Recipient.LastModified = this.LastModified;
             this.Sender.LastModified = this.LastModified;
         }
+
     }
 }

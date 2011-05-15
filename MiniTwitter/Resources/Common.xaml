@@ -14,9 +14,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:System_ComponentModel="clr-namespace:System.ComponentModel;assembly=System"
     xmlns:MiniTwitter="clr-namespace:MiniTwitter"
-    xmlns:MiniTwitter_Input="clr-namespace:MiniTwitter.Input"
+    xmlns:MiniTwitter_Models="clr-namespace:MiniTwitter;assembly=MiniTwitter.Models"
+    xmlns:MiniTwitter_Input="clr-namespace:MiniTwitter.Input;assembly=MiniTwitter.Models"
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
-    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter"
+    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -207,8 +208,8 @@
             <MenuItem Header="显示头像(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
         </MenuItem>
         <MenuItem Header="排序(_O)">
-            <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
-            <MenuItem Header="时间" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
+            <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter_Models:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
+            <MenuItem Header="时间" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter_Models:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
             <Separator/>
             <MenuItem Header="升序(_A)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Ascending}" Style="{StaticResource AscendingMenuItemStyle}"/>
             <MenuItem Header="降序(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>
@@ -251,8 +252,8 @@
             <MenuItem Header="图标表示(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
         </MenuItem>
         <MenuItem Header="排序(_O)">
-            <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
-            <MenuItem Header="时间" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
+            <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter_Models:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>
+            <MenuItem Header="时间" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter_Models:ListSortCategory.CreatedAt}" Style="{StaticResource CreatedAtCategoryMenuItemStyle}"/>
             <Separator/>
             <MenuItem Header="升序(_A)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Ascending}" Style="{StaticResource AscendingMenuItemStyle}"/>
             <MenuItem Header="降序(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>

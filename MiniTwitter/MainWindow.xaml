@@ -15,12 +15,12 @@
     xmlns:MiniTwitter="clr-namespace:MiniTwitter"
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties"
-    xmlns:MiniTwitter_Input="clr-namespace:MiniTwitter.Input"
-    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter"
+    xmlns:MiniTwitter_Input="clr-namespace:MiniTwitter.Input;assembly=MiniTwitter.Models"
+    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
     x:Name="Window"
     Title="MiniTwitter" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
-    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontFamilyInternal, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei}" Icon="/MiniTwitter;component/Resources/MiniTwitter.ico"
+    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontFamilyInternal, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei}" Icon=".\Resources\MiniTwitter.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}">
     <Window.TaskbarItemInfo>

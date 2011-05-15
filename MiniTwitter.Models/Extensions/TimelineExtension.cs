@@ -20,7 +20,7 @@ using MiniTwitter.Net.Twitter;
 
 namespace MiniTwitter.Extensions
 {
-    static class TimelineExtension
+    public static class TimelineExtension
     {
         public static void ClearAll(this IEnumerable<Timeline> timelines)
         {

@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * 此文件由Apache License 2.0授权的文件修改而来
+ * 根据协议要求在此声明此文件已被修改
+ * 
+ * 未被修改的原始文件可以在
+ * https://github.com/iyomumx/MiniTwitter-Mod/tree/minitwitter
+ * 找到
+*/
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,12 +39,29 @@ namespace MiniTwitter
             View.Filter = commonPredicate;
         }
 
+        static Timeline()
+        {
+            GlobalFilter = new ObservableCollection<Filter>();
+        }
+
+        public static ObservableCollection<Filter> GlobalFilter
+        {
+            get;
+            private set;
+        }
+
+        public static void SetFilter(ObservableCollection<Filter> filters)
+        {
+            GlobalFilter = filters?? new ObservableCollection<Filter>();
+        }
+
         public static readonly Predicate<Object> commonPredicate= item =>
             {
-                var settings = Properties.Settings.Default;
                 var twitterItem = (ITwitterItem)item;
-                return settings.GlobalFilter.Count == 0 || settings.GlobalFilter.AsParallel().All(filter => filter.Process(twitterItem));
+                return GlobalFilter.Count == 0 || GlobalFilter.AsParallel().All(filter => filter.Process(twitterItem));
             };
+
+        public static bool ThrowFilteredTweets { get; set; }
 
         [NonSerialized]
         private Object _thisLock = new Object();
@@ -269,7 +295,7 @@ namespace MiniTwitter
 
         private bool IsFilterMatch(ITwitterItem item)
         {
-            return ((Filters.Count == 0 || Filters.AsParallel().All(filter => filter.Process(item))) && (!Properties.Settings.Default.ThrowFilteredTweets || commonPredicate(item)));
+            return ((Filters.Count == 0 || Filters.AsParallel().All(filter => filter.Process(item))) && (!ThrowFilteredTweets || commonPredicate(item)));
             //TODO:过滤器/筛选器逻辑（All与Any）
         }
     }

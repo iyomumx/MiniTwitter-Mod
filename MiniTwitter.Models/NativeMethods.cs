@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace MiniTwitter
 {
-    static class NativeMethods
+    public static class NativeMethods
     {
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hWnd, int nIndex);

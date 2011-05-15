@@ -13,9 +13,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:MiniTwitter="clr-namespace:MiniTwitter"
-    xmlns:MiniTwitter_Input="clr-namespace:MiniTwitter.Input"
+    xmlns:MiniTwitter_Input="clr-namespace:MiniTwitter.Input;assembly=MiniTwitter.Models"
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
-    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter"
+    xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties">
 
     <DataTemplate x:Key="StandardStatusTemplate" DataType="{x:Type MiniTwitter_Net_Twitter:Status}">
