@@ -40,17 +40,18 @@
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>true</UpdatePeriodically>
+    <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://iyomumx.github.com/MiniTwitter-Mod/app.publish/</InstallUrl>
     <SupportUrl>https://github.com/iyomumx/MiniTwitter-Mod/wiki</SupportUrl>
     <ErrorReportUrl>https://github.com/iyomumx/MiniTwitter-Mod/wiki</ErrorReportUrl>
     <ProductName>MiniTwitter Mod</ProductName>
-    <PublisherName>iyomumx</PublisherName>
+    <PublisherName>MiniTwitter Mod</PublisherName>
+    <SuiteName>MiniTwitter Mod</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>minitwitter_publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.6.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -151,6 +152,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>Custom</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -391,6 +398,7 @@
   <ItemGroup>
     <Compile Include="App.Private.cs" />
     <None Include="MiniTwitterMod_tmpkey.pfx" />
+    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\arrow_refresh.png" />

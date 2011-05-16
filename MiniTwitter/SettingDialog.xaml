@@ -190,12 +190,13 @@
             <TextBlock TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"><Run Text="主题"/></TextBlock>
             <ComboBox Width="220" IsSynchronizedWithCurrentItem="True" Canvas.Left="110" Canvas.Top="14" ItemsSource="{x:Static MiniTwitter_Themes:ThemeManager.Themes}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding Path=Theme}" />
             <TextBlock Text="字体" Canvas.Left="14" Canvas.Top="62"/>
-            <ComboBox Width="180" Canvas.Left="110" Canvas.Top="59" ItemsSource="{x:Static MiniTwitter:SettingDialog.SysFonts}" SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" >
+            <ComboBox x:Name="FontComboBox" Width="180" Canvas.Left="110" Canvas.Top="59" ItemsSource="{x:Static MiniTwitter:SettingDialog.SysFonts}" SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" 
+                      FontFamily="{Binding Path=SelectedValue, ElementName=FontComboBox}" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=Name, FallbackValue=未知字体}"
                                    FontSize="16" Tag="{Binding Path=Font}"
-                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" MouseEnter="TextBlock_MouseWheel" />
+                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -339,7 +340,7 @@
             <TextBlock Canvas.Left="130" Canvas.Top="40" Text="{x:Static MiniTwitter:App.NAME}" FontSize="22" />
             <StackPanel Orientation="Horizontal" Canvas.Left="100" Canvas.Top="90">
                 <TextBlock Text="Version " FontSize="22" />
-                <TextBlock Text="{x:Static MiniTwitter:App.VERSION}" FontSize="22" />
+                <TextBlock x:Name="Version" FontSize="22" />
             </StackPanel>
             <Button Click="UpdateCheckButton_Click" Canvas.Left="120" Canvas.Top="150" IsEnabled="{Binding Source={x:Static System_Deployment_Application:ApplicationDeployment.IsNetworkDeployed}}">检查更新</Button>
             <Label Canvas.Left="120" Canvas.Top="180">

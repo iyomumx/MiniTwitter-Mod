@@ -56,6 +56,22 @@ namespace MiniTwitter
             {
                 TextOptions.SetTextRenderingMode(this, TextRenderingMode.ClearType);
             }
+            //Display Version
+            try
+            {
+                if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+                {
+                    Version.Text = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+                }
+                else
+                {
+                    Version.Text = App.VERSION;
+                }
+            }
+            catch (Exception)
+            {
+                Version.Text = App.VERSION;
+            }
         }
 
         public static ObservableCollection<FontInfo> SysFonts
@@ -307,7 +323,7 @@ namespace MiniTwitter
 
             if (deploy.CheckForUpdate())
             {
-                if (MessageBox.Show("利用可能な更新が見つかりました、今すぐ更新しますか？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                if (MessageBox.Show("有可用更新，现在进行更新吗？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     deploy.UpdateAsync();
 
@@ -316,7 +332,7 @@ namespace MiniTwitter
             }
             else
             {
-                MessageBox.Show("利用可能な更新はありません", App.NAME);
+                MessageBox.Show("没有找到可用更新。", App.NAME);
             }
         }
 
