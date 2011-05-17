@@ -100,9 +100,9 @@ namespace MiniTwitter.Controls
                 {
                     diff = 1;
                     value = match.Groups["user"].Value;
-                    Hyperlink link = new Hyperlink { Tag = "https://twitter.com/" + value };
+                    Hyperlink link = new Hyperlink { Tag = value };
                     link.Inlines.Add(value);
-                    link.Click += Hyperlink_Click;
+                    link.Click += UserHyperlink_Click;
                     TextBlock.Inlines.Add("@");
                     TextBlock.Inlines.Add(link);
                 }
@@ -289,6 +289,13 @@ namespace MiniTwitter.Controls
             var hyperlink = (Hyperlink)sender;
 
             MiniTwitter.Input.Commands.Hashtag.Execute(hyperlink.Tag, hyperlink);
+        }
+
+        private static void UserHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            var hyperlink = (Hyperlink)sender;
+
+            MiniTwitter.Input.Commands.ViewUser.Execute(hyperlink.Tag, hyperlink);
         }
 
         private static string GetRedirect(string url)

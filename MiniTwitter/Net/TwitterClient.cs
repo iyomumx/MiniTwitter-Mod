@@ -516,7 +516,7 @@ namespace MiniTwitter.Net
             }
         }
 
-        private User GetUser(string name)
+        public User GetUser(string name)
         {
             try
             {
@@ -526,6 +526,12 @@ namespace MiniTwitter.Net
             {
                 return null;
             }
+        }
+
+        public Status[] GetUserTimeline(string name)
+        {
+            ulong? tmpid = null;
+            return GetStatuses(string.Format("{0}1/statuses/user_timeline.xml", ApiBaseUrl), new { count = 100, screen_name = name }, ref tmpid);
         }
 
         private User[] GetUsers(string url)

@@ -305,5 +305,14 @@ namespace MiniTwitter.Input
         {
             get { return Commands._hashtag; }
         }
+
+        private static readonly RoutedCommand _viewUser = new RoutedCommand("ViewUser", typeof(Commands));
+
+        public static RoutedCommand ViewUser
+        {
+            get { return Commands._viewUser; }
+        } 
+
+
     }
 }

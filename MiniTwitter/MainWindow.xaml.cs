@@ -1855,15 +1855,23 @@ namespace MiniTwitter
 
         private void MoveToUserPageCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-            try
+            if (Keyboard.GetKeyStates(Key.LeftCtrl) == KeyStates.Down || Keyboard.GetKeyStates(Key.RightCtrl) == KeyStates.Down)
             {
-                Process.Start("https://twitter.com/" + item.Sender.ScreenName);
+                var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
+                try
+                {
+                    Process.Start("https://twitter.com/" + item.Sender.ScreenName);
+                }
+                catch
+                {
+                    MessageBox.Show("无法打开浏览器", App.NAME);
+                }
             }
-            catch
+            else
             {
-                MessageBox.Show("无法打开浏览器", App.NAME);
+                Commands.ViewUser.Execute(((ITwitterItem)e.Parameter ?? GetSelectedItem()).Sender.ScreenName, (IInputElement)sender);
             }
+
         }
 
         private void MoveToStatusPageCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2227,13 +2235,23 @@ namespace MiniTwitter
 
             if (e.RemovedItems.Count != 0 && (e.RemovedItems[0] is Timeline))
             {
-                ((Timeline)e.RemovedItems[0]).VerticalOffset = _mainViewer.VerticalOffset;
+                var leavetl = (Timeline)e.RemovedItems[0];
+                leavetl.VerticalOffset = _mainViewer.VerticalOffset;
+                if (leavetl.Type == TimelineType.OtherUser)
+                {
+                    ThreadPool.QueueUserWorkItem(tl =>
+                    {
+                        this.Invoke(()=> Timelines.Remove(leavetl));
+                    });
+                }
             }
 
             if (e.AddedItems.Count != 0 && (e.AddedItems[0] is Timeline))
             {
                 _mainViewer.ScrollToVerticalOffset(((Timeline)e.AddedItems[0]).VerticalOffset);
             }
+
+            
         }
 
         private void TimelineListBox_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -2587,6 +2605,7 @@ namespace MiniTwitter
                     this.Invoke(() => StatusText = "报告广告账户失败");
                 }
             }, ((Status)e.Parameter).Sender);
+            e.Handled = true;
         }
 
         private void ViewRateLimit_MouseDown(object sender, MouseButtonEventArgs e)
@@ -2600,6 +2619,7 @@ namespace MiniTwitter
         private void ProgressBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show(string.Format("API剩余：\t\t{0}\nAPI总限制：\t{1}\n将在{2}重置", client.RateLimitRemain, client.TotalRateLimit, client.ResetTimeString), "API限制状态", MessageBoxButton.OK);
+            e.Handled = true;
         }
 
         private ITwitterItem GetReplyToItem()
@@ -2751,6 +2771,30 @@ namespace MiniTwitter
             this.AsyncInvoke(p => _UpListBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);
 
             ForceActivate(false);
+        }
+
+        private void ViewUserCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var value = e.Parameter as string;
+
+            if (value != null)
+            {
+                var timeline = new Timeline
+                {
+                    Name = "User:" + value,
+                    Type = TimelineType.OtherUser,
+                    Tag = value,
+                };
+
+                Timelines.Add(timeline);
+
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    this.Invoke(p => timeline.Update(p), client.GetUserTimeline(timeline.Tag));
+                });
+
+                TimelineTabControl.SelectedItem = timeline;
+            }
         }
     }
 }

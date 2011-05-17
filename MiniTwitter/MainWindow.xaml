@@ -72,6 +72,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Block" Executed="BlockCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ReportSpam" Executed="ReportSpam_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Hashtag" Executed="HashtagCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ViewUser" Executed="ViewUserCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
