@@ -44,7 +44,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="12">
+        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="11">
             <ListBoxItem x:Name="AccountListBoxItem" IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AccountImageStyle}"/>
@@ -339,16 +339,18 @@
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=TweetProccessListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <CheckBox Content="处理删除线标记(&lt;del&gt;)" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableDeleteLine}"/>
             <CheckBox Content="处理心型(&lt;3)" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=EnableHeartMark}"/>
-            <CheckBox x:Name="TweetFooterCheckBox" Content="语尾附加" Canvas.Left="14" Canvas.Top="58" IsChecked="{Binding Path=EnableTweetFooter}"/>
+            <CheckBox x:Name="TweetFooterCheckBox" Content="语尾附加" Canvas.Left="14" Canvas.Top="58" IsChecked="{Binding Path=EnableTweetFooter}" Checked="TweetFooterCheckBox_Click"/>
             <TextBlock Text="推文语尾" Canvas.Left="31" Canvas.Top="80"/>
             <ComboBox x:Name="TweetFooterComboBox" Width="180" Canvas.Left="150" Canvas.Top="81" 
                       IsEditable="True" Text="{Binding Path=TweetFooter}" 
                       IsEnabled="{Binding ElementName=TweetFooterCheckBox, Path=IsChecked}" 
                       KeyUp="TweetFooterComboBox_KeyUp" />
-            <TextBlock Text="RT前缀" Canvas.Left="14" Canvas.Top="111"/>
-            <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="111" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
-            <TextBlock Text="NowPlaying格式（{0}-歌曲名 {1}-专辑名 {2}-歌手名）：" Canvas.Left="14" Canvas.Top="137"/>
-            <TextBox Width="300" Canvas.Left="30" Canvas.Top="160" Text="{Binding Path=NowPlayingFormat}" />
+            <CheckBox x:Name="KanvasoShortenCheckBox" Content="使用Kanvaso缩短超过140字的推" Canvas.Left="14" Canvas.Top="111" IsChecked="{Binding Path=UseKanvasoShorten}" Checked="KanvasoShortenCheckBox_Checked" />
+            <CheckBox Content="解析Kanvaso链接得到原始推文" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseKanvasoLength}"/>
+            <TextBlock Text="RT前缀" Canvas.Left="14" Canvas.Top="158"/>
+            <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="155" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
+            <TextBlock Text="NowPlaying格式（{0}-歌曲名 {1}-专辑名 {2}-歌手名）：" Canvas.Left="14" Canvas.Top="190"/>
+            <TextBox Width="300" Canvas.Left="30" Canvas.Top="213" Text="{Binding Path=NowPlayingFormat}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=VersionListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Canvas.Left="70" Canvas.Top="30" Source="Resources\MiniTwitter.ico" Width="48" />

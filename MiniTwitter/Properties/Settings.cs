@@ -268,6 +268,10 @@ namespace MiniTwitter.Properties
             private set;
         }
 
+        public bool UseKanvasoShorten { get; set; }
+
+        public bool UseKanvasoLength { get; set; }
+
         //界面
 
         private bool _AlwaysOnTop;

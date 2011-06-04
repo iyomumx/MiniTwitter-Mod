@@ -517,6 +517,16 @@ namespace MiniTwitter
                 }
             }
         }
+
+        private void TweetFooterCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            KanvasoShortenCheckBox.IsChecked = false;
+        }
+
+        private void KanvasoShortenCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            TweetFooterCheckBox.IsChecked = false;
+        }
     }
 
     public class FontInfo : PropertyChangedBase

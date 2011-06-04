@@ -51,7 +51,7 @@
     <SuiteName>MiniTwitter Mod</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>minitwitter_publish.htm</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.6.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -207,6 +207,7 @@
     <Compile Include="BooleansToVisibilityConverter.cs" />
     <Compile Include="FontNameToFontFamilyConverter.cs" />
     <Compile Include="HasValueToVisibilityConverter.cs" />
+    <Compile Include="Net\KanvasoHelper.cs" />
     <Compile Include="Update\UpdateDialog.xaml.cs">
       <DependentUpon>UpdateDialog.xaml</DependentUpon>
     </Compile>
@@ -233,7 +234,6 @@
     <Compile Include="Net\BitlyHelper.cs" />
     <Compile Include="Net\imglyUploader.cs" />
     <Compile Include="Net\OAuthBase.cs" />
-    <Compile Include="Net\PlixiUploader.cs" />
     <Compile Include="Net\StatusEventArgs.cs" />
     <Compile Include="Net\TinyUrlHelper.cs" />
     <Compile Include="Net\TwitpicUploader.cs" />

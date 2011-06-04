@@ -50,6 +50,8 @@ namespace MiniTwitter.Net
         private static readonly Regex schemaRegex = new Regex(@"(https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex messageRegex = new Regex(@"^d\s([a-zA-Z_0-9]+)\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        private static readonly Regex kanvasoUrl = new Regex(@"http://kvs\.co/(?<code>\w+?)$", RegexOptions.Compiled & RegexOptions.IgnoreCase);
+
         private static readonly Regex unescapeRegex = new Regex("&([gl]t);", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private const string _TwitterApiBase = "https://api.twitter.com/";
@@ -276,7 +278,7 @@ namespace MiniTwitter.Net
             {
                 if (text.Length > 140 - Footer.Length)
                 {
-                    text = text.Substring(0, 139 - Footer.Length);// +"...";
+                    text = text.Substring(0, 139 - Footer.Length);// + "...";
                 }
                 text += " " + Footer;
             }
@@ -284,7 +286,18 @@ namespace MiniTwitter.Net
             {
                 if (text.Length > 140)
                 {
-                    text = text.Substring(0, 140);// +"...";
+                    if (MiniTwitter.Properties.Settings.Default.UseKanvasoShorten)
+                    {
+                        text = KanvasoHelper.ShortenStatus(text, GetOAuthToken(new Uri("https://api.twitter.com/1/account/verify_credentials.json")), replyId, latitude, longitude);
+                        if (text.Length > 140)
+                        {
+                            text = text.Substring(0, 140);// +"...";                 
+                        }
+                    }
+                    else
+                    {
+                        text = text.Substring(0, 140);// +"...";
+                    }
                 }
             }
             try
@@ -576,7 +589,13 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl));
+                var result = Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl));
+                var match = kanvasoUrl.Match(result.Text);
+                if (match.Success)
+                {
+                    ThreadPool.QueueUserWorkItem(code => { result.Text = KanvasoHelper.GetLongStatus((string)code) ?? result.Text; }, match.Groups["code"].Value);
+                }
+                return result;
             }
             catch
             {
@@ -638,7 +657,19 @@ namespace MiniTwitter.Net
                     return Statuses.Empty;
                 }
 
-                Array.ForEach(statuses, item => { item.IsAuthor = item.Sender.ID == LoginedUser.ID; item.IsMention = item.InReplyToUserID == LoginedUser.ID; });
+                Array.ForEach(statuses, item => 
+                { 
+                    item.IsAuthor = item.Sender.ID == LoginedUser.ID;
+                    item.IsMention = item.InReplyToUserID == LoginedUser.ID;
+                    if (MiniTwitter.Properties.Settings.Default.UseKanvasoLength)
+                    {
+                        var match = kanvasoUrl.Match(item.Text);
+                        if (match.Success)
+                        {
+                            ThreadPool.QueueUserWorkItem(code => { item.Text = KanvasoHelper.GetLongStatus((string)code) ?? item.Text; }, match.Groups["code"].Value);
+                        }
+                    }
+                });
 
                 return statuses;// statuses.AsParallel().Where((status) => Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true).ToArray();
             }

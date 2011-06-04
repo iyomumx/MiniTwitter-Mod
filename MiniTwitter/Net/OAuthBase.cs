@@ -626,7 +626,7 @@ namespace MiniTwitter.Net
             return header.ToString(0, header.Length - 1);
         }
 
-        private void AddOAuthToken(HttpWebRequest request, NameValueCollection query, string token, string tokenSecret, string verifier)
+        protected void AddOAuthToken(HttpWebRequest request, NameValueCollection query, string token, string tokenSecret, string verifier)
         {
             // パラメータを作成する
             var parameter = new NameValueCollection
@@ -654,7 +654,7 @@ namespace MiniTwitter.Net
             // 認証トークンを作成する
             var header = new StringBuilder();
             header.Append("OAuth ");
-            foreach (var key in parameter.AllKeys.Where(p => p.StartsWith("oauth_")))
+            foreach (var key in parameter.AllKeys.Where(p => p.StartsWith("oauth_") || p == "realm"))
             {
                 header.AppendFormat("{0}=\"{1}\",", key, UrlEncode(parameter[key]));
             }
@@ -662,34 +662,37 @@ namespace MiniTwitter.Net
             request.Headers[HttpRequestHeader.Authorization] = header.ToString(0, header.Length - 1);
         }
 
-        private static string CreateTimestamp()
+        protected static string CreateTimestamp()
         {
             var timestamp = DateTime.UtcNow - _unixEpoch;
             return Convert.ToInt64(timestamp.TotalSeconds).ToString();
         }
 
-        private static string CreateNonce()
+        protected static string CreateNonce()
         {
             var nonce = new byte[32];
             _random.NextBytes(nonce);
             return Convert.ToBase64String(nonce);
         }
 
-        private string CreateSignature(string tokenSecret, string method, Uri uri, NameValueCollection query)
+        protected string CreateSignature(string tokenSecret, string method, Uri uri, NameValueCollection query)
         {
             // クエリを文字列に変換する
             var queryString = CreateQueryString(query);
             // URL を正規化する
             string ap;
+            string host;
             if (uri.AbsolutePath.Contains("/t/"))
             {
                 ap = uri.AbsolutePath.Substring(uri.AbsolutePath.IndexOf("/t/") + 2);
+                host = SignEndpoint;
             }
             else
             {
+                host = uri.Host;
                 ap = uri.AbsolutePath;
             }
-            var url = uri.Host.Contains("userstream") ? string.Format("{0}://{1}{2}",uri.Scheme,uri.Host,uri.AbsolutePath) : string.Format("{0}{1}", SignEndpoint, ap);
+            var url = string.Format("{0}://{1}{2}", uri.Scheme, host, ap);
             // 署名の元になる文字列を作成
             var signatureBase = string.Format("{0}&{1}&{2}", method, UrlEncode(url), UrlEncode(queryString));
             // 署名するためのキーを作成
@@ -752,7 +755,7 @@ namespace MiniTwitter.Net
             return query;
         }
 
-        private static string UrlEncode(string str)
+        protected static string UrlEncode(string str)
         {
             var sb = new StringBuilder();
             var bytes = Encoding.UTF8.GetBytes(str);

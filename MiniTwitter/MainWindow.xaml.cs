@@ -1588,12 +1588,14 @@ namespace MiniTwitter
             StatusText = "正在更新状态…";
             //client.Update((string)e.Parameter ?? TweetTextBox.Text, in_reply_to_status_id);
             ThreadPool.QueueUserWorkItem(text => 
-                client.Update((string)text, this.Invoke<ulong?>(() => In_Reply_To_Status_Id), _latitude, _longitude, 
-                    stp => 
-                        { 
+                {
+                    client.Update((string)text, this.Invoke<ulong?>(() => In_Reply_To_Status_Id), _latitude, _longitude,
+                        stp =>
+                        {
                             if (stp != OAuthBase.ProccessStep.Error)
-                                App.MainTokenSource.Token.ThrowIfCancellationRequested(); 
-                        }), status);
+                                App.MainTokenSource.Token.ThrowIfCancellationRequested();
+                        });
+                }, status);
             TweetTextBox.Clear();
             UpdateButton.IsEnabled = true;
         }
@@ -1606,7 +1608,6 @@ namespace MiniTwitter
                 this.Invoke(() => ((Timeline)TimelineTabControl.SelectedItem).VerticalOffset = _mainViewer.VerticalOffset);
                 if (!item.IsMessage)
                 {
-                    
                     {
                         Timelines.Update(new[] { item });
                     }
