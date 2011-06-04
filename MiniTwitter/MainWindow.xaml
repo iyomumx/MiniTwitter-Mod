@@ -19,8 +19,8 @@
     xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
     x:Name="Window"
-    Title="MiniTwitter" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
-    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontFamilyInternal, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei}" Icon=".\Resources\MiniTwitter.ico"
+    Title="MiniTwitter Mod" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
+    Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei, Converter={StaticResource FontConverter}}" Icon=".\Resources\MiniTwitter.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}">
     <Window.TaskbarItemInfo>
@@ -73,6 +73,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.ReportSpam" Executed="ReportSpam_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.Hashtag" Executed="HashtagCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ViewUser" Executed="ViewUserCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.SetTweetText" Executed="SetTweetTextCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
@@ -83,6 +84,7 @@
         <MiniTwitter:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <MiniTwitter:StateToColorConverter x:Key="StateToColorConverter" />
         <MiniTwitter:HasValueToVisibilityConverter x:Key="HasValueToVisibilityConverter" />
+        <MiniTwitter:NonZeroToVisibilityConverter x:Key="EmptyConverter" />
     </Window.Resources>
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="6">
@@ -135,6 +137,36 @@
             </Popup>
             <Button x:Name="UpdateButton" Grid.Row="2" Content="update" Command="MiniTwitter_Input:Commands.Update"
                     CommandParameter="{Binding ElementName=TweetTextBox, Path=Text}" Style="{DynamicResource UpdateButtonStyle}"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                        Visibility="{Binding ElementName=Window, Path=FailStatuses.Count, Converter={StaticResource EmptyConverter}}">
+                <Button Margin="0,0,3,0" Padding="0" BorderThickness="0"
+                        Click="ClearFailStatusesButton_Click" ToolTip="清空错误队列"
+                        Style="{DynamicResource ImageButtonStyle}">
+                    <Image Style="{DynamicResource CrossImageStyle}" Height="15" Width="15"/>
+                </Button>
+                <ListBox BorderThickness="0" ItemsSource="{Binding ElementName=Window, Path=FailStatuses}" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="0,0,3,0" Padding="0" BorderThickness="0" Command="{x:Static MiniTwitter_Input:Commands.SetTweetText}"
+                                    CommandParameter="{Binding}"
+                                    Style="{DynamicResource ImageButtonStyle}">
+                                <Button.ToolTip>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="发送失败，点击重新编辑，原文："/>
+                                        <TextBlock Text="{Binding}"/>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                                <Image Style="{DynamicResource ArrowLeftImageStyle}" Height="15" Width="15"/>
+                            </Button>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Margin="0,0,3,0" Click="MoveToReplyTweetButton_Click" 
                         Style="{DynamicResource ImageButtonStyle}" MouseRightButtonUp="MoveToReplyStatusButton_MouseUp"

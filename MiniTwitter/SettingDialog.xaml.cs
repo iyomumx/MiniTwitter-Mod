@@ -7,6 +7,8 @@
  * 找到
 */
 
+//#define SETTING_WIZARD
+
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Concurrent;
@@ -326,7 +328,7 @@ namespace MiniTwitter
                 if (MessageBox.Show("有可用更新，现在进行更新吗？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     deploy.UpdateAsync();
-
+                    
                     DialogResult = true;
                 }
             }
@@ -389,23 +391,36 @@ namespace MiniTwitter
             }
             string token = string.Empty;
             string tokensecret = string.Empty;
-            if (TwitterClient.googlHelper.GetRequestToken(ref token, new { scope = "https://www.googleapis.com/auth/urlshortener", xoauth_displayname = "iyomumx Mod", oauth_callback="oob" }, ref tokensecret))
+            DoGoogleOAuth.Content = "请求中…";
+            this.AsyncInvoke(() =>
             {
-                string url = TwitterClient.googlHelper.RedirectToAuthorize(token);
-                MessageBox.Show("将打开默认浏览器以获取PIN，请确认你的浏览器能正确连接Google", "即将跳转", MessageBoxButton.OK);
-                System.Diagnostics.Process.Start(url);
-                string PIN = Microsoft.VisualBasic.Interaction.InputBox("请输入PIN(不含空格)", "输入PIN");
-                TwitterClient.googlHelper.GetAccessToken(ref token, ref tokensecret, PIN);
-                PlixiUsernameBox.Text = token;
-                PlixiPasswordBox.Password = tokensecret;
-                TwitterClient.googlHelper.WriteToken(token, tokensecret);
-            }
+                if (TwitterClient.googlHelper.GetRequestToken(ref token, new { scope = "https://www.googleapis.com/auth/urlshortener", xoauth_displayname = "iyomumx Mod", oauth_callback = "oob" }, ref tokensecret))
+                {
+                    string url = TwitterClient.googlHelper.RedirectToAuthorize(token);
+                    MessageBox.Show("将打开默认浏览器以获取PIN，请确认你的浏览器能正确连接Google", "即将跳转", MessageBoxButton.OK);
+                    System.Diagnostics.Process.Start(url);
+                    string PIN = PinInputWindow.PinBox();
+                    TwitterClient.googlHelper.GetAccessToken(ref token, ref tokensecret, PIN);
+                    PlixiUsernameBox.Text = token;
+                    PlixiPasswordBox.Password = tokensecret;
+                    TwitterClient.googlHelper.WriteToken(token, tokensecret);
+                }
+            });
         }
 
         private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
         {
             try
             {
+#if SETTING_WIZARD && DEBUG
+                if (Keyboard.Modifiers == ModifierKeys.Control)
+                {
+                    MiniTwitter.SettingWizard.WizardWindow window = new SettingWizard.WizardWindow();
+                    var r = window.ShowDialog();
+                    System.Diagnostics.Debug.WriteLine(r);
+                    return;
+                }
+#endif
                 System.Diagnostics.Process.Start(Settings.BaseDirectory);
             }
             catch
@@ -474,6 +489,34 @@ namespace MiniTwitter
             catch { }
         }
 
+        private void OtherListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            OtherListBoxItem.IsSelected = true;
+        }
+
+        private void TweetFooterComboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete && Keyboard.Modifiers == ModifierKeys.Shift)
+            {
+                Settings.Default.TweetFooterHistory.Remove((TweetFooterComboBox.SelectedItem ?? string.Empty).ToString());
+            }
+        }
+
+        private void Hyperlink_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Documents.Hyperlink)
+            {
+                var uri = (sender as System.Windows.Documents.Hyperlink).NavigateUri;
+                if (uri != null)
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(uri.ToString());
+                    }
+                    catch { }
+                }
+            }
+        }
     }
 
     public class FontInfo : PropertyChangedBase

@@ -61,6 +61,7 @@ namespace MiniTwitter.Properties
             BitlyApiKey = "R_276fb4934824bf8ee936ad0daf0e6745";
             BitlyUsername = "shibayan";
             NowPlayingFormat = "♪{0} - {1}({2})";
+            ImageInline = false;
         }
 
         /// <summary>
@@ -92,6 +93,8 @@ namespace MiniTwitter.Properties
         /// パスワード
         /// </summary>
         public string Password { get; set; }
+
+        //网络
 
         public string Token { get; set; }
 
@@ -215,6 +218,8 @@ namespace MiniTwitter.Properties
             private set;
         }
 
+        //发送处理
+
         [XmlArray("GlobalFilter")]
         public Filter[] GlobalFilterInternal
         {
@@ -262,6 +267,8 @@ namespace MiniTwitter.Properties
             get;
             private set;
         }
+
+        //界面
 
         private bool _AlwaysOnTop;
 
@@ -315,6 +322,8 @@ namespace MiniTwitter.Properties
             }
         }
 
+        //功能
+
         public bool EnableLog { get; set; }
 
         /// <summary>
@@ -347,6 +356,8 @@ namespace MiniTwitter.Properties
         /// </summary>
         public int RefreshSearchTick { get; set; }
 
+        //代理
+
         /// <summary>
         /// プロキシを使用する
         /// </summary>
@@ -376,6 +387,8 @@ namespace MiniTwitter.Properties
         /// プロキシのログインパスワード
         /// </summary>
         public string ProxyPassword { get; set; }
+
+        //界面
 
         private TimelineStyle timelineStyle;
 
@@ -473,27 +486,26 @@ namespace MiniTwitter.Properties
             set
             {
                 _fontName = value;
-                FontFamilyInternal = new FontFamily(string.Format("{0}, Emoji", value));
                 OnPropertyChanged("FontName");
             }
         }
 
-        [XmlIgnore, NonSerialized]
-        private FontFamily _fontFamilyInternal;
+        //[XmlIgnore, NonSerialized]
+        //private FontFamily _fontFamilyInternal;
 
-        [XmlIgnore()]
-        public FontFamily FontFamilyInternal
-        {
-            get
-            {
-                return _fontFamilyInternal;
-            }
-            set
-            {
-                _fontFamilyInternal = value;
-                OnPropertyChanged("FontFamilyInternal");
-            }
-        }
+        //[XmlIgnore()]
+        //public FontFamily FontFamilyInternal
+        //{
+        //    get
+        //    {
+        //        return _fontFamilyInternal;
+        //    }
+        //    set
+        //    {
+        //        _fontFamilyInternal = value;
+        //        OnPropertyChanged("FontFamilyInternal");
+        //    }
+        //}
 
         public bool IsClearTypeEnabled { get; set; }
 
@@ -541,11 +553,32 @@ namespace MiniTwitter.Properties
         [XmlIgnore]
         public ObservableCollection<string> TweetFooterHistory { get; private set; }
 
+        //推文处理
+
         public bool EnableHeartMark { get; set; }
+
+        public bool EnableDeleteLine { get; set; }
+
+        private bool _ImageInline;
+
+        public bool ImageInline
+        {
+            get { return _ImageInline; }
+            set
+            {
+                if (_ImageInline!=value)
+                {
+                    _ImageInline = value;
+                    OnPropertyChanged("ImageInline");
+                }
+            }
+        }
 
         public bool EnableUnreadManager { get; set; }
 
         public bool EnableNotifyIcon { get; set; }
+
+        
 
         public string BrowserPath { get; set; }
 

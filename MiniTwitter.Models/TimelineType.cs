@@ -16,5 +16,6 @@ namespace MiniTwitter
         Search,
         List,
         OtherUser,
+        Conversation,
     }
 }

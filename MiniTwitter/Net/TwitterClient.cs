@@ -30,12 +30,19 @@ namespace MiniTwitter.Net
         {
             ServicePointManager.DefaultConnectionLimit = 10;
             ServicePointManager.Expect100Continue = false;
+            Default = new TwitterClient(App.consumer_key, App.consumer_secret);
         }
 
         public TwitterClient(string consumerKey, string consumerSecret)
             : base(consumerKey, consumerSecret)
         {
             RetryCount = 5;
+        }
+
+        public static TwitterClient Default
+        {
+            get;
+            private set;
         }
 
         private readonly object thisLock = new object();
@@ -170,7 +177,7 @@ namespace MiniTwitter.Net
 
         public event EventHandler<UpdateEventArgs> Updated;
 
-        public event EventHandler UpdateFailure;
+        public event EventHandler<UpdateFailedEventArgs> UpdateFailure;
 
         public bool? Login(string token, string tokenSecret)
         {
@@ -311,11 +318,11 @@ namespace MiniTwitter.Net
                     Updated(this, new UpdateEventArgs(status));
                 }
             }
-            catch
+            catch(Exception e)
             {
                 if (UpdateFailure != null)
                 {
-                    UpdateFailure(this, EventArgs.Empty);
+                    UpdateFailure(this, new UpdateFailedEventArgs(text,e));
                 }
             }
         }
@@ -331,11 +338,11 @@ namespace MiniTwitter.Net
                     Updated(this, new UpdateEventArgs(message));
                 }
             }
-            catch
+            catch(Exception e)
             {
                 if (UpdateFailure != null)
                 {
-                    UpdateFailure(this, EventArgs.Empty);
+                    UpdateFailure(this, new UpdateFailedEventArgs(text, e));
                 }
             }
         }
@@ -534,6 +541,25 @@ namespace MiniTwitter.Net
             return GetStatuses(string.Format("{0}1/statuses/user_timeline.xml", ApiBaseUrl), new { count = 100, screen_name = name }, ref tmpid);
         }
 
+        public Status[] GetUserTimeline(string name, int count = 200, ulong? sinceId = null, ulong? maxId = null)
+        {
+            if (count <= 0 || count > 200)
+            {
+                throw new ArgumentException("Count必须大于0小于200", "count");
+            }
+            System.Diagnostics.Contracts.Contract.EndContractBlock();
+            object p;
+            if (maxId != null)
+            {
+                p = new { max_id = maxId, count = count, screen_name = name };
+            }
+            else
+            {
+                p = new { count = count, screen_name = name };
+            }
+            return GetStatuses(string.Format("{0}1/statuses/user_timeline.xml", ApiBaseUrl), p, ref sinceId);
+        }
+
         private User[] GetUsers(string url)
         {
             try
@@ -558,6 +584,43 @@ namespace MiniTwitter.Net
             }
         }
 
+        public Status[] GetHomeTimeline(int count = 200, ulong? sinceId = null, ulong? maxId = null)
+        {
+            if (count <= 0 || count > 200)
+            {
+                throw new ArgumentException("Count必须大于0小于200", "count");
+            }
+            System.Diagnostics.Contracts.Contract.EndContractBlock();
+            object p;
+            if (maxId != null)
+            {
+                p = new { max_id = maxId, count=count };
+            }
+            else
+            {
+                p = new { count=count };
+            }
+            return GetStatuses(string.Format("{0}1/statuses/home_timeline.xml", ApiBaseUrl), p, ref sinceId);
+        }
+
+        public Status[] GetMentions(int count = 200, ulong? sinceId = null, ulong? maxId = null)
+        {
+            if (count <= 0 || count > 200)
+            {
+                throw new ArgumentException("Count必须大于0小于200", "count");
+            }
+            System.Diagnostics.Contracts.Contract.EndContractBlock();
+            object p;
+            if (maxId != null)
+            {
+                p = new { max_id = maxId, count = count };
+            }
+            else
+            {
+                p = new { count = count };
+            }
+            return GetStatuses(string.Format("{0}1/statuses/mentions.xml", ApiBaseUrl), p, ref sinceId);
+        }
         private Status[] GetStatuses(string url, object param)
         {
             ulong? temp = null;

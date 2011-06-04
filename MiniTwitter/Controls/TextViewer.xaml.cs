@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -72,7 +73,7 @@ namespace MiniTwitter.Controls
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
         }
 
-        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})", RegexOptions.Compiled);
+        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)", RegexOptions.Compiled);
 
         private void OnTextChanged(string text)
         {
@@ -82,6 +83,7 @@ namespace MiniTwitter.Controls
                 return;
             }
             int index = 0;
+            List<string> imageurls=new List<string>();
             foreach (Match match in searchPattern.Matches(text))
             {
                 int diff = 0;
@@ -92,9 +94,25 @@ namespace MiniTwitter.Controls
                 }
                 if (value.StartsWith("<3"))
                 {
-                    Image image = new Image { Width = 14, Height = 14, Margin = new Thickness(1, 0, 1, 0) };
-                    image.SetResourceReference(Image.StyleProperty, "HeartImageStyle");
-                    TextBlock.Inlines.Add(new InlineUIContainer(image) { BaselineAlignment = BaselineAlignment.Center });
+                    if (Settings.Default.EnableHeartMark)
+                    {
+                        Image image = new Image { Width = 14, Height = 14, Margin = new Thickness(1, 0, 1, 0) };
+                        image.SetResourceReference(Image.StyleProperty, "HeartImageStyle");
+                        TextBlock.Inlines.Add(new InlineUIContainer(image) { BaselineAlignment = BaselineAlignment.Center });
+                    }
+                    else
+                    {
+                        TextBlock.Inlines.Add(new Run("<3"));
+                    }
+                }
+                else if (value.StartsWith("<"))
+                {
+                    Run delText = new Run(match.Groups["del"].Value);
+                    if (Settings.Default.EnableDeleteLine)
+                    {
+                        delText.TextDecorations.Add(new TextDecoration() { Location = TextDecorationLocation.Strikethrough });
+                    }
+                    TextBlock.Inlines.Add(delText);
                 }
                 else if (value.StartsWith("@"))
                 {
@@ -117,16 +135,123 @@ namespace MiniTwitter.Controls
                 {
                     // URL記法
                     Hyperlink link = new Hyperlink { Tag = value, ToolTip = value };
-                    link.ToolTipOpening += new ToolTipEventHandler(Hyperlink_ToolTipOpening);
+                    link.ToolTipOpening += Hyperlink_ToolTipOpening;//new ToolTipEventHandler(Hyperlink_ToolTipOpening);
                     link.Inlines.Add(value);
                     link.Click += Hyperlink_Click;
                     TextBlock.Inlines.Add(link);
+                    if (Settings.Default.ImageInline) //使用图片预览
+                    {
+                        imageurls.Add(value);
+                    }
                 }
                 index = match.Index + value.Length + diff;
             }
             if (index != text.Length)
             {
                 HighlightKeywords(text.Substring(index));
+            }
+            foreach (var url in imageurls)
+            {
+                if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
+                {
+                    var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/img\.ly\/(.+?)"))
+                {
+                    var uri = new Uri("http://img.ly/show/medium/" + url.Substring(14));
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"(http:\/\/plixi\.com\/p\/(.+?))|(http:\/\/lockerz\.com\/s\/(.+?))"))
+                {
+                    var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + url + "&size=medium");
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/flic\.kr\/p\/(.+?)"))
+                {
+                    var uri = new Uri("http://flic.kr/p/img/" + url.Substring(17) + "_m.jpg");
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
+                {
+                    var uri = new Uri(url + ":iphone");
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
+                {
+                    var client = new WebClient();
+                    var contents = client.DownloadString(url);
+                    var _match = Regex.Match(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
+                    _match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", _match.Groups[2].Value));
+
+                    var uri = new Uri(_match.Groups[1].Value);
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/movapic\.com\/pic\/(.+?)"))
+                {
+                    var client = new WebClient();
+                    var contents = client.DownloadString(url);
+                    var _match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
+
+                    var uri = new Uri(_match.Groups[1].Value);
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/gyazo\.com\/(.+?)"))
+                {
+                    var uri = new Uri(url);
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/instagr\.am\/p\/(.+?)"))
+                {
+                    var client = new WebClient();
+                    var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", url));
+                    var _match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
+
+                    var uri = new Uri(_match.Groups[1].Value);
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                }
+            }
+        }
+
+        private Inline GetImageControl(Uri uri, string url)
+        {
+            Image img = new Image() { Width = 200, Source = new BitmapImage(uri) };
+            Hyperlink link = new Hyperlink(new InlineUIContainer(img));
+            link.Tag = url;
+            link.ToolTip = url;
+            link.Click += Hyperlink_Click;
+            link.MouseWheel += link_MouseWheel;
+            link.TextDecorations = null;
+            return link;
+        }
+
+        private void link_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                var d = e.Delta;
+                Hyperlink link = (Hyperlink)sender;
+                Image img = (Image)(((InlineUIContainer)(link.Inlines.FirstInline)).Child);
+                if (d>0)
+                {
+                    img.Height *= 1.1;
+                    img.Width *= 1.1;
+                }
+                else
+                {
+                    img.Height *= 0.9;
+                    img.Width *= 0.9;
+                }
+                e.Handled = true;
             }
         }
 
@@ -171,7 +296,6 @@ namespace MiniTwitter.Controls
                     Process.Start(url);
                     return;
                 }
-
                 if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
@@ -184,9 +308,9 @@ namespace MiniTwitter.Controls
 
                     ShowPopup(uri, url);
                 }
-                else if (Regex.IsMatch(url, @"http:\/\/plixi\.com\/p\/(.+?)"))
+                else if (Regex.IsMatch(url, @"(http:\/\/plixi\.com\/p\/(.+?))|(http:\/\/lockerz\.com\/s\/(.+?))"))
                 {
-                    var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + url);
+                    var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + url + "&size=medium");
 
                     ShowPopup(uri, url);
                 }
@@ -252,6 +376,11 @@ namespace MiniTwitter.Controls
 
         private void ShowPopup(Uri uri, string url)
         {
+            if (Settings.Default.ImageInline)
+            {
+                Process.Start(url);
+                return;
+            }
             var popup = (Popup)FindResource("PreviewPopup");
             var progress = (Popup)FindResource("ProgressPopup");
 
@@ -304,7 +433,7 @@ namespace MiniTwitter.Controls
             {
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.AllowAutoRedirect = false;
-                request.Timeout = 1000;
+                request.Timeout = 1200;
                 request.Method = "HEAD";
                 var response = (HttpWebResponse)request.GetResponse();
                 if (response.StatusCode == HttpStatusCode.MovedPermanently)
@@ -324,9 +453,9 @@ namespace MiniTwitter.Controls
             if (hyperlink.ToolTip is string)
             {
                 hyperlink.ToolTip = new TextBlock { Text = (string)hyperlink.ToolTip };
-                this.AsyncInvoke(() =>
+                ThreadPool.QueueUserWorkItem(tag =>
                 {
-                    var url = (string)hyperlink.Tag;
+                    var url = (string)tag;
                     string url2 = url;
                     //goo.gl反解析
                     if (Regex.IsMatch(url, @"http://goo\.gl\/([A-Za-z0-9/]+?)"))
@@ -335,7 +464,7 @@ namespace MiniTwitter.Controls
                         url2 = gh.GetOriginalUrl(url);
                         if (Settings.Default.AntiShortUrlTracking && url2 != url)
                         {
-                            hyperlink.Tag = url2;
+                            this.Invoke(() => hyperlink.Tag = url2);
                         }
                     }
                     if (Regex.IsMatch(url, @"http://((bit\.ly)|(j\.mp))/[A-Za-z0-9]+?"))
@@ -343,7 +472,7 @@ namespace MiniTwitter.Controls
                         url2 = MiniTwitter.Net.BitlyHelper.ConvertFrom(url);
                         if (Settings.Default.AntiShortUrlTracking && url2 != url)
                         {
-                            hyperlink.Tag = url2;
+                            this.Invoke(() => hyperlink.Tag = url2);
                         }
                     }
                     try
@@ -351,18 +480,20 @@ namespace MiniTwitter.Controls
                         var location = GetRedirect(url2);
 
                         if ((!location.IsNullOrEmpty() && location != url) || redirectFailCount > 5)
-                        {
-                            hyperlink.ToolTip = new TextBlock { Text = location };
-                            hyperlink.Tag = location;       //无论如何都防止产生两次点击
-                        }
+                            this.Invoke(() =>
+                            {
+                                hyperlink.ToolTip = new TextBlock { Text = location };
+                                hyperlink.Tag = location;       //无论如何都防止产生两次点击
+                            });
                         else
-                        {
-                            redirectFailCount++;
-                            hyperlink.ToolTip = url;
-                        }
+                            this.Invoke(() =>
+                            {
+                                redirectFailCount++;
+                                hyperlink.ToolTip = url;
+                            });
                     }
                     catch { }
-                });
+                }, hyperlink.Tag);
                 e.Handled = true;
                 //if (hyperlink.ToolTip == null)
                 //{

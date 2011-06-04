@@ -311,8 +311,14 @@ namespace MiniTwitter.Input
         public static RoutedCommand ViewUser
         {
             get { return Commands._viewUser; }
-        } 
+        }
 
+        private static readonly RoutedCommand _setTweetText = new RoutedCommand("SetTweetText", typeof(Commands));
+
+        public static RoutedCommand SetTweetText
+        {
+            get { return Commands._setTweetText; }
+        }
 
     }
 }

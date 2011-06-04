@@ -21,7 +21,7 @@
     xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:System_Deployment_Application="clr-namespace:System.Deployment.Application;assembly=System.Deployment"
     x:Class="MiniTwitter.SettingDialog"
-    Title="MiniTwitter Mod: 设置" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
+    Title="MiniTwitter Mod: 设置" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo, Converter={StaticResource FontConverter}}"
     ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="SettingDialog_Loaded"
     DataContext="{x:Static MiniTwitter_Properties:Settings.Default}" Style="{DynamicResource SettingDialogStyle}"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True">
@@ -30,7 +30,9 @@
     </Window.BindingGroup>
     <Window.Resources>
         <MiniTwitter:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <!--<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>-->
+        <MiniTwitter:BooleansToVisibilityConverter x:Key="BooleansToVisibilityConverter"/>
+        
     </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -42,7 +44,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="8">
+        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="12">
             <ListBoxItem x:Name="AccountListBoxItem" IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AccountImageStyle}"/>
@@ -107,6 +109,17 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource SettingImageStyle}"/>
                     <TextBlock Text="其他" Margin="4,0,0,0" />
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem x:Name="TweetProccessListBoxItem">
+                <ListBoxItem.Visibility>
+                    <MultiBinding Converter="{StaticResource BooleansToVisibilityConverter}">
+                        <Binding ElementName="OtherListBoxItem" Path="IsSelected"/>
+                        <Binding ElementName="TweetProccessListBoxItem" Path="IsSelected"/>
+                    </MultiBinding>
+                </ListBoxItem.Visibility>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="推文处理" Margin="32,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="VersionListBoxItem">
@@ -190,17 +203,15 @@
             <TextBlock TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"><Run Text="主题"/></TextBlock>
             <ComboBox Width="220" IsSynchronizedWithCurrentItem="True" Canvas.Left="110" Canvas.Top="14" ItemsSource="{x:Static MiniTwitter_Themes:ThemeManager.Themes}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding Path=Theme}" />
             <TextBlock Text="字体" Canvas.Left="14" Canvas.Top="62"/>
-            <ComboBox x:Name="FontComboBox" Width="180" Canvas.Left="110" Canvas.Top="59" ItemsSource="{x:Static MiniTwitter:SettingDialog.SysFonts}" SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" 
-                      FontFamily="{Binding Path=SelectedValue, ElementName=FontComboBox}" >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name, FallbackValue=未知字体}"
-                                   FontSize="16" Tag="{Binding Path=Font}"
-                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox x:Name="FontComboBox" Width="180" Canvas.Left="110" Canvas.Top="59" 
+                      FontFamily="{Binding ElementName=FontComboBox, Path=SelectedItem, Converter={StaticResource FontConverter}, Mode=OneWay}"
+                      ItemsSource="{x:Static MiniTwitter:SettingDialog.SysFonts}" 
+                      SelectedValuePath="Source" SelectedValue="{Binding Path=FontName}" DisplayMemberPath="Name"/>
             <CheckBox Content="强制打开ClearType" Canvas.Left="20" Canvas.Top="95" IsChecked="{Binding Path=IsClearTypeEnabled}" />
+            <CheckBox Content="主窗口总在最顶部" Canvas.Left="20" Canvas.Top="139" IsChecked="{Binding Path=AlwaysOnTop}" />
+            <CheckBox Content="内容平滑滚动(请量力而行，可能需要重启程序)" Canvas.Left="20" Canvas.Top="161" IsChecked="{Binding Path=SmoothScroll}" />
+            <CheckBox Content="内容实时滚动(拖动滚动条内容同时滚动，会轻微降低性能)" Canvas.Left="20" Canvas.Top="183" IsChecked="{Binding Path=RealtimeScroll}" />
+            <CheckBox Content="在TL中直接预览图片" Canvas.Left="20" Canvas.Top="205" IsChecked="{Binding Path=ImageInline}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=KeyboardListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="使用键盘快捷键映射" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"/>
@@ -319,21 +330,25 @@
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=OtherListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <CheckBox Content="打开未读管理" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableUnreadManager}"/>
-            <CheckBox x:Name="TweetFooterCheckBox" Content="语尾附加" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=EnableTweetFooter}"/>
-            <TextBlock Text="推文语尾" Canvas.Left="31" Canvas.Top="62"/>
-            <ComboBox x:Name="TweetFooterComboBox" Width="180" Canvas.Left="150" Canvas.Top="59" IsEditable="True" Text="{Binding Path=TweetFooter}" IsEnabled="{Binding ElementName=TweetFooterCheckBox, Path=IsChecked}"/>
-            <CheckBox Content="关闭到通知图标" Canvas.Left="14" Canvas.Top="89" IsChecked="{Binding Path=EnableNotifyIcon}"/>
-            <CheckBox Content="非官方RT时添加in-reply-to信息" Canvas.Left="14" Canvas.Top="111" IsChecked="{Binding Path=IsRetweetWithInReplyTo}" />
-            <CheckBox Content="启用实时更新(需要重启程序，需要到Twitter的稳定连接)" Canvas.Left="14" Canvas.Top="133" IsChecked="{Binding Path=UseUserStream}" />
-            <CheckBox Content="主窗口总在最顶部" Canvas.Left="14" Canvas.Top="155" IsChecked="{Binding Path=AlwaysOnTop}" />
-            <CheckBox Content="短链接反跟踪(对goo.gl以及bit.ly有效)" Canvas.Left="14" Canvas.Top="177" IsChecked="{Binding Path=AntiShortUrlTracking}" />
-            <CheckBox Content="内容平滑滚动(请量力而行，可能需要重启程序)" Canvas.Left="14" Canvas.Top="199" IsChecked="{Binding Path=SmoothScroll}" />
-            <CheckBox Content="内容实时滚动(拖动滚动条内容同时滚动，会轻微降低性能)" Canvas.Left="14" Canvas.Top="221" IsChecked="{Binding Path=RealtimeScroll}" />
-            <CheckBox Content="启用日志（轻微降低性能并最多会占用2M的硬盘空间）" Canvas.Left="14" Canvas.Top="243" IsChecked="{Binding Path=EnableLog}" Visibility="Collapsed" />
-            <TextBlock Text="RT前缀" Canvas.Left="31" Canvas.Top="265"/>
-            <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="265" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
-            <TextBlock Text="NowPlaying格式（{0}-歌曲名 {1}-专辑名 {2}-歌手名）：" Canvas.Left="31" Canvas.Top="287"/>
-            <TextBox Width="240" Canvas.Left="50" Canvas.Top="309" Text="{Binding Path=NowPlayingFormat}" />
+            <CheckBox Content="关闭到通知图标" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=EnableNotifyIcon}"/>
+            <CheckBox Content="非官方RT时添加in-reply-to信息" Canvas.Left="14" Canvas.Top="58" IsChecked="{Binding Path=IsRetweetWithInReplyTo}" />
+            <CheckBox Content="启用实时更新(需要重启程序，需要到Twitter的稳定连接)" Canvas.Left="14" Canvas.Top="80" IsChecked="{Binding Path=UseUserStream}" />
+            <CheckBox Content="短链接反跟踪(对goo.gl以及bit.ly有效)" Canvas.Left="14" Canvas.Top="102" IsChecked="{Binding Path=AntiShortUrlTracking}" />
+            <CheckBox Content="启用日志（轻微降低性能并最多会占用2M的硬盘空间）" Canvas.Left="14" Canvas.Top="124" IsChecked="{Binding Path=EnableLog}" Visibility="Collapsed" />
+        </Canvas>
+        <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=TweetProccessListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <CheckBox Content="处理删除线标记(&lt;del&gt;)" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableDeleteLine}"/>
+            <CheckBox Content="处理心型(&lt;3)" Canvas.Left="14" Canvas.Top="36" IsChecked="{Binding Path=EnableHeartMark}"/>
+            <CheckBox x:Name="TweetFooterCheckBox" Content="语尾附加" Canvas.Left="14" Canvas.Top="58" IsChecked="{Binding Path=EnableTweetFooter}"/>
+            <TextBlock Text="推文语尾" Canvas.Left="31" Canvas.Top="80"/>
+            <ComboBox x:Name="TweetFooterComboBox" Width="180" Canvas.Left="150" Canvas.Top="81" 
+                      IsEditable="True" Text="{Binding Path=TweetFooter}" 
+                      IsEnabled="{Binding ElementName=TweetFooterCheckBox, Path=IsChecked}" 
+                      KeyUp="TweetFooterComboBox_KeyUp" />
+            <TextBlock Text="RT前缀" Canvas.Left="14" Canvas.Top="111"/>
+            <ComboBox x:Name="ReTweetPrefixComboBox" Width="180" Canvas.Left="150" Canvas.Top="111" IsEditable="True" Text="{Binding Path=ReTweetPrefix}"/>
+            <TextBlock Text="NowPlaying格式（{0}-歌曲名 {1}-专辑名 {2}-歌手名）：" Canvas.Left="14" Canvas.Top="137"/>
+            <TextBox Width="300" Canvas.Left="30" Canvas.Top="160" Text="{Binding Path=NowPlayingFormat}" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=VersionListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Canvas.Left="70" Canvas.Top="30" Source="Resources\MiniTwitter.ico" Width="48" />
@@ -349,6 +364,21 @@
                 </Hyperlink>
             </Label>
             <TextBlock Canvas.Left="70" Canvas.Top="200" Text="{Binding Path=BaseDirectory}" TextWrapping="WrapWithOverflow" Width="240"/>
+            <Label Canvas.Left="14" Canvas.Top="300">
+                <Hyperlink Click="Hyperlink_Click_2" NavigateUri="http://iyomumx.github.com/MiniTwitter-Mod/">
+                    <Run Text="MiniTwitter Mod 项目页面"/>
+                </Hyperlink>
+            </Label>
+            <Label Canvas.Left="187" Canvas.Top="300">
+                <Hyperlink Click="Hyperlink_Click_2" NavigateUri="https://github.com/iyomumx/MiniTwitter-Mod/wiki">
+                    <Run Text="使用帮助"/>
+                </Hyperlink>
+            </Label>
+            <Label Canvas.Left="264" Canvas.Top="300">
+                <Hyperlink Click="Hyperlink_Click_2" NavigateUri="https://github.com/iyomumx/MiniTwitter-Mod">
+                    <Run Text="源代码"/>
+                </Hyperlink>
+            </Label>
         </Canvas>
         
     </Grid>

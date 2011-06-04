@@ -57,5 +57,25 @@ namespace MiniTwitter.Extensions
 
             return DateTime.Now; ;
         }
+
+        public static bool HasRelationshipTo(this Status item,Status second)
+        {
+            if (second.InReplyToStatusID==item.ID||item.InReplyToStatusID==second.ID)
+            {
+                return true;
+            }
+            else
+            {
+                if (item.InReplyToStatus!=null)
+                {
+                    return item.InReplyToStatus.HasRelationshipTo(second);
+                }
+                else if (second.InReplyToStatus!=null)
+                {
+                    return second.InReplyToStatus.HasRelationshipTo(item);
+                }
+                return false;
+            }
+        }
     }
 }

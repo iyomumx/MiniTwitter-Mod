@@ -258,7 +258,7 @@ namespace MiniTwitter.Net
 
         protected string Delete(string url, Action<ProccessStep> proccessCallBack = null)
         {
-            return Delete(url, null);
+            return Delete(url, null, proccessCallBack);
         }
 
         protected string Delete(string url, object param, Action<ProccessStep> proccessCallBack = null)
@@ -283,7 +283,7 @@ namespace MiniTwitter.Net
         private string Fetch(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, Action<ProccessStep> proccessCallBack = null)
         {
             DateTime temp;
-            return Fetch(verb, url, param, token, tokenSecret, verifier, out temp);
+            return Fetch(verb, url, param, token, tokenSecret, verifier, out temp, proccessCallBack);
         }
 
         private string Fetch(HttpVerbs verb, string url, object param, string token, string tokenSecret, string verifier, out DateTime lastModified, Action<ProccessStep> proccessCallBack = null)
@@ -565,6 +565,7 @@ namespace MiniTwitter.Net
             var request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = ToMethodString(verb);
             request.Accept = "application/xml, text/xml, */*";
+            request.UserAgent = App.NAME + App.VERSION;
             request.Timeout = 6000;
             request.ServicePoint.Expect100Continue = false;
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;

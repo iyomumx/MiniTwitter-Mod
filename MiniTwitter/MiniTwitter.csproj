@@ -204,7 +204,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BooleansToVisibilityConverter.cs" />
+    <Compile Include="FontNameToFontFamilyConverter.cs" />
     <Compile Include="HasValueToVisibilityConverter.cs" />
+    <Compile Include="Update\UpdateDialog.xaml.cs">
+      <DependentUpon>UpdateDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\HyperlinkButton.xaml.cs">
@@ -233,6 +238,7 @@
     <Compile Include="Net\TinyUrlHelper.cs" />
     <Compile Include="Net\TwitpicUploader.cs" />
     <Compile Include="Net\TwitterClient.cs" />
+    <Compile Include="NonZeroToVisibilityConverter.cs" />
     <Compile Include="PinInputWindow.xaml.cs">
       <DependentUpon>PinInputWindow.xaml</DependentUpon>
     </Compile>
@@ -343,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Update\UpdateDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Resources\Translation\DefaultLanguage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -404,6 +414,7 @@
     <Resource Include="Resources\arrow_refresh.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Controls\EmptyImage.png" />
     <Content Include="License.txt" />
     <Content Include="MiniTwitter.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -464,13 +475,7 @@
     <Folder Include="Threading\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.        Other similar extension points exist, see Microsoft.Common.targets.  <Target Name="BeforeBuild">  </Target>  <Target Name="AfterBuild">  </Target>  -->
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

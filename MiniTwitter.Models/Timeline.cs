@@ -29,6 +29,7 @@ namespace MiniTwitter
         public Timeline()
         {
             SinceID = 0;
+            RecentTweetCount = 0;
             VerticalOffset = 0;
             UnreadCount = 0;
             MaxCount = 10000;
@@ -124,6 +125,25 @@ namespace MiniTwitter
         public ulong SinceID { get; set; }
 
         [XmlIgnore]
+        public ulong MaxID
+        {
+            get
+            {
+                if (Items.Count == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return Items.AsParallel().Min(itm => itm.ID);
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public int RecentTweetCount { get; set; }
+
+        [XmlIgnore]
         public double VerticalOffset { get; set; }
 
         [XmlIgnore]
@@ -139,6 +159,7 @@ namespace MiniTwitter
                 }
                 int count = 0;
                 int unreadCount = 0;
+                var ids = from i in Items select i.ID;
                 foreach(var item in appendItems.Where(x => !Items.Contains(x) && IsFilterMatch(x)))
                 { 
                     if (Type == TimelineType.Archive && item.IsReTweeted)
@@ -170,6 +191,7 @@ namespace MiniTwitter
                             itm.InReplyToStatus = target;
                         }
                     }
+                    
                 }
                 UnreadCount += unreadCount;
                 if (Items.Count > MaxCount)

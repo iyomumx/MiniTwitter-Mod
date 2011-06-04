@@ -1,0 +1,17 @@
+﻿<Window x:Class="MiniTwitter.Update.UpdateDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="检查更新" Height="130" Width="181" Name="window" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
+        Loaded="window_Loaded">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Normal" ProgressValue="{Binding ElementName=window, Path=UpdateProgress}" />
+    </Window.TaskbarItemInfo>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*" />
+            <RowDefinition Height="43*" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="12" Name="textBlock1" Text="{Binding ElementName=window, Path=StatusText}" />
+        <ProgressBar Grid.Row="1" Margin="12" Value="{Binding Path=UpdateProgress, Mode=OneWay, ElementName=window}" Maximum="1" />
+    </Grid>
+</Window>
