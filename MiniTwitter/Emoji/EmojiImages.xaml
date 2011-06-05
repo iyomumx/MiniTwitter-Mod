@@ -1,0 +1,2265 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="EmojiImageStyle" TargetType="{x:Type Image}">
+        <Setter Property="StretchDirection" Value="DownOnly"/>
+    </Style>
+    <Style x:Key="EmojiE001" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E001.gif"/>
+    </Style>
+    <Style x:Key="EmojiE002" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E002.gif"/>
+    </Style>
+    <Style x:Key="EmojiE003" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E003.gif"/>
+    </Style>
+    <Style x:Key="EmojiE004" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E004.gif"/>
+    </Style>
+    <Style x:Key="EmojiE005" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E005.gif"/>
+    </Style>
+    <Style x:Key="EmojiE006" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E006.gif"/>
+    </Style>
+    <Style x:Key="EmojiE007" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E007.gif"/>
+    </Style>
+    <Style x:Key="EmojiE008" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E008.gif"/>
+    </Style>
+    <Style x:Key="EmojiE009" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E009.gif"/>
+    </Style>
+    <Style x:Key="EmojiE00A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E00A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE00B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E00B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE00C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E00C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE00D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E00D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE00E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E00E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE00F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E00F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE010" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E010.gif"/>
+    </Style>
+    <Style x:Key="EmojiE011" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E011.gif"/>
+    </Style>
+    <Style x:Key="EmojiE012" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E012.gif"/>
+    </Style>
+    <Style x:Key="EmojiE013" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E013.gif"/>
+    </Style>
+    <Style x:Key="EmojiE014" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E014.gif"/>
+    </Style>
+    <Style x:Key="EmojiE015" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E015.gif"/>
+    </Style>
+    <Style x:Key="EmojiE016" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E016.gif"/>
+    </Style>
+    <Style x:Key="EmojiE017" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E017.gif"/>
+    </Style>
+    <Style x:Key="EmojiE018" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E018.gif"/>
+    </Style>
+    <Style x:Key="EmojiE019" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E019.gif"/>
+    </Style>
+    <Style x:Key="EmojiE01A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E01A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE01B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E01B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE01C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E01C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE01D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E01D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE01E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E01E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE01F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E01F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE020" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E020.gif"/>
+    </Style>
+    <Style x:Key="EmojiE021" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E021.gif"/>
+    </Style>
+    <Style x:Key="EmojiE022" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E022.gif"/>
+    </Style>
+    <Style x:Key="EmojiE023" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E023.gif"/>
+    </Style>
+    <Style x:Key="EmojiE024" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E024.gif"/>
+    </Style>
+    <Style x:Key="EmojiE025" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E025.gif"/>
+    </Style>
+    <Style x:Key="EmojiE026" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E026.gif"/>
+    </Style>
+    <Style x:Key="EmojiE027" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E027.gif"/>
+    </Style>
+    <Style x:Key="EmojiE028" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E028.gif"/>
+    </Style>
+    <Style x:Key="EmojiE029" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E029.gif"/>
+    </Style>
+    <Style x:Key="EmojiE02A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E02A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE02B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E02B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE02C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E02C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE02D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E02D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE02E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E02E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE02F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E02F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE030" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E030.gif"/>
+    </Style>
+    <Style x:Key="EmojiE031" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E031.gif"/>
+    </Style>
+    <Style x:Key="EmojiE032" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E032.gif"/>
+    </Style>
+    <Style x:Key="EmojiE033" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E033.gif"/>
+    </Style>
+    <Style x:Key="EmojiE034" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E034.gif"/>
+    </Style>
+    <Style x:Key="EmojiE035" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E035.gif"/>
+    </Style>
+    <Style x:Key="EmojiE036" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E036.gif"/>
+    </Style>
+    <Style x:Key="EmojiE037" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E037.gif"/>
+    </Style>
+    <Style x:Key="EmojiE038" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E038.gif"/>
+    </Style>
+    <Style x:Key="EmojiE039" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E039.gif"/>
+    </Style>
+    <Style x:Key="EmojiE03A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E03A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE03B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E03B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE03C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E03C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE03D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E03D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE03E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E03E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE03F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E03F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE040" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E040.gif"/>
+    </Style>
+    <Style x:Key="EmojiE041" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E041.gif"/>
+    </Style>
+    <Style x:Key="EmojiE042" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E042.gif"/>
+    </Style>
+    <Style x:Key="EmojiE043" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E043.gif"/>
+    </Style>
+    <Style x:Key="EmojiE044" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E044.gif"/>
+    </Style>
+    <Style x:Key="EmojiE045" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E045.gif"/>
+    </Style>
+    <Style x:Key="EmojiE046" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E046.gif"/>
+    </Style>
+    <Style x:Key="EmojiE047" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E047.gif"/>
+    </Style>
+    <Style x:Key="EmojiE048" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E048.gif"/>
+    </Style>
+    <Style x:Key="EmojiE049" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E049.gif"/>
+    </Style>
+    <Style x:Key="EmojiE04A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E04A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE04B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E04B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE04C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E04C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE04D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E04D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE04E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E04E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE04F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E04F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE050" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E050.gif"/>
+    </Style>
+    <Style x:Key="EmojiE051" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E051.gif"/>
+    </Style>
+    <Style x:Key="EmojiE052" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E052.gif"/>
+    </Style>
+    <Style x:Key="EmojiE053" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E053.gif"/>
+    </Style>
+    <Style x:Key="EmojiE054" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E054.gif"/>
+    </Style>
+    <Style x:Key="EmojiE055" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E055.gif"/>
+    </Style>
+    <Style x:Key="EmojiE056" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E056.gif"/>
+    </Style>
+    <Style x:Key="EmojiE057" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E057.gif"/>
+    </Style>
+    <Style x:Key="EmojiE058" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E058.gif"/>
+    </Style>
+    <Style x:Key="EmojiE059" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E059.gif"/>
+    </Style>
+    <Style x:Key="EmojiE05A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E05A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE101" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E101.gif"/>
+    </Style>
+    <Style x:Key="EmojiE102" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E102.gif"/>
+    </Style>
+    <Style x:Key="EmojiE103" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E103.gif"/>
+    </Style>
+    <Style x:Key="EmojiE104" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E104.gif"/>
+    </Style>
+    <Style x:Key="EmojiE105" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E105.gif"/>
+    </Style>
+    <Style x:Key="EmojiE106" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E106.gif"/>
+    </Style>
+    <Style x:Key="EmojiE107" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E107.gif"/>
+    </Style>
+    <Style x:Key="EmojiE108" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E108.gif"/>
+    </Style>
+    <Style x:Key="EmojiE109" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E109.gif"/>
+    </Style>
+    <Style x:Key="EmojiE10A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E10A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE10B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E10B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE10C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E10C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE10D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E10D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE10E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E10E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE10F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E10F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE110" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E110.gif"/>
+    </Style>
+    <Style x:Key="EmojiE111" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E111.gif"/>
+    </Style>
+    <Style x:Key="EmojiE112" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E112.gif"/>
+    </Style>
+    <Style x:Key="EmojiE113" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E113.gif"/>
+    </Style>
+    <Style x:Key="EmojiE114" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E114.gif"/>
+    </Style>
+    <Style x:Key="EmojiE115" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E115.gif"/>
+    </Style>
+    <Style x:Key="EmojiE116" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E116.gif"/>
+    </Style>
+    <Style x:Key="EmojiE117" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E117.gif"/>
+    </Style>
+    <Style x:Key="EmojiE118" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E118.gif"/>
+    </Style>
+    <Style x:Key="EmojiE119" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E119.gif"/>
+    </Style>
+    <Style x:Key="EmojiE11A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E11A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE11B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E11B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE11C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E11C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE11D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E11D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE11E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E11E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE11F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E11F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE120" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E120.gif"/>
+    </Style>
+    <Style x:Key="EmojiE121" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E121.gif"/>
+    </Style>
+    <Style x:Key="EmojiE122" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E122.gif"/>
+    </Style>
+    <Style x:Key="EmojiE123" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E123.gif"/>
+    </Style>
+    <Style x:Key="EmojiE124" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E124.gif"/>
+    </Style>
+    <Style x:Key="EmojiE125" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E125.gif"/>
+    </Style>
+    <Style x:Key="EmojiE126" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E126.gif"/>
+    </Style>
+    <Style x:Key="EmojiE127" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E127.gif"/>
+    </Style>
+    <Style x:Key="EmojiE128" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E128.gif"/>
+    </Style>
+    <Style x:Key="EmojiE129" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E129.gif"/>
+    </Style>
+    <Style x:Key="EmojiE12A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E12A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE12B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E12B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE12C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E12C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE12D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E12D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE12E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E12E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE12F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E12F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE130" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E130.gif"/>
+    </Style>
+    <Style x:Key="EmojiE131" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E131.gif"/>
+    </Style>
+    <Style x:Key="EmojiE132" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E132.gif"/>
+    </Style>
+    <Style x:Key="EmojiE133" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E133.gif"/>
+    </Style>
+    <Style x:Key="EmojiE134" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E134.gif"/>
+    </Style>
+    <Style x:Key="EmojiE135" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E135.gif"/>
+    </Style>
+    <Style x:Key="EmojiE136" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E136.gif"/>
+    </Style>
+    <Style x:Key="EmojiE137" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E137.gif"/>
+    </Style>
+    <Style x:Key="EmojiE138" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E138.gif"/>
+    </Style>
+    <Style x:Key="EmojiE139" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E139.gif"/>
+    </Style>
+    <Style x:Key="EmojiE13A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E13A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE13B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E13B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE13C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E13C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE13D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E13D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE13E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E13E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE13F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E13F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE140" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E140.gif"/>
+    </Style>
+    <Style x:Key="EmojiE141" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E141.gif"/>
+    </Style>
+    <Style x:Key="EmojiE142" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E142.gif"/>
+    </Style>
+    <Style x:Key="EmojiE143" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E143.gif"/>
+    </Style>
+    <Style x:Key="EmojiE144" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E144.gif"/>
+    </Style>
+    <Style x:Key="EmojiE145" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E145.gif"/>
+    </Style>
+    <Style x:Key="EmojiE146" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E146.gif"/>
+    </Style>
+    <Style x:Key="EmojiE147" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E147.gif"/>
+    </Style>
+    <Style x:Key="EmojiE148" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E148.gif"/>
+    </Style>
+    <Style x:Key="EmojiE149" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E149.gif"/>
+    </Style>
+    <Style x:Key="EmojiE14A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E14A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE14B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E14B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE14C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E14C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE14D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E14D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE14E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E14E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE14F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E14F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE150" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E150.gif"/>
+    </Style>
+    <Style x:Key="EmojiE151" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E151.gif"/>
+    </Style>
+    <Style x:Key="EmojiE152" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E152.gif"/>
+    </Style>
+    <Style x:Key="EmojiE153" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E153.gif"/>
+    </Style>
+    <Style x:Key="EmojiE154" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E154.gif"/>
+    </Style>
+    <Style x:Key="EmojiE155" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E155.gif"/>
+    </Style>
+    <Style x:Key="EmojiE156" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E156.gif"/>
+    </Style>
+    <Style x:Key="EmojiE157" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E157.gif"/>
+    </Style>
+    <Style x:Key="EmojiE158" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E158.gif"/>
+    </Style>
+    <Style x:Key="EmojiE159" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E159.gif"/>
+    </Style>
+    <Style x:Key="EmojiE15A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E15A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE201" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E201.gif"/>
+    </Style>
+    <Style x:Key="EmojiE202" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E202.gif"/>
+    </Style>
+    <Style x:Key="EmojiE203" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E203.gif"/>
+    </Style>
+    <Style x:Key="EmojiE204" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E204.gif"/>
+    </Style>
+    <Style x:Key="EmojiE205" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E205.gif"/>
+    </Style>
+    <Style x:Key="EmojiE206" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E206.gif"/>
+    </Style>
+    <Style x:Key="EmojiE207" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E207.gif"/>
+    </Style>
+    <Style x:Key="EmojiE208" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E208.gif"/>
+    </Style>
+    <Style x:Key="EmojiE209" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E209.gif"/>
+    </Style>
+    <Style x:Key="EmojiE20A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E20A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE20B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E20B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE20C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E20C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE20D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E20D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE20E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E20E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE20F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E20F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE210" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E210.gif"/>
+    </Style>
+    <Style x:Key="EmojiE211" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E211.gif"/>
+    </Style>
+    <Style x:Key="EmojiE212" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E212.gif"/>
+    </Style>
+    <Style x:Key="EmojiE213" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E213.gif"/>
+    </Style>
+    <Style x:Key="EmojiE214" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E214.gif"/>
+    </Style>
+    <Style x:Key="EmojiE215" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E215.gif"/>
+    </Style>
+    <Style x:Key="EmojiE216" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E216.gif"/>
+    </Style>
+    <Style x:Key="EmojiE217" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E217.gif"/>
+    </Style>
+    <Style x:Key="EmojiE218" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E218.gif"/>
+    </Style>
+    <Style x:Key="EmojiE219" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E219.gif"/>
+    </Style>
+    <Style x:Key="EmojiE21A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E21A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE21B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E21B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE21C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E21C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE21D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E21D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE21E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E21E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE21F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E21F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE220" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E220.gif"/>
+    </Style>
+    <Style x:Key="EmojiE221" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E221.gif"/>
+    </Style>
+    <Style x:Key="EmojiE222" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E222.gif"/>
+    </Style>
+    <Style x:Key="EmojiE223" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E223.gif"/>
+    </Style>
+    <Style x:Key="EmojiE224" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E224.gif"/>
+    </Style>
+    <Style x:Key="EmojiE225" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E225.gif"/>
+    </Style>
+    <Style x:Key="EmojiE226" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E226.gif"/>
+    </Style>
+    <Style x:Key="EmojiE227" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E227.gif"/>
+    </Style>
+    <Style x:Key="EmojiE228" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E228.gif"/>
+    </Style>
+    <Style x:Key="EmojiE229" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E229.gif"/>
+    </Style>
+    <Style x:Key="EmojiE22A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E22A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE22B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E22B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE22C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E22C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE22D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E22D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE22E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E22E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE22F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E22F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE230" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E230.gif"/>
+    </Style>
+    <Style x:Key="EmojiE231" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E231.gif"/>
+    </Style>
+    <Style x:Key="EmojiE232" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E232.gif"/>
+    </Style>
+    <Style x:Key="EmojiE233" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E233.gif"/>
+    </Style>
+    <Style x:Key="EmojiE234" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E234.gif"/>
+    </Style>
+    <Style x:Key="EmojiE235" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E235.gif"/>
+    </Style>
+    <Style x:Key="EmojiE236" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E236.gif"/>
+    </Style>
+    <Style x:Key="EmojiE237" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E237.gif"/>
+    </Style>
+    <Style x:Key="EmojiE238" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E238.gif"/>
+    </Style>
+    <Style x:Key="EmojiE239" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E239.gif"/>
+    </Style>
+    <Style x:Key="EmojiE23A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E23A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE23B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E23B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE23C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E23C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE23D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E23D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE23E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E23E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE23F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E23F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE240" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E240.gif"/>
+    </Style>
+    <Style x:Key="EmojiE241" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E241.gif"/>
+    </Style>
+    <Style x:Key="EmojiE242" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E242.gif"/>
+    </Style>
+    <Style x:Key="EmojiE243" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E243.gif"/>
+    </Style>
+    <Style x:Key="EmojiE244" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E244.gif"/>
+    </Style>
+    <Style x:Key="EmojiE245" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E245.gif"/>
+    </Style>
+    <Style x:Key="EmojiE246" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E246.gif"/>
+    </Style>
+    <Style x:Key="EmojiE247" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E247.gif"/>
+    </Style>
+    <Style x:Key="EmojiE248" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E248.gif"/>
+    </Style>
+    <Style x:Key="EmojiE249" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E249.gif"/>
+    </Style>
+    <Style x:Key="EmojiE24A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E24A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE24B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E24B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE24C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E24C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE24D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E24D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE24E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E24E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE24F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E24F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE250" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E250.gif"/>
+    </Style>
+    <Style x:Key="EmojiE251" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E251.gif"/>
+    </Style>
+    <Style x:Key="EmojiE252" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E252.gif"/>
+    </Style>
+    <Style x:Key="EmojiE253" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E253.gif"/>
+    </Style>
+    <Style x:Key="EmojiE301" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E301.gif"/>
+    </Style>
+    <Style x:Key="EmojiE302" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E302.gif"/>
+    </Style>
+    <Style x:Key="EmojiE303" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E303.gif"/>
+    </Style>
+    <Style x:Key="EmojiE304" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E304.gif"/>
+    </Style>
+    <Style x:Key="EmojiE305" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E305.gif"/>
+    </Style>
+    <Style x:Key="EmojiE306" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E306.gif"/>
+    </Style>
+    <Style x:Key="EmojiE307" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E307.gif"/>
+    </Style>
+    <Style x:Key="EmojiE308" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E308.gif"/>
+    </Style>
+    <Style x:Key="EmojiE309" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E309.gif"/>
+    </Style>
+    <Style x:Key="EmojiE30A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E30A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE30B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E30B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE30C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E30C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE30D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E30D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE30E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E30E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE30F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E30F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE310" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E310.gif"/>
+    </Style>
+    <Style x:Key="EmojiE311" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E311.gif"/>
+    </Style>
+    <Style x:Key="EmojiE312" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E312.gif"/>
+    </Style>
+    <Style x:Key="EmojiE313" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E313.gif"/>
+    </Style>
+    <Style x:Key="EmojiE314" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E314.gif"/>
+    </Style>
+    <Style x:Key="EmojiE315" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E315.gif"/>
+    </Style>
+    <Style x:Key="EmojiE316" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E316.gif"/>
+    </Style>
+    <Style x:Key="EmojiE317" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E317.gif"/>
+    </Style>
+    <Style x:Key="EmojiE318" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E318.gif"/>
+    </Style>
+    <Style x:Key="EmojiE319" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E319.gif"/>
+    </Style>
+    <Style x:Key="EmojiE31A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E31A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE31B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E31B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE31C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E31C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE31D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E31D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE31E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E31E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE31F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E31F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE320" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E320.gif"/>
+    </Style>
+    <Style x:Key="EmojiE321" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E321.gif"/>
+    </Style>
+    <Style x:Key="EmojiE322" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E322.gif"/>
+    </Style>
+    <Style x:Key="EmojiE323" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E323.gif"/>
+    </Style>
+    <Style x:Key="EmojiE324" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E324.gif"/>
+    </Style>
+    <Style x:Key="EmojiE325" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E325.gif"/>
+    </Style>
+    <Style x:Key="EmojiE326" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E326.gif"/>
+    </Style>
+    <Style x:Key="EmojiE327" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E327.gif"/>
+    </Style>
+    <Style x:Key="EmojiE328" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E328.gif"/>
+    </Style>
+    <Style x:Key="EmojiE329" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E329.gif"/>
+    </Style>
+    <Style x:Key="EmojiE32A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E32A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE32B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E32B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE32C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E32C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE32D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E32D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE32E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E32E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE32F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E32F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE330" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E330.gif"/>
+    </Style>
+    <Style x:Key="EmojiE331" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E331.gif"/>
+    </Style>
+    <Style x:Key="EmojiE332" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E332.gif"/>
+    </Style>
+    <Style x:Key="EmojiE333" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E333.gif"/>
+    </Style>
+    <Style x:Key="EmojiE334" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E334.gif"/>
+    </Style>
+    <Style x:Key="EmojiE335" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E335.gif"/>
+    </Style>
+    <Style x:Key="EmojiE336" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E336.gif"/>
+    </Style>
+    <Style x:Key="EmojiE337" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E337.gif"/>
+    </Style>
+    <Style x:Key="EmojiE338" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E338.gif"/>
+    </Style>
+    <Style x:Key="EmojiE339" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E339.gif"/>
+    </Style>
+    <Style x:Key="EmojiE33A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E33A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE33B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E33B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE33C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E33C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE33D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E33D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE33E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E33E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE33F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E33F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE340" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E340.gif"/>
+    </Style>
+    <Style x:Key="EmojiE341" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E341.gif"/>
+    </Style>
+    <Style x:Key="EmojiE342" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E342.gif"/>
+    </Style>
+    <Style x:Key="EmojiE343" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E343.gif"/>
+    </Style>
+    <Style x:Key="EmojiE344" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E344.gif"/>
+    </Style>
+    <Style x:Key="EmojiE345" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E345.gif"/>
+    </Style>
+    <Style x:Key="EmojiE346" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E346.gif"/>
+    </Style>
+    <Style x:Key="EmojiE347" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E347.gif"/>
+    </Style>
+    <Style x:Key="EmojiE348" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E348.gif"/>
+    </Style>
+    <Style x:Key="EmojiE349" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E349.gif"/>
+    </Style>
+    <Style x:Key="EmojiE34A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E34A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE34B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E34B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE34C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E34C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE34D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E34D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE401" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E401.gif"/>
+    </Style>
+    <Style x:Key="EmojiE402" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E402.gif"/>
+    </Style>
+    <Style x:Key="EmojiE403" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E403.gif"/>
+    </Style>
+    <Style x:Key="EmojiE404" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E404.gif"/>
+    </Style>
+    <Style x:Key="EmojiE405" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E405.gif"/>
+    </Style>
+    <Style x:Key="EmojiE406" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E406.gif"/>
+    </Style>
+    <Style x:Key="EmojiE407" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E407.gif"/>
+    </Style>
+    <Style x:Key="EmojiE408" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E408.gif"/>
+    </Style>
+    <Style x:Key="EmojiE409" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E409.gif"/>
+    </Style>
+    <Style x:Key="EmojiE40A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E40A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE40B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E40B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE40C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E40C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE40D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E40D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE40E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E40E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE40F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E40F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE410" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E410.gif"/>
+    </Style>
+    <Style x:Key="EmojiE411" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E411.gif"/>
+    </Style>
+    <Style x:Key="EmojiE412" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E412.gif"/>
+    </Style>
+    <Style x:Key="EmojiE413" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E413.gif"/>
+    </Style>
+    <Style x:Key="EmojiE414" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E414.gif"/>
+    </Style>
+    <Style x:Key="EmojiE415" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E415.gif"/>
+    </Style>
+    <Style x:Key="EmojiE416" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E416.gif"/>
+    </Style>
+    <Style x:Key="EmojiE417" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E417.gif"/>
+    </Style>
+    <Style x:Key="EmojiE418" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E418.gif"/>
+    </Style>
+    <Style x:Key="EmojiE419" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E419.gif"/>
+    </Style>
+    <Style x:Key="EmojiE41A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E41A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE41B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E41B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE41C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E41C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE41D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E41D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE41E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E41E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE41F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E41F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE420" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E420.gif"/>
+    </Style>
+    <Style x:Key="EmojiE421" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E421.gif"/>
+    </Style>
+    <Style x:Key="EmojiE422" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E422.gif"/>
+    </Style>
+    <Style x:Key="EmojiE423" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E423.gif"/>
+    </Style>
+    <Style x:Key="EmojiE424" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E424.gif"/>
+    </Style>
+    <Style x:Key="EmojiE425" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E425.gif"/>
+    </Style>
+    <Style x:Key="EmojiE426" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E426.gif"/>
+    </Style>
+    <Style x:Key="EmojiE427" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E427.gif"/>
+    </Style>
+    <Style x:Key="EmojiE428" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E428.gif"/>
+    </Style>
+    <Style x:Key="EmojiE429" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E429.gif"/>
+    </Style>
+    <Style x:Key="EmojiE42A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E42A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE42B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E42B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE42C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E42C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE42D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E42D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE42E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E42E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE42F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E42F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE430" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E430.gif"/>
+    </Style>
+    <Style x:Key="EmojiE431" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E431.gif"/>
+    </Style>
+    <Style x:Key="EmojiE432" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E432.gif"/>
+    </Style>
+    <Style x:Key="EmojiE433" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E433.gif"/>
+    </Style>
+    <Style x:Key="EmojiE434" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E434.gif"/>
+    </Style>
+    <Style x:Key="EmojiE435" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E435.gif"/>
+    </Style>
+    <Style x:Key="EmojiE436" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E436.gif"/>
+    </Style>
+    <Style x:Key="EmojiE437" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E437.gif"/>
+    </Style>
+    <Style x:Key="EmojiE438" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E438.gif"/>
+    </Style>
+    <Style x:Key="EmojiE439" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E439.gif"/>
+    </Style>
+    <Style x:Key="EmojiE43A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E43A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE43B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E43B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE43C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E43C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE43D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E43D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE43E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E43E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE43F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E43F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE440" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E440.gif"/>
+    </Style>
+    <Style x:Key="EmojiE441" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E441.gif"/>
+    </Style>
+    <Style x:Key="EmojiE442" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E442.gif"/>
+    </Style>
+    <Style x:Key="EmojiE443" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E443.gif"/>
+    </Style>
+    <Style x:Key="EmojiE444" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E444.gif"/>
+    </Style>
+    <Style x:Key="EmojiE445" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E445.gif"/>
+    </Style>
+    <Style x:Key="EmojiE446" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E446.gif"/>
+    </Style>
+    <Style x:Key="EmojiE447" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E447.gif"/>
+    </Style>
+    <Style x:Key="EmojiE448" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E448.gif"/>
+    </Style>
+    <Style x:Key="EmojiE449" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E449.gif"/>
+    </Style>
+    <Style x:Key="EmojiE44A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E44A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE44B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E44B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE44C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E44C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE501" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E501.gif"/>
+    </Style>
+    <Style x:Key="EmojiE502" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E502.gif"/>
+    </Style>
+    <Style x:Key="EmojiE503" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E503.gif"/>
+    </Style>
+    <Style x:Key="EmojiE504" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E504.gif"/>
+    </Style>
+    <Style x:Key="EmojiE505" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E505.gif"/>
+    </Style>
+    <Style x:Key="EmojiE506" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E506.gif"/>
+    </Style>
+    <Style x:Key="EmojiE507" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E507.gif"/>
+    </Style>
+    <Style x:Key="EmojiE508" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E508.gif"/>
+    </Style>
+    <Style x:Key="EmojiE509" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E509.gif"/>
+    </Style>
+    <Style x:Key="EmojiE50A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E50A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE50B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E50B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE50C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E50C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE50D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E50D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE50E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E50E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE50F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E50F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE510" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E510.gif"/>
+    </Style>
+    <Style x:Key="EmojiE511" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E511.gif"/>
+    </Style>
+    <Style x:Key="EmojiE512" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E512.gif"/>
+    </Style>
+    <Style x:Key="EmojiE513" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E513.gif"/>
+    </Style>
+    <Style x:Key="EmojiE514" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E514.gif"/>
+    </Style>
+    <Style x:Key="EmojiE515" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E515.gif"/>
+    </Style>
+    <Style x:Key="EmojiE516" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E516.gif"/>
+    </Style>
+    <Style x:Key="EmojiE517" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E517.gif"/>
+    </Style>
+    <Style x:Key="EmojiE518" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E518.gif"/>
+    </Style>
+    <Style x:Key="EmojiE519" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E519.gif"/>
+    </Style>
+    <Style x:Key="EmojiE51A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E51A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE51B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E51B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE51C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E51C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE51D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E51D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE51E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E51E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE51F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E51F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE520" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E520.gif"/>
+    </Style>
+    <Style x:Key="EmojiE521" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E521.gif"/>
+    </Style>
+    <Style x:Key="EmojiE522" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E522.gif"/>
+    </Style>
+    <Style x:Key="EmojiE523" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E523.gif"/>
+    </Style>
+    <Style x:Key="EmojiE524" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E524.gif"/>
+    </Style>
+    <Style x:Key="EmojiE525" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E525.gif"/>
+    </Style>
+    <Style x:Key="EmojiE526" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E526.gif"/>
+    </Style>
+    <Style x:Key="EmojiE527" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E527.gif"/>
+    </Style>
+    <Style x:Key="EmojiE528" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E528.gif"/>
+    </Style>
+    <Style x:Key="EmojiE529" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E529.gif"/>
+    </Style>
+    <Style x:Key="EmojiE52A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E52A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE52B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E52B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE52C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E52C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE52D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E52D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE52E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E52E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE52F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E52F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE530" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E530.gif"/>
+    </Style>
+    <Style x:Key="EmojiE531" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E531.gif"/>
+    </Style>
+    <Style x:Key="EmojiE532" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E532.gif"/>
+    </Style>
+    <Style x:Key="EmojiE533" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E533.gif"/>
+    </Style>
+    <Style x:Key="EmojiE534" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E534.gif"/>
+    </Style>
+    <Style x:Key="EmojiE535" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E535.gif"/>
+    </Style>
+    <Style x:Key="EmojiE536" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E536.gif"/>
+    </Style>
+    <Style x:Key="EmojiE537" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E537.gif"/>
+    </Style>
+    <Style x:Key="EmojiE63E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E63E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE63F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E63F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE640" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E640.gif"/>
+    </Style>
+    <Style x:Key="EmojiE641" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E641.gif"/>
+    </Style>
+    <Style x:Key="EmojiE642" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E642.gif"/>
+    </Style>
+    <Style x:Key="EmojiE643" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E643.gif"/>
+    </Style>
+    <Style x:Key="EmojiE644" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E644.gif"/>
+    </Style>
+    <Style x:Key="EmojiE645" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E645.gif"/>
+    </Style>
+    <Style x:Key="EmojiE646" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E646.gif"/>
+    </Style>
+    <Style x:Key="EmojiE647" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E647.gif"/>
+    </Style>
+    <Style x:Key="EmojiE648" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E648.gif"/>
+    </Style>
+    <Style x:Key="EmojiE649" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E649.gif"/>
+    </Style>
+    <Style x:Key="EmojiE64A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E64A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE64B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E64B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE64C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E64C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE64D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E64D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE64E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E64E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE64F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E64F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE650" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E650.gif"/>
+    </Style>
+    <Style x:Key="EmojiE651" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E651.gif"/>
+    </Style>
+    <Style x:Key="EmojiE652" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E652.gif"/>
+    </Style>
+    <Style x:Key="EmojiE653" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E653.gif"/>
+    </Style>
+    <Style x:Key="EmojiE654" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E654.gif"/>
+    </Style>
+    <Style x:Key="EmojiE655" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E655.gif"/>
+    </Style>
+    <Style x:Key="EmojiE656" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E656.gif"/>
+    </Style>
+    <Style x:Key="EmojiE657" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E657.gif"/>
+    </Style>
+    <Style x:Key="EmojiE658" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E658.gif"/>
+    </Style>
+    <Style x:Key="EmojiE659" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E659.gif"/>
+    </Style>
+    <Style x:Key="EmojiE65A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E65A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE65B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E65B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE65C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E65C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE65D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E65D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE65E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E65E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE65F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E65F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE660" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E660.gif"/>
+    </Style>
+    <Style x:Key="EmojiE661" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E661.gif"/>
+    </Style>
+    <Style x:Key="EmojiE662" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E662.gif"/>
+    </Style>
+    <Style x:Key="EmojiE663" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E663.gif"/>
+    </Style>
+    <Style x:Key="EmojiE664" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E664.gif"/>
+    </Style>
+    <Style x:Key="EmojiE665" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E665.gif"/>
+    </Style>
+    <Style x:Key="EmojiE666" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E666.gif"/>
+    </Style>
+    <Style x:Key="EmojiE667" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E667.gif"/>
+    </Style>
+    <Style x:Key="EmojiE668" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E668.gif"/>
+    </Style>
+    <Style x:Key="EmojiE669" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E669.gif"/>
+    </Style>
+    <Style x:Key="EmojiE66A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E66A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE66B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E66B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE66C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E66C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE66D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E66D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE66E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E66E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE66F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E66F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE670" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E670.gif"/>
+    </Style>
+    <Style x:Key="EmojiE671" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E671.gif"/>
+    </Style>
+    <Style x:Key="EmojiE672" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E672.gif"/>
+    </Style>
+    <Style x:Key="EmojiE673" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E673.gif"/>
+    </Style>
+    <Style x:Key="EmojiE674" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E674.gif"/>
+    </Style>
+    <Style x:Key="EmojiE675" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E675.gif"/>
+    </Style>
+    <Style x:Key="EmojiE676" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E676.gif"/>
+    </Style>
+    <Style x:Key="EmojiE677" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E677.gif"/>
+    </Style>
+    <Style x:Key="EmojiE678" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E678.gif"/>
+    </Style>
+    <Style x:Key="EmojiE679" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E679.gif"/>
+    </Style>
+    <Style x:Key="EmojiE67A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E67A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE67B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E67B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE67C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E67C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE67D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E67D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE67E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E67E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE67F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E67F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE680" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E680.gif"/>
+    </Style>
+    <Style x:Key="EmojiE681" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E681.gif"/>
+    </Style>
+    <Style x:Key="EmojiE682" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E682.gif"/>
+    </Style>
+    <Style x:Key="EmojiE683" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E683.gif"/>
+    </Style>
+    <Style x:Key="EmojiE684" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E684.gif"/>
+    </Style>
+    <Style x:Key="EmojiE685" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E685.gif"/>
+    </Style>
+    <Style x:Key="EmojiE686" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E686.gif"/>
+    </Style>
+    <Style x:Key="EmojiE687" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E687.gif"/>
+    </Style>
+    <Style x:Key="EmojiE688" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E688.gif"/>
+    </Style>
+    <Style x:Key="EmojiE689" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E689.gif"/>
+    </Style>
+    <Style x:Key="EmojiE68A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E68A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE68B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E68B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE68C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E68C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE68D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E68D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE68E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E68E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE68F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E68F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE690" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E690.gif"/>
+    </Style>
+    <Style x:Key="EmojiE691" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E691.gif"/>
+    </Style>
+    <Style x:Key="EmojiE692" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E692.gif"/>
+    </Style>
+    <Style x:Key="EmojiE693" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E693.gif"/>
+    </Style>
+    <Style x:Key="EmojiE694" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E694.gif"/>
+    </Style>
+    <Style x:Key="EmojiE695" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E695.gif"/>
+    </Style>
+    <Style x:Key="EmojiE696" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E696.gif"/>
+    </Style>
+    <Style x:Key="EmojiE697" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E697.gif"/>
+    </Style>
+    <Style x:Key="EmojiE698" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E698.gif"/>
+    </Style>
+    <Style x:Key="EmojiE699" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E699.gif"/>
+    </Style>
+    <Style x:Key="EmojiE69A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E69A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE69B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E69B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE69C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E69C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE69D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E69D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE69E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E69E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE69F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E69F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A0" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A0.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A1" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A1.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A2" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A2.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A3" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A3.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A4" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A4.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A5" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A5.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A6" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A6.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A7" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A7.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A8" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A8.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6A9" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6A9.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6AA" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6AA.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6AB" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6AB.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6AC" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6AC.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6AD" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6AD.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6AE" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6AE.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6AF" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6AF.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B0" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B0.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B1" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B1.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B2" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B2.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B3" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B3.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B4" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B4.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B5" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B5.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B6" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B6.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B7" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B7.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B8" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B8.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6B9" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6B9.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6BA" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6BA.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6BB" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6BB.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6BC" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6BC.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6BD" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6BD.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6BE" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6BE.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6BF" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6BF.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C0" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C0.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C1" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C1.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C2" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C2.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C3" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C3.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C4" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C4.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C5" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C5.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C6" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C6.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C7" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C7.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C8" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C8.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6C9" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6C9.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6CA" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6CA.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6CB" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6CB.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6CC" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6CC.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6CD" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6CD.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6CE" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6CE.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6CF" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6CF.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D0" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D0.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D1" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D1.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D2" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D2.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D3" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D3.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D4" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D4.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D5" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D5.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D6" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D6.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D7" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D7.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D8" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D8.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6D9" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6D9.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6DA" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6DA.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6DB" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6DB.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6DC" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6DC.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6DD" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6DD.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6DE" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6DE.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6DF" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6DF.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E0" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E0.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E1" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E1.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E2" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E2.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E3" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E3.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E4" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E4.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E5" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E5.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E6" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E6.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E7" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E7.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E8" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E8.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6E9" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6E9.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6EA" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6EA.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6EB" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6EB.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6EC" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6EC.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6ED" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6ED.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6EE" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6EE.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6EF" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6EF.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F0" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F0.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F1" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F1.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F2" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F2.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F3" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F3.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F4" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F4.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F5" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F5.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F6" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F6.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F7" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F7.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F8" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F8.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6F9" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6F9.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6FA" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6FA.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6FB" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6FB.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6FC" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6FC.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6FD" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6FD.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6FE" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6FE.gif"/>
+    </Style>
+    <Style x:Key="EmojiE6FF" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E6FF.gif"/>
+    </Style>
+    <Style x:Key="EmojiE700" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E700.gif"/>
+    </Style>
+    <Style x:Key="EmojiE701" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E701.gif"/>
+    </Style>
+    <Style x:Key="EmojiE702" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E702.gif"/>
+    </Style>
+    <Style x:Key="EmojiE703" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E703.gif"/>
+    </Style>
+    <Style x:Key="EmojiE704" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E704.gif"/>
+    </Style>
+    <Style x:Key="EmojiE705" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E705.gif"/>
+    </Style>
+    <Style x:Key="EmojiE706" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E706.gif"/>
+    </Style>
+    <Style x:Key="EmojiE707" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E707.gif"/>
+    </Style>
+    <Style x:Key="EmojiE708" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E708.gif"/>
+    </Style>
+    <Style x:Key="EmojiE709" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E709.gif"/>
+    </Style>
+    <Style x:Key="EmojiE70A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E70A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE70B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E70B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE70C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E70C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE70D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E70D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE70E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E70E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE70F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E70F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE710" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E710.gif"/>
+    </Style>
+    <Style x:Key="EmojiE711" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E711.gif"/>
+    </Style>
+    <Style x:Key="EmojiE712" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E712.gif"/>
+    </Style>
+    <Style x:Key="EmojiE713" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E713.gif"/>
+    </Style>
+    <Style x:Key="EmojiE714" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E714.gif"/>
+    </Style>
+    <Style x:Key="EmojiE715" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E715.gif"/>
+    </Style>
+    <Style x:Key="EmojiE716" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E716.gif"/>
+    </Style>
+    <Style x:Key="EmojiE717" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E717.gif"/>
+    </Style>
+    <Style x:Key="EmojiE718" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E718.gif"/>
+    </Style>
+    <Style x:Key="EmojiE719" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E719.gif"/>
+    </Style>
+    <Style x:Key="EmojiE71A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E71A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE71B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E71B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE71C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E71C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE71D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E71D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE71E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E71E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE71F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E71F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE720" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E720.gif"/>
+    </Style>
+    <Style x:Key="EmojiE721" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E721.gif"/>
+    </Style>
+    <Style x:Key="EmojiE722" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E722.gif"/>
+    </Style>
+    <Style x:Key="EmojiE723" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E723.gif"/>
+    </Style>
+    <Style x:Key="EmojiE724" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E724.gif"/>
+    </Style>
+    <Style x:Key="EmojiE725" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E725.gif"/>
+    </Style>
+    <Style x:Key="EmojiE726" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E726.gif"/>
+    </Style>
+    <Style x:Key="EmojiE727" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E727.gif"/>
+    </Style>
+    <Style x:Key="EmojiE728" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E728.gif"/>
+    </Style>
+    <Style x:Key="EmojiE729" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E729.gif"/>
+    </Style>
+    <Style x:Key="EmojiE72A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E72A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE72B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E72B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE72C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E72C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE72D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E72D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE72E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E72E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE72F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E72F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE730" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E730.gif"/>
+    </Style>
+    <Style x:Key="EmojiE731" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E731.gif"/>
+    </Style>
+    <Style x:Key="EmojiE732" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E732.gif"/>
+    </Style>
+    <Style x:Key="EmojiE733" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E733.gif"/>
+    </Style>
+    <Style x:Key="EmojiE734" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E734.gif"/>
+    </Style>
+    <Style x:Key="EmojiE735" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E735.gif"/>
+    </Style>
+    <Style x:Key="EmojiE736" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E736.gif"/>
+    </Style>
+    <Style x:Key="EmojiE737" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E737.gif"/>
+    </Style>
+    <Style x:Key="EmojiE738" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E738.gif"/>
+    </Style>
+    <Style x:Key="EmojiE739" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E739.gif"/>
+    </Style>
+    <Style x:Key="EmojiE73A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E73A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE73B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E73B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE73C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E73C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE73D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E73D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE73E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E73E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE73F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E73F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE740" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E740.gif"/>
+    </Style>
+    <Style x:Key="EmojiE741" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E741.gif"/>
+    </Style>
+    <Style x:Key="EmojiE742" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E742.gif"/>
+    </Style>
+    <Style x:Key="EmojiE743" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E743.gif"/>
+    </Style>
+    <Style x:Key="EmojiE744" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E744.gif"/>
+    </Style>
+    <Style x:Key="EmojiE745" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E745.gif"/>
+    </Style>
+    <Style x:Key="EmojiE746" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E746.gif"/>
+    </Style>
+    <Style x:Key="EmojiE747" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E747.gif"/>
+    </Style>
+    <Style x:Key="EmojiE748" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E748.gif"/>
+    </Style>
+    <Style x:Key="EmojiE749" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E749.gif"/>
+    </Style>
+    <Style x:Key="EmojiE74A" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E74A.gif"/>
+    </Style>
+    <Style x:Key="EmojiE74B" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E74B.gif"/>
+    </Style>
+    <Style x:Key="EmojiE74C" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E74C.gif"/>
+    </Style>
+    <Style x:Key="EmojiE74D" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E74D.gif"/>
+    </Style>
+    <Style x:Key="EmojiE74E" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E74E.gif"/>
+    </Style>
+    <Style x:Key="EmojiE74F" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E74F.gif"/>
+    </Style>
+    <Style x:Key="EmojiE750" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E750.gif"/>
+    </Style>
+    <Style x:Key="EmojiE751" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E751.gif"/>
+    </Style>
+    <Style x:Key="EmojiE752" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E752.gif"/>
+    </Style>
+    <Style x:Key="EmojiE753" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E753.gif"/>
+    </Style>
+    <Style x:Key="EmojiE754" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E754.gif"/>
+    </Style>
+    <Style x:Key="EmojiE755" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E755.gif"/>
+    </Style>
+    <Style x:Key="EmojiE756" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E756.gif"/>
+    </Style>
+    <Style x:Key="EmojiE757" TargetType="{x:Type Image}" BasedOn="{StaticResource EmojiImageStyle}">
+        <Setter Property="Source" Value=".\Images\E757.gif"/>
+    </Style>
+</ResourceDictionary>

@@ -2424,8 +2424,6 @@ namespace MiniTwitter
 
         private void InReplyToCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
-
             var status = (Status)(e.Parameter ?? GetSelectedItem());
 
             if (status == null || status.InReplyToStatusID == 0)
@@ -2433,53 +2431,49 @@ namespace MiniTwitter
                 return;
             }
 
-            if (Keyboard.Modifiers== ModifierKeys.Control)
+            if (Keyboard.Modifiers == ModifierKeys.Control)
             {
                 var value = "Conversation:" + status.Sender.ScreenName;
-                if (value != null)
+                var timeline = new Timeline
                 {
-                    var timeline = new Timeline
+                    Name = value,
+                    Type = TimelineType.Conversation,
+                    Tag = value,
+                };
+
+                timeline.Items.Add(status);
+
+                timeline.View.Filter = new Predicate<object>(item =>
+                {
+                    if (!(item is Status))
                     {
-                        Name = value,
-                        Type = TimelineType.Conversation,
-                        Tag = value,
-                    };
-
-                    timeline.Items.Add(status);
-
-                    timeline.View.Filter = new Predicate<object>(item =>
+                        return false;
+                    }
+                    if (item == status)
                     {
-                        if (!(item is Status))
-                        {
-                            return false;
-                        }
-                        if (item == status)
-                        {
-                            return true;
-                        }
-                        var s = item as Status;
-                        if (status.HasRelationshipTo(s))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    });
-                    
-                    Timelines.Add(timeline);
-
-
-
-                    ThreadPool.QueueUserWorkItem(state =>
+                        return true;
+                    }
+                    var s = item as Status;
+                    if (status.HasRelationshipTo(s))
                     {
-                        this.Invoke(p => timeline.Update(p), Timelines.Where(tl=> tl.Type== TimelineType.Recent).Single().Items);
-                        this.Invoke(()=> timeline.Sort(Settings.Default.SortCategory, Settings.Default.SortDirection));
-                    });
-                    
-                    TimelineTabControl.SelectedItem = timeline;
-                }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                });
+
+                Timelines.Add(timeline);
+
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    this.Invoke(p => timeline.Update(p), Timelines.Where(tl => tl.Type == TimelineType.Recent).Single().Items);
+                    this.Invoke(() => timeline.Sort(Settings.Default.SortCategory, Settings.Default.SortDirection));
+                });
+
+                TimelineTabControl.SelectedItem = timeline;
+
                 //TODO:InReplyToTimeline
                 return;
             }

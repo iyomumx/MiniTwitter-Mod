@@ -72,13 +72,13 @@ namespace MiniTwitter.Themes
             }
             currentTheme = theme;
             var rd = ThemeManager.LoadTheme(theme);
-            if (application.Resources.MergedDictionaries.Count < 3)
+            if (application.Resources.MergedDictionaries.Count < 4)
             {
                 application.Resources.MergedDictionaries.Add(rd);
             }
             else
             {
-                application.Resources.MergedDictionaries[2] = rd;
+                application.Resources.MergedDictionaries[3] = rd;
             }
         }
     }

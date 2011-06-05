@@ -73,7 +73,7 @@ namespace MiniTwitter.Controls
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
         }
 
-        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)", RegexOptions.Compiled);
+        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
 
         private void OnTextChanged(string text)
         {
@@ -104,6 +104,18 @@ namespace MiniTwitter.Controls
                     {
                         TextBlock.Inlines.Add(new Run("<3"));
                     }
+                }
+                else if (!match.Groups["emoji"].Value.IsNullOrEmpty())
+                {
+                    Image image = new Image { Width = 14, Height = 14, Margin = new Thickness(1, 0, 1, 0) };
+                    string ResourceKey = string.Format("Emoji{0}", Convert.ToInt32(value.FirstOrDefault()).ToString("X4"));
+                    var res = TryFindResource(ResourceKey);
+                    if (res!=null)
+                    {
+                        image.Style = (Style)res;
+                    }
+                    image.SetResourceReference(Image.StyleProperty, ResourceKey);
+                    TextBlock.Inlines.Add(new InlineUIContainer(image) { BaselineAlignment = BaselineAlignment.Center });
                 }
                 else if (value.StartsWith("<"))
                 {
@@ -150,6 +162,8 @@ namespace MiniTwitter.Controls
             {
                 HighlightKeywords(text.Substring(index));
             }
+            Inline flag = TextBlock.Inlines.LastInline;
+            bool Inserted = false;
             foreach (var url in imageurls)
             {
                 if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
@@ -157,30 +171,35 @@ namespace MiniTwitter.Controls
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/img\.ly\/(.+?)"))
                 {
                     var uri = new Uri("http://img.ly/show/medium/" + url.Substring(14));
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"(http:\/\/plixi\.com\/p\/(.+?))|(http:\/\/lockerz\.com\/s\/(.+?))"))
                 {
                     var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + url + "&size=medium");
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/flic\.kr\/p\/(.+?)"))
                 {
                     var uri = new Uri("http://flic.kr/p/img/" + url.Substring(17) + "_m.jpg");
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
                 {
                     var uri = new Uri(url + ":iphone");
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
                 {
@@ -192,6 +211,7 @@ namespace MiniTwitter.Controls
                     var uri = new Uri(_match.Groups[1].Value);
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/movapic\.com\/pic\/(.+?)"))
                 {
@@ -202,12 +222,14 @@ namespace MiniTwitter.Controls
                     var uri = new Uri(_match.Groups[1].Value);
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/gyazo\.com\/(.+?)"))
                 {
                     var uri = new Uri(url);
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/instagr\.am\/p\/(.+?)"))
                 {
@@ -218,14 +240,30 @@ namespace MiniTwitter.Controls
                     var uri = new Uri(_match.Groups[1].Value);
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
                 }
+            }
+            if (Inserted)
+            {
+                TextBlock.Inlines.InsertAfter(flag, new Run("\n"));
             }
         }
 
         private Inline GetImageControl(Uri uri, string url)
         {
-            Image img = new Image() { Width = 200, Source = new BitmapImage(uri) };
-            Hyperlink link = new Hyperlink(new InlineUIContainer(img));
+            InlineUIContainer cacheItem = GetImage(url);
+            InlineUIContainer container;
+            if (cacheItem != null)          //命中缓存
+            {
+                container = cacheItem;      //取出缓存
+            }
+            else                            //缓存未命中
+            {                               //构建新的Container
+                Image img = new Image() { Width = 200, Source = new BitmapImage(uri, new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.Revalidate)) };
+                container = new InlineUIContainer(img);
+                CacheImage(url, container); //存入缓存
+            }
+            Hyperlink link = new Hyperlink(container);
             link.Tag = url;
             link.ToolTip = url;
             link.Click += Hyperlink_Click;
@@ -511,5 +549,39 @@ namespace MiniTwitter.Controls
                 Process.Start((string)image.Tag);
             }
         }
+
+        #region imagecache
+        private static object _cacheLock = new object();
+        private static Dictionary<string, InlineUIContainer> UrlImageCache = new Dictionary<string, InlineUIContainer>();
+        private static void CacheImage(string url, InlineUIContainer item)
+        {
+            lock (_cacheLock)
+            {
+                if (UrlImageCache.ContainsKey(url))
+                {
+                    UrlImageCache[url] = item;
+                }
+                else
+                {
+                    UrlImageCache.Add(url, item);
+                }
+            }
+        }
+        private static InlineUIContainer GetImage(string url)
+        {
+            lock (_cacheLock)
+            {
+                if (UrlImageCache.ContainsKey(url))
+                {
+                    return UrlImageCache[url];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        #endregion
+
     }
 }

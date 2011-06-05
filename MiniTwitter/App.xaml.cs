@@ -73,7 +73,7 @@ namespace MiniTwitter
                 Shutdown();
                 return;
             }
-            LoadLanguage();
+            //LoadLanguage();
             var exeDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             KeyMapping.LoadFrom(exeDirectory);
