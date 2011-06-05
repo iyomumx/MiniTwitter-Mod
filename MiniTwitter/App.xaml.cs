@@ -7,6 +7,9 @@
  * 找到
 */
 
+//取消下面的注释并在文件尾部填写要使用的APP_KEY
+//#define PLAIN_APP_KEY
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -222,9 +225,63 @@ namespace MiniTwitter
 
         public const string VERSION = "1.66.⑨.97";
         public const string NAME = "MiniTwitter Mod";
+#if PLAIN_APP_KEY
+        private static string google_key = "YOUR_GOOGLE_API_KEY_HERE";
+        public static string consumer_key = "YOUR_TWITTER_CONSUMER_KEY_HERE";
+        public static string consumer_secret = "YOUR_TWITTER_CONSUMER_SECRET_HERE";
+        public static string kanvaso_api_key = "YOUR_KANVASO_API_KEY_HERE";
+#else
+        #region AppKeys
 
-        public static string google_key { get { return GoogleAPIKey; } }
-        public static string consumer_key { get { return TwitterConsumerKey; } }
-        public static string consumer_secret { get { return TwitterConsumerSecret; } }
+        private static string google_key_mem;
+        public static string google_key
+        {
+            get
+            {
+                if (google_key_mem == null)
+                {
+                    google_key_mem = GoogleAPIKey;
+                }
+                return google_key_mem;
+            }
+        }
+        private static string consumer_key_mem;
+        public static string consumer_key
+        {
+            get
+            {
+                if (consumer_key_mem == null)
+                {
+                    consumer_key_mem = TwitterConsumerKey;
+                }
+                return consumer_key_mem;
+            }
+        }
+        private static string consumer_secret_mem;
+        public static string consumer_secret
+        {
+            get
+            {
+                if (consumer_secret_mem==null)
+                {
+                    consumer_secret_mem = TwitterConsumerSecret;
+                }
+                return consumer_secret_mem;
+            }
+        }
+        private static string kanvaso_api_key_mem;
+        public static string kanvaso_api_key
+        {
+            get
+            {
+                if (kanvaso_api_key_mem == null)
+                {
+                    kanvaso_api_key_mem = KanvasoApiKey;
+                } 
+                return kanvaso_api_key_mem;
+            }
+        }
+        #endregion
+#endif
     }
 }

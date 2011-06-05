@@ -30,9 +30,24 @@ namespace MiniTwitter.Extensions
             return Regex.IsMatch(value, pattern);
         }
 
+        private const string _unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
+
         public static string UrlEncode(this string value)
         {
-            return Uri.EscapeDataString(value);
+            var sb = new StringBuilder();
+            var bytes = Encoding.UTF8.GetBytes(value);
+            foreach (var b in bytes)
+            {
+                if (_unreservedChars.IndexOf((char)b) != -1)
+                {
+                    sb.Append((char)b);
+                }
+                else
+                {
+                    sb.AppendFormat("%{0:X2}", b);
+                }
+            }
+            return sb.ToString();
         }
 
         public static string UrlDecode(this string value)

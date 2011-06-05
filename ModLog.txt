@@ -1,4 +1,8 @@
-﻿110519（ClickOnce）：
+﻿110605（ClickOnce）：
+	TL内预览图片
+	Kanvaso长推发送/解析
+	对ClickOnce清单进行数字签名
+110519（ClickOnce）：
 	发布ClickOnce版本
 	添加控制心形和删除线是否处理的选项
 	字体选择后会直接在选择框应用字体

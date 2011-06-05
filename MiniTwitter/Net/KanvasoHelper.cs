@@ -24,7 +24,7 @@ namespace MiniTwitter.Net
         }
 
 
-        private static string AppKey = "9e72a1c84f918c938f4d95a24bb2785f6c561bdc";
+        private static string AppKey = App.kanvaso_api_key;
         public static string ShortenStatus(string status, string token, ulong? in_reply_to_status_id,double? latitude, double? longitude)
         {
             if (status.Length <= 140)

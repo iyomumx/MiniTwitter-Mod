@@ -36,6 +36,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MyCommandLink", "MyCommandL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTwitter.Models", "MiniTwitter.Models\MiniTwitter.Models.csproj", "{E3523F4C-F226-47F8-9F46-282248006E4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotobucketAPI", "PhotobucketAPI\PhotobucketAPI.csproj", "{2623985F-BC0A-4315-A607-2717284FB981}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -208,6 +210,18 @@ Global
 		{E3523F4C-F226-47F8-9F46-282248006E4E}.Release|x64.Build.0 = Release|x64
 		{E3523F4C-F226-47F8-9F46-282248006E4E}.Release|x86.ActiveCfg = Release|x86
 		{E3523F4C-F226-47F8-9F46-282248006E4E}.Release|x86.Build.0 = Release|x86
+		{2623985F-BC0A-4315-A607-2717284FB981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Release|x64.ActiveCfg = Release|Any CPU
+		{2623985F-BC0A-4315-A607-2717284FB981}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

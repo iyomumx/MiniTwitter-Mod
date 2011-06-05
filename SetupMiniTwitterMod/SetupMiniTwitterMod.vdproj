@@ -76,12 +76,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0139E157FA050BDE24F7ADF12FE15459"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D329D979F452491683D6611DAD671D71"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -107,6 +101,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D797EF484C06B57FB2D9D19664C91997"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0139E157FA050BDE24F7ADF12FE15459"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -488,7 +488,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{69BCE386-A387-41D0-BD20-42D41950EE06}"
-        "PackageCode" = "8:{149E0F43-EA91-427D-8BDC-CAE06307BDE7}"
+        "PackageCode" = "8:{7860BF0C-CEB5-4DA0-B825-1FE40F2D37B2}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
