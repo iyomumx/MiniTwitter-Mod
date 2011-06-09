@@ -75,6 +75,10 @@ namespace MiniTwitter.Controls
 
         private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
 
+#if DEBUG
+        private readonly Stopwatch mainWatch = new Stopwatch();
+#endif
+
         private void OnTextChanged(string text)
         {
             TextBlock.Inlines.Clear();
@@ -114,7 +118,7 @@ namespace MiniTwitter.Controls
                     {
                         image.Style = (Style)res;
                     }
-                    image.SetResourceReference(Image.StyleProperty, ResourceKey);
+                    //image.SetResourceReference(Image.StyleProperty, ResourceKey);
                     TextBlock.Inlines.Add(new InlineUIContainer(image) { BaselineAlignment = BaselineAlignment.Center });
                 }
                 else if (value.StartsWith("<"))
@@ -169,8 +173,18 @@ namespace MiniTwitter.Controls
                 if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
-
+#if DEBUG
+                    if (!mainWatch.IsRunning)
+                    {
+                        mainWatch.Start();
+                    }
+                    long start = mainWatch.ElapsedMilliseconds;
+#endif
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+#if DEBUG
+                    long time = mainWatch.ElapsedMilliseconds - start;
+                    Debug.WriteLine("Insert takes {0}ms",time);
+#endif
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/img\.ly\/(.+?)"))
@@ -203,26 +217,44 @@ namespace MiniTwitter.Controls
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
                 {
-                    var client = new WebClient();
-                    var contents = client.DownloadString(url);
-                    var _match = Regex.Match(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
-                    _match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", _match.Groups[2].Value));
+                    var uri = GetUri(url);
+                    if (uri == null)
+                    {
+                        CacheUrl(url, u =>
+                        {
+                            var client = new WebClient();
+                            var contents = client.DownloadString(u);
+                            var _match = Regex.Match(u, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
+                            _match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", _match.Groups[2].Value));
 
-                    var uri = new Uri(_match.Groups[1].Value);
-
-                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
-                    Inserted = true;
+                            return new Uri(_match.Groups[1].Value);
+                        });
+                    }
+                    else
+                    {
+                        TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                        Inserted = true;
+                    }
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/movapic\.com\/pic\/(.+?)"))
                 {
-                    var client = new WebClient();
-                    var contents = client.DownloadString(url);
-                    var _match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
+                    var uri = GetUri(url);
+                    if (uri == null)
+                    {
+                        CacheUrl(url, u =>
+                        {
+                            var client = new WebClient();
+                            var contents = client.DownloadString(u);
+                            var _match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
 
-                    var uri = new Uri(_match.Groups[1].Value);
-
-                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
-                    Inserted = true;
+                            return new Uri(_match.Groups[1].Value);
+                        });
+                    }
+                    else
+                    {
+                        TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                        Inserted = true;
+                    }
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/gyazo\.com\/(.+?)"))
                 {
@@ -233,14 +265,22 @@ namespace MiniTwitter.Controls
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/instagr\.am\/p\/(.+?)"))
                 {
-                    var client = new WebClient();
-                    var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", url));
-                    var _match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
-
-                    var uri = new Uri(_match.Groups[1].Value);
-
-                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
-                    Inserted = true;
+                    var uri = GetUri(url);
+                    if (uri == null)
+                    {
+                        CacheUrl(url, u =>
+                        {
+                            var client = new WebClient();
+                            var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", u));
+                            var _match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
+                            return new Uri(_match.Groups[1].Value);
+                        });
+                    }
+                    else
+                    {
+                        TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                        Inserted = true;
+                    }
                 }
             }
             if (Inserted)
@@ -251,6 +291,9 @@ namespace MiniTwitter.Controls
 
         private Inline GetImageControl(Uri uri, string url)
         {
+#if DEBUG
+            long start = mainWatch.ElapsedMilliseconds;
+#endif
             InlineUIContainer cacheItem = GetImage(url);
             InlineUIContainer container;
             if (cacheItem != null)          //命中缓存
@@ -267,8 +310,12 @@ namespace MiniTwitter.Controls
             link.Tag = url;
             link.ToolTip = url;
             link.Click += Hyperlink_Click;
-            link.MouseWheel += link_MouseWheel;
+            
             link.TextDecorations = null;
+#if DEBUG
+            long time = mainWatch.ElapsedMilliseconds - start;
+            Debug.WriteLine("Get Control takes {0}ms", time);
+#endif
             return link;
         }
 
@@ -580,6 +627,28 @@ namespace MiniTwitter.Controls
                     return null;
                 }
             }
+        }
+        #endregion
+
+        #region urlCache
+        private static System.Collections.Concurrent.ConcurrentDictionary<string, Uri> UrlCache = new System.Collections.Concurrent.ConcurrentDictionary<string, Uri>();
+        private static void CacheUrl(string url, Uri uri)
+        {
+            UrlCache.AddOrUpdate(url, uri, (_, __) => uri);
+        }
+        private static void CacheUrl(string url, Func<string, Uri> uriFactory)
+        {
+            ThreadPool.QueueUserWorkItem(_ => CacheUrl(url, uriFactory(url)));
+        }
+        private static void CacheUrl(string url, Func<Uri> uriFactory)
+        {
+            ThreadPool.QueueUserWorkItem(_ => CacheUrl(url, uriFactory()));
+        }
+        private static Uri GetUri(string url)
+        {
+            Uri result = null;
+            UrlCache.TryGetValue(url, out result);
+            return result;
         }
         #endregion
 
