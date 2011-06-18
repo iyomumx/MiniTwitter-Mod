@@ -37,8 +37,14 @@ namespace MiniTwitter.Extensions
                     return Commands.Search;
                 case KeyAction.Reply:
                     return Commands.Reply;
+                case KeyAction.ReplyAll:
+                    return Commands.ReplyAll;
                 case KeyAction.ReplyMessage:
                     return Commands.ReplyMessage;
+                case KeyAction.Retweet:
+                    return Commands.ReTweetApi;
+                case KeyAction.RetweetWithComment:
+                    return Commands.ReTweet;
                 case KeyAction.Delete:
                     return Commands.Delete;
                 case KeyAction.Favorite:

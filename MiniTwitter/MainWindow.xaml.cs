@@ -337,6 +337,7 @@ namespace MiniTwitter
                             TimelineTabControl.InputBindings.Add(inputBinding);
                             break;
                         case KeyActionSpot.Global:
+                            //TODO:全局热键绑定
                             break;
                     }
                 }
@@ -1140,21 +1141,24 @@ namespace MiniTwitter
                 Login();
             }
             this.Topmost = Settings.Default.AlwaysOnTop;
-            this.client.PropertyChanged+=new PropertyChangedEventHandler((Sender,eventArg)=>
-            {
-                if (eventArg.PropertyName=="RateLimitRemain")
-                {
-                    this.AsyncInvoke(() => { this.APILimitRemainText.Text = string.Format("API请求剩余：\t{0}", client.RateLimitRemain); });
-                }
-                else if (eventArg.PropertyName=="TotalRateLimit")
-                {
-                    this.AsyncInvoke(() => { this.APILimitTotalText.Text = string.Format("API请求总量：\t{0}", client.TotalRateLimit); });
-                }
-                else if (eventArg.PropertyName=="ResetTimeString")
-                {
-                    this.AsyncInvoke(() => { this.APILimitResetText.Text = string.Format("下次重置时间：\t{0}", client.ResetTimeString); });
-                }
-            });
+            APILimitRemainText.SetBinding(TextBlock.TextProperty, new Binding("RateLimitRemain") { Source = client, FallbackValue = 0, StringFormat = "API请求剩余：\t{0}", Mode = BindingMode.OneWay, TargetNullValue = 0 });
+            APILimitTotalText.SetBinding(TextBlock.TextProperty, new Binding("TotalRateLimit") { Source = client, FallbackValue = 0, StringFormat = "API请求总量：\t{0}", Mode = BindingMode.OneWay, TargetNullValue = 0 });
+            APILimitResetText.SetBinding(TextBlock.TextProperty, new Binding("ResetTimeString") { Source = client, FallbackValue = 0, StringFormat = "下次重置时间：\t{0}", Mode = BindingMode.OneWay, TargetNullValue = 0 });
+            //this.client.PropertyChanged+=new PropertyChangedEventHandler((Sender,eventArg)=>
+            //{
+            //    if (eventArg.PropertyName=="RateLimitRemain")
+            //    {
+            //        this.AsyncInvoke(() => { this.APILimitRemainText.Text = string.Format("API请求剩余：\t{0}", client.RateLimitRemain); });
+            //    }
+            //    else if (eventArg.PropertyName=="TotalRateLimit")
+            //    {
+            //        this.AsyncInvoke(() => { this.APILimitTotalText.Text = string.Format("API请求总量：\t{0}", client.TotalRateLimit); });
+            //    }
+            //    else if (eventArg.PropertyName=="ResetTimeString")
+            //    {
+            //        this.AsyncInvoke(() => { this.APILimitResetText.Text = string.Format("下次重置时间：\t{0}", client.ResetTimeString); });
+            //    }
+            //});
         }
 
         private void MainWindow_Activated(object sender, EventArgs e)
@@ -1518,6 +1522,7 @@ namespace MiniTwitter
                 return;
             }
             this.Topmost = Settings.Default.AlwaysOnTop;
+            Timelines.ForEach(tl => tl.MaxCount = Settings.Default.MaxTweetCount);
             // 正規表現を組みなおす
             Settings.Default.InitializeKeywordRegex();
             // プロキシサーバの設定を反映
@@ -2410,7 +2415,6 @@ namespace MiniTwitter
                 e.CanExecute = true;
                 return;
             }
-            //TODO:Winamp万岁！
             processes = Process.GetProcessesByName("Winamp");
             if (processes.Length != 0)
             {

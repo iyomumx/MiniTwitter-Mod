@@ -9,6 +9,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
@@ -264,7 +266,9 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Post<Status>(string.Format("{1}1/statuses/retweet/{0}.xml", id, ApiBaseUrl), proccessCallBack);
+                Status result = Post<Status>(string.Format("{1}1/statuses/retweet/{0}.xml", id, ApiBaseUrl), proccessCallBack);
+                AsyncDo(CacheOrUpdate, result);
+                return result;
             }
             catch
             {
@@ -326,6 +330,9 @@ namespace MiniTwitter.Net
                     }
                 }
                 status.IsAuthor = true;
+                
+                AsyncDo(CacheOrUpdate, status);     //Cache
+
                 if (Updated != null)
                 {
                     Updated(this, new UpdateEventArgs(status));
@@ -516,7 +523,9 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<User>(string.Format("{0}1/account/verify_credentials.xml", ApiBaseUrl));
+                User result = Get<User>(string.Format("{0}1/account/verify_credentials.xml", ApiBaseUrl));
+                AsyncDo(CacheOrUpdate, result);
+                return result;
             }
             catch
             {
@@ -528,7 +537,9 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<User>(string.Format("{0}1/users/show.xml", ApiBaseUrl), new { user_id = id });
+                User result = Get<User>(string.Format("{0}1/users/show.xml", ApiBaseUrl), new { user_id = id });
+                AsyncDo(CacheOrUpdate, result);
+                return result;
             }
             catch
             {
@@ -540,7 +551,10 @@ namespace MiniTwitter.Net
         {
             try
             {
-                return Get<User>(string.Format("{0}1/users/show.xml", ApiBaseUrl), new { screen_name = name });
+                User result =
+                    Get<User>(string.Format("{0}1/users/show.xml", ApiBaseUrl), new { screen_name = name });
+                AsyncDo(CacheOrUpdate, result);
+                return result;
             }
             catch
             {
@@ -590,11 +604,16 @@ namespace MiniTwitter.Net
             try
             {
                 var result = Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl));
-                var match = kanvasoUrl.Match(result.Text);
-                if (match.Success)
+                if (MiniTwitter.Properties.Settings.Default.UseKanvasoLength)
                 {
-                    ThreadPool.QueueUserWorkItem(code => { result.Text = KanvasoHelper.GetLongStatus((string)code) ?? result.Text; }, match.Groups["code"].Value);
+                    var match = kanvasoUrl.Match(result.Text);
+                    if (match.Success)
+                    {
+                        ThreadPool.QueueUserWorkItem(code => { result.Text = KanvasoHelper.GetLongStatus((string)code) ?? result.Text; }, match.Groups["code"].Value);
+                    }
                 }
+
+                AsyncDo(CacheOrUpdate, result);
                 return result;
             }
             catch
@@ -652,7 +671,7 @@ namespace MiniTwitter.Net
             {
                 var statuses = Get<Statuses>(url, param).Status;
 
-                if (statuses == null)
+                if (statuses == null || statuses.Length == 0)
                 {
                     return Statuses.Empty;
                 }
@@ -670,7 +689,7 @@ namespace MiniTwitter.Net
                         }
                     }
                 });
-
+                AsyncDo(CacheOrUpdate, statuses);
                 return statuses;// statuses.AsParallel().Where((status) => Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true).ToArray();
             }
             catch
@@ -685,7 +704,7 @@ namespace MiniTwitter.Net
             {
                 var messages = since_id.HasValue ? Get<DirectMessages>(url, new { since_id = since_id.Value }).DirectMessage : Get<DirectMessages>(url).DirectMessage;
 
-                if (messages == null)
+                if (messages == null || messages.Length == 0)
                 {
                     return DirectMessages.Empty;
                 }
@@ -1043,6 +1062,7 @@ namespace MiniTwitter.Net
                                                                     });
                                         }
 
+                                        AsyncDo(CacheOrUpdate, status);
                                     }
                                     else if (element.Element("event") != null)
                                     {
@@ -1099,5 +1119,191 @@ namespace MiniTwitter.Net
 
             _thread.Start();
         }
+
+    #region Cache
+        #region StatusCache
+        private ConcurrentDictionary<ulong, Status> statusesCache = new ConcurrentDictionary<ulong, Status>();
+        private void CacheOrUpdate(Status tweet)
+        {
+            if (tweet == null)
+            {
+                return;
+            }
+#if DEBUG
+            Debug.WriteLine("Updating tweet {0}.", tweet.ID);
+#endif
+            if (statusesCache.ContainsKey(tweet.ID))
+            {
+#if DEBUG
+                Debug.WriteLine("Hit Cache, ID:{0}", tweet.ID);
+#endif
+                Status target;
+                statusesCache.TryGetValue(tweet.ID, out target);
+                if (target != null)
+                {
+                    target.CreatedAt = tweet.CreatedAt;
+                    target.Favorited = tweet.Favorited;
+                    target.LastModified = tweet.LastModified;
+                    target.ReTweetCount = tweet.ReTweetCount;
+                }
+            }
+            else
+            {
+#if DEBUG
+                Debug.WriteLine("Cache Not Hit, cahcing...");
+#endif
+                statusesCache.TryAdd(tweet.ID, tweet);
+                CacheOrUpdate(tweet.Recipient);
+                if (tweet.Recipient != null && usersCache.ContainsKey(tweet.Recipient.ID))
+                {
+                    User recipient;
+                    usersCache.TryGetValue(tweet.Recipient.ID, out recipient);
+                    tweet.Recipient = recipient;
+                }
+                CacheOrUpdate(tweet.Sender);
+                if (tweet.Sender != null && usersCache.ContainsKey(tweet.Sender.ID))
+                {
+                    User sender;
+                    usersCache.TryGetValue(tweet.Sender.ID, out sender);
+                    tweet.Recipient = sender;
+                }
+            }
+            UpdateAllStatusesAndUsers();
+        }
+        private void CacheOrUpdate(Statuses tweets)
+        {
+#if DEBUG
+            Debug.WriteLine("Updating {0} tweets.", tweets.Status.Length);
+#endif
+            foreach (var tweet in tweets.Status.Reverse())
+            {
+                CacheOrUpdate(tweet);
+            }
+        }
+        private void CacheOrUpdate(IEnumerable<Status> tweets)
+        {
+#if DEBUG
+            Debug.WriteLine("Updating {0} tweets.", tweets.Count());
+#endif
+            foreach (var tweet in tweets.Reverse())
+            {
+                CacheOrUpdate(tweet);
+            }
+        }
+        #endregion
+        #region UserCache
+        private ConcurrentDictionary<int, User> usersCache = new ConcurrentDictionary<int, User>();
+        private void CacheOrUpdate(User user)
+        {
+            if (user == null)
+            {
+                return;
+            }
+            if (usersCache.ContainsKey(user.ID))
+            {
+                User target;
+                usersCache.TryGetValue(user.ID, out target);
+                if (target != null)
+                {
+                    target.Description = user.Description;
+                    target.FavouritesCount = user.FavouritesCount;
+                    target.Followers = user.Followers;
+                    target.Friends = user.Friends;
+                    target.ImageUrl = user.ImageUrl;
+                    target.LastModified = user.LastModified;
+                    target.Location = user.Location;
+                    target.Name = user.Name;
+                    target.Protected = user.Protected;
+                    target.ScreenName = user.ScreenName;
+                    target.StatusesCount = user.StatusesCount;
+                    target.Url = user.Url;
+                    target.Verified = user.Verified;
+                }
+            }
+            else
+            {
+                usersCache.TryAdd(user.ID, user);
+            }
+        }
+        private void CacheOrUpdate(Users users)
+        {
+            users.User.AsParallel().ForAll(CacheOrUpdate);
+        }
+        private void CacheOrUpdate(IEnumerable<User> users)
+        {
+            users.AsParallel().ForAll(CacheOrUpdate);
+        }
+        #endregion
+        #region Helpers
+        private void AsyncDo<T>(Action<T> action,T state)
+        {
+            ThreadPool.QueueUserWorkItem(s => action((T)s), state);
+        }
+
+        private SpinLock updateLock = 
+#if DEBUG
+            new SpinLock(true);
+#else
+            new SpinLock();
+#endif
+        private bool FirstRun = true;
+        private void UpdateAllStatusesAndUsers()
+        {
+            //if (!FirstRun)
+            //{
+            //    return;
+            //}
+            bool GotLock = false;
+            try
+            {
+                updateLock.TryEnter(0, ref GotLock);
+                if (GotLock)
+                {
+                    FirstRun = false;
+                    User user;
+                    foreach (var tweet in statusesCache.Values)
+                    {
+                        if (tweet == null)
+                        {
+                            continue;
+                        }
+                        if (tweet.Recipient != null && usersCache.TryGetValue(tweet.Recipient.ID, out user))
+                        {
+                            tweet.Recipient = user;
+                        }
+                        if (tweet.Sender != null && usersCache.TryGetValue(tweet.Sender.ID, out user))
+                        {
+                            tweet.Sender = user;
+                        }
+                    }
+                    Status status;
+                    foreach (User usr in usersCache.Values)
+                    {
+                        if (usr == null)
+                        {
+                            continue;
+                        }
+                        if (usr.Status != null && statusesCache.TryGetValue(usr.Status.ID, out status))
+                        {
+                            usr.Status = status;
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (GotLock)
+                {
+                    updateLock.Exit();
+                }
+            }
+        }
+        #endregion
+    #endregion
+
     }
 }

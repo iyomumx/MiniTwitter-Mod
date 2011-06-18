@@ -62,6 +62,7 @@ namespace MiniTwitter.Properties
             BitlyUsername = "shibayan";
             NowPlayingFormat = "♪{0} - {1}({2})";
             ImageInline = false;
+            MaxTweetCount = 10000;
         }
 
         /// <summary>
@@ -328,6 +329,7 @@ namespace MiniTwitter.Properties
 
         //功能
 
+        [Obsolete()]
         public bool EnableLog { get; set; }
 
         /// <summary>
@@ -393,6 +395,8 @@ namespace MiniTwitter.Properties
         public string ProxyPassword { get; set; }
 
         //界面
+
+        public int MaxTweetCount { get; set; }
 
         private TimelineStyle timelineStyle;
 

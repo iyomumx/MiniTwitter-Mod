@@ -11,21 +11,16 @@
 //#define PLAIN_APP_KEY
 
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+using System.Globalization;
 using System.IO;
-using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using System.Reflection;
-
 using MiniTwitter.Extensions;
 using MiniTwitter.Input;
-using MiniTwitter.Themes;
 using MiniTwitter.Properties;
-using System.Globalization;
+using MiniTwitter.Themes;
 namespace MiniTwitter
 {
     /// <summary>
@@ -65,6 +60,7 @@ namespace MiniTwitter
                 }
             }
         }
+
         private void App_Startup(object sender, StartupEventArgs e)
         {
             if (!mutex.WaitOne(0, false))
@@ -131,9 +127,12 @@ namespace MiniTwitter
                 return;
             }
             var exception = (Exception)e.ExceptionObject;
-            //Log.Logger.Default.AddLogItem(new Log.LogItem(exception));
+            
             MessageBox.Show("发生内部错误 \n\n" + exception.ToString(), App.NAME);
-            Application.Current.Shutdown();
+            if (Application.Current != null)
+            {
+                Application.Current.Shutdown();                
+            }
 #endif
         }
 

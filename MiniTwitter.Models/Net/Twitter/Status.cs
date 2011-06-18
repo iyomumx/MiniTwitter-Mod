@@ -119,7 +119,14 @@ namespace MiniTwitter.Net.Twitter
                         var match = Regex.Match(value, "href=\"(?<uri>[^\"]+?)\"");
                         if (match.Success)
                         {
-                            SourceUri = new Uri(match.Groups["uri"].Value);
+                            try
+                            {
+                                SourceUri = new Uri(match.Groups["uri"].Value);
+                            }
+                            catch (Exception)
+                            {
+                                SourceUri = twitterMainUri;
+                            }
                         }
                         else
                         {

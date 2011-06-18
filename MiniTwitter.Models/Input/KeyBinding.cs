@@ -30,7 +30,7 @@ namespace MiniTwitter.Input
                 }
             }
         }
-
+        
         private KeyActionSpot actionSpot;
 
         [XmlAttribute]
