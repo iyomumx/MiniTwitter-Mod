@@ -1,3 +1,4 @@
 自行编译指南：
-	1.在项目里有一个丢失的文件App.Private.cs，添加这个文件并定义GoogleAPIKey， TwitterConsumerKey， TwitterConsumerSecret 三个字符串常量
-	2.现在源代码应该可以正常编译运行了
+	1.在项目里有一个丢失的文件App.Private.cs，删除这个文件
+	2.根据App.xaml.cs开头的说明设置好各个字符串常量
+	3.现在源代码应该可以正常编译运行了

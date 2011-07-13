@@ -222,7 +222,7 @@ namespace MiniTwitter
 
         private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
 
-        public const string VERSION = "1.66.⑨.97";
+        public const string VERSION = "1.66.⑨.99";
         public const string NAME = "MiniTwitter Mod";
 #if PLAIN_APP_KEY
         private static string google_key = "YOUR_GOOGLE_API_KEY_HERE";

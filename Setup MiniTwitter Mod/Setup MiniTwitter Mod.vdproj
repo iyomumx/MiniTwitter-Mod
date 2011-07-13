@@ -513,15 +513,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
-        "ProductCode" = "8:{AF8AF6D9-0CAC-4C24-83D1-2AA7EA8172C9}"
-        "PackageCode" = "8:{DF6BB88E-EFDA-4C2E-9F13-81E3EA6BE5F6}"
+        "ProductCode" = "8:{96942D71-2A10-4704-915F-FC9302FDBC1B}"
+        "PackageCode" = "8:{0A69DBC0-EA5F-4D0F-9589-66DF33CF38C7}"
         "UpgradeCode" = "8:{4C1AF118-8513-407D-A260-58E8455AC4C6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.66.998"
+        "ProductVersion" = "8:1.66.999"
         "Manufacturer" = "8:s-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://minitwitter.codeplex.com/"
@@ -1348,7 +1348,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FF4EA6BE5E954E0282147E8489A0215D"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"

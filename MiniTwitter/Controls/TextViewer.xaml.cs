@@ -73,7 +73,7 @@ namespace MiniTwitter.Controls
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
         }
 
-        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>[-_a-zA-Z0-9]{2,20})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
+        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>\w{2,})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
 
 #if DEBUG
         private readonly Stopwatch mainWatch = new Stopwatch();
@@ -302,7 +302,7 @@ namespace MiniTwitter.Controls
             }
             else                            //缓存未命中
             {                               //构建新的Container
-                Image img = new Image() { Width = 200, Source = new BitmapImage(uri, new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.Revalidate)) };
+                Image img = new Image() { Width = 200, MaxHeight = 200, Source = new BitmapImage(uri) };
                 container = new InlineUIContainer(img);
                 CacheImage(url, container); //存入缓存
             }

@@ -17,7 +17,7 @@
 	xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
 	xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties"
 	x:Class="MiniTwitter.TimelineDialog" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo}"
-	Title="MiniTwitter Mod: 添加时间线" Width="400" Height="360" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
+	Title="MiniTwitter Mod: 添加时间线" Width="400" Height="450" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
 	WindowStartupLocation="CenterOwner" Loaded="TimelineDialog_Loaded" TextOptions.TextFormattingMode="Display" UseLayoutRounding="True">
 	<Window.BindingGroup>
 		<BindingGroup NotifyOnValidationError="True">
@@ -40,7 +40,8 @@
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 		<TextBlock Grid.Column="0" Grid.Row="0" Text="标签页名称" TextWrapping="Wrap" VerticalAlignment="Center"/>
 		<TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Path=Name}" Margin="0,3,0,3" />
 		<RadioButton x:Name="listRadio" Grid.Column="0" Grid.Row="1" Content="列表绑定" VerticalAlignment="Center" />
@@ -85,9 +86,11 @@
 			<TextBox x:Name="FilterTextBox" Width="320" TextWrapping="Wrap"/>
 			<Button Content="添加" Click="AddFilterButton_Click" Width="50" Margin="4,0,0,0"/>
 		</StackPanel>
-		<StackPanel Grid.ColumnSpan="3" Grid.Row="6" Margin="0,6,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+		<StackPanel Grid.Row="7" Margin="0,2,0,0" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
 			<Button Content="确认" Width="80" IsDefault="True" Click="OkButton_Click" />
 			<Button Content="取消" Width="80" Margin="4,0,0,0" IsCancel="True" Click="CancelButton_Click" />
 		</StackPanel>
-	</Grid>
+        <RadioButton Content="查看用户" Margin="0,4" Name="OtherUserRadio" VerticalAlignment="Center" Grid.Row="6" Width="96" />
+        <TextBox Grid.Column="2" Margin="0,3" Name="username" Grid.Row="6" />
+    </Grid>
 </Window>

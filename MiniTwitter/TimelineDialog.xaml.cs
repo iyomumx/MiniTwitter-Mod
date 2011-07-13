@@ -66,6 +66,10 @@ namespace MiniTwitter
                     listRadio.IsChecked = true;
                     lists.SelectedValue = Timeline.Tag;
                     break;
+                case TimelineType.OtherUser:
+                    OtherUserRadio.IsChecked = true;
+                    username.Text = Timeline.Tag;
+                    break;
                 default:
                     break;
             }
@@ -96,7 +100,11 @@ namespace MiniTwitter
                 Timeline.Type = TimelineType.User;
                 Timeline.Filters.AddRange(filters);
             }
-
+            if (OtherUserRadio.IsChecked ?? false)
+            {
+                Timeline.Type = TimelineType.OtherUser;
+                Timeline.Tag = username.Text;
+            }
             DialogResult = true;
         }
 
