@@ -898,7 +898,7 @@ namespace MiniTwitter.Net
             try
             {
                 var list = new List<Status>();
-                using (var reader = XmlReader.Create(string.Format("{2}search.atom?q={0}&since_id={1}&rpp=100&lang=ja", Uri.EscapeDataString(query), since_id, SearchApiUrl)))
+                using (var reader = XmlReader.Create(string.Format("{2}search.atom?q={0}&since_id={1}&rpp=100", Uri.EscapeDataString(query), since_id, SearchApiUrl)))
                 {
                     var doc = XDocument.Load(reader);
                     var xmlns = XNamespace.Get("http://www.w3.org/2005/Atom");

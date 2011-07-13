@@ -646,6 +646,10 @@ namespace MiniTwitter.Net
             {
                 parameter.Add("oauth_token", token);
             }
+            if (request.RequestUri.LocalPath == "/oauth/request_token")
+            {
+                parameter.Add("oauth_callback", "oob"); // "oob" for PIN code
+            }
             // クエリパラメータを追加する
             parameter.Add(query);
             // 署名を作成
