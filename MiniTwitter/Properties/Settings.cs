@@ -582,7 +582,18 @@ namespace MiniTwitter.Properties
             }
         }
 
-        public bool EnableUnreadManager { get; set; }
+        private bool _EnableUnreadManager;
+        public bool EnableUnreadManager {
+            get { return _EnableUnreadManager; }
+            set 
+            {
+                if (value != _EnableUnreadManager)
+                {
+                    _EnableUnreadManager = value;
+                    OnPropertyChanged("EnableUnreadManager");
+                }
+            }
+        }
 
         public bool EnableNotifyIcon { get; set; }
 

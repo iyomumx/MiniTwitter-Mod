@@ -74,6 +74,20 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Hashtag" Executed="HashtagCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ViewUser" Executed="ViewUserCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.SetTweetText" Executed="SetTweetTextCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ViewConversation" Executed="ViewConversationCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.FollowByName" Executed="FollowByNameCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.UnfollowByName" Executed="UnfollowByNameCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.BlockByName" Executed="BlockByNameCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ReportSpamByName" Executed="ReportSpamByName_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.FilterUser" Executed="FilterUserCommand_Executed" CanExecute="FilterUserCommand_CanExecute" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.FilterUserByName" Executed="FilterUserByNameCommand_Executed" CanExecute="FilterUserByNameCommand_CanExecute" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterUser" Executed="GlobalFilterUserCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterAndBlockUser" Executed="GlobalFilterAndBlockUserCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterUserByName" Executed="GlobalFilterUserByNameCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterAndBlockUserByName" Executed="GlobalFilterAndBlockUserByNameCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.MoveToUserPageByName" Executed="MoveToUserPageByNameCommand_Executed"/>
+        <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterTag" Executed="GlobalFilterTagCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.FilterTag" Executed="FilterTagCommand_Executed" CanExecute="FilterUserCommand_CanExecute" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">

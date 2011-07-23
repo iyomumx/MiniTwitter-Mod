@@ -119,15 +119,94 @@
             <DataTrigger Binding="{Binding Path=IsMention}" Value="True">
                 <Setter Property="Foreground" Value="Red" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=IsAuthor}" Value="True">
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=IsAuthor}" Value="True"/>
+                    <Condition Binding="{Binding Path=IsReTweeted}" Value="False"/>
+                </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="Green" />
-            </DataTrigger>
+            </MultiDataTrigger>
+            <!--<DataTrigger Binding="{Binding Path=IsAuthor}" Value="True">
+                <Setter Property="Foreground" Value="Green" />
+            </DataTrigger>-->
             <!--<DataTrigger Binding="{Binding Path=IsReTweeted}" Value="True">
                 <Setter Property="Foreground" Value="Blue" />
             </DataTrigger>-->
         </Style.Triggers>
     </Style>
 
+    <ContextMenu x:Key="UserMenu">
+        <MenuItem Header="{Binding Path=Sender.ScreenName}" IsEnabled="False"/>
+        <Separator />
+        <MenuItem Header="查看用户时间线(_O)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+        <MenuItem Header="复制用户名(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Sender.ScreenName}"/>
+        <Separator />
+        <MenuItem Header="跟随用户(_F)" Command="MiniTwitter_Input:Commands.Follow" CommandParameter="{Binding}" />
+        <MenuItem Header="取消跟随用户(_U)" Command="MiniTwitter_Input:Commands.Unfollow" CommandParameter="{Binding}" />
+        <Separator />
+        <MenuItem Header="阻止(_B)" Command="MiniTwitter_Input:Commands.Block" CommandParameter="{Binding}" />
+        <MenuItem Header="报告广告账户(_R)" Command="MiniTwitter_Input:Commands.ReportSpam" CommandParameter="{Binding}" />
+        <Separator />
+        <MenuItem Header="过滤用户(_I)" Command="MiniTwitter_Input:Commands.FilterUser" CommandParameter="{Binding}" />
+        <MenuItem Header="全局过滤用户(_I)" Command="MiniTwitter_Input:Commands.GlobalFilterUser" CommandParameter="{Binding}" />
+        <MenuItem Header="全局过滤并阻止用户(_I)" Command="MiniTwitter_Input:Commands.GlobalFilterAndBlockUser" CommandParameter="{Binding}" />
+    </ContextMenu>
+
+    <!--<Style x:Key="UserLinkStyle" TargetType="MiniTwitter_Controls:HyperlinkButton">
+        <Setter Property="ContextMenu" Value="{StaticResource UserMenu}"/>
+    </Style>-->
+
+    <ContextMenu x:Key="ReplyButtonMenu">
+        <MenuItem Header="回复(_R)" Command="MiniTwitter_Input:Commands.Reply" CommandParameter="{Binding}" />
+        <MenuItem Header="回复所有(_P)" Command="MiniTwitter_Input:Commands.ReplyAll" CommandParameter="{Binding}" />
+        <MenuItem Header="发送私信(_D)" Command="MiniTwitter_Input:Commands.ReplyMessage" CommandParameter="{Binding}"/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="RetweetButtonMenu">
+        <MenuItem Header="带评论Retweet(_R)" Command="MiniTwitter_Input:Commands.ReTweet" CommandParameter="{Binding}" />
+        <MenuItem Header="Retweet(_O)" Command="MiniTwitter_Input:Commands.ReTweetApi" CommandParameter="{Binding}" />
+    </ContextMenu>
+
+    <ContextMenu x:Key="MoveToReplyStatusButtonMenu">
+        <MenuItem Header="移动到所回复的条目(_M)" Command="MiniTwitter_Input:Commands.InReplyTo" CommandParameter="{Binding}" />
+        <MenuItem Header="查看对话线(_V)" Command="MiniTwitter_Input:Commands.ViewConversation" CommandParameter="{Binding}" />
+    </ContextMenu>
+
+    <ContextMenu x:Key="RetweetStatusRetweetButtonMenu">
+        <MenuItem Header="带评论Retweet(_R)" Command="MiniTwitter_Input:Commands.ReTweet" CommandParameter="{Binding}" />
+        <MenuItem Header="Retweet(_O)" Command="MiniTwitter_Input:Commands.ReTweetApi" CommandParameter="{Binding}" />
+        <MenuItem Header="撤销Retweet(_O)" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"
+                  Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="UserInlineMenu">
+        <MenuItem Header="{Binding}" IsEnabled="False"/>
+        <Separator />
+        <MenuItem Header="查看用户时间线(_O)" Command="MiniTwitter_Input:Commands.ViewUser" CommandParameter="{Binding}"/>
+        <MenuItem Header="打开浏览器查看_Twitter用户页" Command="MiniTwitter_Input:Commands.MoveToUserPageByName" CommandParameter="{Binding}"/>
+        <MenuItem Header="复制用户名(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding}"/>
+        <Separator />
+        <MenuItem Header="跟随用户(_F)" Command="MiniTwitter_Input:Commands.FollowByName" CommandParameter="{Binding}" />
+        <MenuItem Header="取消跟随用户(_U)" Command="MiniTwitter_Input:Commands.UnfollowByName" CommandParameter="{Binding}" />
+        <Separator />
+        <MenuItem Header="阻止(_B)" Command="MiniTwitter_Input:Commands.BlockByName" CommandParameter="{Binding}" />
+        <MenuItem Header="报告广告账户(_R)" Command="MiniTwitter_Input:Commands.ReportSpamByName" CommandParameter="{Binding}" />
+        <Separator />
+        <MenuItem Header="过滤用户(_I)" Command="MiniTwitter_Input:Commands.FilterUserByName" CommandParameter="{Binding}" />
+        <MenuItem Header="全局过滤用户(_G)" Command="MiniTwitter_Input:Commands.GlobalFilterUserByName" CommandParameter="{Binding}" />
+        <MenuItem Header="全局过滤并阻止用户(_L)" Command="MiniTwitter_Input:Commands.GlobalFilterAndBlockUserByName" CommandParameter="{Binding}" />
+    </ContextMenu>
+        
+    <ContextMenu x:Key="HashTagMenu">
+        <MenuItem Header="{Binding}" IsEnabled="False"/>
+        <Separator/>
+        <MenuItem Header="搜索标签(_S)" Command="MiniTwitter_Input:Commands.Hashtag" CommandParameter="{Binding}"/>
+        <MenuItem Header="复制标签(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding}"/>
+        <Separator/>
+        <MenuItem Header="过滤标签(_F)" Command="MiniTwitter_Input:Commands.FilterTag" CommandParameter="{Binding}" />
+        <MenuItem Header="全局过滤标签(_G)" Command="MiniTwitter_Input:Commands.GlobalFilterTag" CommandParameter="{Binding}" />
+    </ContextMenu>
+        
     <ContextMenu x:Key="TextBoxContextMenu">
         <MenuItem Header="撤销(_U)" Command="ApplicationCommands.Undo"/>
         <Separator/>
@@ -166,10 +245,10 @@
         <MenuItem Header="带评论 ReTweet(_Q)" Command="MiniTwitter_Input:Commands.ReTweet" CommandParameter="{Binding}" />
         <Separator/>
         <MenuItem Command="MiniTwitter_Input:Commands.Favorite" CommandParameter="{Binding}" Style="{StaticResource FavoriteMenuItemStyle}"/>
-        <Separator/>
-        <MenuItem Header="删除此推(_X)" IsEnabled="{Binding Path=IsAuthor}" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
-        <Separator/>
-        <MenuItem Header="全部设为已读(_R)" Command="MiniTwitter_Input:Commands.ReadAll" />
+        <Separator Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <MenuItem Header="删除此推(_X)" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
+        <Separator Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <MenuItem Header="全部设为已读(_R)" Command="MiniTwitter_Input:Commands.ReadAll" Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <Separator/>
         <MenuItem Header="打开网页到(_M)" >
             <MenuItem Header="用户页(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
@@ -251,7 +330,7 @@
             <MenuItem Header="气泡(_B)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.Balloon}" Style="{StaticResource BalloonMenuItemStyle}"/>
             <MenuItem Header="列表(_L)" Command="MiniTwitter_Input:Commands.TimelineStyle" CommandParameter="{x:Static MiniTwitter:TimelineStyle.List}" Style="{StaticResource ListMenuItemStyle}"/>
             <Separator/>
-            <MenuItem Header="图标表示(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
+            <MenuItem Header="显示头像(_I)" IsCheckable="True" IsChecked="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible}"/>
         </MenuItem>
         <MenuItem Header="排序(_O)">
             <MenuItem Header="用户名" Command="MiniTwitter_Input:Commands.SortCategory" CommandParameter="{x:Static MiniTwitter_Models:ListSortCategory.ScreenName}" Style="{StaticResource ScreenNameCategoryMenuItemStyle}"/>

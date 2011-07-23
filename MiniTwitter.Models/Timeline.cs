@@ -164,7 +164,9 @@ namespace MiniTwitter
                 { 
                     if (Type == TimelineType.Archive && item.IsReTweeted)
                     {
-                        continue;
+                        //continue;
+                        //TODO:某处没有修正这个问题，在此临时解决
+                        item.IsAuthor = true;
                     }
                     Interlocked.Increment(ref count);
                     if (item.IsNewest)

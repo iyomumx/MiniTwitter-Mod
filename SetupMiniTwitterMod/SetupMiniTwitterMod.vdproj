@@ -269,7 +269,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.2, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_28A4DCEF985E0DAF690922BE961BF11E"
@@ -488,7 +488,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{22436F5A-DB1D-4B9F-9505-5462DA85FF47}"
-        "PackageCode" = "8:{8F208959-57FF-4CFD-A91F-C4C781BCB361}"
+        "PackageCode" = "8:{01F81CB8-54FD-4268-B6EA-F5C4421EDDA5}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1397,7 +1397,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D329D979F452491683D6611DAD671D71"
             {
-            "SourcePath" = "8:..\\MiniTwitter\\obj\\x64\\Release\\MiniTwitter.exe"
+            "SourcePath" = "8:..\\MiniTwitter\\obj\\x86\\Release\\MiniTwitter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4499BAD561D240AC81F800E6414AEB77"

@@ -17,7 +17,7 @@
     xmlns:MiniTwitter_Controls="clr-namespace:MiniTwitter.Controls"
     xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties">
-
+    
     <DataTemplate x:Key="StandardStatusTemplate" DataType="{x:Type MiniTwitter_Net_Twitter:Status}">
         <Grid Margin="7,7,7,7" SnapsToDevicePixels="True">
             <Grid.ColumnDefinitions>
@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Width="48" Height="48" Margin="0,0,8,0" Grid.Column="0" VerticalAlignment="Top"
-                   Source="{Binding Path=Sender.Icon}" 
+                   Source="{Binding Path=Sender.Icon}" ContextMenu="{StaticResource UserMenu}"
                    Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Image.ToolTip>
                     <StackPanel MaxWidth="400">
@@ -55,7 +55,8 @@
                 <StackPanel Orientation="Horizontal">
                     <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}"
                                                           FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                          Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                                                          Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                          ContextMenu="{StaticResource UserMenu}"/>
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Style="{DynamicResource ProtectImageStyle}" ToolTip="该用户已设置保护"/>
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -84,16 +85,19 @@
                         <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                     </Button>
                     <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
-                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                            ContextMenu="{StaticResource ReplyButtonMenu}" >
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                     </Button>
                     <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
-                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                            ContextMenu="{StaticResource RetweetButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                     </Button>
                     <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到所回复的条目"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
-                            Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            ContextMenu="{StaticResource MoveToReplyStatusButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
                     </Button>
                     <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.BeReplied" ToolTip="查看回复"
@@ -114,32 +118,36 @@
             </Grid.ColumnDefinitions>
             <Grid Width="48" Height="48" Margin="0,0,8,0" Grid.Column="0" VerticalAlignment="Top"
                   Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Image Width="36" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Path=ReTweetedStatus.Sender.Icon}">
+                <Image Width="36" Height="36" VerticalAlignment="Top" 
+                       HorizontalAlignment="Left" Source="{Binding Path=ReTweetedStatus.Sender.Icon}"
+                       ContextMenu="{StaticResource UserMenu}" DataContext="{Binding Path=ReTweetedStatus}">
                     <Image.ToolTip>
                         <StackPanel MaxWidth="400">
                             <TextBlock FontWeight="Bold">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} / {1}">
-                                    <Binding Path="ReTweetedStatus.Sender.Name" />
-                                    <Binding Path="ReTweetedStatus.Sender.Location" />
+                                    <Binding Path="Sender.Name" />
+                                    <Binding Path="Sender.Location" />
                                 </MultiBinding>
                             </TextBlock.Text>
                             </TextBlock>
-                            <TextBlock Text="{Binding Path=ReTweetedStatus.Sender.Description}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding Path=Sender.Description}" TextWrapping="Wrap" />
                             <TextBlock TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}Tweets：{0} / 收藏：{3} / 好友：{1} / 跟随者：{2}">
-                                    <Binding Path="ReTweetedStatus.Sender.StatusesCount"/>
-                                    <Binding Path="ReTweetedStatus.Sender.Friends"/>
-                                    <Binding Path="ReTweetedStatus.Sender.Followers"/>
-                                    <Binding Path="ReTweetedStatus.Sender.FavouritesCount"/>
+                                    <Binding Path="Sender.StatusesCount"/>
+                                    <Binding Path="Sender.Friends"/>
+                                    <Binding Path="Sender.Followers"/>
+                                    <Binding Path="Sender.FavouritesCount"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                             </TextBlock>
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
-                <Image Width="24" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding Path=Sender.Icon}">
+                <Image Width="24" Height="24" VerticalAlignment="Bottom" 
+                       HorizontalAlignment="Right" Source="{Binding Path=Sender.Icon}"
+                       ContextMenu="{StaticResource UserMenu}">
                     <Image.ToolTip>
                         <StackPanel MaxWidth="400">
                             <TextBlock FontWeight="Bold">
@@ -169,7 +177,8 @@
                 <StackPanel Orientation="Horizontal">
                     <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=ReTweetedStatus.Sender.ScreenName}" ToolTip="{Binding Path=ReTweetedStatus.Sender.Name}"
                                                           FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                          Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding Path=ReTweetedStatus}"/>
+                                                          Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding Path=ReTweetedStatus}"
+                                                          ContextMenu="{StaticResource UserMenu}"/>
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Style="{DynamicResource NewImageStyle}"/>
                 </StackPanel>
@@ -196,16 +205,19 @@
                         <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                     </Button>
                     <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
-                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                            ContextMenu="{StaticResource ReplyButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                     </Button>
                     <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
-                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                            CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                            ContextMenu="{StaticResource RetweetStatusRetweetButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到回复条目"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到所回复的条目"
                             CommandParameter="{Binding ReTweetedStatus}" Style="{DynamicResource ImageButtonStyle}"
-                            Visibility="{Binding Path=ReTweetedStatus.IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding Path=ReTweetedStatus.IsReply, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            ContextMenu="{StaticResource MoveToReplyStatusButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
                     </Button>
                 </WrapPanel>
@@ -233,12 +245,15 @@
             </Grid.ColumnDefinitions>
             <Grid Width="48" Height="48" Margin="0,0,8,0" Grid.Column="0" VerticalAlignment="Top"
                   Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Image Width="36" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Path=Sender.Icon}" ToolTip="{Binding Path=Sender.Name}"/>
-                <Image Width="24" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding Path=Recipient.Icon}" ToolTip="{Binding Path=Recipient.Name}"/>
+                <Image Width="36" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Path=Sender.Icon}" ToolTip="{Binding Path=Sender.Name}" ContextMenu="{StaticResource UserMenu}"/>
+                <Image Width="24" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding Path=Recipient.Icon}" ToolTip="{Binding Path=Recipient.Name}" ContextMenu="{StaticResource UserMenu}"/>
             </Grid>
             <StackPanel Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                    <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" 
+                                                          FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                          Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                          ContextMenu="{StaticResource UserMenu}" />
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource ProtectImageStyle}"/>
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource NewImageStyle}"/>
                 </StackPanel>
@@ -287,16 +302,19 @@
                             <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                         </Button>
                         <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
-                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                                ContextMenu="{StaticResource ReplyButtonMenu}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                         </Button>
                         <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
-                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                                ContextMenu="{StaticResource RetweetButtonMenu}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                         </Button>
-                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到回复条目"
+                        <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.InReplyTo" ToolTip="移动到所回复的条目"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
-                            Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding Path=IsReply, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            ContextMenu="{StaticResource MoveToReplyStatusButtonMenu}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowLeftImageStyle}"/>
                         </Button>
                     </StackPanel>
@@ -305,7 +323,7 @@
             <Path Grid.Row="1" Margin="8,0,0,2" Fill="{DynamicResource BalloonBackgroundBrush}" Stretch="None" Data="M0,0L12,0L6,6Z"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Image Width="32" Height="32" Margin="0,0,4,0" VerticalAlignment="Center"
-                       Source="{Binding Path=Sender.Icon}"
+                       Source="{Binding Path=Sender.Icon}" ContextMenu="{StaticResource UserMenu}"
                        Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Image.ToolTip>
                         <StackPanel MaxWidth="400">
@@ -316,7 +334,8 @@
                 </Image>
                 <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}"
                                                       FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                      ContextMenu="{StaticResource UserMenu}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"
                        Style="{DynamicResource ProtectImageStyle}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -352,11 +371,13 @@
                             <Image Width="14" Height="14" Style="{DynamicResource FavoriteImageStyle}"/>
                         </Button>
                         <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.Reply" ToolTip="回复"
-                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                                ContextMenu="{StaticResource ReplyButtonMenu}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                         </Button>
                         <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
-                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
+                                CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                                ContextMenu="{StaticResource RetweetStatusRetweetButtonMenu}">
                             <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>
                         </Button>
                     </StackPanel>
@@ -372,7 +393,7 @@
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Grid Width="32" Height="32" Margin="0,0,4,0" VerticalAlignment="Center"
                   Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Image Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Path=ReTweetedStatus.Sender.Icon}">
+                    <Image Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" ContextMenu="{StaticResource UserMenu}" Source="{Binding Path=ReTweetedStatus.Sender.Icon}">
                         <Image.ToolTip>
                             <StackPanel MaxWidth="400">
                                 <TextBlock FontWeight="Bold">
@@ -387,7 +408,7 @@
                             </StackPanel>
                         </Image.ToolTip>
                     </Image>
-                    <Image Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding Path=Sender.Icon}">
+                    <Image Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" ContextMenu="{StaticResource UserMenu}" Source="{Binding Path=Sender.Icon}">
                         <Image.ToolTip>
                             <StackPanel MaxWidth="400">
                                 <TextBlock FontWeight="Bold">
@@ -405,7 +426,8 @@
                 </Grid>
                 <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=ReTweetedStatus.Sender.ScreenName}" ToolTip="{Binding Path=ReTweetedStatus.Sender.Name}"
                                                       FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding Path=ReTweetedStatus}"/>
+                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding Path=ReTweetedStatus}"
+                                                      ContextMenu="{StaticResource UserMenu}" />
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
                        Style="{DynamicResource NewImageStyle}"/>
             </StackPanel>
@@ -444,12 +466,13 @@
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Grid Width="32" Height="32" Margin="0,0,4,0" VerticalAlignment="Center"
                       Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Image Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Path=Sender.Icon}" ToolTip="{Binding Path=Sender.Name}"/>
-                    <Image Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding Path=Recipient.Icon}" ToolTip="{Binding Path=Recipient.Name}"/>
+                    <Image Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Path=Sender.Icon}" ToolTip="{Binding Path=Sender.Name}" ContextMenu="{StaticResource UserMenu}"/>
+                    <Image Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding Path=Recipient.Icon}" ToolTip="{Binding Path=Recipient.Name}" ContextMenu="{StaticResource UserMenu}"/>
                 </Grid>
                 <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}"
                                                       FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                      ContextMenu="{StaticResource UserMenu}" />
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"
                        Style="{DynamicResource ProtectImageStyle}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -474,7 +497,10 @@
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
-                <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" 
+                                                      FontWeight="Bold" FontSize="13" VerticalAlignment="Center" 
+                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                      ContextMenu="{StaticResource UserMenu}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Style="{DynamicResource ProtectImageStyle}" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource NewImageStyle}"/>
             </StackPanel>
@@ -498,7 +524,10 @@
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
-                <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" 
+                                                      FontWeight="Bold" FontSize="13" VerticalAlignment="Center" 
+                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                      ContextMenu="{StaticResource UserMenu}" />
                 <Image Width="12" Height="12" Margin="3,0,0,0" Style="{DynamicResource ProtectImageStyle}" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource NewImageStyle}"/>
             </StackPanel>
@@ -515,7 +544,10 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <Image Width="16" Height="16" Margin="0,0,3,0" Source="{Binding Path=Sender.Icon}" ToolTip="{Binding Path=Sender.Name}" Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+                <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=Sender.ScreenName}" ToolTip="{Binding Path=Sender.Name}" 
+                                                      FontWeight="Bold" FontSize="13" VerticalAlignment="Center" 
+                                                      Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"
+                                                      ContextMenu="{StaticResource UserMenu}" />
             </StackPanel>
             <MiniTwitter_Controls:TextViewer Grid.Column="2" Text="{Binding Path=Text}" ToolTip="{Binding Path=Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
         </Grid>

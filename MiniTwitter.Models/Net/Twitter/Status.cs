@@ -333,7 +333,19 @@ namespace MiniTwitter.Net.Twitter
             }
         }
 
-        public bool IsAuthor { get; set; }
+        private bool _isAuthor;
+
+        public bool IsAuthor {
+            get { return _isAuthor; }
+            set
+            {
+                if (_isAuthor != value)
+                {
+                    _isAuthor = value;
+                    OnPropertyChanged("IsAuthor");
+                }
+            }
+        }
 
         private bool isNewest;
 

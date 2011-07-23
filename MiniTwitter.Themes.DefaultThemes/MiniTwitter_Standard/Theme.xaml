@@ -25,6 +25,10 @@
         <Setter Property="Source" Value=".\Images\arrow_left.png"/>
     </Style>
 
+    <Style x:Key="ArrowLeftImageFocusStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
+        <Setter Property="Source" Value=".\Images\arrow_left_focus.png"/>
+    </Style>
+        
     <Style x:Key="ArrowRightImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
         <Setter Property="Source" Value=".\Images\arrow_up.png"/>
     </Style>
@@ -37,6 +41,10 @@
         <Setter Property="Source" Value=".\Images\arrow_reply.png"/>
     </Style>
 
+    <Style x:Key="ArrowReplyImageFocusStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
+        <Setter Property="Source" Value=".\Images\arrow_reply_focus.png"/>
+    </Style>
+        
     <Style x:Key="ArrowReTweetImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
         <Setter Property="Source" Value=".\Images\retweet.png"/>
     </Style>
@@ -82,6 +90,10 @@
         <Setter Property="Source" Value=".\Images\cross.png"/>
     </Style>
 
+    <Style x:Key="CrossImageFocusStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
+        <Setter Property="Source" Value=".\Images\cross_focus.png"/>
+    </Style>
+        
     <Style x:Key="PopupImageStyle" TargetType="{x:Type Image}" BasedOn="{StaticResource ImageStyle}">
         <Setter Property="Source" Value=".\Images\popup.png"/>
     </Style>

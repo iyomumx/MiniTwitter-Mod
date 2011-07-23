@@ -59,6 +59,13 @@ namespace MiniTwitter.Input
             get { return Commands.reTweetApi; }
         }
 
+        private static readonly RoutedCommand unRetweetApi = new RoutedCommand("UnReTweetApi", typeof(Commands));
+
+        public static RoutedCommand UnReTweetApi
+        {
+            get { return Commands.unRetweetApi; }
+        }
+
         private static readonly RoutedCommand replyMessage = new RoutedCommand("ReplyMessage", typeof(Commands));
 
         public static RoutedCommand ReplyMessage
@@ -106,6 +113,13 @@ namespace MiniTwitter.Input
         public static RoutedCommand MoveToUserPage
         {
             get { return Commands.moveToUserPage; }
+        }
+
+        private static readonly RoutedCommand moveToUserPageByName = new RoutedCommand("MoveToUserPageByName", typeof(Commands));
+
+        public static RoutedCommand MoveToUserPageByName
+        {
+            get { return Commands.moveToUserPageByName; }
         }
 
         private static readonly RoutedCommand moveToStatusPage = new RoutedCommand("MoveToStatusPage", typeof(Commands));
@@ -255,6 +269,13 @@ namespace MiniTwitter.Input
             get { return Commands.inReplyTo; }
         }
 
+        private static readonly RoutedCommand viewConversation = new RoutedCommand("ViewConversation", typeof(Commands));
+
+        public static RoutedCommand ViewConversation
+        {
+            get { return Commands.viewConversation; }
+        }
+
         private static readonly RoutedCommand beReplied = new RoutedCommand("BeReplied", typeof(Commands));
 
         public static RoutedCommand BeReplied
@@ -276,11 +297,25 @@ namespace MiniTwitter.Input
             get { return Commands._follow; }
         }
 
+        private static readonly RoutedCommand _followbyname = new RoutedCommand("FollowByName", typeof(Commands));
+
+        public static RoutedCommand FollowByName
+        {
+            get { return Commands._followbyname; }
+        }
+
         private static readonly RoutedCommand _unfollow = new RoutedCommand("Unfollow", typeof(Commands));
 
         public static RoutedCommand Unfollow
         {
             get { return Commands._unfollow; }
+        }
+
+        private static readonly RoutedCommand _unfollowbyname = new RoutedCommand("UnfollowByName", typeof(Commands));
+
+        public static RoutedCommand UnfollowByName
+        {
+            get { return Commands._unfollowbyname; }
         }
 
         private static readonly RoutedCommand _block = new RoutedCommand("Block", typeof(Commands));
@@ -289,6 +324,13 @@ namespace MiniTwitter.Input
         {
             get { return Commands._block; }
         }
+
+        private static readonly RoutedCommand _blockbyname = new RoutedCommand("BlockByName", typeof(Commands));
+
+        public static RoutedCommand BlockByName
+        {
+            get { return Commands._blockbyname; }
+        }
         //ReportSpam 添加代码
 
         private static readonly RoutedCommand _reportSpam = new RoutedCommand("ReportSpam", typeof(Commands));
@@ -296,6 +338,13 @@ namespace MiniTwitter.Input
         public static RoutedCommand ReportSpam
         {
             get { return Commands._reportSpam; }
+        }
+
+        private static readonly RoutedCommand _reportSpamByName = new RoutedCommand("ReportSpamByName", typeof(Commands));
+
+        public static RoutedCommand ReportSpamByName
+        {
+            get { return Commands._reportSpamByName; }
         }
 
         //添加代码结束
@@ -313,6 +362,13 @@ namespace MiniTwitter.Input
             get { return Commands._viewUser; }
         }
 
+        private static readonly RoutedCommand _viewUserByName = new RoutedCommand("ViewUserByName", typeof(Commands));
+
+        public static RoutedCommand ViewUserByName
+        {
+            get { return Commands._viewUserByName; }
+        }
+
         private static readonly RoutedCommand _setTweetText = new RoutedCommand("SetTweetText", typeof(Commands));
 
         public static RoutedCommand SetTweetText
@@ -320,5 +376,60 @@ namespace MiniTwitter.Input
             get { return Commands._setTweetText; }
         }
 
+        private static readonly RoutedCommand _filterUser = new RoutedCommand("FilterUser", typeof(Commands));
+
+        public static RoutedCommand FilterUser
+        {
+            get { return Commands._filterUser; }
+        }
+
+        private static readonly RoutedCommand _filterUserByName = new RoutedCommand("FilterUserByName", typeof(Commands));
+
+        public static RoutedCommand FilterUserByName
+        {
+            get { return Commands._filterUserByName; }
+        }
+
+        private static readonly RoutedCommand _filterTag = new RoutedCommand("FilterTag", typeof(Commands));
+
+        public static RoutedCommand FilterTag
+        {
+            get { return Commands._filterTag; }
+        }
+
+        private static readonly RoutedCommand _globalFilterUser = new RoutedCommand("GlobalFilterUser", typeof(Commands));
+
+        public static RoutedCommand GlobalFilterUser
+        {
+            get { return Commands._globalFilterUser; }
+        }
+
+        private static readonly RoutedCommand _globalFilterUserByName = new RoutedCommand("GlobalFilterUserByName", typeof(Commands));
+
+        public static RoutedCommand GlobalFilterUserByName
+        {
+            get { return Commands._globalFilterUserByName; }
+        }
+
+        private static readonly RoutedCommand _globalFilterTag = new RoutedCommand("GlobalFilterTag", typeof(Commands));
+
+        public static RoutedCommand GlobalFilterTag
+        {
+            get { return Commands._globalFilterTag; }
+        }
+
+        private static readonly RoutedCommand _globalFilterAndBlockUser = new RoutedCommand("GlobalFilterAndBlockUser", typeof(Commands));
+
+        public static RoutedCommand GlobalFilterAndBlockUser
+        {
+            get { return Commands._globalFilterAndBlockUser; }
+        }
+
+        private static readonly RoutedCommand _globalFilterAndBlockUserByName = new RoutedCommand("GlobalFilterAndBlockUserByName", typeof(Commands));
+
+        public static RoutedCommand GlobalFilterAndBlockUserByName
+        {
+            get { return Commands._globalFilterAndBlockUserByName; }
+        }
     }
 }

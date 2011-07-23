@@ -92,7 +92,17 @@ namespace MiniTwitter.Net
             set { WebRequest.DefaultWebProxy = value; }
         }
 
-        public User LoginedUser { get; private set; }
+        private User _loginedUser;
+
+        public User LoginedUser
+        {
+            get { return _loginedUser; }
+            private set
+            {
+                _loginedUser = value;
+                OnPropertyChanged("LoginedUser");
+            }
+        }
 
         public bool ConvertShortUrl { get; set; }
 
@@ -924,7 +934,7 @@ namespace MiniTwitter.Net
                     list.AddRange(statuses);
                 }
 
-                list.ForEach(item => { item.IsAuthor = item.Sender.ScreenName == LoginedUser.ScreenName; });
+                list.ForEach(item => { item.IsAuthor = item.Sender.ID == LoginedUser.ID; });
 
                 return list.ToArray();// list.AsParallel().Where((status) => Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true).ToArray();
             }
@@ -1040,6 +1050,7 @@ namespace MiniTwitter.Net
                                                     StatusesCount = (int)element.Element("retweeted_status").Element("user").Element("statuses_count"),
                                                 },
                                             };
+                                            status.ReTweetedStatus.IsAuthor = status.ReTweetedStatus.Sender.ID == LoginedUser.ID;
                                         }
 
                                         if (!string.IsNullOrEmpty(element.Element("in_reply_to_status_id").Value))
@@ -1054,15 +1065,19 @@ namespace MiniTwitter.Net
 
                                         status.IsAuthor = status.Sender.ID == LoginedUser.ID;
                                         status.IsMention = status.InReplyToUserID == LoginedUser.ID;
+                                        AsyncDo(CacheOrUpdate, status);
+                                        Status cacheItem;
+                                        statusesCache.TryGetValue(status.ID, out cacheItem);
+                                        cacheItem = cacheItem ?? status;
                                         if (true)//Properties.Settings.Default.GlobalFilter.Count != 0 ? Properties.Settings.Default.GlobalFilter.AsParallel().All((filter) => filter.Process(status)) : true)
                                         {
-                                            UserStreamUpdated(this, new StatusEventArgs(status)
+                                            UserStreamUpdated(this, new StatusEventArgs(cacheItem)
                                                                     {
                                                                         Action = StatusAction.Update
                                                                     });
                                         }
 
-                                        AsyncDo(CacheOrUpdate, status);
+                                        
                                     }
                                     else if (element.Element("event") != null)
                                     {
@@ -1145,6 +1160,7 @@ namespace MiniTwitter.Net
                     target.Favorited = tweet.Favorited;
                     target.LastModified = tweet.LastModified;
                     target.ReTweetCount = tweet.ReTweetCount;
+                    target.IsAuthor = tweet.IsAuthor;
                 }
             }
             else

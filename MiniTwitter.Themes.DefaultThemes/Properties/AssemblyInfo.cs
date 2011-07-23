@@ -21,7 +21,7 @@ using MiniTwitter.Themes;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MiniTwitter.Themes.DefaultThemes")]
-[assembly: AssemblyCopyright("Copyright(C) 2008-2010 S Software")]
+[assembly: AssemblyCopyright("Copyright(C) 2008-2011 S Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -43,5 +43,5 @@ using MiniTwitter.Themes;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5.0.1")]
-[assembly: AssemblyFileVersionAttribute("1.5.0.1")]
+[assembly: AssemblyVersion("1.5.0.2")]
+[assembly: AssemblyFileVersionAttribute("1.5.0.2")]

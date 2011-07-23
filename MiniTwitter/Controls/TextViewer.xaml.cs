@@ -73,11 +73,7 @@ namespace MiniTwitter.Controls
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
         }
 
-        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>\w{2,})|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
-
-#if DEBUG
-        private readonly Stopwatch mainWatch = new Stopwatch();
-#endif
+        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>\w+(?<!#[-_A-Za-z0-9]))|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
 
         private void OnTextChanged(string text)
         {
@@ -137,21 +133,35 @@ namespace MiniTwitter.Controls
                     Hyperlink link = new Hyperlink { Tag = value };
                     link.Inlines.Add(value);
                     link.Click += UserHyperlink_Click;
+                    var menu = (ContextMenu)(Application.Current.FindResource("UserInlineMenu"));
+                    Debug.WriteLine(menu.DataContext);
                     TextBlock.Inlines.Add("@");
                     TextBlock.Inlines.Add(link);
+                    link.DataContext = value;
+                    link.ContextMenuOpening += new ContextMenuEventHandler((snd, __) => {
+                        Hyperlink ctxMenu = (Hyperlink)snd;
+                        this.Invoke(() => ctxMenu.ContextMenu.DataContext = value);
+                    });
+                    link.ContextMenu = menu;
                 }
                 else if (value.StartsWith("#"))
                 {
                     Hyperlink link = new Hyperlink { Tag = value };
                     link.Inlines.Add(value);
                     link.Click += HashtagHyperlink_Click;
+                    link.ContextMenu = (ContextMenu)Application.Current.FindResource("HashTagMenu");
+                    link.ContextMenuOpening += new ContextMenuEventHandler((s, _) =>
+                    {
+                        Hyperlink ctxMenu = (Hyperlink)s;
+                        this.Invoke(() => ctxMenu.ContextMenu.DataContext = value);
+                    });
                     TextBlock.Inlines.Add(link);
                 }
                 else
                 {
                     // URL記法
                     Hyperlink link = new Hyperlink { Tag = value, ToolTip = value };
-                    link.ToolTipOpening += Hyperlink_ToolTipOpening;//new ToolTipEventHandler(Hyperlink_ToolTipOpening);
+                    link.ToolTipOpening += Hyperlink_ToolTipOpening;
                     link.Inlines.Add(value);
                     link.Click += Hyperlink_Click;
                     TextBlock.Inlines.Add(link);
@@ -173,18 +183,7 @@ namespace MiniTwitter.Controls
                 if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
-#if DEBUG
-                    if (!mainWatch.IsRunning)
-                    {
-                        mainWatch.Start();
-                    }
-                    long start = mainWatch.ElapsedMilliseconds;
-#endif
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
-#if DEBUG
-                    long time = mainWatch.ElapsedMilliseconds - start;
-                    Debug.WriteLine("Insert takes {0}ms",time);
-#endif
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/img\.ly\/(.+?)"))
@@ -222,12 +221,19 @@ namespace MiniTwitter.Controls
                     {
                         CacheUrl(url, u =>
                         {
-                            var client = new WebClient();
-                            var contents = client.DownloadString(u);
-                            var _match = Regex.Match(u, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
-                            _match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", _match.Groups[2].Value));
+                            try
+                            {
+                                var client = new WebClient();
+                                var contents = client.DownloadString(u);
+                                var _match = Regex.Match(u, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)");
+                                _match = Regex.Match(contents, string.Format(@"<img id=\""foto-for-html-tag-{0}\"" src=\""(.+?)\""", _match.Groups[2].Value));
 
-                            return new Uri(_match.Groups[1].Value);
+                                return new Uri(_match.Groups[1].Value);
+                            }
+                            catch
+                            {
+                                return new Uri(url);
+                            }
                         });
                     }
                     else
@@ -243,11 +249,18 @@ namespace MiniTwitter.Controls
                     {
                         CacheUrl(url, u =>
                         {
-                            var client = new WebClient();
-                            var contents = client.DownloadString(u);
-                            var _match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
+                            try
+                            {
+                                var client = new WebClient();
+                                var contents = client.DownloadString(u);
+                                var _match = Regex.Match(contents, @"<img class=\""image\"" src=\""(.+?)\""");
 
-                            return new Uri(_match.Groups[1].Value);
+                                return new Uri(_match.Groups[1].Value);
+                            }
+                            catch
+                            {
+                                return new Uri(url);
+                            }
                         });
                     }
                     else
@@ -270,10 +283,17 @@ namespace MiniTwitter.Controls
                     {
                         CacheUrl(url, u =>
                         {
-                            var client = new WebClient();
-                            var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", u));
-                            var _match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
-                            return new Uri(_match.Groups[1].Value);
+                            try
+                            {
+                                var client = new WebClient();
+                                var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", u));
+                                var _match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
+                                return new Uri(_match.Groups[1].Value);
+                            }
+                            catch
+                            {
+                                return new Uri(url);
+                            }
                         });
                     }
                     else
@@ -558,6 +578,17 @@ namespace MiniTwitter.Controls
                         if (Settings.Default.AntiShortUrlTracking && url2 != url)
                         {
                             this.Invoke(() => hyperlink.Tag = url2);
+                        }
+                    }
+                    if (Regex.IsMatch(url, @"http://cli\.gs/[A-Za-z0-9]+"))
+                    {
+                        try
+                        {
+                            url2 = (new WebClient()).DownloadString("http://cli.gs/api/v1/cligs/expand?clig=" + url);
+                        }
+                        catch
+                        {
+                            url2 = url;
                         }
                     }
                     try
