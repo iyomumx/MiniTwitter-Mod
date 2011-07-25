@@ -431,5 +431,12 @@ namespace MiniTwitter.Input
         {
             get { return Commands._globalFilterAndBlockUserByName; }
         }
+
+        private static readonly RoutedCommand _navigateTo = new RoutedCommand("NavigateTo", typeof(Commands));
+
+        public static RoutedCommand NavigateTo
+        {
+            get { return Commands._navigateTo; }
+        }
     }
 }

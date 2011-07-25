@@ -168,7 +168,12 @@
     </ContextMenu>
 
     <ContextMenu x:Key="MoveToReplyStatusButtonMenu">
-        <MenuItem Header="移动到所回复的条目(_M)" Command="MiniTwitter_Input:Commands.InReplyTo" CommandParameter="{Binding}" />
+        <MenuItem Header="查看回复的推(_M)" Command="MiniTwitter_Input:Commands.InReplyTo" CommandParameter="{Binding}" />
+        <MenuItem Header="查看对话线(_V)" Command="MiniTwitter_Input:Commands.ViewConversation" CommandParameter="{Binding}" />
+    </ContextMenu>
+
+    <ContextMenu x:Key="MoveToMentionedStatusButtonMenu">
+        <MenuItem Header="查看对此推的回复(_M)" Command="MiniTwitter_Input:Commands.BeReplied" CommandParameter="{Binding}" />
         <MenuItem Header="查看对话线(_V)" Command="MiniTwitter_Input:Commands.ViewConversation" CommandParameter="{Binding}" />
     </ContextMenu>
 
@@ -206,7 +211,17 @@
         <MenuItem Header="过滤标签(_F)" Command="MiniTwitter_Input:Commands.FilterTag" CommandParameter="{Binding}" />
         <MenuItem Header="全局过滤标签(_G)" Command="MiniTwitter_Input:Commands.GlobalFilterTag" CommandParameter="{Binding}" />
     </ContextMenu>
-        
+
+    <ContextMenu x:Key="SourceMenu">
+        <MenuItem Header="打开来源网址(_O)" Command="MiniTwitter_Input:Commands.MoveToSourcePage" CommandParameter="{Binding}" />
+        <MenuItem Header="复制来源网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=SourceUri}"/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="LinkInlineMenu">
+        <MenuItem Header="打开网址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding}" />
+        <MenuItem Header="复制网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding}"/>
+    </ContextMenu>
+
     <ContextMenu x:Key="TextBoxContextMenu">
         <MenuItem Header="撤销(_U)" Command="ApplicationCommands.Undo"/>
         <Separator/>
@@ -272,6 +287,13 @@
             <Separator />
             <MenuItem Header="阻止(_B)" Command="MiniTwitter_Input:Commands.Block" CommandParameter="{Binding}" />
             <MenuItem Header="报告广告账户(_R)" Command="MiniTwitter_Input:Commands.ReportSpam" CommandParameter="{Binding}" />
+            <Separator />
+            <MenuItem Header="查看用户时间线(_O)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+            <MenuItem Header="复制用户名(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Sender.ScreenName}"/>
+            <Separator />
+            <MenuItem Header="过滤用户(_I)" Command="MiniTwitter_Input:Commands.FilterUser" CommandParameter="{Binding}" />
+            <MenuItem Header="全局过滤用户(_I)" Command="MiniTwitter_Input:Commands.GlobalFilterUser" CommandParameter="{Binding}" />
+            <MenuItem Header="全局过滤并阻止用户(_I)" Command="MiniTwitter_Input:Commands.GlobalFilterAndBlockUser" CommandParameter="{Binding}" />
         </MenuItem>
         <Separator/>
         <MenuItem Header="复制(_C)">

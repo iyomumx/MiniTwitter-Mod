@@ -1535,7 +1535,7 @@ namespace MiniTwitter
         {
             try
             {
-                Process.Start("https://twitter.com/home");
+                Process.Start(Settings.Default.LinkUrl + "home");
             }
             catch
             {
@@ -1920,7 +1920,7 @@ namespace MiniTwitter
                 var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
                 try
                 {
-                    Process.Start("https://twitter.com/" + item.Sender.ScreenName);
+                    Process.Start(Settings.Default.LinkUrl + item.Sender.ScreenName);
                 }
                 catch
                 {
@@ -1939,7 +1939,7 @@ namespace MiniTwitter
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             try
             {
-                Process.Start(string.Format("https://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
+                Process.Start(string.Format("{2}{0}/statuses/{1}", item.Sender.ScreenName, item.ID, Settings.Default.LinkUrl));
             }
             catch
             {
@@ -1952,7 +1952,7 @@ namespace MiniTwitter
             var item = (Status)(e.Parameter ?? GetSelectedItem());
             try
             {
-                Process.Start(string.Format("https://twitter.com/{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID));
+                Process.Start(string.Format("{2}{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID, Settings.Default.LinkUrl));
             }
             catch
             {
@@ -1992,7 +1992,7 @@ namespace MiniTwitter
 
         private void CopyCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var text = (string)e.Parameter;
+            var text = e.Parameter.ToString();
             if (text.IsNullOrEmpty())
             {
                 var item = (ITwitterItem)GetSelectedItem();
@@ -2002,13 +2002,21 @@ namespace MiniTwitter
                 }
                 text = item.Text;
             }
-            Clipboard.SetText(text);
+            try
+            {
+                Clipboard.SetText(text);
+            }
+            catch
+            {
+                MessageBox.Show("访问剪贴板失败！");
+            }
+
         }
 
         private void CopyUrlCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-            Clipboard.SetText(string.Format("https://twitter.com/{0}/statuses/{1}", item.Sender.ScreenName, item.ID));
+            Clipboard.SetText(string.Format("{2}{0}/statuses/{1}", item.Sender.ScreenName, item.ID, Settings.Default.LinkUrl));
         }
 
         private void SortCategoryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -3021,7 +3029,7 @@ namespace MiniTwitter
             {
                 try
                 {
-                    Process.Start("https://twitter.com/" + value);
+                    Process.Start(Settings.Default.LinkUrl + value);
                 }
                 catch
                 {
@@ -3188,7 +3196,7 @@ namespace MiniTwitter
         {
             try
             {
-                Process.Start("https://twitter.com/" + e.Parameter as string);
+                Process.Start(Settings.Default.LinkUrl + e.Parameter as string);
             }
             catch
             {

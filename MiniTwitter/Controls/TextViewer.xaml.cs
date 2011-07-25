@@ -164,6 +164,12 @@ namespace MiniTwitter.Controls
                     link.ToolTipOpening += Hyperlink_ToolTipOpening;
                     link.Inlines.Add(value);
                     link.Click += Hyperlink_Click;
+                    link.ContextMenu = (ContextMenu)Application.Current.FindResource("LinkInlineMenu");
+                    link.ContextMenuOpening += new ContextMenuEventHandler((sender_, ____) =>
+                    {
+                        var hl = ((Hyperlink)sender_).ContextMenu;
+                        hl.DataContext = value;
+                    });
                     TextBlock.Inlines.Add(link);
                     if (Settings.Default.ImageInline) //使用图片预览
                     {
@@ -311,9 +317,6 @@ namespace MiniTwitter.Controls
 
         private Inline GetImageControl(Uri uri, string url)
         {
-#if DEBUG
-            long start = mainWatch.ElapsedMilliseconds;
-#endif
             InlineUIContainer cacheItem = GetImage(url);
             InlineUIContainer container;
             if (cacheItem != null)          //命中缓存
@@ -330,12 +333,13 @@ namespace MiniTwitter.Controls
             link.Tag = url;
             link.ToolTip = url;
             link.Click += Hyperlink_Click;
-            
+            link.ContextMenu = (ContextMenu)Application.Current.FindResource("LinkInlineMenu");
+            link.ContextMenuOpening += new ContextMenuEventHandler((sender_, ____) =>
+            {
+                var hl = (Hyperlink)sender_;
+                hl.DataContext = hl.Tag;
+            });
             link.TextDecorations = null;
-#if DEBUG
-            long time = mainWatch.ElapsedMilliseconds - start;
-            Debug.WriteLine("Get Control takes {0}ms", time);
-#endif
             return link;
         }
 
@@ -682,6 +686,18 @@ namespace MiniTwitter.Controls
             return result;
         }
         #endregion
+
+        private void NavigateToCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start((string)e.Parameter);
+            }
+            catch
+            {
+                MessageBox.Show("无法打开浏览器", App.NAME);
+            }
+        }
 
     }
 }

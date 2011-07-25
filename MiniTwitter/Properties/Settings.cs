@@ -63,6 +63,7 @@ namespace MiniTwitter.Properties
             NowPlayingFormat = "♪{0} - {1}({2})";
             ImageInline = false;
             MaxTweetCount = 10000;
+            LinkUrl = "https://twitter.com/";
         }
 
         /// <summary>

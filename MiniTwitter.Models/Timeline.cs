@@ -53,10 +53,10 @@ namespace MiniTwitter
 
         public static void SetFilter(ObservableCollection<Filter> filters)
         {
-            GlobalFilter = filters?? new ObservableCollection<Filter>();
+            GlobalFilter = filters ?? new ObservableCollection<Filter>();
         }
 
-        public static readonly Predicate<Object> commonPredicate= item =>
+        public static readonly Predicate<Object> commonPredicate = item =>
             {
                 var twitterItem = (ITwitterItem)item;
                 return GlobalFilter.Count == 0 || GlobalFilter.AsParallel().All(filter => filter.Process(twitterItem));
