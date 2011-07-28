@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>j7MaNLQy1BTwWUa3XBVh0X9jiR4=</dsig:DigestValue>
+        <dsig:DigestValue>AC2skeWHrb3g/4Q+l1S1oeSPqOc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>XvdwyfDkjCDxO5wRBFvQy9kKEOU=</dsig:DigestValue>
+        <dsig:DigestValue>H0Iw/HMd21T9HhafRkuzpuSJtS8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,19 +74,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>J4R0Hyc6Ah91+v/tIWMkVsajnYE=</dsig:DigestValue>
+        <dsig:DigestValue>bx3jVTbkKjPwRJg6nmNQUWX+V3E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ja-JP\MiniTwitter.resources.dll" size="77312">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ja-JP\MiniTwitter.resources.dll" size="394240">
       <assemblyIdentity name="MiniTwitter.resources" version="1.6.6.9" publicKeyToken="6DFEA62674C620D3" language="ja-JP" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>IjCSYe3679PDSQoFOeQ2d96DjQ4=</dsig:DigestValue>
+        <dsig:DigestValue>u5FoGy8DJs+foamkSx/CWS7oXcs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>i8SSJZhN9QUDVyuj34KR9RdPM58=</dsig:DigestValue>
+        <dsig:DigestValue>+WvMTwh7BLNZ+5esQjuQw3H31sk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -110,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6HT95aberKZk7NA6Mb83yt071ns=</dsig:DigestValue>
+        <dsig:DigestValue>ZnWkOi44hINxAZs7whPAMKzQ4mk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -122,7 +122,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>yOOIZwHvTsYAr/gsHgmNXWf/9VU=</dsig:DigestValue>
+        <dsig:DigestValue>naQnRe+1uRie3mVIeRU0Bf4QcAc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -178,4 +178,4 @@
       <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>-->
     </application>
   </compatibility>
-<publisherIdentity name="CN=iyome" issuerKeyHash="47877c93d2e6a3a4e687e65c4b5950e22583d081" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>QrOTe89CViCYZVbV+IOP3UGHlho=</DigestValue></Reference></SignedInfo><SignatureValue>na+Q97Lw/vueWncH54R80HKvDMU0wrT6EKdL7WRedhfNFcIHPayDqyp5cU00gPSE+8vnrZIgbS9AKGDqRL51DD93iSDtD5Pia4S+65kcfyPPyC/LdWY4ywFG5hyhz/aysJLow9t9hi8KqwHKEJ1Mhap3Nl9NXILD8ogKvBRzpuY=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sH8njwl3p/MJMhFeBt5xgZkTdzrweTo8mnEQ+ssrtNt5FUCBu+ukB4Sh7daGBJG21l0Bd2oYt4TOzhis3xsPncGvrTKtvpQDTjSe/Awg5rR8zf8dh1SjnL7U4p1ROGJq8TRRG1ccZL+SOKpsivMddDArvsfwc25q1HrGqY/rLLs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="1a968741dd8f83f8d5566598205642cf7b93b342" Description="" Url=""><as:assemblyIdentity version="1.6.7.15" name="MiniTwitter.exe" publicKeyToken="83e2ffee46f73431" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=iyome</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>ftLbM88B/rzWUtsUQiBEMpEtXVw=</DigestValue></Reference></SignedInfo><SignatureValue>h9wUI+fQD1DNWBG8rUJtR2OTS4/p6741dUVsYwC1YRgwjBOu2LgIFYK5Qb8BMmvq55Qf9ALw5fk3Lv2I6INOfQbxS44dq1LaAAd8cmQBu8bq1s4lKSWYHTbNydrzc1eVGJ4YJXglkvNp/htnO+fTFUbzWKsqym48hihWNiC4I30=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sH8njwl3p/MJMhFeBt5xgZkTdzrweTo8mnEQ+ssrtNt5FUCBu+ukB4Sh7daGBJG21l0Bd2oYt4TOzhis3xsPncGvrTKtvpQDTjSe/Awg5rR8zf8dh1SjnL7U4p1ROGJq8TRRG1ccZL+SOKpsivMddDArvsfwc25q1HrGqY/rLLs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIICGTCCAYagAwIBAgIQKBs+j0spZqNGlx4vknMGBjAJBgUrDgMCHQUAMBAxDjAMBgNVBAMTBWl5b21lMB4XDTEwMDcwNjE2MDAwMFoXDTEyMTIyMTE2MDAwMFowEDEOMAwGA1UEAxMFaXlvbWUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALB/J48Jd6fzCTIRXgbecYGZE3c68Hk6PJpxEPrLK7TbeRVAgbvrpAeEoe3WhgSRttZdAXdqGLeEzs4YrN8bD53Br60yrb6UA040nvwMIOa0fM3/HYdUo5y+1OKdUThiavE0URtXHGS/kjiqbIrzHXQwK77H8HNuatR6xqmP6yy7AgMBAAGjfDB6MCAGA1UdBAEB/wQWMBQwDjAMBgorBgEEAYI3AgEVAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAzBBBgNVHQEEOjA4gBDvK4lIR65DduInmctarvNZoRIwEDEOMAwGA1UEAxMFaXlvbWWCECgbPo9LKWajRpceL5JzBgYwCQYFKw4DAh0FAAOBgQAnzYHD5OIgKs5wh5srCiBpEC2+BMXfyVh8eWaEIAgxUpvRZBG2Su65WRX1Ar+7jxhN2FYHzKlw1tuGzxTg0IQaAxYRtzqXLuxCZ/w06NzLi3K/1xcnbEN6rHPFH7muUfzCohk7LFZe7u6w1FCl/oxpv1FbFHrpmq99Xs1/mtvvCQ==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
+<publisherIdentity name="CN=iyome" issuerKeyHash="47877c93d2e6a3a4e687e65c4b5950e22583d081" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>ZHu+Vc6BzMX0h5NjuEiDvysMKvY=</DigestValue></Reference></SignedInfo><SignatureValue>d2x4Mre5TtXlwdYfh+KPhfp9r80eMsdQtJ4Bx37Lf7L8VtomMVzAEfcOPK/Sk3POoFWSztsh3ONu5yY+T5Kkxee0IXCT9rB+FfyPHz0xikBx6ockUlx/mMZbJJAkGj5AMVSGeJKzZOavITB2o9LEF5GGgj2Xvj7X0lbVBGVVRvI=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sH8njwl3p/MJMhFeBt5xgZkTdzrweTo8mnEQ+ssrtNt5FUCBu+ukB4Sh7daGBJG21l0Bd2oYt4TOzhis3xsPncGvrTKtvpQDTjSe/Awg5rR8zf8dh1SjnL7U4p1ROGJq8TRRG1ccZL+SOKpsivMddDArvsfwc25q1HrGqY/rLLs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="f62a0c2bbf8348b8639387f4c5cc81ce55be7b64" Description="" Url=""><as:assemblyIdentity version="1.6.7.15" name="MiniTwitter.exe" publicKeyToken="83e2ffee46f73431" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=iyome</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>U5uBH5OEioZ9rW7kKNKgiQ/X3o8=</DigestValue></Reference></SignedInfo><SignatureValue>EhWjX5Kiv91itx+yMkYEtSmPlfdgW+bEembn4sXXRkCqywO3xO0WDo+tLcOXrBC3a7myFUo0x1X5997Htn1aCWBVyeMlGTh2dLf5xwl6tIFlstPnr94lZQkByKDrQrO3HzKAVGUr0uKw9WemEuxAjv6NTkfokO5P5vhk6raydO4=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sH8njwl3p/MJMhFeBt5xgZkTdzrweTo8mnEQ+ssrtNt5FUCBu+ukB4Sh7daGBJG21l0Bd2oYt4TOzhis3xsPncGvrTKtvpQDTjSe/Awg5rR8zf8dh1SjnL7U4p1ROGJq8TRRG1ccZL+SOKpsivMddDArvsfwc25q1HrGqY/rLLs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIICGTCCAYagAwIBAgIQKBs+j0spZqNGlx4vknMGBjAJBgUrDgMCHQUAMBAxDjAMBgNVBAMTBWl5b21lMB4XDTEwMDcwNjE2MDAwMFoXDTEyMTIyMTE2MDAwMFowEDEOMAwGA1UEAxMFaXlvbWUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALB/J48Jd6fzCTIRXgbecYGZE3c68Hk6PJpxEPrLK7TbeRVAgbvrpAeEoe3WhgSRttZdAXdqGLeEzs4YrN8bD53Br60yrb6UA040nvwMIOa0fM3/HYdUo5y+1OKdUThiavE0URtXHGS/kjiqbIrzHXQwK77H8HNuatR6xqmP6yy7AgMBAAGjfDB6MCAGA1UdBAEB/wQWMBQwDjAMBgorBgEEAYI3AgEVAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAzBBBgNVHQEEOjA4gBDvK4lIR65DduInmctarvNZoRIwEDEOMAwGA1UEAxMFaXlvbWWCECgbPo9LKWajRpceL5JzBgYwCQYFKw4DAh0FAAOBgQAnzYHD5OIgKs5wh5srCiBpEC2+BMXfyVh8eWaEIAgxUpvRZBG2Su65WRX1Ar+7jxhN2FYHzKlw1tuGzxTg0IQaAxYRtzqXLuxCZ/w06NzLi3K/1xcnbEN6rHPFH7muUfzCohk7LFZe7u6w1FCl/oxpv1FbFHrpmq99Xs1/mtvvCQ==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
