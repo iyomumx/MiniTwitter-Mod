@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.Serialization.Json
+﻿Imports System.Collections.Concurrent
+Imports System.Runtime.Serialization.Json
 Imports System.Text.RegularExpressions
 
 Public Class UrlShorter
@@ -6,7 +7,7 @@ Public Class UrlShorter
 
     Public Const scope As String = "https://www.googleapis.com/auth/urlshortener"
 
-    Private Shared ReadOnly cache As Dictionary(Of String, String) = New Dictionary(Of String, String)()
+    Private Shared ReadOnly cache As ConcurrentDictionary(Of String, String) = New ConcurrentDictionary(Of String, String)()
 
     Public Sub New()
         Me.New("anonymous", "anonymous")
@@ -68,12 +69,12 @@ Public Class UrlShorter
         End Try
         If r IsNot Nothing Then
             If r.id <> LongUrl Then
-                cache.Add(LongUrl, r.id)
+                cache.TryAdd(LongUrl, r.id)
                 Return r.id
             ElseIf optFunc IsNot Nothing Then
                 Dim r2 = optFunc(LongUrl)
                 If r2 <> LongUrl Then
-                    cache.Add(LongUrl, r2)
+                    cache.TryAdd(LongUrl, r2)
                     Return r2
                 End If
             End If
@@ -82,7 +83,7 @@ Public Class UrlShorter
     End Function
 
     Public Function GetOriginalUrl(ByVal shortUrl As String) As String
-        If cache.ContainsValue(shortUrl) Then
+        If cache.Select(Function(kvp) kvp.Value).Contains(shortUrl) Then
             Return (From kvp In cache.AsParallel() Where kvp.Value = shortUrl Select kvp.Key).First()
         Else
             Dim ret = GetExpandReturn(shortUrl).longUrl

@@ -218,8 +218,13 @@
     </ContextMenu>
 
     <ContextMenu x:Key="LinkInlineMenu">
-        <MenuItem Header="打开网址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding}" />
-        <MenuItem Header="复制网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding}"/>
+        <MenuItem Header="打开网址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding Path=Url}" />
+        <MenuItem Header="复制网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Url}"/>
+        <Separator Visibility="{Binding Path=IsDifferent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <MenuItem Header="打开短网址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding Path=OriginalUrl}" 
+                  Visibility="{Binding Path=IsDifferent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <MenuItem Header="复制短网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=OriginalUrl}"
+                  Visibility="{Binding Path=IsDifferent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </ContextMenu>
 
     <ContextMenu x:Key="TextBoxContextMenu">
@@ -261,7 +266,7 @@
         <Separator/>
         <MenuItem Command="MiniTwitter_Input:Commands.Favorite" CommandParameter="{Binding}" Style="{StaticResource FavoriteMenuItemStyle}"/>
         <Separator Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <MenuItem Header="删除此推(_X)" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
+        <MenuItem Header="删除此推(_X)" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
         <Separator Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <MenuItem Header="全部设为已读(_R)" Command="MiniTwitter_Input:Commands.ReadAll" Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <Separator/>

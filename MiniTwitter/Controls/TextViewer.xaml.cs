@@ -73,7 +73,7 @@ namespace MiniTwitter.Controls
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
         }
 
-        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|#(?<hash>\w+(?<!#[-_A-Za-z0-9]))|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
+        private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|(?<=^|\W)#(?<hash>\w+)|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
 
         private void OnTextChanged(string text)
         {
@@ -152,8 +152,8 @@ namespace MiniTwitter.Controls
                     link.ContextMenu = (ContextMenu)Application.Current.FindResource("HashTagMenu");
                     link.ContextMenuOpening += new ContextMenuEventHandler((s, _) =>
                     {
-                        Hyperlink ctxMenu = (Hyperlink)s;
-                        this.Invoke(() => ctxMenu.ContextMenu.DataContext = value);
+                        Hyperlink Link = (Hyperlink)s;
+                        this.Invoke(() => Link.ContextMenu.DataContext = value);
                     });
                     TextBlock.Inlines.Add(link);
                 }
@@ -167,8 +167,17 @@ namespace MiniTwitter.Controls
                     link.ContextMenu = (ContextMenu)Application.Current.FindResource("LinkInlineMenu");
                     link.ContextMenuOpening += new ContextMenuEventHandler((sender_, ____) =>
                     {
-                        var hl = ((Hyperlink)sender_).ContextMenu;
-                        hl.DataContext = value;
+                        var hl = (Hyperlink)sender_;
+                        string url;
+                        if (hl.ToolTip is TextBlock)
+                        {
+                            url = ((TextBlock)hl.ToolTip).Text;
+                        }
+                        else
+                        {
+                            url = hl.ToolTip as string;
+                        }
+                        hl.ContextMenu.DataContext = new { Url = url, OriginalUrl = value, IsDifferent = url != value };
                     });
                     TextBlock.Inlines.Add(link);
                     if (Settings.Default.ImageInline) //使用图片预览
@@ -686,18 +695,5 @@ namespace MiniTwitter.Controls
             return result;
         }
         #endregion
-
-        private void NavigateToCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start((string)e.Parameter);
-            }
-            catch
-            {
-                MessageBox.Show("无法打开浏览器", App.NAME);
-            }
-        }
-
     }
 }

@@ -63,7 +63,7 @@ namespace MiniTwitter
             {
                 if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
                 {
-                    Version.Text = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+                    Version.Text = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + " dev";
                 }
                 else
                 {

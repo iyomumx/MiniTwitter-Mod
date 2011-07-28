@@ -298,6 +298,7 @@ namespace MiniTwitter.Net.Twitter
                                         {
                                             using (var client = new WebClient())
                                             {
+                                                client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.Revalidate);
                                                 var data = client.DownloadData(imageUrl);
                                                 var stream = new MemoryStream(data);
                                                 var bitmap = new BitmapImage();

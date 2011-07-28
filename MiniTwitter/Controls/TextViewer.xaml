@@ -33,8 +33,5 @@
             </Border>
         </Popup>
     </UserControl.Resources>
-    <UserControl.CommandBindings>
-        <CommandBinding Command="MiniTwitter_Input:Commands.NavigateTo" Executed="NavigateToCommand_Executed" />    
-    </UserControl.CommandBindings>
     <TextBlock x:Name="TextBlock" TextWrapping="{Binding ElementName=UserControl, Path=TextWrapping}" TextTrimming="{Binding ElementName=UserControl, Path=TextTrimming}"/>
 </UserControl>

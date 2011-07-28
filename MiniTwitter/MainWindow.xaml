@@ -40,7 +40,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.ReTweet" Executed="ReTweetCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" CanExecute="ReTweetApiCommand_CanExecuted" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ReplyMessage" Executed="ReplyMessageCommand_Executed"/>
-        <CommandBinding Command="MiniTwitter_Input:Commands.Delete" Executed="DeleteCommand_Executed"/>
+        <CommandBinding Command="MiniTwitter_Input:Commands.Delete" Executed="DeleteCommand_Executed" CanExecute="DeleteCammand_CanExecute"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Favorite" Executed="FavoriteCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.TimelineStyle" Executed="TimelineStyleCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.MoveToUserPage" Executed="MoveToUserPageCommand_Executed"/>
@@ -88,6 +88,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.MoveToUserPageByName" Executed="MoveToUserPageByNameCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterTag" Executed="GlobalFilterTagCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.FilterTag" Executed="FilterTagCommand_Executed" CanExecute="FilterUserCommand_CanExecute" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.NavigateTo" Executed="NavigateToCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
@@ -172,7 +173,9 @@
                                 <Button.ToolTip>
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="发送失败，点击重新编辑，原文："/>
-                                        <TextBlock Text="{Binding}"/>
+                                        <TextBlock Text="{Binding Path=StatusText}"/>
+                                        <TextBlock Text="{Binding Path=In_Reply_To_Status_User_Name, StringFormat={}回复：{0}}" 
+                                                   Visibility="{Binding Path=In_Reply_To_Status_Id.HasValue, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                     </StackPanel>
                                 </Button.ToolTip>
                                 <Image Style="{DynamicResource ArrowLeftImageStyle}" Height="15" Width="15"/>

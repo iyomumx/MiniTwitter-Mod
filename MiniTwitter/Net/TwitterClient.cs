@@ -352,7 +352,7 @@ namespace MiniTwitter.Net
             {
                 if (UpdateFailure != null)
                 {
-                    UpdateFailure(this, new UpdateFailedEventArgs(text,e));
+                    UpdateFailure(this, new UpdateFailedEventArgs(text, replyId, e));
                 }
             }
         }
@@ -372,7 +372,7 @@ namespace MiniTwitter.Net
             {
                 if (UpdateFailure != null)
                 {
-                    UpdateFailure(this, new UpdateFailedEventArgs(text, e));
+                    UpdateFailure(this, new UpdateFailedEventArgs(text, null, e));
                 }
             }
         }
@@ -1254,6 +1254,27 @@ namespace MiniTwitter.Net
         private void AsyncDo<T>(Action<T> action,T state)
         {
             ThreadPool.QueueUserWorkItem(s => action((T)s), state);
+        }
+
+        public string StatusIDToUserName(ulong statusID)
+        {
+            Status target;
+            statusesCache.TryGetValue(statusID, out target);
+            if (target == null)
+            {
+                return null;
+            }
+            else
+            {
+                return target.Sender.ScreenName;
+            }
+        }
+
+        public Status GetStatusFromCache(ulong id)
+        {
+            Status target;
+            statusesCache.TryGetValue(id, out target);
+            return target;
         }
 
         private SpinLock updateLock = 

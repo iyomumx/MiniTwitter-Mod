@@ -44,7 +44,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="0">
+        <ListBox Grid.Column="0" Grid.Row="0" Width="145" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource CategoryListBoxStyle}" ItemContainerStyle="{DynamicResource CategoryListBoxItemStyle}" SelectedIndex="1">
             <ListBoxItem x:Name="AccountListBoxItem" IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AccountImageStyle}"/>
@@ -170,6 +170,8 @@
             <TextBox x:Name="ProxyPortNumber" Width="70" Canvas.Left="120" Canvas.Top="99" Text="{Binding Path=ProxyPortNumber}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
             <TextBox x:Name="ProxyUsername" Width="200" Canvas.Left="120" Canvas.Top="127" Text="{Binding Path=ProxyUsername}" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
             <PasswordBox x:Name="ProxyPasswordBox" Width="200" Canvas.Left="120" Canvas.Top="155" IsEnabled="{Binding Path=IsChecked, ElementName=UseProxyCheckBox}"/>
+            <TextBlock Canvas.Left="14" Canvas.Top="240" Text="Twitter主URL" TextWrapping="Wrap" />
+            <TextBox Canvas.Left="146" Canvas.Top="237" Name="LinkUrlBox" Text="{Binding Path=LinkUrl}" Width="174" />
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=RefreshListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <CheckBox x:Name="AutoRefreshCheckBox" Content="打开自动刷新" Canvas.Left="14" Canvas.Top="14" IsChecked="{Binding Path=EnableAutoRefresh}"/>
