@@ -473,6 +473,8 @@ namespace MiniTwitter.Properties
 
         public int PopupCloseTick { get; set; }
 
+        public bool SSLUserImage { get; set; }
+
         private PopupLocation _popupLocation;
 
         public PopupLocation PopupLocation

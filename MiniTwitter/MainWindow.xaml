@@ -136,7 +136,7 @@
                     <ListBox.Resources>
                         <DataTemplate DataType="{x:Type MiniTwitter_Net_Twitter:User}">
                             <StackPanel Orientation="Horizontal" Margin="0,2,0,2">
-                                <Image Source="{Binding Path=ImageUrl}" Width="18" Height="18" Margin="0,0,2,0" />
+                                <Image Source="{Binding Path=Icon}" Width="18" Height="18" Margin="0,0,2,0" />
                                 <TextBlock Text="@" VerticalAlignment="Center" />
                                 <TextBlock Text="{Binding Path=ScreenName}" VerticalAlignment="Center" />
                             </StackPanel>

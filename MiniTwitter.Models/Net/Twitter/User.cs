@@ -226,6 +226,7 @@ namespace MiniTwitter.Net.Twitter
                 }
             }
         }
+        public static bool SSLUserImage { get; set; }
 
         private string imageUrl;
 
@@ -239,10 +240,36 @@ namespace MiniTwitter.Net.Twitter
                 {
                     imageUrl = value;
                     OnPropertyChanged("ImageUrl");
+                    if (!SSLUserImage) OnPropertyChanged("UserImage");
+                }
+            }
+        }
+        
+        private string imageUrlSSL;
+
+        [XmlElement("profile_image_url_https")]
+        public string ImageUrlSSL
+        {
+            get { return imageUrlSSL; }
+            set
+            {
+                if (imageUrlSSL != value)
+                {
+                    imageUrlSSL = value;
+                    OnPropertyChanged("ImageUrlSSL");
+                    if (!SSLUserImage) OnPropertyChanged("UserImage");
                 }
             }
         }
 
+        [XmlIgnore]
+        public string UserImage
+        {
+            get
+            {
+                return SSLUserImage ? imageUrlSSL : imageUrl;
+            }
+        }
         [NonSerialized]
         private ImageSource _icon;
 
@@ -262,23 +289,24 @@ namespace MiniTwitter.Net.Twitter
                 {
                     lock (_iconCache)
                     {
-                        if (_iconCache.ContainsKey(imageUrl))
+                        string i = UserImage;
+                        if (_iconCache.ContainsKey(i))
                         {
-                            _icon = _iconCache[imageUrl];
+                            _icon = _iconCache[i];
 
                             if (_icon == null)
                             {
                                 lock (_processUsers)
                                 {
                                     // アイコンダウンロードを予約
-                                    if (!_processUsers.ContainsKey(imageUrl))
+                                    if (!_processUsers.ContainsKey(i))
                                     {
-                                        _processUsers.Add(imageUrl, new List<User>());
+                                        _processUsers.Add(i, new List<User>());
                                     }
-                                    _processUsers[imageUrl].Add(this);
+                                    _processUsers[i].Add(this);
                                 }
 
-                                _iconCache.Remove(imageUrl);
+                                _iconCache.Remove(i);
                             }
                         }
                         else
@@ -288,7 +316,7 @@ namespace MiniTwitter.Net.Twitter
                                 return null;
                             }
 
-                            _iconCache.Add(imageUrl, null);
+                            _iconCache.Add(i, null);
 
                             if (_networkAvailable)
                             {
@@ -299,7 +327,7 @@ namespace MiniTwitter.Net.Twitter
                                             using (var client = new WebClient())
                                             {
                                                 client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.Revalidate);
-                                                var data = client.DownloadData(imageUrl);
+                                                var data = client.DownloadData(i);
                                                 var stream = new MemoryStream(data);
                                                 var bitmap = new BitmapImage();
                                                 bitmap.BeginInit();
@@ -312,7 +340,7 @@ namespace MiniTwitter.Net.Twitter
 
                                                 lock (_iconCache)
                                                 {
-                                                    _iconCache[imageUrl] = bitmap;
+                                                    _iconCache[i] = bitmap;
                                                 }
 
                                                 System.Windows.Application.Current.AsyncInvoke(p =>
@@ -321,13 +349,13 @@ namespace MiniTwitter.Net.Twitter
                                                     lock (_processUsers)
                                                     {
                                                         List<User> users;
-                                                        if (_processUsers.TryGetValue(imageUrl, out users))
+                                                        if (_processUsers.TryGetValue(i, out users))
                                                         {
                                                             foreach (var item in users)
                                                             {
                                                                 item.Icon = p;
                                                             }
-                                                            _processUsers.Remove(imageUrl);
+                                                            _processUsers.Remove(i);
                                                         }
                                                     }
                                                 }, bitmap, System.Windows.Threading.DispatcherPriority.Background);
@@ -337,7 +365,7 @@ namespace MiniTwitter.Net.Twitter
                                         {
                                             lock (_iconCache)
                                             {
-                                                _iconCache.Remove(imageUrl);
+                                                _iconCache.Remove(i);
                                                 _retry++;
                                             }
                                         }
