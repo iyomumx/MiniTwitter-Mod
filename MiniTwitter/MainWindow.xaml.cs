@@ -1544,17 +1544,13 @@ namespace MiniTwitter
                 if (item.IsNewest)
                 {
                     item.IsNewest = false;
-                    
+                    Parallel.ForEach(Timelines, timeline =>
                     {
-                        Parallel.ForEach(Timelines, timeline =>
+                        if (timeline.Items.Contains(item))
                         {
-                            if (timeline.Items.Contains(item))
-                            {
-                                timeline.UnreadCount--;
-                            }
-                        });
-                    }
-
+                            timeline.UnreadCount--;
+                        }
+                    });
                 }
             }
         }
@@ -1567,23 +1563,7 @@ namespace MiniTwitter
             {
                 return;
             }
-            var element = (UIElement)listBox.ItemContainerGenerator.ContainerFromItem(item);
-            if (element == null || !element.IsMouseOver)
-            {
-                return;
-            }
-            if (item.IsMessage)
-            {
-                TweetTextBox.AppendText("D " + item.Sender.ScreenName + " ");
-            }
-            else
-            {
-                TweetTextBox.AppendText("@" + item.Sender.ScreenName + " ");
-                In_Reply_To_Status_Id = item.ID;
-                In_Reply_To_Status_User_Name = item.Sender.ScreenName;
-            }
-            TweetTextBox.CaretIndex = TweetTextBox.Text.Length;
-            TweetTextBox.Focus();
+            Commands.Reply.Execute(item, this);
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
