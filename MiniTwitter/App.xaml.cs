@@ -92,6 +92,8 @@ namespace MiniTwitter
             // 設定を読み込む
             Settings.Load(directory);
 
+            MiniTwitter.Net.Twitter.User.SSLUserImage = Settings.Default.SSLUserImage;
+
             if (Settings.Default.Theme.IsNullOrEmpty() || !ThemeManager.Themes.ContainsValue(Settings.Default.Theme))
             {
                 // デフォルトのテーマ

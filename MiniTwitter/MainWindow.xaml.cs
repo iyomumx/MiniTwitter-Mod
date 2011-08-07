@@ -58,6 +58,32 @@ namespace MiniTwitter
             TooltipBinding.Mode = BindingMode.OneWay;
             TooltipBinding.FallbackValue = "";
             ReplyToUserNameText.SetBinding(TextBlock.TextProperty, TooltipBinding);
+
+            TweetInfo = new Controls.TweetInfo(Controls.TweetType.Normal, null, null);
+            TweetGrid.SetBinding(Grid.DataContextProperty,
+                new Binding("TweetInfo")
+                {
+                    Source = this,
+                    Mode = BindingMode.OneWay,
+                }
+            );
+        }
+        private MiniTwitter.Controls.TweetInfo _TweetInfo;
+
+        public MiniTwitter.Controls.TweetInfo TweetInfo
+        {
+            get
+            {
+                return _TweetInfo;
+            }
+            set
+            {
+                if (_TweetInfo != value)
+                {
+                    _TweetInfo = value;
+                    OnPropertyChanged("TweetInfo");
+                }
+            }
         }
 
         public string TargetValue { get; set; }
@@ -1285,6 +1311,7 @@ namespace MiniTwitter
 
         private bool _isUser = false;
 
+        private Controls.TweetType lasttype = Controls.TweetType.Normal;
         private void TweetTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var change = e.Changes.FirstOrDefault();
@@ -1293,7 +1320,23 @@ namespace MiniTwitter
             {
                 return;
             }
+            if (TweetTextBox.Text.Length == 0)
+            {
+                this.In_Reply_To_Status_Id = null;
+                this.In_Reply_To_Status_User_Name = null;
+            }
+            if (RetweetStatusID.HasValue)
+                lasttype = Controls.TweetType.Retweet;
+            else if (this.In_Reply_To_Status_Id.HasValue)
+            {
+                if (TweetTextBox.Text[0] == '@')
+                    lasttype = Controls.TweetType.Reply;
+                else
+                    lasttype = Controls.TweetType.RT;
+            }
             RetweetStatusID = null;
+            if (lasttype == Controls.TweetType.Retweet) lasttype = Controls.TweetType.RT;
+            lasttype = TweetInfo.Update(lasttype, TweetTextBox.Text, this.In_Reply_To_Status_User_Name);
             if (popup.IsOpen)
             {
                 _addLength += change.AddedLength;
@@ -1723,6 +1766,7 @@ namespace MiniTwitter
                 UpdateButton.IsEnabled = true;
                 In_Reply_To_Status_Id = null;
                 In_Reply_To_Status_User_Name = null;
+                lasttype = Controls.TweetType.Normal;
                 _latitude = null;
                 _longitude = null;
                 StatusText = "已发送";
@@ -1790,10 +1834,9 @@ namespace MiniTwitter
                 {
                     screenName = ((Status)item).ReTweetedStatus.Sender.ScreenName;
                 }
-
-                TweetTextBox.Text = "@" + screenName + " " + TweetTextBox.Text;
                 In_Reply_To_Status_Id = item.ID;
                 In_Reply_To_Status_User_Name = item.Sender.ScreenName;
+                TweetTextBox.Text = "@" + screenName + " " + TweetTextBox.Text;
             }
             else
             {
@@ -1813,6 +1856,8 @@ namespace MiniTwitter
                 Regex ureg = new Regex(@"(?<=(?<email>[a-zA-Z0-9])?)@[_a-zA-Z0-9]+(?(email)(?((\.)|[_a-zA-Z0-9])(?!)))",RegexOptions.Compiled);
                 HashSet<string> names = new HashSet<string>();
                 names.Add("@" + TClient.LoginedUser.ScreenName);
+                In_Reply_To_Status_Id = item.ID;
+                In_Reply_To_Status_User_Name = item.Sender.ScreenName;
                 foreach (Match user in ureg.Matches(item.Text))
                 {
                     if (!(names.Contains(user.Value)))
@@ -1832,9 +1877,6 @@ namespace MiniTwitter
                         TweetTextBox.Text = "@" + ((Status)item).ReTweetedStatus.Sender.ScreenName + " " + TweetTextBox.Text; 
                     }
                 }
-
-                In_Reply_To_Status_Id = item.ID;
-                In_Reply_To_Status_User_Name = item.Sender.ScreenName;
             }
             else
             {
@@ -1873,7 +1915,15 @@ namespace MiniTwitter
                 item.Sender.ScreenName, 
                 item.Text.Replace("@" + TClient.LoginedUser.ScreenName, TClient.LoginedUser.ScreenName));
             TweetTextBox.CaretIndex = 0;
-            if (!item.Sender.Protected) RetweetStatusID = item.ID;
+            if (item.Sender.Protected)
+            {
+                TweetInfo.Type = lasttype = Controls.TweetType.RT;
+            }
+            else
+            {
+                RetweetStatusID = item.ID;
+                TweetInfo.Type = Controls.TweetType.Retweet;
+            }
             TweetTextBox.Focus();
             ForceActivate();
         }
@@ -3038,6 +3088,8 @@ namespace MiniTwitter
             {
                 In_Reply_To_Status_Id = null;
                 In_Reply_To_Status_User_Name = null;
+                RetweetStatusID = null;
+                if (TweetInfo.Type == Controls.TweetType.Retweet) TweetInfo.Type = lasttype = Controls.TweetType.RT;
             }
         }
 
@@ -3157,6 +3209,16 @@ namespace MiniTwitter
                 this.In_Reply_To_Status_Id = state.In_Reply_To_Status_Id;
                 this.In_Reply_To_Status_User_Name = state.In_Reply_To_Status_User_Name;
                 this.RetweetStatusID = state.RetweetStatusID;
+                if (In_Reply_To_Status_Id != null)
+                {
+                    if (TweetTextBox.Text[0] == '@')
+                        lasttype = Controls.TweetType.Reply;
+                    else
+                        lasttype = Controls.TweetType.RT;
+                }
+                if (RetweetStatusID != null) lasttype = Controls.TweetType.Retweet;
+                lasttype = TweetInfo.Update(lasttype, TweetTextBox.Text, this.In_Reply_To_Status_User_Name);
+
                 FailStatuses.Remove(state);
             }
         }

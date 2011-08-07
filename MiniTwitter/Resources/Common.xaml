@@ -21,7 +21,6 @@
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    <MiniTwitter_Controls:TextCountConverter x:Key="TextCountConverter"/>
     
     <MiniTwitter:FooterConverter x:Key="FooterConverter" />
 
@@ -271,7 +270,7 @@
         <MenuItem Header="全部设为已读(_R)" Command="MiniTwitter_Input:Commands.ReadAll" Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <Separator/>
         <MenuItem Header="打开网页到(_M)" >
-            <MenuItem Header="用户页(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPage" CommandParameter="{Binding}"/>
+            <MenuItem Header="用户页(_H)" Command="MiniTwitter_Input:Commands.MoveToUserPageByName" CommandParameter="{Binding}"/>
             <Separator />
             <MenuItem Header="推文页(_S)" Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}"/>
             <MenuItem Header="回复页(_T)" Command="MiniTwitter_Input:Commands.MoveToReplyPage" CommandParameter="{Binding}">

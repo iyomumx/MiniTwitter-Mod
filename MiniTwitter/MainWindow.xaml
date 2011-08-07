@@ -22,7 +22,7 @@
     Title="MiniTwitter Mod" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
     Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei, Converter={StaticResource FontConverter}}" Icon=".\Resources\MiniTwitter.ico"
     Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
-    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}">
+    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}" DataContext="{Binding}">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="MiniTwitter">
             <TaskbarItemInfo.ThumbButtonInfos>
@@ -102,16 +102,16 @@
         <MiniTwitter:NonZeroToVisibilityConverter x:Key="EmptyConverter" />
     </Window.Resources>
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Margin="6">
+        <Grid DockPanel.Dock="Top" Margin="6" x:Name="TweetGrid">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="What's happening?" VerticalAlignment="Center" Style="{DynamicResource HeaderTextBlockStyle}"/>
+            <TextBlock Text="{Binding Path=HintText}" Grid.Row="0" VerticalAlignment="Center" Style="{DynamicResource HeaderTextBlockStyle}" />
             <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
-                       Text="{Binding ElementName=TweetTextBox, Path=Text, Converter={StaticResource TextCountConverter}}"
+                       Text="{Binding Path=CharsLeftDisp}"
                        Style="{DynamicResource CounterTextBlockStyle}"/>
             <TextBox x:Name="TweetTextBox" Grid.Row="1" Margin="0,4,0,6" AcceptsTab="True" TextWrapping="Wrap" TextChanged="TweetTextBox_TextChanged" KeyUp="TweetTextBox_KeyUp"
                      VerticalScrollBarVisibility="Auto" KeyDown="TweetTextBox_KeyDown" PreviewKeyDown="TweetTextBox_PreviewKeyDown"  Style="{DynamicResource TweetTextBoxStyle}"
@@ -195,6 +195,7 @@
                                 <TextBlock x:Name="ReplyToUserNameText" />
                             </StackPanel>
                             <TextBlock Text="点击转到回复条目，右击删除回复信息" />
+                            <TextBlock Text="（若原为官方RT，则转为非官方RT）" />
                         </StackPanel>
                     </Button.ToolTip>
                     <Image Style="{DynamicResource ArrowLeftImageStyle}"/>
