@@ -32,5 +32,8 @@ _ReSharper*/
 /SetupMiniTwitterMod/MiniTwitter Mod x86.7z
 /SetupMiniTwitterMod/MiniTwitter Mod x86.rar
 /MiniTwitter/postBuild.cmd
-/MiniTwitter/preBuild.cmd
+/MiniTwitter/preBuild.cmd
 /MiniTwitter/App.Private.cs
+/.revert/
+/.backup/
+*.ignore/

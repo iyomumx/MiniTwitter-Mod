@@ -1014,6 +1014,7 @@ namespace MiniTwitter.Net
                                                 ScreenName = element.Element("user").Element("screen_name").Value,
                                                 Name = element.Element("user").Element("name").Value,
                                                 ImageUrl = element.Element("user").Element("profile_image_url").Value,
+                                                ImageUrlSSL = element.Element("user").Element("profile_image_url_https").Value,
                                                 Description = element.Element("user").Element("description").Value,
                                                 Protected = (bool)element.Element("user").Element("protected"),
                                                 Location = element.Element("user").Element("location").Value,
@@ -1040,6 +1041,7 @@ namespace MiniTwitter.Net
                                                     ScreenName = element.Element("retweeted_status").Element("user").Element("screen_name").Value,
                                                     Name = element.Element("retweeted_status").Element("user").Element("name").Value,
                                                     ImageUrl = element.Element("retweeted_status").Element("user").Element("profile_image_url").Value,
+                                                    ImageUrlSSL = element.Element("retweeted_status").Element("user").Element("profile_image_url_https").Value,
                                                     Description = element.Element("retweeted_status").Element("user").Element("description").Value,
                                                     Protected = (bool)element.Element("retweeted_status").Element("user").Element("protected"),
                                                     Location = element.Element("retweeted_status").Element("user").Element("location").Value,
@@ -1226,6 +1228,7 @@ namespace MiniTwitter.Net
                     target.Followers = user.Followers;
                     target.Friends = user.Friends;
                     target.ImageUrl = user.ImageUrl;
+                    target.ImageUrlSSL = user.ImageUrlSSL;
                     target.LastModified = user.LastModified;
                     target.Location = user.Location;
                     target.Name = user.Name;
