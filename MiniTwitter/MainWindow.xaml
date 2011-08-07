@@ -89,6 +89,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.GlobalFilterTag" Executed="GlobalFilterTagCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.FilterTag" Executed="FilterTagCommand_Executed" CanExecute="FilterUserCommand_CanExecute" />
         <CommandBinding Command="MiniTwitter_Input:Commands.NavigateTo" Executed="NavigateToCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ViewUserByName" Executed="ViewUserByNameCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">

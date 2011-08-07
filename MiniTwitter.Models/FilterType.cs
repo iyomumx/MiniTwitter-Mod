@@ -29,5 +29,6 @@ namespace MiniTwitter
         ExNameRegex,
         ExSource,
         ExSourceRegex,
+        CustomFunction,
     }
 }

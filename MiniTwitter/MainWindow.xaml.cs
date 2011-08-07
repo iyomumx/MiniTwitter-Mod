@@ -414,7 +414,7 @@ namespace MiniTwitter
                 }
                 */
                 //Modified
-                //TODO:申请个Xauth吧孩子
+                
                 if (string.IsNullOrEmpty(Settings.Default.Username) || string.IsNullOrEmpty(Settings.Default.Password))
                 {
                     this.Invoke(() => StatusText = "请进行OAuth认证");
@@ -1088,7 +1088,7 @@ namespace MiniTwitter
             // ポップアップウィンドウのイベントを登録
             popupWindow.CommandBindings.AddRange(new[]
                 {
-                    //TODO:此处为命令绑定行
+                    //TODO:此处为弹出窗口的命令绑定
                     new CommandBinding(Commands.Reply, ReplyCommand_Executed),
                     new CommandBinding(Commands.ReplyAll, ReplyAllCommand_Executed),
                     new CommandBinding(Commands.ReTweet, ReTweetCommand_Executed),
@@ -1101,6 +1101,9 @@ namespace MiniTwitter
                     new CommandBinding(Commands.MoveToUserPage, MoveToUserPageCommand_Executed),
                     new CommandBinding(Commands.InReplyTo, InReplyToCommand_Executed),
                     new CommandBinding(Commands.ViewConversation, ViewConversationCommand_Executed),
+                    new CommandBinding(Commands.ViewUser, ViewUserCommand_Executed),
+                    new CommandBinding(Commands.ViewUserByName, ViewUserByNameCommand_Executed),
+                    new CommandBinding(Commands.NavigateTo, NavigateToCommand_Executed),
                 });
             popupWindow.MouseLeftButtonDown += new MouseButtonEventHandler(PopupWindow_MouseLeftButtonDown);
 
@@ -1980,23 +1983,15 @@ namespace MiniTwitter
 
         private void MoveToUserPageCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (Keyboard.GetKeyStates(Key.LeftCtrl) == KeyStates.Down || Keyboard.GetKeyStates(Key.RightCtrl) == KeyStates.Down)
+            var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
+            try
             {
-                var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-                try
-                {
-                    Process.Start(Settings.Default.LinkUrl + item.Sender.ScreenName);
-                }
-                catch
-                {
-                    MessageBox.Show("无法打开浏览器", App.NAME);
-                }
+                Process.Start(Settings.Default.LinkUrl + item.Sender.ScreenName);
             }
-            else
+            catch
             {
-                Commands.ViewUser.Execute(((ITwitterItem)e.Parameter ?? GetSelectedItem()).Sender.ScreenName, (IInputElement)sender);
+                MessageBox.Show("无法打开浏览器", App.NAME);
             }
-
         }
 
         private void MoveToStatusPageCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2542,7 +2537,6 @@ namespace MiniTwitter
             if (Keyboard.Modifiers == ModifierKeys.Control)
             {
                 ViewConversationCommand_Executed(sender, e);
-                //TODO:InReplyToTimeline
                 return;
             }
 
@@ -2563,6 +2557,7 @@ namespace MiniTwitter
                         var status_tmp = (Status)stat;
                         var tmpId = status_tmp.InReplyToStatusID;
                         var repliedStatus = TClient.GetStatus(tmpId);
+                        if (repliedStatus == null) return;
                         repliedStatus.MentionStatus = status_tmp;
                         this.Invoke(() =>
                         {
@@ -2978,6 +2973,7 @@ namespace MiniTwitter
                     {
                         var tmpId = (ulong?)id;
                         var repliedStatus = TClient.GetStatus(tmpId.Value);
+                        if (repliedStatus == null) return;
                         this.Invoke(() =>
                         {
                             Timelines.Update(new[] { repliedStatus });
@@ -3105,16 +3101,16 @@ namespace MiniTwitter
         }
 
         private void ViewUserCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {            
-            var value = e.Parameter as string;
+        {
+            var value = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             if (Keyboard.GetKeyStates(Key.LeftCtrl) == KeyStates.Down ||
                 Keyboard.GetKeyStates(Key.RightCtrl) == KeyStates.Down || 
                 (((Timeline)TimelineTabControl.SelectedItem).Type == TimelineType.OtherUser && 
-                    ((Timeline)TimelineTabControl.SelectedItem).Tag == value))
+                    ((Timeline)TimelineTabControl.SelectedItem).Tag == value.Sender.ScreenName))
             {
                 try
                 {
-                    Process.Start(Settings.Default.LinkUrl + value);
+                    Process.Start(Settings.Default.LinkUrl + value.Sender.ScreenName);
                 }
                 catch
                 {
@@ -3127,12 +3123,12 @@ namespace MiniTwitter
             {
                 var timeline = new Timeline
                 {
-                    Name = "User:" + value,
+                    Name = "User:" + value.Sender.ScreenName,
                     Type = TimelineType.OtherUser,
-                    Tag = value,
+                    Tag = value.Sender.ScreenName,
                 };
 
-                timeline.Filters.Add(new Filter() { Pattern = value, Type = FilterType.Name });
+                timeline.Filters.Add(new Filter() { Pattern = value.Sender.ScreenName, Type = FilterType.Name });
                 Timelines.Add(timeline);
 
                 ThreadPool.QueueUserWorkItem(state =>
@@ -3278,7 +3274,42 @@ namespace MiniTwitter
 
         private void ViewUserByNameCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var value = e.Parameter as string;
+            if (Keyboard.GetKeyStates(Key.LeftCtrl) == KeyStates.Down ||
+                Keyboard.GetKeyStates(Key.RightCtrl) == KeyStates.Down ||
+                (((Timeline)TimelineTabControl.SelectedItem).Type == TimelineType.OtherUser &&
+                    ((Timeline)TimelineTabControl.SelectedItem).Tag == value))
+            {
+                try
+                {
+                    Process.Start(Settings.Default.LinkUrl + value);
+                }
+                catch
+                {
+                    MessageBox.Show("无法打开浏览器", App.NAME);
+                }
+                return;
+            }
 
+            if (value != null)
+            {
+                var timeline = new Timeline
+                {
+                    Name = "User:" + value,
+                    Type = TimelineType.OtherUser,
+                    Tag = value,
+                };
+
+                timeline.Filters.Add(new Filter() { Pattern = value, Type = FilterType.Name });
+                Timelines.Add(timeline);
+
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    this.Invoke(p => timeline.Update(p), TClient.GetUserTimeline(timeline.Tag));
+                });
+
+                TimelineTabControl.SelectedItem = timeline;
+            }
         }
 
         private void MoveToUserPageByNameCommand_Executed(object sender, ExecutedRoutedEventArgs e)

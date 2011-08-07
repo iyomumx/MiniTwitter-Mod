@@ -54,6 +54,16 @@ namespace MiniTwitter
             }
         }
 
+        [XmlIgnore]
+        private static Func<ITwitterItem, bool> _customFilterFunction;
+
+        [XmlIgnore]
+        public static Func<ITwitterItem, bool> CustomFilterFunction
+        {
+            get { return Filter._customFilterFunction; }
+            set { Filter._customFilterFunction = value; }
+        }
+
         public bool Process(ITwitterItem item)
         {
             switch (Type)
@@ -114,6 +124,8 @@ namespace MiniTwitter
                     return !(string.Compare(item.Sender.ScreenName, Pattern, true) == 0);
                 case FilterType.ExNameRegex:
                     return !(Regex.IsMatch(item.Sender.ScreenName, Pattern, RegexOptions.IgnoreCase));
+                case FilterType.CustomFunction:
+                    return (CustomFilterFunction == null) ? true : CustomFilterFunction(item);
                 case FilterType.None:
                     return true;
             }

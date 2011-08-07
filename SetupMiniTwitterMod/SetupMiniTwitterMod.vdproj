@@ -218,7 +218,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.2, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_0139E157FA050BDE24F7ADF12FE15459"
@@ -488,7 +488,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{22436F5A-DB1D-4B9F-9505-5462DA85FF47}"
-        "PackageCode" = "8:{01F81CB8-54FD-4268-B6EA-F5C4421EDDA5}"
+        "PackageCode" = "8:{8976813D-E31D-4898-9F71-6530D0725897}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -542,7 +542,7 @@ namespace MiniTwitter.Controls
         {
             var hyperlink = (Hyperlink)sender;
 
-            MiniTwitter.Input.Commands.ViewUser.Execute(hyperlink.Tag, hyperlink);
+            MiniTwitter.Input.Commands.ViewUserByName.Execute(hyperlink.Tag, hyperlink);
         }
 
         private static string GetRedirect(string url)
