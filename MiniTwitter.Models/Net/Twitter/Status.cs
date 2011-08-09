@@ -317,6 +317,22 @@ namespace MiniTwitter.Net.Twitter
             }
         }
 
+        private Entities entities;
+
+        [XmlElement("entities")]
+        public Entities Entities
+        {
+            get { return entities; }
+            set
+            {
+                if (entities != value)
+                {
+                    entities = value;
+                    OnPropertyChanged("Entities");
+                }
+            }
+        }
+
         private User recipient;
 
         [XmlIgnore]
@@ -335,6 +351,7 @@ namespace MiniTwitter.Net.Twitter
 
         private bool _isAuthor;
 
+        [XmlIgnore]
         public bool IsAuthor {
             get { return _isAuthor; }
             set

@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -545,21 +546,38 @@ namespace MiniTwitter.Controls
             MiniTwitter.Input.Commands.ViewUserByName.Execute(hyperlink.Tag, hyperlink);
         }
 
+        private static Regex longurlpleaseJSONRegex = new Regex("^\\{\"(?<ShortUrl>.+?)\":\\s\"(?<LongUrl>.+?)\"\\}$", RegexOptions.Compiled);
+
         private static string GetRedirect(string url)
         {
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(url);
+                var request = (HttpWebRequest)WebRequest.Create(string.Format("http://www.longurlplease.com/api/v1.1?q={0}", url));
                 request.AllowAutoRedirect = false;
-                request.Timeout = 1200;
-                request.Method = "HEAD";
+                request.Timeout = 3200;
+                request.Method = "GET";
                 var response = (HttpWebResponse)request.GetResponse();
-                if (response.StatusCode == HttpStatusCode.MovedPermanently)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    return response.Headers["Location"];
+                    string result;
+
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = reader.ReadToEnd();
+                    }
+                    Match match = longurlpleaseJSONRegex.Match(result);
+                    if (match.Success && match.Groups["ShortUrl"].Value.Replace(@"\/", @"/") == url)
+                    {
+                        return match.Groups["LongUrl"].Value.Replace(@"\/", @"/");
+                    }
+                    
                 }
             }
-            catch { }
+            catch (Exception e)
+            {
+                var i = e.Message;
+                Debug.Write(i);
+            }
             return url;
         }
 

@@ -4,6 +4,8 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace MiniTwitter
 {

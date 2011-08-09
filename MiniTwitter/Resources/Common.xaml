@@ -41,6 +41,15 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DeleteStatusMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Header" Value="删除此推(_X)"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=IsReTweeted}" Value="True">
+                <Setter Property="Header" Value="撤销Retweet"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+        
     <Style x:Key="StandardMenuItemStyle" TargetType="{x:Type MenuItem}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=TimelineStyle}" Value="Standard">
@@ -265,7 +274,7 @@
         <Separator/>
         <MenuItem Command="MiniTwitter_Input:Commands.Favorite" CommandParameter="{Binding}" Style="{StaticResource FavoriteMenuItemStyle}"/>
         <Separator Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <MenuItem Header="删除此推(_X)" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
+        <MenuItem Style="{StaticResource DeleteStatusMenuItemStyle}" Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}"/>
         <Separator Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <MenuItem Header="全部设为已读(_R)" Command="MiniTwitter_Input:Commands.ReadAll" Visibility="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=EnableUnreadManager,Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <Separator/>

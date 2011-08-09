@@ -200,7 +200,7 @@
                             <Run Text="{Binding Path=Source}" />
                         </Hyperlink>
                     </TextBlock>
-                    <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" ToolTip="删除"
+                    <Button Margin="0,0,3,0" Padding="0" Visibility="{Binding Path=IsAuthor, Converter={StaticResource BooleanToVisibilityConverter}}" ToolTip="撤销Retweet"
                             Command="MiniTwitter_Input:Commands.Delete" CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}">
                         <Image Width="14" Height="14" Style="{DynamicResource CrossImageStyle}"/>
                     </Button>
@@ -213,7 +213,7 @@
                             ContextMenu="{StaticResource ReplyButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReplyImageStyle}"/>
                     </Button>
-                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论 ReTweet"
+                    <Button Margin="0,0,3,0" Padding="0" Command="MiniTwitter_Input:Commands.ReTweet" ToolTip="带评论ReTweet"
                             CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
                             ContextMenu="{StaticResource RetweetStatusRetweetButtonMenu}">
                         <Image Width="14" Height="14" Style="{DynamicResource ArrowReTweetImageStyle}"/>

@@ -1660,9 +1660,10 @@ namespace MiniTwitter
             //client.Update((string)e.Parameter ?? TweetTextBox.Text, in_reply_to_status_id);
             if (!RetweetStatusID.HasValue)
             {
+                ulong? ReplyID = In_Reply_To_Status_Id;
                 ThreadPool.QueueUserWorkItem(text =>
                     {
-                        TClient.Update((string)text, this.Invoke<ulong?>(() => In_Reply_To_Status_Id), _latitude, _longitude,
+                        TClient.Update((string)text, ReplyID, _latitude, _longitude,
                             stp =>
                             {
                                 if (stp != OAuthBase.ProccessStep.Error)
@@ -1970,7 +1971,7 @@ namespace MiniTwitter
             {
                 return;
             }
-            if (MessageBox.Show("确认要删除吗？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            if (MessageBox.Show(string.Format("确认要{0}吗？", twitterItem is Status ? ((Status)twitterItem).IsReTweeted ? "取消Retweet" : "删除" : "删除"), App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
             {
                 return;
             }
@@ -1983,6 +1984,7 @@ namespace MiniTwitter
                     }
                     // タイムラインの項目も削除する
                     Timelines.Remove(item);
+                    //TODO:如果是自己Retweet的推就把原先应该出现的推放回TL
                 }, twitterItem);
         }
 
@@ -3090,8 +3092,7 @@ namespace MiniTwitter
 
             var currentTimeline = (Timeline)TimelineTabControl.SelectedItem;
 
-            
-                currentTimeline = currentTimeline.Items.Contains(replyTo) ? currentTimeline : Timelines.Where(tl => tl.Items.Contains(replyTo)).FirstOrDefault();
+            currentTimeline = currentTimeline.Items.Contains(replyTo) ? currentTimeline : Timelines.Where(tl => tl.Items.Contains(replyTo)).FirstOrDefault();
 
             if (currentTimeline == null)
             {

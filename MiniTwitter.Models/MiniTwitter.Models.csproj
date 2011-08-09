@@ -171,6 +171,9 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Net\Twitter\DirectMessage.cs" />
     <Compile Include="Net\Twitter\DirectMessages.cs" />
+    <Compile Include="Net\Twitter\Entities.cs" />
+    <Compile Include="Net\Twitter\HashTag.cs" />
+    <Compile Include="Net\Twitter\HashTags.cs" />
     <Compile Include="Net\Twitter\ITimeTaged.cs" />
     <Compile Include="Net\Twitter\ITwitterItem.cs" />
     <Compile Include="Net\Twitter\List.cs" />
@@ -178,7 +181,11 @@
     <Compile Include="Net\Twitter\Statuses.cs" />
     <Compile Include="Net\Twitter\UpdateEventArgs.cs" />
     <Compile Include="Net\Twitter\UpdateFailedEventArgs.cs" />
+    <Compile Include="Net\Twitter\Url.cs" />
+    <Compile Include="Net\Twitter\Urls.cs" />
     <Compile Include="Net\Twitter\User.cs" />
+    <Compile Include="Net\Twitter\UserMention.cs" />
+    <Compile Include="Net\Twitter\UserMentions.cs" />
     <Compile Include="Net\Twitter\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyChangedBase.cs" />

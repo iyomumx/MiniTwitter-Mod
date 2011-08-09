@@ -125,21 +125,21 @@ namespace MiniTwitter.Net
 
         public Status[] RecentTimeline
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/home_timeline.xml", ApiBaseUrl), new { count = 200 }, ref recentId) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/home_timeline.xml", ApiBaseUrl), new { count = 200, include_entities = "true" }, ref recentId) : Statuses.Empty; }
         }
 
         private ulong? repliesId;
 
         public Status[] RepliesTimeline
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/mentions.xml", ApiBaseUrl), new { count = 100 }, ref repliesId) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/mentions.xml", ApiBaseUrl), new { count = 100, include_entities = "true" }, ref repliesId) : Statuses.Empty; }
         }
 
         private ulong? archiveId;
 
         public Status[] ArchiveTimeline
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/user_timeline.xml", ApiBaseUrl), new { count = 100 }, ref archiveId) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses(string.Format("{0}1/statuses/user_timeline.xml", ApiBaseUrl), new { count = 100, include_rts = "true", include_entities = "true" }, ref archiveId) : Statuses.Empty; }
         }
 
         private ulong? receivedId;
@@ -158,7 +158,7 @@ namespace MiniTwitter.Net
 
         public Status[] Favorites
         {
-            get { return IsLogined ? GetStatuses(string.Format("{0}1/favorites.xml", ApiBaseUrl), new { count = 200 }) : Statuses.Empty; }
+            get { return IsLogined ? GetStatuses(string.Format("{0}1/favorites.xml", ApiBaseUrl), new { count = 200, include_entities = "true" }) : Statuses.Empty; }
         }
 
         public User[] Friends
@@ -321,22 +321,22 @@ namespace MiniTwitter.Net
                 {
                     if (latitude.HasValue && longitude.HasValue)
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value, lat = latitude.Value, @long = longitude.Value }, proccessCallBack);
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value, lat = latitude.Value, @long = longitude.Value, include_entities = "true" }, proccessCallBack);
                     }
                     else
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value }, proccessCallBack);
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, in_reply_to_status_id = replyId.Value, include_entities = "true" }, proccessCallBack);
                     }
                 }
                 else
                 {
                     if (latitude.HasValue && longitude.HasValue)
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, lat = latitude.Value, @long = longitude.Value }, proccessCallBack);
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, lat = latitude.Value, @long = longitude.Value, include_entities = "true" }, proccessCallBack);
                     }
                     else
                     {
-                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text }, proccessCallBack);
+                        status = Post<Status>(string.Format("{0}1/statuses/update.xml", ApiBaseUrl), new { status = text, include_entities = "true" }, proccessCallBack);
                     }
                 }
                 status.IsAuthor = true;
@@ -613,7 +613,13 @@ namespace MiniTwitter.Net
         {
             try
             {
-                var result = Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl));
+                var result = Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl), new { include_entities = "true" }, stp => 
+                {
+                    if (stp!= ProccessStep.Error)
+                    {
+                        App.MainTokenSource.Token.ThrowIfCancellationRequested();              
+                    }
+                });
                 if (MiniTwitter.Properties.Settings.Default.UseKanvasoLength)
                 {
                     var match = kanvasoUrl.Match(result.Text);
@@ -1024,7 +1030,51 @@ namespace MiniTwitter.Net
                                                 Friends = (int)element.Element("user").Element("friends_count"),
                                                 StatusesCount = (int)element.Element("user").Element("statuses_count"),
                                             },
+                                            Entities = new Entities
+                                            {
+                                                Urls = new Urls(),
+                                                Hashtags = new HashTags(),
+                                                UserMentions = new UserMentions(),
+                                            },
                                         };
+                                        //解析Entities
+                                        //解析URL
+                                        if (!element.Element("entities").Element("urls").Value.IsNullOrEmpty())
+                                        {
+                                            status.Entities.Urls.URL=
+                                            element.Element("entities").Element("urls").Elements("item").Select(url => new Url{
+                                                StartIndex = int.Parse(url.Element("indices").Elements("item").First().Value),
+                                                EndIndex = int.Parse(url.Element("indices").Elements("item").Last().Value),
+                                                DisplayUrl = (string)url.Element("display_url"),
+                                                URL = (string)url.Element("url"),
+                                                ExpandedUrl = (string)url.Element("expanded_url"),
+                                            }).ToArray();
+                                        }
+                                        //解析UserMention
+                                        if (!element.Element("entities").Element("user_mentions").Value.IsNullOrEmpty())
+                                        {
+                                            status.Entities.UserMentions.UserMention =
+                                            element.Element("entities").Element("user_mentions").Elements("item").Select(url => new UserMention
+                                            {
+                                                StartIndex = int.Parse(url.Element("indices").Elements("item").First().Value),
+                                                EndIndex = int.Parse(url.Element("indices").Elements("item").Last().Value),
+                                                ID = (int)url.Element("id"),
+                                                Name = (string)url.Element("name"),
+                                                ScreenName = (string)url.Element("screen_name"),
+                                            }).ToArray();
+                                        }
+                                        //解析Hashtag
+                                        if (!element.Element("entities").Element("hashtags").Value.IsNullOrEmpty())
+                                        {
+                                            status.Entities.Hashtags.Hashtag =
+                                            element.Element("entities").Element("hashtags").Elements("item").Select(url => new HashTag
+                                            {
+                                                StartIndex = int.Parse(url.Element("indices").Elements("item").First().Value),
+                                                EndIndex = int.Parse(url.Element("indices").Elements("item").Last().Value),
+                                                Text = (string)url.Element("text"),
+                                            }).ToArray();
+                                        }
+
 
                                         if (element.Element("retweeted_status") != null)
                                         {
@@ -1064,7 +1114,7 @@ namespace MiniTwitter.Net
                                         {
                                             status.InReplyToUserID = (int)element.Element("in_reply_to_user_id");
                                         }
-
+                                        
                                         status.IsAuthor = status.Sender.ID == LoginedUser.ID;
                                         status.IsMention = status.InReplyToUserID == LoginedUser.ID;
                                         AsyncDo(CacheOrUpdate, status);

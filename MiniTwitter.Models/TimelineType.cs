@@ -17,5 +17,6 @@ namespace MiniTwitter
         List,
         OtherUser,
         Conversation,
+        Favorite,
     }
 }
