@@ -1563,6 +1563,11 @@ namespace MiniTwitter
             {
                 return;
             }
+            var element = (UIElement)listBox.ItemContainerGenerator.ContainerFromItem(item);
+            if (element == null || !element.IsMouseOver)
+            {
+                return;
+            }
             Commands.Reply.Execute(item, this);
         }
 
@@ -2861,7 +2866,6 @@ namespace MiniTwitter
         {
             if (Updating == 1)
             {
-                e.Handled = true;
                 return;
             }
             Interlocked.CompareExchange(ref Updating, 1, 0);
@@ -2920,7 +2924,6 @@ namespace MiniTwitter
             {
                 Interlocked.Exchange(ref Updating, 0);
             }
-            e.Handled = true;
         }
 
         private void ReportSpam_Executed(object sender, ExecutedRoutedEventArgs e)

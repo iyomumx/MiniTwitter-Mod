@@ -488,7 +488,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{22436F5A-DB1D-4B9F-9505-5462DA85FF47}"
-        "PackageCode" = "8:{AD2C1315-A235-4775-A326-0723BC3DD367}"
+        "PackageCode" = "8:{A632F0F1-CD63-4383-B536-26B04A9E1376}"
         "UpgradeCode" = "8:{652CC261-87CE-495E-8E6E-89832B7BB606}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

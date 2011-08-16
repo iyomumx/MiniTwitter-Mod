@@ -1213,6 +1213,7 @@ namespace MiniTwitter.Net
                     target.LastModified = tweet.LastModified;
                     target.ReTweetCount = tweet.ReTweetCount;
                     target.IsAuthor = tweet.IsAuthor;
+                    target.Entities = tweet.Entities;
                 }
             }
             else

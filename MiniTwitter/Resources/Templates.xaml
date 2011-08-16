@@ -62,7 +62,7 @@
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Style="{DynamicResource NewImageStyle}"/>
                 </StackPanel>
-                <MiniTwitter_Controls:TextViewer Text="{Binding Path=Text}" Style="{StaticResource TimelineTextStyle}"/>
+                <MiniTwitter_Controls:TextViewer Entities="{Binding Path=Entities}" Text="{Binding Path=Text}" Style="{StaticResource TimelineTextStyle}"/>
                 <WrapPanel>
                     <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=RelativeTime}" FontSize="11" Margin="0,0,3,0" VerticalAlignment="Center"
                                                           Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}">
@@ -184,7 +184,7 @@
                     <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Style="{DynamicResource NewImageStyle}"/>
                 </StackPanel>
-                <MiniTwitter_Controls:TextViewer Text="{Binding Path=ReTweetedStatus.Text}" Style="{StaticResource TimelineTextStyle}"/>
+                <MiniTwitter_Controls:TextViewer Entities="{Binding Path=ReTweetedStatus.Entities}" Text="{Binding Path=ReTweetedStatus.Text}" Style="{StaticResource TimelineTextStyle}"/>
                 <WrapPanel>
                     <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=RelativeTime}" FontSize="11" Margin="0,0,3,0" VerticalAlignment="Center"
                                                           Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}">
@@ -289,7 +289,7 @@
             </Grid.RowDefinitions>
             <Border Grid.Row="0" CornerRadius="4" Background="{DynamicResource BalloonBackgroundBrush}" BorderThickness="0">
                 <StackPanel Margin="6,3,3,3">
-                    <MiniTwitter_Controls:TextViewer Text="{Binding Path=Text}" Style="{StaticResource TimelineTextStyle}"/>
+                    <MiniTwitter_Controls:TextViewer Entities="{Binding Path=Entities}" Text="{Binding Path=Text}" Style="{StaticResource TimelineTextStyle}"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=RelativeTime}" FontSize="11" Margin="0,0,3,0" VerticalAlignment="Center"
                                                               Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}">
@@ -364,7 +364,7 @@
             </Grid.RowDefinitions>
             <Border Grid.Row="0" CornerRadius="4" Background="{DynamicResource BalloonBackgroundBrush}" BorderThickness="0">
                 <StackPanel Margin="6,3,3,3">
-                    <MiniTwitter_Controls:TextViewer Text="{Binding Path=Text}" Style="{StaticResource TimelineTextStyle}"/>
+                    <MiniTwitter_Controls:TextViewer Entities="{Binding Path=ReTweetedStatus.Entities}" Text="{Binding Path=Text}" Style="{StaticResource TimelineTextStyle}"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <MiniTwitter_Controls:HyperlinkButton Text="{Binding Path=RelativeTime}" FontSize="11" Margin="0,0,3,0" VerticalAlignment="Center"
                                                               Command="MiniTwitter_Input:Commands.MoveToStatusPage" CommandParameter="{Binding}">
@@ -515,7 +515,7 @@
                 <Image Width="12" Height="12" Margin="3,0,0,0" Style="{DynamicResource ProtectImageStyle}" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource NewImageStyle}"/>
             </StackPanel>
-            <MiniTwitter_Controls:TextViewer Grid.Column="2" Text="{Binding Path=Text}" ToolTip="{Binding Path=Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Style="{StaticResource TimelineTextStyle}"/>
+            <MiniTwitter_Controls:TextViewer Entities="{Binding Path=Entities}" Grid.Column="2" Text="{Binding Path=Text}" ToolTip="{Binding Path=Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Style="{StaticResource TimelineTextStyle}"/>
         </Grid>
     </DataTemplate>
 
@@ -542,7 +542,7 @@
                 <Image Width="12" Height="12" Margin="3,0,0,0" Style="{DynamicResource ProtectImageStyle}" Visibility="{Binding Path=Sender.Protected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Image Width="12" Height="12" Margin="3,0,0,0" Visibility="{Binding Path=IsNewest, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{DynamicResource NewImageStyle}"/>
             </StackPanel>
-            <MiniTwitter_Controls:TextViewer Grid.Column="2" Text="{Binding Path=Text}" ToolTip="{Binding Path=Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Style="{StaticResource TimelineTextStyle}"/>
+            <MiniTwitter_Controls:TextViewer Entities="{Binding Path=ReTweetedStatus.Entities}" Grid.Column="2" Text="{Binding Path=Text}" ToolTip="{Binding Path=Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Style="{StaticResource TimelineTextStyle}"/>
         </Grid>
     </DataTemplate>
 

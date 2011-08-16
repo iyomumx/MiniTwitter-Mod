@@ -29,6 +29,7 @@ using System.Windows.Shapes;
 
 using MiniTwitter.Extensions;
 using MiniTwitter.Properties;
+using MiniTwitter.Net.Twitter;
 
 namespace MiniTwitter.Controls
 {
@@ -69,9 +70,24 @@ namespace MiniTwitter.Controls
         public static readonly DependencyProperty TextTrimmingProperty =
             DependencyProperty.Register("TextTrimming", typeof(TextTrimming), typeof(TextViewer), new PropertyMetadata(TextTrimming.None));
 
+        public Entities Entities
+        {
+            get { return (Entities)GetValue(EntitiesProperty); }
+            set { SetValue(EntitiesProperty, value); }
+        }
+
+        public static readonly DependencyProperty EntitiesProperty =
+            DependencyProperty.Register("Entities", typeof(Entities), typeof(TextViewer), new PropertyMetadata(null, EntitiesPropertyChanged));
+
         private static void TextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             ((TextViewer)sender).OnTextChanged((string)e.NewValue);
+        }
+
+        private static void EntitiesPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var source = (TextViewer)sender;
+            source.OnTextChanged(source.Text);
         }
 
         private static readonly Regex searchPattern = new Regex(@"(?<url>https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)|(?<=(?<email>[a-zA-Z0-9])?)@(?<user>[_a-zA-Z0-9]+(?(email)(?((\.[a-zA-Z0-9])|[_a-zA-Z0-9])(?!))))|(?<heart><3)|(?<=^|\W)#(?<hash>\w+)|(\<[Dd][Ee][Ll]\>(?<del>.+?)\</[Dd][Ee][Ll]>)|((?<emoji>[\uE001-\uE537\uE63E-\uE757]))", RegexOptions.Compiled);
@@ -132,6 +148,12 @@ namespace MiniTwitter.Controls
                     diff = 1;
                     value = match.Groups["user"].Value;
                     Hyperlink link = new Hyperlink { Tag = value };
+                    if (Entities != null && Entities.UserMentions != null && Entities.UserMentions.UserMention != null)
+                    {
+                        link.ToolTip = (from um in Entities.UserMentions.UserMention
+                                        where um.ScreenName == value
+                                        select um.Name).FirstOrDefault();
+                    }
                     link.Inlines.Add(value);
                     link.Click += UserHyperlink_Click;
                     var menu = (ContextMenu)(Application.Current.FindResource("UserInlineMenu"));
@@ -161,7 +183,18 @@ namespace MiniTwitter.Controls
                 else
                 {
                     // URL記法
-                    Hyperlink link = new Hyperlink { Tag = value, ToolTip = value };
+                    Hyperlink link = new Hyperlink();
+                    if (Entities != null && Entities.Urls != null && Entities.Urls.URL != null)
+                    {
+                        link.Tag = (from url in Entities.Urls.URL
+                                    where url.URL == value
+                                    select url.ExpandedUrl).FirstOrDefault() ?? value;
+                    }
+                    else
+                    {
+                        link.Tag = value;
+                    }
+                    link.ToolTip = link.Tag;
                     link.ToolTipOpening += Hyperlink_ToolTipOpening;
                     link.Inlines.Add(value);
                     link.Click += Hyperlink_Click;
@@ -183,7 +216,7 @@ namespace MiniTwitter.Controls
                     TextBlock.Inlines.Add(link);
                     if (Settings.Default.ImageInline) //使用图片预览
                     {
-                        imageurls.Add(value);
+                        imageurls.Add((string)link.Tag);
                     }
                 }
                 index = match.Index + value.Length + diff;
