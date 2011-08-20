@@ -1,0 +1,1 @@
+xsd media.xsd /c /l:CS /edb /n:MiniTwitter.Net.Twitter

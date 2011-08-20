@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="media">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="creative">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="type" type="xs:string" />
+              <xs:element name="media_url" type="xs:string" />
+              <xs:element name="expanded_url" type="xs:string" />
+              <xs:element name="display_url" type="xs:string" />
+              <xs:element name="media_url_https" type="xs:string" />
+              <xs:element name="id_str" type="xs:string" />
+              <xs:element name="sizes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="medium">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="w" type="xs:int" />
+                          <xs:element name="h" type="xs:int" />
+                          <xs:element name="resize" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="small">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="w" type="xs:int" />
+                          <xs:element name="h" type="xs:int" />
+                          <xs:element name="resize" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="large">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="w" type="xs:int" />
+                          <xs:element name="h" type="xs:int" />
+                          <xs:element name="resize" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="thumb">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="w" type="xs:int" />
+                          <xs:element name="h" type="xs:int" />
+                          <xs:element name="resize" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="url" type="xs:string" />
+              <xs:element name="id" type="xs:unsignedLong" />
+            </xs:sequence>
+            <xs:attribute name="end" type="xs:int" use="required" />
+            <xs:attribute name="start" type="xs:int" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

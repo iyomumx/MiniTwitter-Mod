@@ -227,8 +227,18 @@ namespace MiniTwitter.Controls
             }
             Inline flag = TextBlock.Inlines.LastInline;
             bool Inserted = false;
+            if (Entities != null && Entities.Media != null && Entities.Media.creative != null && Entities.Media.creative.Length != 0)
+            {
+                foreach (var media in Entities.Media.creative)
+                {
+                    var uri = new Uri(media.media_url_https);
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, media.url));
+                }
+                Inserted = true;
+            }
             foreach (var url in imageurls)
             {
+
                 if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));

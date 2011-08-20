@@ -10,7 +10,7 @@ namespace MiniTwitter.Net.Twitter
     [XmlRoot("user_mentions")]
     public class UserMentions : PropertyChangedBase
     {
-        [XmlArray("user_mention")]
+        [XmlElement("user_mention")]
         public UserMention[] UserMention { get; set; }
 
         public static readonly UserMention[] Empty = new UserMention[0];

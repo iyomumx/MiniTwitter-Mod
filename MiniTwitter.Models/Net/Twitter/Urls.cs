@@ -10,7 +10,7 @@ namespace MiniTwitter.Net.Twitter
     [XmlRoot("urls")]
     public class Urls
     {
-        [XmlArray("url")]
+        [XmlElement("url")]
         public Url[] URL { get; set; }
 
         public static readonly Url[] Empty = new Url[0];

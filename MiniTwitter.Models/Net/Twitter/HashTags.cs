@@ -10,7 +10,7 @@ namespace MiniTwitter.Net.Twitter
     [XmlRoot("hashtags")]
     public class HashTags
     {
-        [XmlArray("hashtag")]
+        [XmlElement("hashtag")]
         public HashTag[] Hashtag { get; set; }
 
         public static readonly HashTag[] Empty = new HashTag[0];

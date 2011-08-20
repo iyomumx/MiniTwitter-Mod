@@ -177,6 +177,7 @@
     <Compile Include="Net\Twitter\ITimeTaged.cs" />
     <Compile Include="Net\Twitter\ITwitterItem.cs" />
     <Compile Include="Net\Twitter\List.cs" />
+    <Compile Include="Net\Twitter\Media.cs" />
     <Compile Include="Net\Twitter\Status.cs" />
     <Compile Include="Net\Twitter\Statuses.cs" />
     <Compile Include="Net\Twitter\UpdateEventArgs.cs" />
