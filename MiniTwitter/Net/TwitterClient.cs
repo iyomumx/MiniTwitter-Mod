@@ -49,7 +49,7 @@ namespace MiniTwitter.Net
 
         private readonly object thisLock = new object();
 
-        private static readonly Regex schemaRegex = new Regex(@"(https?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex schemaRegex = new Regex(@"(http(?<safe>s)?:\/\/[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex messageRegex = new Regex(@"^d\s([a-zA-Z_0-9]+)\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private static readonly Regex kanvasoUrl = new Regex(@"http://kvs\.co/(?<code>\w+?)$", RegexOptions.Compiled & RegexOptions.IgnoreCase);
@@ -84,7 +84,7 @@ namespace MiniTwitter.Net
 
         private const string clientName = "MiniTwitter";
 
-        public static Google.UrlShorter.UrlShorter googlHelper;
+        public static Google.UrlShortener.UrlShortener googlHelper;
 
         public IWebProxy Proxy
         {
@@ -249,7 +249,7 @@ namespace MiniTwitter.Net
                                              match =>
                                              {
                                                  var url = match.Groups[1].Value;
-                                                 if (match.Groups[1].Length > 32 || match.Groups[1].Value.IndexOfAny(new[] { '!', '?' }) != -1)
+                                                 if (match.Groups[1].Length > (match.Groups["safe"].Success ? 21 : 20) || match.Groups[1].Value.IndexOfAny(new[] { '!', '?' }) != -1)
                                                  {
                                                      return MiniTwitter.Properties.Settings.Default.UseBitlyPro ? BitlyHelper.ConvertTo(url) : MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
                                                  }

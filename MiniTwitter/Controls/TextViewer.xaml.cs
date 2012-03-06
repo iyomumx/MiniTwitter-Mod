@@ -127,7 +127,7 @@ namespace MiniTwitter.Controls
                     Image image = new Image { Width = 14, Height = 14, Margin = new Thickness(1, 0, 1, 0) };
                     string ResourceKey = string.Format("Emoji{0}", Convert.ToInt32(value.FirstOrDefault()).ToString("X4"));
                     var res = TryFindResource(ResourceKey);
-                    if (res!=null)
+                    if (res != null)
                     {
                         image.Style = (Style)res;
                     }
@@ -187,16 +187,21 @@ namespace MiniTwitter.Controls
                     if (Entities != null && Entities.Urls != null && Entities.Urls.URL != null)
                     {
                         link.Tag = (from url in Entities.Urls.URL
-                                    where url.URL == value
+                                    where url.URL == value && !url.ExpandedUrl.IsNullOrEmpty()
                                     select url.ExpandedUrl).FirstOrDefault() ?? value;
                     }
                     else
                     {
                         link.Tag = value;
                     }
+                    string cachedtarget = ReadCache(CutScheme(link.Tag as string));
+                    if (!cachedtarget.IsNullOrEmpty())
+                    {
+                        link.Tag = cachedtarget;
+                    }
                     link.ToolTip = link.Tag;
                     link.ToolTipOpening += Hyperlink_ToolTipOpening;
-                    link.Inlines.Add(value);
+                    link.Inlines.Add(CutScheme(link.Tag as string));
                     link.Click += Hyperlink_Click;
                     link.ContextMenu = (ContextMenu)Application.Current.FindResource("LinkInlineMenu");
                     link.ContextMenuOpening += new ContextMenuEventHandler((sender_, ____) =>
@@ -231,7 +236,7 @@ namespace MiniTwitter.Controls
             {
                 foreach (var media in Entities.Media.creative)
                 {
-                    var uri = new Uri(media.media_url_https);
+                    var uri = new Uri(Settings.Default.SSLUserImage ? media.media_url_https : media.media_url);
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, media.url));
                 }
                 Inserted = true;
@@ -273,6 +278,67 @@ namespace MiniTwitter.Controls
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
                     Inserted = true;
                 }
+                else if (Regex.IsMatch(url, @"http:\/\/imgur\.com\/(.+?)$"))
+                {
+                    var uri = new Uri("http://i.imgur.com/" + url.Substring(17) + "l.jpg");
+
+                    TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    Inserted = true;
+                }
+                else if (Regex.IsMatch(url,@"^http://picplz\.com/[A-Za-z0-9]+$"))
+                {
+                    var uri = GetUri(url);
+                    if (uri == null)
+                    {
+                        CacheUrl(url, u =>
+                        {
+                            try
+                            {
+                                var client = new WebClient();
+                                var contents = client.DownloadString(string.Format("http://api.picplz.com/api/v2/pic.json?shorturl_ids={0}", u.Substring(18)));
+                                var _match = Regex.Match(contents, "320rh.+?\"img_url\":\"(.+?)\"");
+                                return new Uri(_match.Groups[1].Value);
+                            }
+                            catch
+                            {
+                                return null;
+                            }
+                        });
+                    }
+                    else
+                    {
+                        TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                        Inserted = true;
+                    }
+                }
+                else if (Regex.IsMatch(url, @"^http://picplz\.com/user/.+?/pic/.+?(/?)$"))
+                {
+                    var uri = GetUri(url);
+                    if (uri == null)
+                    {
+                        CacheUrl(url, u =>
+                        {
+                            try
+                            {                    
+                                var urlmatch = Regex.Match(u, "pic/(?<id>.+?)/?$");
+                                var longid = urlmatch.Groups["id"].Value;
+                                var client = new WebClient();
+                                var contents = client.DownloadString(string.Format("http://api.picplz.com/api/v2/pic.json?longurl_ids={0}", longid));
+                                var _match = Regex.Match(contents, @"320rh.+?\""img_url\"": \""(.+?)\""");
+                                return new Uri(_match.Groups[1].Value);
+                            }
+                            catch
+                            {
+                                return null;
+                            }
+                        });
+                    }
+                    else
+                    {
+                        TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                        Inserted = true;
+                    }
+                }
                 else if (Regex.IsMatch(url, @"http:\/\/f\.hatena\.ne\.jp\/(.+?)\/(\d+)"))
                 {
                     var uri = GetUri(url);
@@ -291,7 +357,7 @@ namespace MiniTwitter.Controls
                             }
                             catch
                             {
-                                return new Uri(url);
+                                return null;
                             }
                         });
                     }
@@ -318,7 +384,7 @@ namespace MiniTwitter.Controls
                             }
                             catch
                             {
-                                return new Uri(url);
+                                return null;
                             }
                         });
                     }
@@ -396,26 +462,26 @@ namespace MiniTwitter.Controls
             return link;
         }
 
-        private void link_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                var d = e.Delta;
-                Hyperlink link = (Hyperlink)sender;
-                Image img = (Image)(((InlineUIContainer)(link.Inlines.FirstInline)).Child);
-                if (d>0)
-                {
-                    img.Height *= 1.1;
-                    img.Width *= 1.1;
-                }
-                else
-                {
-                    img.Height *= 0.9;
-                    img.Width *= 0.9;
-                }
-                e.Handled = true;
-            }
-        }
+        //private void link_MouseWheel(object sender, MouseWheelEventArgs e)
+        //{
+        //    if (Keyboard.Modifiers == ModifierKeys.Control)
+        //    {
+        //        var d = e.Delta;
+        //        Hyperlink link = (Hyperlink)sender;
+        //        Image img = (Image)(((InlineUIContainer)(link.Inlines.FirstInline)).Child);
+        //        if (d>0)
+        //        {
+        //            img.Height *= 1.1;
+        //            img.Width *= 1.1;
+        //        }
+        //        else
+        //        {
+        //            img.Height *= 0.9;
+        //            img.Width *= 0.9;
+        //        }
+        //        e.Handled = true;
+        //    }
+        //}
 
         private void HighlightKeywords(string text)
         {
@@ -593,34 +659,52 @@ namespace MiniTwitter.Controls
 
         private static string GetRedirect(string url)
         {
-            try
+            if (Settings.Default.UseApiToLengthenUrl)
             {
-                var request = (HttpWebRequest)WebRequest.Create(string.Format("http://www.longurlplease.com/api/v1.1?q={0}", url));
-                request.AllowAutoRedirect = false;
-                request.Timeout = 3200;
-                request.Method = "GET";
-                var response = (HttpWebResponse)request.GetResponse();
-                if (response.StatusCode == HttpStatusCode.OK)
+                try
                 {
-                    string result;
+                    var request = (HttpWebRequest)WebRequest.Create(string.Format("http://www.longurlplease.com/api/v1.1?q={0}", url));
+                    request.AllowAutoRedirect = false;
+                    request.Timeout = 3000;
+                    request.Method = "GET";
+                    var response = (HttpWebResponse)request.GetResponse();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string result;
 
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        result = reader.ReadToEnd();
+                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                        {
+                            result = reader.ReadToEnd();
+                        }
+                        Match match = longurlpleaseJSONRegex.Match(result);
+                        if (match.Success && match.Groups["ShortUrl"].Value.Replace(@"\/", @"/") == url)
+                        {
+                            return match.Groups["LongUrl"].Value.Replace(@"\/", @"/");
+                        }
+
                     }
-                    Match match = longurlpleaseJSONRegex.Match(result);
-                    if (match.Success && match.Groups["ShortUrl"].Value.Replace(@"\/", @"/") == url)
-                    {
-                        return match.Groups["LongUrl"].Value.Replace(@"\/", @"/");
-                    }
-                    
+                }
+                catch
+                {
                 }
             }
-            catch (Exception e)
+            else
             {
-                var i = e.Message;
-                Debug.Write(i);
+                try
+                {
+                    var request = (HttpWebRequest)WebRequest.Create(url);
+                    request.AllowAutoRedirect = false;
+                    request.Timeout = 3000;
+                    request.Method = "HEAD";
+                    var response = (HttpWebResponse)request.GetResponse();
+                    if (response.StatusCode == HttpStatusCode.MovedPermanently)
+                    {
+                        return response.Headers["Location"];
+                    }
+                }
+                catch { }
             }
+            
             return url;
         }
 
@@ -674,6 +758,7 @@ namespace MiniTwitter.Controls
                             {
                                 hyperlink.ToolTip = new TextBlock { Text = location };
                                 hyperlink.Tag = location;       //无论如何都防止产生两次点击
+                                CacheUrl(((Run)hyperlink.Inlines.FirstInline).Text, location);
                             });
                         else
                             this.Invoke(() =>
@@ -735,7 +820,7 @@ namespace MiniTwitter.Controls
         }
         #endregion
 
-        #region urlCache
+        #region picurlCache
         private static System.Collections.Concurrent.ConcurrentDictionary<string, Uri> UrlCache = new System.Collections.Concurrent.ConcurrentDictionary<string, Uri>();
         private static void CacheUrl(string url, Uri uri)
         {
@@ -756,5 +841,61 @@ namespace MiniTwitter.Controls
             return result;
         }
         #endregion
+
+        #region shorturlcache
+        private static System.Collections.Concurrent.ConcurrentDictionary<string, string> ShortUrlCache = new System.Collections.Concurrent.ConcurrentDictionary<string, string>();
+        private static void CacheUrl(string shorturl, string url)
+        {
+            var oriShortUrl = from Url in ShortUrlCache
+                              where Url.Value == shorturl
+                              select Url.Key;
+            if (oriShortUrl.Count() != 0)
+            {
+                foreach (var item in oriShortUrl)
+                {
+                    ShortUrlCache.AddOrUpdate(item, url, (_, __) => url);
+                }
+            }
+            else
+            {
+                ShortUrlCache.AddOrUpdate(shorturl, url, (_, __) => url);
+            }
+        }
+        private static string ReadCache(string shorturl)
+        {
+            string result;
+            ShortUrlCache.TryGetValue(shorturl, out result);
+            return result;
+        }
+        #endregion
+
+        private bool IsUrl(string url)
+        {
+            try
+            {
+                var uri = new Uri(url);
+                
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private string CutScheme(string url)
+        {
+            string shortUrlString = url;
+            try
+            {
+                var tempUri = new Uri(url);
+                shortUrlString = url.Substring(tempUri.Scheme.Length + 3);
+            }
+            catch
+            {
+
+            }
+            return shortUrlString;
+        }
     }
 }

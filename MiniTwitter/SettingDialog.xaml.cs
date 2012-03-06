@@ -387,7 +387,7 @@ namespace MiniTwitter
         {
             if (TwitterClient.googlHelper == null)
             {
-                TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter();
+                TwitterClient.googlHelper = new Google.UrlShortener.UrlShortener();
             }
             string token = string.Empty;
             string tokensecret = string.Empty;

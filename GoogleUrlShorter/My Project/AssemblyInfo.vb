@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' 查看程序集特性的值
 
-<Assembly: AssemblyTitle("GoogleUrlShorter")> 
+<Assembly: AssemblyTitle("GoogleUrlShortener")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("GoogleUrlShorter")> 
+<Assembly: AssemblyProduct("GoogleUrlShortener")> 
 <Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 方法是按如下所示使用“*”:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.2")> 
-<Assembly: AssemblyFileVersion("1.0.0.2")> 
+<Assembly: AssemblyVersion("1.0.0.3")> 
+<Assembly: AssemblyFileVersion("1.0.0.3")> 

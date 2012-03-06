@@ -1876,7 +1876,7 @@ namespace MiniTwitter
             ForceActivate();
         }
 
-        private void ReTweetApiCommand_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        private void ReTweetApiCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var item = (Status)e.Parameter ?? GetSelectedItem();
             if ((item.Sender.Protected)&&(!item.IsReTweeted))
@@ -1898,19 +1898,22 @@ namespace MiniTwitter
                 In_Reply_To_Status_Id = null;
                 In_Reply_To_Status_User_Name = null;
             }
+            if (!item.Sender.Protected || item.IsReTweeted)
+            {
+                RetweetStatusID = item.ID;
+            }
             TweetTextBox.Text = string.Format("{0} {1}{2}: {3}",
                 Properties.Settings.Default.ReTweetPrefix, 
                 (item.IsAuthor ? "" : "@"), 
                 item.Sender.ScreenName, 
                 item.Text.Replace("@" + TClient.LoginedUser.ScreenName, TClient.LoginedUser.ScreenName));
             TweetTextBox.CaretIndex = 0;
-            if (item.Sender.Protected)
+            if (item.Sender.Protected && !item.IsReTweeted)
             {
                 TweetInfo.Type = lasttype = Controls.TweetType.RT;
             }
             else
             {
-                RetweetStatusID = item.ID;
                 TweetInfo.Type = Controls.TweetType.Retweet;
             }
             TweetTextBox.Focus();
@@ -3410,6 +3413,11 @@ namespace MiniTwitter
         private void DeleteCammand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var status = (ITwitterItem)e.Parameter ?? GetSelectedItem();
+            if (TClient.LoginedUser == null)
+            {
+                e.CanExecute = false;
+                return;
+            }
             if (status.Sender.ID == TClient.LoginedUser.ID || status is DirectMessage)
             {
                 e.CanExecute = true;

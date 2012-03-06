@@ -61,6 +61,17 @@ namespace MiniTwitter
 
         private void textBox1_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (WindowState == WindowState.Minimized)
+            {
+                WindowState = WindowState.Normal;
+            }
+
+            if (!IsVisible)
+            {
+                Show();
+            }
+
+            Activate();
             textBox1.Focus();
             textBox1.SelectAll();
         }

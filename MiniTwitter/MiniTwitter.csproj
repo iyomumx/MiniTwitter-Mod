@@ -51,7 +51,7 @@
     <SuiteName>MiniTwitter Mod</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>minitwitter_publish.htm</WebPage>
-    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationRevision>20</ApplicationRevision>
     <ApplicationVersion>1.6.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -264,9 +264,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleUrlShorter\GoogleUrlShorter.vbproj">
+    <ProjectReference Include="..\GoogleUrlShorter\GoogleUrlShortener.vbproj">
       <Project>{E4A4204A-68C2-4039-8475-1111DA1F13DF}</Project>
-      <Name>GoogleUrlShorter</Name>
+      <Name>GoogleUrlShortener</Name>
     </ProjectReference>
     <ProjectReference Include="..\MiniTwitter.Models\MiniTwitter.Models.csproj">
       <Project>{E3523F4C-F226-47F8-9F46-282248006E4E}</Project>

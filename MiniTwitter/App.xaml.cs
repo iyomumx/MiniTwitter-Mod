@@ -17,10 +17,12 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+
 using MiniTwitter.Extensions;
 using MiniTwitter.Input;
 using MiniTwitter.Properties;
 using MiniTwitter.Themes;
+
 namespace MiniTwitter
 {
     /// <summary>
@@ -106,11 +108,11 @@ namespace MiniTwitter
 
             if (Settings.Default.PlixiPassword.IsNullOrEmpty() || Settings.Default.PlixiUsername.IsNullOrEmpty())
             {
-                Net.TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter();
+                Net.TwitterClient.googlHelper = new Google.UrlShortener.UrlShortener();
             }
             else
             {
-                Net.TwitterClient.googlHelper = new Google.UrlShorter.UrlShorter("anonymous", "anonymous", Settings.Default.PlixiUsername, Settings.Default.PlixiPassword);
+                Net.TwitterClient.googlHelper = new Google.UrlShortener.UrlShortener("anonymous", "anonymous", Settings.Default.PlixiUsername, Settings.Default.PlixiPassword);
             }
             Net.TwitterClient.googlHelper.Key = google_key;
 
@@ -227,10 +229,10 @@ namespace MiniTwitter
         public const string VERSION = "1.67.001";
         public const string NAME = "MiniTwitter Mod";
 #if PLAIN_APP_KEY
-        private static string google_key = "YOUR_GOOGLE_API_KEY_HERE";
-        public static string consumer_key = "YOUR_TWITTER_CONSUMER_KEY_HERE";
-        public static string consumer_secret = "YOUR_TWITTER_CONSUMER_SECRET_HERE";
-        public static string kanvaso_api_key = "YOUR_KANVASO_API_KEY_HERE";
+        private static string google_key = "YOUR_GOOGLE_API_KEY_HERE";                  //goo.gl
+        public static string consumer_key = "YOUR_TWITTER_CONSUMER_KEY_HERE";           //必须
+        public static string consumer_secret = "YOUR_TWITTER_CONSUMER_SECRET_HERE";     //必须
+        public static string kanvaso_api_key = "YOUR_KANVASO_API_KEY_HERE";             //kanvaso长推服务
 #else
         #region AppKeys
 

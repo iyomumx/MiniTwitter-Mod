@@ -38,7 +38,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.Reply" Executed="ReplyCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReplyAll" Executed="ReplyAllCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.ReTweet" Executed="ReTweetCommand_Executed"/>
-        <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" CanExecute="ReTweetApiCommand_CanExecuted" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ReTweetApi" Executed="ReTweetApiCommand_Executed" CanExecute="ReTweetApiCommand_CanExecute" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ReplyMessage" Executed="ReplyMessageCommand_Executed"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Delete" Executed="DeleteCommand_Executed" CanExecute="DeleteCammand_CanExecute"/>
         <CommandBinding Command="MiniTwitter_Input:Commands.Favorite" Executed="FavoriteCommand_Executed"/>

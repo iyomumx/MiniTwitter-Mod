@@ -64,6 +64,7 @@ namespace MiniTwitter.Properties
             ImageInline = false;
             MaxTweetCount = 10000;
             LinkUrl = "https://twitter.com/";
+            UseApiToLengthenUrl = false;
         }
 
         /// <summary>
@@ -219,6 +220,11 @@ namespace MiniTwitter.Properties
             get;
             private set;
         }
+
+        /// <summary>
+        /// 是否使用longurlplease.com的服务
+        /// </summary>
+        public bool UseApiToLengthenUrl { get; set; }
 
         //发送处理
 

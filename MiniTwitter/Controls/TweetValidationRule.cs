@@ -29,8 +29,11 @@ namespace MiniTwitter.Controls
             var text = (string)value;
             Match match = directMessageRegex.Match(text);
             int length = match.Success ? text.Length - match.Length : text.Length;
-            
-            if (length > 140)
+
+            MainWindow window = (MainWindow)App.Current.MainWindow;
+            var state = window.RetweetStatusID.HasValue;
+
+            if (length > 140 && !state)
             {
                 return new ValidationResult(false, "超过了140字！");
             }
