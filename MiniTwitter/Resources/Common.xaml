@@ -225,6 +225,11 @@
         <MenuItem Header="复制来源网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=SourceUri}"/>
     </ContextMenu>
 
+    <ContextMenu x:Key="UpdateButtonMenu">
+        <MenuItem Header="发送(_U)" Command="MiniTwitter_Input:Commands.Update" />
+        <MenuItem Header="添加媒体文件并发送(_W)" Command="MiniTwitter_Input:Commands.UpdateWithMedia"/>
+    </ContextMenu>
+
     <ContextMenu x:Key="LinkInlineMenu">
         <MenuItem Header="打开网址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding Path=Url}" />
         <MenuItem Header="复制网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=Url}"/>
@@ -248,6 +253,7 @@
         <MenuItem Header="插入(_I)">
             <MenuItem Header="上传照片至Twitpic(_P)" Command="MiniTwitter_Input:Commands.Twitpic" />
             <MenuItem Header="上传照片至img.ly(_M)" Command="MiniTwitter_Input:Commands.Imgly" />
+            <MenuItem Header="添加媒体后发送(_W)" Command="MiniTwitter_Input:Commands.UpdateWithMedia" />
             <Separator />
             <MenuItem Header="正在播放信息(_I)" Command="MiniTwitter_Input:Commands.PlayTitle" />
             <MenuItem Header="所在地信息(_G)" Command="MiniTwitter_Input:Commands.GpsLocation" />

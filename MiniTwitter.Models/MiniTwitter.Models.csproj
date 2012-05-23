@@ -152,6 +152,7 @@
     <Compile Include="Extensions\DispatcherExtension.cs" />
     <Compile Include="Extensions\EditableExtension.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Extensions\FiltersExtension.cs" />
     <Compile Include="Extensions\StringExtention.cs" />
     <Compile Include="Extensions\TimelineExtension.cs" />
     <Compile Include="Extensions\TwitterExtension.cs" />

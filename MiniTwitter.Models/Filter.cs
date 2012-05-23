@@ -64,6 +64,34 @@ namespace MiniTwitter
             set { Filter._customFilterFunction = value; }
         }
 
+        [XmlIgnore]
+        private int _level;
+
+        [XmlIgnore]
+        public int Level
+        {
+            get { return _level; }
+            set 
+            {
+                if (value >= 0)
+                {
+                    _level = value;                     
+                }
+            }
+        }
+
+        [XmlIgnore]
+        private bool _andCombine;
+
+        [XmlIgnore]
+        public bool AndCombine
+        {
+            get { return _andCombine; }
+            set { _andCombine = value; }
+        }
+
+        
+
         public bool Process(ITwitterItem item)
         {
             switch (Type)

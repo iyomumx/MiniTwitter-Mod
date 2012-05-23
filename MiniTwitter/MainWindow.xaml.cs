@@ -267,7 +267,10 @@ namespace MiniTwitter
 
         private void InitializeTimeline()
         {
-            
+            Timeline.ItemDeletedCallback = () =>
+            {
+                this.TClient.CompressCache();
+            };
             {
                 // 初期タイムラインを作成
                 Timelines.Add(new Timeline { Type = TimelineType.Recent, Name = "Recent" });
@@ -3425,6 +3428,34 @@ namespace MiniTwitter
             else
             {
                 e.CanExecute = false;
+            }
+        }
+
+        private void UpdateWithMediaCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog { Multiselect = false };
+            if (dialog.ShowDialog() ?? false)
+            {
+                var filepath = dialog.FileName;
+                var status = (string)e.Parameter ?? TweetTextBox.Text;
+                if (string.IsNullOrEmpty(status) || !UpdateButton.IsEnabled)
+                {
+                    return;
+                }
+                UpdateButton.IsEnabled = false;
+                StatusText = "正在更新状态…";
+                ulong? ReplyID = In_Reply_To_Status_Id;
+                ThreadPool.QueueUserWorkItem(text =>
+                    {
+                        TClient.UpdateWithMedia((string)text, ReplyID, _latitude, _longitude, filepath,
+                            stp =>
+                            {
+                                if (stp != OAuthBase.ProccessStep.Error)
+                                    App.MainTokenSource.Token.ThrowIfCancellationRequested();
+                            });
+                    }, status);
+                TweetTextBox.Clear();
+                UpdateButton.IsEnabled = true;
             }
         }
 

@@ -157,7 +157,6 @@ namespace MiniTwitter.Controls
                     link.Inlines.Add(value);
                     link.Click += UserHyperlink_Click;
                     var menu = (ContextMenu)(Application.Current.FindResource("UserInlineMenu"));
-                    Debug.WriteLine(menu.DataContext);
                     TextBlock.Inlines.Add("@");
                     TextBlock.Inlines.Add(link);
                     link.DataContext = value;

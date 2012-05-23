@@ -357,6 +357,79 @@ namespace MiniTwitter.Net
             }
         }
 
+        public void UpdateWithMedia(string text, ulong? replyId, double? latitude, double? longitude, string filePath , Action<ProccessStep> proccessCallBack = null)
+        {
+            try
+            {
+                string url = "https://upload.twitter.com/1/statuses/update_with_media.xml";
+                string boundary = System.Environment.TickCount.ToString("x");
+                var req = (HttpWebRequest)WebRequest.Create(url);
+                req.Method = "POST";
+                AddOAuthToken(req, new System.Collections.Specialized.NameValueCollection(), _token, _tokenSecret, null);
+                req.ContentType = "multipart/form-data; boundary=" + boundary;
+                string postData;
+                postData = "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"status\"\r\n\r\n" + text + "\r\n";
+                if (replyId.HasValue)
+                {
+                    postData += "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"in_reply_to_status_id\"\r\n\r\n" + replyId + "\r\n";
+                }
+                if (latitude.HasValue && longitude.HasValue)
+                {
+                    postData += "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"lat\"\r\n\r\n" + latitude + "\r\n" +
+                    "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"lat\"\r\n\r\n" + longitude + "\r\n";
+                }
+                postData += "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"media[]\"; filename=\"" + Path.GetFileName(filePath) + "\"\r\n" +
+                    "Content-Type: application/octet-stream\r\n\r\n";
+                var enc = Encoding.UTF8;
+
+                byte[] startData = enc.GetBytes(postData);
+                postData = "\r\n--" + boundary + "--\r\n";
+                byte[] endData = enc.GetBytes(postData);
+                var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+                req.ContentLength = startData.Length + endData.Length + fs.Length;
+                var reqStream = req.GetRequestStream();
+                reqStream.Write(startData, 0, startData.Length);
+                byte[] readData = new byte[0x10000];
+                int readSize = 0;
+                while (true)
+                {
+                    readSize = fs.Read(readData, 0, readData.Length);
+                    if (readSize == 0)
+                    {
+                        break;
+                    }
+                    reqStream.Write(readData, 0, readSize);
+                }
+                fs.Close();
+                fs.Dispose();
+                reqStream.Write(endData, 0, endData.Length);
+                reqStream.Close();
+                var res = (HttpWebResponse)req.GetResponse();
+                using (var resStream = res.GetResponseStream())
+                {
+                    var status = Serializer<Status>.Deserialize(resStream);
+                    status.IsAuthor = true;
+                    if (Updated != null)
+                    {
+                        Updated(this, new UpdateEventArgs(status));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (UpdateFailure != null)
+                {
+                    UpdateFailure(this, new UpdateFailedEventArgs(text, replyId, ex));
+                }
+            }
+        }
+
         private void UpdateMessage(string user, string text, Action<ProccessStep> proccessCallBack = null)
         {
             try
@@ -1189,7 +1262,13 @@ namespace MiniTwitter.Net
 
     #region Cache
         #region StatusCache
-        private ConcurrentDictionary<ulong, Status> statusesCache = new ConcurrentDictionary<ulong, Status>();
+        private WeakReferenceCache statusesCache = new WeakReferenceCache();
+
+        internal void CompressCache()
+        {
+            statusesCache.CompressCache();
+        }
+
         private void CacheOrUpdate(Status tweet)
         {
             if (tweet == null)
@@ -1352,7 +1431,7 @@ namespace MiniTwitter.Net
                 {
                     FirstRun = false;
                     User user;
-                    foreach (var tweet in statusesCache.Values)
+                    foreach (var tweet in statusesCache.GetDictionary().Values)
                     {
                         if (tweet == null)
                         {

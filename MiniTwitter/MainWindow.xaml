@@ -90,6 +90,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.FilterTag" Executed="FilterTagCommand_Executed" CanExecute="FilterUserCommand_CanExecute" />
         <CommandBinding Command="MiniTwitter_Input:Commands.NavigateTo" Executed="NavigateToCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ViewUserByName" Executed="ViewUserByNameCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.UpdateWithMedia" Executed="UpdateWithMediaCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
@@ -152,7 +153,8 @@
                 </ListBox>
             </Popup>
             <Button x:Name="UpdateButton" Grid.Row="2" Content="update" Command="MiniTwitter_Input:Commands.Update"
-                    CommandParameter="{Binding ElementName=TweetTextBox, Path=Text}" Style="{DynamicResource UpdateButtonStyle}"/>
+                    CommandParameter="{Binding ElementName=TweetTextBox, Path=Text}" 
+                    Style="{DynamicResource UpdateButtonStyle}" ContextMenu="{StaticResource UpdateButtonMenu}"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" 
                         Visibility="{Binding ElementName=Window, Path=FailStatuses.Count, Converter={StaticResource EmptyConverter}}">
                 <Button Margin="0,0,3,0" Padding="0" BorderThickness="0"

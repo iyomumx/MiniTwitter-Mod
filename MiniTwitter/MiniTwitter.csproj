@@ -51,7 +51,7 @@
     <SuiteName>MiniTwitter Mod</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>minitwitter_publish.htm</WebPage>
-    <ApplicationRevision>20</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>1.6.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -209,6 +209,7 @@
     <Compile Include="HasValueToVisibilityConverter.cs" />
     <Compile Include="MainWindowState.cs" />
     <Compile Include="Net\KanvasoHelper.cs" />
+    <Compile Include="Net\WeakReferenceCache.cs" />
     <Compile Include="Update\UpdateDialog.xaml.cs">
       <DependentUpon>UpdateDialog.xaml</DependentUpon>
     </Compile>

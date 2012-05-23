@@ -64,6 +64,9 @@ namespace MiniTwitter
 
         public static bool ThrowFilteredTweets { get; set; }
 
+        [XmlIgnore][NonSerialized]
+        public static Action ItemDeletedCallback;
+
         [NonSerialized]
         private Object _thisLock = new Object();
 
@@ -202,6 +205,10 @@ namespace MiniTwitter
                     foreach (var item in deleteItems)
                     {
                         Items.Remove(item);
+                    }
+                    if (ItemDeletedCallback != null)
+                    {
+                        ItemDeletedCallback.Invoke();
                     }
                 }
                 if (VerticalOffset != 0.0)
