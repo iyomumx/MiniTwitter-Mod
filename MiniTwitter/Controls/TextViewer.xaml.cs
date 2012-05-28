@@ -409,10 +409,8 @@ namespace MiniTwitter.Controls
                         {
                             try
                             {
-                                var client = new WebClient();
-                                var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", u));
-                                var _match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
-                                return new Uri(_match.Groups[1].Value);
+                                var _match = Regex.Match(url, @"http:\/\/instagr\.am\/p\/(.+?)\/?$");
+                                return new Uri(string.Format(@"http://instagr.am/p/{0}/media", _match.Groups[1].Value));
                             }
                             catch
                             {
@@ -518,7 +516,7 @@ namespace MiniTwitter.Controls
                 var hyperlink = (Hyperlink)sender;
                 var url = (string)hyperlink.Tag;
 
-                if (Keyboard.Modifiers == ModifierKeys.Control)
+                if ((Settings.Default.ImageInline && Keyboard.Modifiers != ModifierKeys.Shift) || Keyboard.Modifiers == ModifierKeys.Control)
                 {
                     Process.Start(url);
                     return;
@@ -582,11 +580,9 @@ namespace MiniTwitter.Controls
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/instagr\.am\/p\/(.+?)"))
                 {
-                    var client = new WebClient();
-                    var contents = client.DownloadString(string.Format("http://instagr.am/api/v1/oembed?url={0}", url));
-                    var match = Regex.Match(contents, @"\""url\"": \""(.+?)\""");
+                    var match = Regex.Match(url, @"http:\/\/instagr\.am\/p\/(.+?)\/?$");
 
-                    var uri = new Uri(match.Groups[1].Value);
+                    var uri = new Uri(string.Format(@"http://instagr.am/p/{0}/media/?size=m", match.Groups[1].Value));
 
                     ShowPopup(uri, url);
                 }
@@ -603,11 +599,6 @@ namespace MiniTwitter.Controls
 
         private void ShowPopup(Uri uri, string url)
         {
-            if (Settings.Default.ImageInline)
-            {
-                Process.Start(url);
-                return;
-            }
             var popup = (Popup)FindResource("PreviewPopup");
             var progress = (Popup)FindResource("ProgressPopup");
 
