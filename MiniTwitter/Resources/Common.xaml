@@ -227,7 +227,8 @@
 
     <ContextMenu x:Key="UpdateButtonMenu">
         <MenuItem Header="发送(_U)" Command="MiniTwitter_Input:Commands.Update" />
-        <MenuItem Header="添加媒体文件并发送(_W)" Command="MiniTwitter_Input:Commands.UpdateWithMedia"/>
+        <MenuItem Header="添加媒体文件并发送(_W)" Command="MiniTwitter_Input:Commands.UpdateWithMedia" />
+        <MenuItem Header="发送剪贴板中的图片(_C)" Command="MiniTwitter_Input:Commands.UpdateWithClipBoardMedia" />
     </ContextMenu>
 
     <ContextMenu x:Key="LinkInlineMenu">

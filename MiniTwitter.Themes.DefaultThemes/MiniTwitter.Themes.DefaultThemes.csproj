@@ -118,12 +118,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MiniTwitter_Dark\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MiniTwitter_Standard\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -186,41 +180,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MiniTwitter_Dark\Images\account.png" />
-    <Resource Include="MiniTwitter_Dark\Images\addin.png" />
-    <Resource Include="MiniTwitter_Dark\Images\arrow_left.png" />
-    <Resource Include="MiniTwitter_Dark\Images\arrow_refresh.png" />
-    <Resource Include="MiniTwitter_Dark\Images\arrow_reply.png" />
-    <Resource Include="MiniTwitter_Dark\Images\cross.png" />
-    <Resource Include="MiniTwitter_Dark\Images\design.png" />
-    <Resource Include="MiniTwitter_Dark\Images\heart.png" />
-    <Resource Include="MiniTwitter_Dark\Images\home.png" />
-    <Resource Include="MiniTwitter_Dark\Images\keyboard.png" />
-    <Resource Include="MiniTwitter_Dark\Images\keyword.png" />
-    <Resource Include="MiniTwitter_Dark\Images\log.png" />
-    <Resource Include="MiniTwitter_Dark\Images\network.png" />
-    <Resource Include="MiniTwitter_Dark\Images\new.png" />
-    <Resource Include="MiniTwitter_Dark\Images\popup.png" />
-    <Resource Include="MiniTwitter_Dark\Images\protect.png" />
-    <Resource Include="MiniTwitter_Dark\Images\retweet.png" />
-    <Resource Include="MiniTwitter_Dark\Images\search.png" />
-    <Resource Include="MiniTwitter_Dark\Images\setting.png" />
-    <Resource Include="MiniTwitter_Dark\Images\sound.png" />
-    <Resource Include="MiniTwitter_Dark\Images\star.png" />
-    <Resource Include="MiniTwitter_Dark\Images\star_empty.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="MiniTwitter_Standard\Images\filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MiniTwitter_Dark\Images\filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MiniTwitter_Dark\Images\arrow_right.png" />
     <Resource Include="MiniTwitter_Standard\Images\arrow_right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MiniTwitter_Dark\Images\arrow_up.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MiniTwitter_Standard\Images\arrow_up.png" />

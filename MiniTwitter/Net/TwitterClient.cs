@@ -57,7 +57,7 @@ namespace MiniTwitter.Net
         private static readonly Regex unescapeRegex = new Regex("&([gl]t);", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private const string _TwitterApiBase = "https://api.twitter.com/";
-        
+
         public static string ApiBaseUrl
         {
             get
@@ -69,16 +69,16 @@ namespace MiniTwitter.Net
 
         private const string _TwitterSearchBase = "https://search.twitter.com/";
 
-        public static string SearchApiUrl 
+        public static string SearchApiUrl
         {
-            get 
+            get
             {
                 return string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ApiSearchUrl) ? _TwitterSearchBase : (MiniTwitter.Properties.Settings.Default.ApiSearchUrl);
             }
         }
 
         public static string Unescape(string text)
-        {            
+        {
             return unescapeRegex.Replace(text, match => match.Groups[1].Value == "gt" ? ">" : "<");
         }
 
@@ -340,7 +340,7 @@ namespace MiniTwitter.Net
                     }
                 }
                 status.IsAuthor = true;
-                
+
                 AsyncDo(CacheOrUpdate, status);     //Cache
 
                 if (Updated != null)
@@ -348,7 +348,7 @@ namespace MiniTwitter.Net
                     Updated(this, new UpdateEventArgs(status));
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (UpdateFailure != null)
                 {
@@ -357,7 +357,7 @@ namespace MiniTwitter.Net
             }
         }
 
-        public void UpdateWithMedia(string text, ulong? replyId, double? latitude, double? longitude, string filePath , Action<ProccessStep> proccessCallBack = null)
+        public void UpdateWithMedia(string text, ulong? replyId, double? latitude, double? longitude, string filePath, Action<ProccessStep> proccessCallBack = null)
         {
             try
             {
@@ -390,8 +390,79 @@ namespace MiniTwitter.Net
                 byte[] startData = enc.GetBytes(postData);
                 postData = "\r\n--" + boundary + "--\r\n";
                 byte[] endData = enc.GetBytes(postData);
-                var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                using (var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    req.ContentLength = startData.Length + endData.Length + fs.Length;
+                    var reqStream = req.GetRequestStream();
+                    reqStream.Write(startData, 0, startData.Length);
+                    byte[] readData = new byte[0x10000];
+                    int readSize = 0;
+                    while (true)
+                    {
+                        readSize = fs.Read(readData, 0, readData.Length);
+                        if (readSize == 0)
+                        {
+                            break;
+                        }
+                        reqStream.Write(readData, 0, readSize);
+                    }
+                    reqStream.Write(endData, 0, endData.Length);
+                    reqStream.Close();
+                }
+                var res = (HttpWebResponse)req.GetResponse();
+                using (var resStream = res.GetResponseStream())
+                {
+                    var status = Serializer<Status>.Deserialize(resStream);
+                    status.IsAuthor = true;
+                    if (Updated != null)
+                    {
+                        Updated(this, new UpdateEventArgs(status));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (UpdateFailure != null)
+                {
+                    UpdateFailure(this, new UpdateFailedEventArgs(text, replyId, ex));
+                }
+            }
+        }
 
+        public void UpdateWithMedia(string text, ulong? replyId, double? latitude, double? longitude, Stream media, string mediaType, Action<ProccessStep> proccessCallBack = null)
+        {
+            try
+            {
+                string url = "https://upload.twitter.com/1/statuses/update_with_media.xml";
+                string boundary = System.Environment.TickCount.ToString("x");
+                var req = (HttpWebRequest)WebRequest.Create(url);
+                req.Method = "POST";
+                AddOAuthToken(req, new System.Collections.Specialized.NameValueCollection(), _token, _tokenSecret, null);
+                req.ContentType = "multipart/form-data; boundary=" + boundary;
+                string postData;
+                postData = "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"status\"\r\n\r\n" + text + "\r\n";
+                if (replyId.HasValue)
+                {
+                    postData += "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"in_reply_to_status_id\"\r\n\r\n" + replyId + "\r\n";
+                }
+                if (latitude.HasValue && longitude.HasValue)
+                {
+                    postData += "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"lat\"\r\n\r\n" + latitude + "\r\n" +
+                    "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"lat\"\r\n\r\n" + longitude + "\r\n";
+                }
+                postData += "--" + boundary + "\r\n" +
+                    "Content-Disposition: form-data; name=\"media[]\"; filename=\"" + DateTime.Now.ToString("yyMMddhhmmss") + "." + mediaType + "\"\r\n" +
+                    "Content-Type: application/octet-stream\r\n\r\n";
+                var enc = Encoding.UTF8;
+
+                byte[] startData = enc.GetBytes(postData);
+                postData = "\r\n--" + boundary + "--\r\n";
+                byte[] endData = enc.GetBytes(postData);
+                var fs = media;
                 req.ContentLength = startData.Length + endData.Length + fs.Length;
                 var reqStream = req.GetRequestStream();
                 reqStream.Write(startData, 0, startData.Length);
@@ -407,7 +478,6 @@ namespace MiniTwitter.Net
                     reqStream.Write(readData, 0, readSize);
                 }
                 fs.Close();
-                fs.Dispose();
                 reqStream.Write(endData, 0, endData.Length);
                 reqStream.Close();
                 var res = (HttpWebResponse)req.GetResponse();
@@ -441,7 +511,7 @@ namespace MiniTwitter.Net
                     Updated(this, new UpdateEventArgs(message));
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (UpdateFailure != null)
                 {
@@ -536,7 +606,7 @@ namespace MiniTwitter.Net
         {
             try
             {
-                Post(string.Format("{0}1/friendships/create.xml",ApiBaseUrl), new { screen_name = screen_name });
+                Post(string.Format("{0}1/friendships/create.xml", ApiBaseUrl), new { screen_name = screen_name });
 
                 return true;
             }
@@ -686,11 +756,11 @@ namespace MiniTwitter.Net
         {
             try
             {
-                var result = Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl), new { include_entities = "true" }, stp => 
+                var result = Get<Status>(string.Format("{1}1/statuses/show/{0}.xml", id, ApiBaseUrl), new { include_entities = "true" }, stp =>
                 {
-                    if (stp!= ProccessStep.Error)
+                    if (stp != ProccessStep.Error)
                     {
-                        App.MainTokenSource.Token.ThrowIfCancellationRequested();              
+                        App.MainTokenSource.Token.ThrowIfCancellationRequested();
                     }
                 });
                 if (MiniTwitter.Properties.Settings.Default.UseKanvasoLength)
@@ -721,11 +791,11 @@ namespace MiniTwitter.Net
             object p;
             if (maxId != null)
             {
-                p = new { max_id = maxId, count=count };
+                p = new { max_id = maxId, count = count };
             }
             else
             {
-                p = new { count=count };
+                p = new { count = count };
             }
             return GetStatuses(string.Format("{0}1/statuses/home_timeline.xml", ApiBaseUrl), p, ref sinceId);
         }
@@ -765,8 +835,8 @@ namespace MiniTwitter.Net
                     return Statuses.Empty;
                 }
 
-                Array.ForEach(statuses, item => 
-                { 
+                Array.ForEach(statuses, item =>
+                {
                     item.IsAuthor = item.Sender.ID == LoginedUser.ID;
                     item.IsMention = item.InReplyToUserID == LoginedUser.ID;
                     if (MiniTwitter.Properties.Settings.Default.UseKanvasoLength)
@@ -923,7 +993,7 @@ namespace MiniTwitter.Net
                     var xd = XDocument.Parse(response);
 
                     var temp = from p in xd.Descendants("user")
-                                select new User { ID = (int)p.Element("id"), ScreenName = (string)p.Element("screen_name") };
+                               select new User { ID = (int)p.Element("id"), ScreenName = (string)p.Element("screen_name") };
 
                     users.AddRange(temp);
 
@@ -1031,7 +1101,7 @@ namespace MiniTwitter.Net
 
         public void ChirpUserStream()
         {
-            if ((_thread!=null)&&(_thread.IsAlive))
+            if ((_thread != null) && (_thread.IsAlive))
             {
                 try
                 {
@@ -1114,8 +1184,9 @@ namespace MiniTwitter.Net
                                         //解析URL
                                         if (!element.Element("entities").Element("urls").Value.IsNullOrEmpty())
                                         {
-                                            status.Entities.Urls.URL=
-                                            element.Element("entities").Element("urls").Elements("item").Select(url => new Url{
+                                            status.Entities.Urls.URL =
+                                            element.Element("entities").Element("urls").Elements("item").Select(url => new Url
+                                            {
                                                 StartIndex = int.Parse(url.Element("indices").Elements("item").First().Value),
                                                 EndIndex = int.Parse(url.Element("indices").Elements("item").Last().Value),
                                                 DisplayUrl = (string)url.Element("display_url"),
@@ -1187,7 +1258,7 @@ namespace MiniTwitter.Net
                                         {
                                             status.InReplyToUserID = (int)element.Element("in_reply_to_user_id");
                                         }
-                                        
+
                                         status.IsAuthor = status.Sender.ID == LoginedUser.ID;
                                         status.IsMention = status.InReplyToUserID == LoginedUser.ID;
                                         AsyncDo(CacheOrUpdate, status);
@@ -1202,7 +1273,7 @@ namespace MiniTwitter.Net
                                                                     });
                                         }
 
-                                        
+
                                     }
                                     else if (element.Element("event") != null)
                                     {
@@ -1260,7 +1331,7 @@ namespace MiniTwitter.Net
             _thread.Start();
         }
 
-    #region Cache
+        #region Cache
         #region StatusCache
         private WeakReferenceCache statusesCache = new WeakReferenceCache();
 
@@ -1384,7 +1455,7 @@ namespace MiniTwitter.Net
         }
         #endregion
         #region Helpers
-        private void AsyncDo<T>(Action<T> action,T state)
+        private void AsyncDo<T>(Action<T> action, T state)
         {
             ThreadPool.QueueUserWorkItem(s => action((T)s), state);
         }
@@ -1410,13 +1481,13 @@ namespace MiniTwitter.Net
             return target;
         }
 
-        private SpinLock updateLock = 
+        private SpinLock updateLock =
 #if DEBUG
             new SpinLock(true);
 #else
-            new SpinLock();
+ new SpinLock();
 #endif
-        private bool FirstRun = true;
+
         private void UpdateAllStatusesAndUsers()
         {
             //if (!FirstRun)
@@ -1429,7 +1500,6 @@ namespace MiniTwitter.Net
                 updateLock.TryEnter(0, ref GotLock);
                 if (GotLock)
                 {
-                    FirstRun = false;
                     User user;
                     foreach (var tweet in statusesCache.GetDictionary().Values)
                     {
@@ -1460,7 +1530,7 @@ namespace MiniTwitter.Net
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
@@ -1473,7 +1543,7 @@ namespace MiniTwitter.Net
             }
         }
         #endregion
-    #endregion
+        #endregion
 
     }
 }

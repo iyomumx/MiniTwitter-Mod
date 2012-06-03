@@ -527,6 +527,30 @@ namespace MiniTwitter
         {
             TweetFooterCheckBox.IsChecked = false;
         }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            if (Settings.Default.EnableAero)
+            {
+                this.ExtendGlassFrame(new Thickness(-1));
+            }
+            this.AddHook((IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+            {
+                if (Settings.Default.EnableAero && msg == NativeMethods.WM_DWMCOMPOSITIONCHANGED)
+                {
+                    this.ExtendGlassFrame(new Thickness(-1));
+                    handled = true;
+                }
+                return IntPtr.Zero;
+            });
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
+        }
     }
 
     public class FontInfo : PropertyChangedBase

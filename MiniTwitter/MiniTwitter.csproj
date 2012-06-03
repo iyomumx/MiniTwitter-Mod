@@ -51,7 +51,7 @@
     <SuiteName>MiniTwitter Mod</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>minitwitter_publish.htm</WebPage>
-    <ApplicationRevision>22</ApplicationRevision>
+    <ApplicationRevision>23</ApplicationRevision>
     <ApplicationVersion>1.6.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -103,6 +103,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E773F743A10BCE0DB547EEC59AC7C9FA37B9D96C</ManifestCertificateThumbprint>
@@ -153,11 +155,19 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <TargetZone>Custom</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MiniTwitter.AppStartup</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -204,7 +214,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppStartup.cs" />
     <Compile Include="BooleansToVisibilityConverter.cs" />
+    <Compile Include="ChangeThemeRequestEventArgs.cs" />
     <Compile Include="FontNameToFontFamilyConverter.cs" />
     <Compile Include="HasValueToVisibilityConverter.cs" />
     <Compile Include="MainWindowState.cs" />
@@ -276,6 +288,10 @@
     <ProjectReference Include="..\MiniTwitter.Themes.DefaultThemes\MiniTwitter.Themes.DefaultThemes.csproj">
       <Project>{8CF3DAFB-99BA-416E-948E-BEB656F34CC4}</Project>
       <Name>MiniTwitter.Themes.DefaultThemes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiniTwitter.Themes.iyomumxMod\MiniTwitter.Themes.iyomumxMod.csproj">
+      <Project>{7DD02D2F-9521-463D-BA50-1561CE605146}</Project>
+      <Name>MiniTwitter.Themes.iyomumxMod</Name>
     </ProjectReference>
     <ProjectReference Include="..\MiniTwitter.Themes.Netbook\MiniTwitter.Themes.Netbook.csproj">
       <Project>{0ACFFD29-B490-4468-BC7D-CA7D2480B999}</Project>
@@ -1175,6 +1191,7 @@
     <Resource Include="Emoji\Images\E756.gif" />
     <Resource Include="Emoji\Images\E757.gif" />
     <Content Include="License.txt" />
+    <Resource Include="MiniTwitter.ico" />
     <Content Include="MiniTwitter.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

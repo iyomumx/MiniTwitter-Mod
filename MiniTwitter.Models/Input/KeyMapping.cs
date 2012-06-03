@@ -46,7 +46,8 @@ namespace MiniTwitter.Input
                 using (var stream = File.Open(file, FileMode.Open, FileAccess.Read))
                 {
                     var keyMapping = Serializer<KeyMapping>.Deserialize(stream);
-                    keyMappings.Add(keyMapping.Name, keyMapping);
+                    if (keyMapping != null)
+                        keyMappings.Add(keyMapping.Name, keyMapping);
                 }
             }
         }

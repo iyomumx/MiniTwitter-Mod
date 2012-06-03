@@ -105,7 +105,6 @@ namespace MiniTwitter.Net
                     }
                     reqStream.Write(readData, 0, readSize);
                 }
-                fs.Close();
                 reqStream.Write(endData, 0, endData.Length);
                 reqStream.Close();
             }

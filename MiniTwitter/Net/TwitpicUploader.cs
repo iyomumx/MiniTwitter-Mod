@@ -43,7 +43,7 @@ namespace MiniTwitter.Net
                 else
                 {
                     int pn = 0;
-                    if (!(int.TryParse(MiniTwitter.Properties.Settings.Default.ProxyPortNumber,out pn)))
+                    if (!(int.TryParse(MiniTwitter.Properties.Settings.Default.ProxyPortNumber, out pn)))
                     {
                         var p = new System.Net.WebProxy(MiniTwitter.Properties.Settings.Default.ProxyAddress, pn);
                         if (!(string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ProxyUsername) || string.IsNullOrEmpty(MiniTwitter.Properties.Settings.Default.ProxyPassword)))
@@ -52,9 +52,9 @@ namespace MiniTwitter.Net
                         }
                         req.Proxy = p;
                     }
-                    
+
                 }
-                
+
             }
             //メソッドにPOSTを指定
             req.Method = "POST";
@@ -86,34 +86,32 @@ namespace MiniTwitter.Net
             byte[] endData = enc.GetBytes(postData);
 
             //送信するファイルを開く
-            var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-            //POST送信するデータの長さを指定
-            req.ContentLength = startData.Length + endData.Length + fs.Length;
-
-            //データをPOST送信するためのStreamを取得
-            var reqStream = req.GetRequestStream();
-
-            //送信するデータを書き込む
-            reqStream.Write(startData, 0, startData.Length);
-
-            //ファイルの内容を送信
-            byte[] readData = new byte[0x10000];
-            int readSize = 0;
-            while (true)
+            using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                readSize = fs.Read(readData, 0, readData.Length);
-                if (readSize == 0)
-                {
-                    break;
-                }
-                reqStream.Write(readData, 0, readSize);
-            }
-            fs.Close();
-            fs.Dispose();
-            reqStream.Write(endData, 0, endData.Length);
-            reqStream.Close();
+                //POST送信するデータの長さを指定
+                req.ContentLength = startData.Length + endData.Length + fs.Length;
 
+                //データをPOST送信するためのStreamを取得
+                var reqStream = req.GetRequestStream();
+
+                //送信するデータを書き込む
+                reqStream.Write(startData, 0, startData.Length);
+
+                //ファイルの内容を送信
+                byte[] readData = new byte[0x10000];
+                int readSize = 0;
+                while (true)
+                {
+                    readSize = fs.Read(readData, 0, readData.Length);
+                    if (readSize == 0)
+                    {
+                        break;
+                    }
+                    reqStream.Write(readData, 0, readSize);
+                }
+                reqStream.Write(endData, 0, endData.Length);
+                reqStream.Close();
+            }
             //サーバーからの応答を受信するためのWebResponseを取得
             var res = (HttpWebResponse)req.GetResponse();
 

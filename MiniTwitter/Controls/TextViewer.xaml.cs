@@ -410,7 +410,7 @@ namespace MiniTwitter.Controls
                             try
                             {
                                 var _match = Regex.Match(url, @"http:\/\/instagr\.am\/p\/(.+?)\/?$");
-                                return new Uri(string.Format(@"http://instagr.am/p/{0}/media", _match.Groups[1].Value));
+                                return new Uri(string.Format(@"http://instagr.am/p/{0}/media/?size=m", _match.Groups[1].Value));
                             }
                             catch
                             {

@@ -21,7 +21,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MiniTwitter Mod")]
-[assembly: AssemblyCopyright("Copyright(C) 2008-2011 S Software")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

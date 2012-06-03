@@ -93,7 +93,7 @@ namespace MiniTwitter
         public TwitterClient TClient
         {
             get { return client; }
-            private set 
+            private set
             {
                 client = value;
                 OnPropertyChanged("TClient");
@@ -169,7 +169,7 @@ namespace MiniTwitter
         public ObservableCollection<MainWindowState> FailStatuses
         {
             get { return _failStatuses; }
-        } 
+        }
 
         private readonly List<User> users = new List<User>();
         private readonly List<string> hashtags = new List<string>();
@@ -225,7 +225,7 @@ namespace MiniTwitter
                 catch
                 {
                 }
-                
+
             }
         }
 
@@ -259,7 +259,7 @@ namespace MiniTwitter
                 {
                     hashtags.Sort();
                 }
-                catch 
+                catch
                 {
                 }
             }
@@ -293,7 +293,7 @@ namespace MiniTwitter
 
         private void InitializeFilter()
         {
-            
+
             {
                 var replies = Timelines.TypeAt(TimelineType.Replies);
                 replies.Filters.Clear();
@@ -443,7 +443,7 @@ namespace MiniTwitter
                 }
                 */
                 //Modified
-                
+
                 if (string.IsNullOrEmpty(Settings.Default.Username) || string.IsNullOrEmpty(Settings.Default.Password))
                 {
                     this.Invoke(() => StatusText = "请进行OAuth认证");
@@ -483,8 +483,8 @@ namespace MiniTwitter
             else
             {
                 // すべてのタイムラインの項目を削除する
-                
-                    Timelines.ClearAll();
+
+                Timelines.ClearAll();
                 // フィルタを初期化
                 InitializeFilter();
                 // すべてのタイムラインを取得する
@@ -533,8 +533,8 @@ namespace MiniTwitter
                     UpdateUsersList(statuses.Select(p => p.Sender).Distinct());
                     UpdateHashtagList(statuses);
                     // ステータスを反映させる
-                    
-                        Timelines.Update(statuses);
+
+                    Timelines.Update(statuses);
                     // 返信タイムラインを反映させる
                     statuses = TClient.RepliesTimeline;
                     if (Settings.Default.IgnoreRegex != null)
@@ -548,7 +548,6 @@ namespace MiniTwitter
                         UpdateHashtagList(statuses);
                     }
                     // ステータスを反映させる
-                    
                     {
                         Timelines.Update(TimelineType.Replies, statuses);
                         Timelines.Update(TimelineType.User, statuses);
@@ -564,7 +563,6 @@ namespace MiniTwitter
                         UpdateHashtagList(statuses);
                     }
                     // ステータスを反映させる
-                    
                     {
                         Timelines.Update(TimelineType.Archive, statuses);
                         Timelines.Update(TimelineType.User, statuses);
@@ -574,7 +572,6 @@ namespace MiniTwitter
                     }
                     // リストを取得
                     lists = TClient.Lists;
-                    
                     {
                         foreach (var timeline in Timelines.Where(p => p.Type == TimelineType.List).ToList())
                         {
@@ -607,8 +604,8 @@ namespace MiniTwitter
                     }
                     if (statuses != null)
                     {
-                        
-                            statuses = Timelines.Normalize(TimelineType.Recent, statuses);
+
+                        statuses = Timelines.Normalize(TimelineType.Recent, statuses);
                         // ユーザーリストを更新
                         UpdateUsersList(statuses.Select(p => p.Sender).Distinct());
                         UpdateHashtagList(statuses);
@@ -619,8 +616,8 @@ namespace MiniTwitter
                     statuses = TClient.RepliesTimeline;
                     if (statuses != null)
                     {
-                        
-                            statuses = Timelines.Normalize(TimelineType.Replies, statuses);
+
+                        statuses = Timelines.Normalize(TimelineType.Replies, statuses);
                         // ユーザーリストを更新
                         UpdateUsersList(statuses.Select(p => p.Sender).Distinct());
                         UpdateHashtagList(statuses);
@@ -634,8 +631,8 @@ namespace MiniTwitter
                         SetStatusMessage(false);
                         return;
                     }
-                    
-                        Timelines.Update(statuses);
+
+                    Timelines.Update(statuses);
                     SetStatusMessage(true);
                     return;
                 case RefreshTarget.Message:
@@ -646,7 +643,6 @@ namespace MiniTwitter
                         SetStatusMessage(false);
                         return;
                     }
-                    
                     {
                         var normalized = Timelines.Normalize(messages);
                         if (normalized.Length > 0 && !_isSilentMode)
@@ -671,7 +667,6 @@ namespace MiniTwitter
                     return;
                 case RefreshTarget.List:
                     this.AsyncInvoke(() => StatusText = "正在获取列表");
-                    
                     {
                         var tls = Timelines.Where(p => p.Type == TimelineType.List).ToArray();
                         foreach (var timeline in tls)
@@ -750,7 +745,6 @@ namespace MiniTwitter
                     return;
                 case RefreshTarget.Search:
                     this.AsyncInvoke(() => StatusText = "正在获取搜索结果");
-                    
                     {
                         var stls = Timelines.Where(p => p.Type == TimelineType.Search).ToArray();
                         foreach (var timeline in stls)
@@ -891,8 +885,8 @@ namespace MiniTwitter
                     ((Timeline)TimelineTabControl.SelectedItem).VerticalOffset = _mainViewer.VerticalOffset;
                 }
             });
-            
-                Timelines.Update(statuses);
+
+            Timelines.Update(statuses);
             this.AsyncInvoke(() =>
             {
                 if (TimelineTabControl.SelectedItem != null)
@@ -971,7 +965,7 @@ namespace MiniTwitter
                     UpdateUsersList(new[] { item.Sender });
                     if (__.Action == StatusAction.Deleted)
                     {
-                        
+
                         {
                             var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
 
@@ -993,7 +987,7 @@ namespace MiniTwitter
                     }
                     else if (__.Action == StatusAction.Favorited)
                     {
-                        
+
                         {
                             var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
 
@@ -1009,7 +1003,7 @@ namespace MiniTwitter
                     }
                     else if (__.Action == StatusAction.Unfavorited)
                     {
-                        
+
                         {
                             var status = (Status)Timelines.TypeAt(TimelineType.Recent).Items.FirstOrDefault(p => p.ID == item.ID);
 
@@ -1087,13 +1081,13 @@ namespace MiniTwitter
 
                     if (!item.IsMessage)
                     {
-                        
+
                         Timelines.Update(new[] { item });
                         UpdateHashtagList(new[] { (Status)item });
                     }
                     else
                     {
-                        
+
                         Timelines.Update(TimelineType.Message, new[] { item });
                     }
 
@@ -1134,6 +1128,17 @@ namespace MiniTwitter
                     new CommandBinding(Commands.ViewUserByName, ViewUserByNameCommand_Executed),
                     new CommandBinding(Commands.NavigateTo, NavigateToCommand_Executed),
                 });
+            //处理JumpList事件
+            AppStartup.wrapper.RefreshRequested += new EventHandler((_, __) => { Commands.Refresh.Execute(null, this); });
+            AppStartup.wrapper.SettingRequested += new EventHandler((_, __) => { this.Invoke(() => this.SettingButton_Click(this, null)); });
+            AppStartup.wrapper.UpdateRequested += new EventHandler((_, __) => { if (Clipboard.ContainsText()) Commands.Update.Execute(Clipboard.GetText(), this); });
+            AppStartup.wrapper.UpdateMediaRequested += new EventHandler((_, __) => { Commands.UpdateWithClipBoardMedia.Execute(null, this); });
+            AppStartup.wrapper.ChangeThemeRequested += new EventHandler<ChangeThemeRequestEventArgs>((_, ea) =>
+            {
+                //TODO:更换主题事件
+                Settings.Default.Theme = ThemeManager.Themes[ea.ThemeKey];
+                ChangeTheme();
+            });
             popupWindow.MouseLeftButtonDown += new MouseButtonEventHandler(PopupWindow_MouseLeftButtonDown);
 
             _uploader.UploadCompleted += new EventHandler<TwitpicUploadCompletedEventArgs>(Uploader_UploadCompleted);
@@ -1527,7 +1532,7 @@ namespace MiniTwitter
             Settings.Default.WindowState = WindowState;
             // ユーザータイムラインを保存する
             Settings.Default.Timelines.Clear();
-            
+
             {
                 Parallel.ForEach(Timelines.Where(p => p.Type == TimelineType.User || p.Type == TimelineType.List || p.Type == TimelineType.Search), item =>
                 {
@@ -1608,10 +1613,9 @@ namespace MiniTwitter
             // 通知領域アイコン設定を変更
             notifyIcon.Visible = Settings.Default.EnableNotifyIcon;
             // テーマが変更されているか確認
-            Application.Current.ApplyTheme(Settings.Default.Theme);
-
+            ChangeTheme();
             UpdateFooterMenu();
-            
+
             {
                 Timelines.AsParallel().ForEach(timeline => timeline.View.Refresh());
             }
@@ -1647,6 +1651,22 @@ namespace MiniTwitter
                 {
                     InitializeAutoRefresh();
                 }
+            }
+        }
+
+        private void ChangeTheme()
+        {
+            Application.Current.ApplyTheme(Settings.Default.Theme);
+            var aeroselected = ThemeManager.Themes.Where(kvp => kvp.Value == Settings.Default.Theme && kvp.Key.ToLower().Contains("aero"));
+            if (aeroselected.Any())
+            {
+                Settings.Default.EnableAero = true;
+                this.ExtendGlassFrame(new Thickness(-1));
+            }
+            else
+            {
+                Settings.Default.EnableAero = false;
+                this.UnextendGlassFrame();
             }
         }
 
@@ -1845,7 +1865,7 @@ namespace MiniTwitter
             if (item is Status)
             {
                 var screenName = item.Sender.ScreenName;
-                Regex ureg = new Regex(@"(?<=(?<email>[a-zA-Z0-9])?)@[_a-zA-Z0-9]+(?(email)(?((\.)|[_a-zA-Z0-9])(?!)))",RegexOptions.Compiled);
+                Regex ureg = new Regex(@"(?<=(?<email>[a-zA-Z0-9])?)@[_a-zA-Z0-9]+(?(email)(?((\.)|[_a-zA-Z0-9])(?!)))", RegexOptions.Compiled);
                 HashSet<string> names = new HashSet<string>();
                 names.Add("@" + TClient.LoginedUser.ScreenName);
                 In_Reply_To_Status_Id = item.ID;
@@ -1858,15 +1878,16 @@ namespace MiniTwitter
                         names.Add(user.Value);
                     }
                 }
-                if (!(names.Contains("@" + screenName))) { 
+                if (!(names.Contains("@" + screenName)))
+                {
                     TweetTextBox.Text = "@" + screenName + " " + TweetTextBox.Text;
                     names.Add("@" + screenName);
                 }
                 if (((Status)item).ReTweetedStatus != null)
                 {
                     if (!(names.Contains("@" + ((Status)item).ReTweetedStatus.Sender.ScreenName)))
-                    { 
-                        TweetTextBox.Text = "@" + ((Status)item).ReTweetedStatus.Sender.ScreenName + " " + TweetTextBox.Text; 
+                    {
+                        TweetTextBox.Text = "@" + ((Status)item).ReTweetedStatus.Sender.ScreenName + " " + TweetTextBox.Text;
                     }
                 }
             }
@@ -1882,7 +1903,7 @@ namespace MiniTwitter
         private void ReTweetApiCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var item = (Status)e.Parameter ?? GetSelectedItem();
-            if ((item.Sender.Protected)&&(!item.IsReTweeted))
+            if ((item.Sender.Protected) && (!item.IsReTweeted))
                 e.CanExecute = false;
             else
                 e.CanExecute = true;
@@ -1906,9 +1927,9 @@ namespace MiniTwitter
                 RetweetStatusID = item.ID;
             }
             TweetTextBox.Text = string.Format("{0} {1}{2}: {3}",
-                Properties.Settings.Default.ReTweetPrefix, 
-                (item.IsAuthor ? "" : "@"), 
-                item.Sender.ScreenName, 
+                Properties.Settings.Default.ReTweetPrefix,
+                (item.IsAuthor ? "" : "@"),
+                item.Sender.ScreenName,
                 item.Text.Replace("@" + TClient.LoginedUser.ScreenName, TClient.LoginedUser.ScreenName));
             TweetTextBox.CaretIndex = 0;
             if (item.Sender.Protected && !item.IsReTweeted)
@@ -1957,8 +1978,8 @@ namespace MiniTwitter
                             inReplyToID = itm.ID;
                             inReplyToName = itm.Sender.ScreenName;
                         }
-                        this.Invoke(() => 
-                        { 
+                        this.Invoke(() =>
+                        {
                             StatusText = "ReTweet失败！";
                             FailStatuses.Add(new MainWindowState(inReplyToID, inReplyToName, "RT @" + itm.Sender.ScreenName + " " + itm.Text, itm.ID));
                         });
@@ -2193,8 +2214,8 @@ namespace MiniTwitter
             timeline.Clear();
             if (timeline.Type == TimelineType.User)
             {
-                
-                    timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
+
+                timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
             }
             else if (timeline.Type == TimelineType.Search)
             {
@@ -2220,8 +2241,8 @@ namespace MiniTwitter
             {
                 return;
             }
-            
-                Timelines.Remove(timeline);
+
+            Timelines.Remove(timeline);
             RefreshTimelineSettings();
         }
 
@@ -2231,9 +2252,9 @@ namespace MiniTwitter
             Settings.Default.Timelines.Clear();
 
             foreach (var item in Timelines.Where(p => p.Type == TimelineType.User || p.Type == TimelineType.List || p.Type == TimelineType.Search).ToList())
-                {
-                    Settings.Default.Timelines.Add(item);
-                }
+            {
+                Settings.Default.Timelines.Add(item);
+            }
         }
 
         private void ClearTimelineCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2261,14 +2282,14 @@ namespace MiniTwitter
                     TweetTextBox.Text = TweetTextBox.Text.Remove(index, TweetTextBox.SelectionLength).Insert(index, text);
                     TweetTextBox.CaretIndex = index + text.Length;
                 }
-                if (schemaRegex.IsMatch(text) && (text.Length > 40 || text.IndexOfAny(new[] {'?','!'}) != -1 || TweetTextBox.Text.Length > 140))
+                if (schemaRegex.IsMatch(text) && (text.Length > 40 || text.IndexOfAny(new[] { '?', '!' }) != -1 || TweetTextBox.Text.Length > 140))
                 {
                     StatusText = "正在缩短URL";
                     ThreadPool.QueueUserWorkItem(state =>
                         {
                             var url = (string)state;
 
-                            var shorten = Settings.Default.UseBitlyPro?BitlyHelper.ConvertTo(url): MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
+                            var shorten = Settings.Default.UseBitlyPro ? BitlyHelper.ConvertTo(url) : MiniTwitter.Net.TwitterClient.googlHelper.ShortenUrl(url);
 
                             this.Invoke(targetUrl =>
                                 {
@@ -2290,8 +2311,8 @@ namespace MiniTwitter
 
         private void QuickSearch()
         {
-            
-                Timelines.SearchAll(searchTermTextBox.Text);
+
+            Timelines.SearchAll(searchTermTextBox.Text);
         }
 
         private void SearchTermTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -2329,8 +2350,8 @@ namespace MiniTwitter
             }
 
             timeline.Filters.Add(new Filter { Pattern = item.Sender.ScreenName, Type = FilterType.Name });
-            
-                timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
+
+            timeline.Update(Timelines.TypeAt(TimelineType.Recent).Items.Concat(Timelines.TypeAt(TimelineType.Replies).Items));
         }
 
         private void FooterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2412,7 +2433,7 @@ namespace MiniTwitter
                 {
                     ThreadPool.QueueUserWorkItem(tl =>
                     {
-                        this.Invoke(()=> Timelines.Remove(leavetl));
+                        this.Invoke(() => Timelines.Remove(leavetl));
                     });
                 }
             }
@@ -2422,7 +2443,7 @@ namespace MiniTwitter
                 _mainViewer.ScrollToVerticalOffset(((Timeline)e.AddedItems[0]).VerticalOffset);
             }
 
-            
+
         }
 
         private void TimelineListBox_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -2490,7 +2511,7 @@ namespace MiniTwitter
         private void PlayTitleCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var processes = Process.GetProcessesByName("iTunes");
-            if (processes.Length!=0)
+            if (processes.Length != 0)
             {
                 var iTunes = new iTunesLib.iTunesApp();
 
@@ -2642,14 +2663,14 @@ namespace MiniTwitter
                 _listBox = getChildVisual(TimelineTabControl);
             }
             if (_listBox == null) return;
-            
+
             if (replyTo is Status)
             {
                 status.InReplyToStatus = (Status)replyTo;
                 ((Status)replyTo).IsReplied = true;
                 ((Status)replyTo).MentionStatus = status;
             }
-            
+
             currentTimeline.View.MoveCurrentTo(replyTo);
 
             if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search && currentTimeline.Type != TimelineType.User && currentTimeline.Type != TimelineType.Conversation)
@@ -2876,7 +2897,7 @@ namespace MiniTwitter
             }
             Interlocked.CompareExchange(ref Updating, 1, 0);
             Timeline tl = (Timeline)TimelineTabControl.SelectedItem;
-            if (tl.Items.Count!=0 && Math.Abs(e.VerticalOffset - tl.Items.Count) < 10)
+            if (tl.Items.Count != 0 && Math.Abs(e.VerticalOffset - tl.Items.Count) < 10)
             {
                 ThreadPool.QueueUserWorkItem(rtl =>
                 {
@@ -2884,7 +2905,7 @@ namespace MiniTwitter
                     //TODO:刷新旧推
                     Timeline reftl = (Timeline)rtl;
                     ITwitterItem[] statusesToUpdate = Statuses.Empty;
-                    if (reftl.RecentTweetCount<800)
+                    if (reftl.RecentTweetCount < 800)
                         switch (reftl.Type)
                         {
                             case TimelineType.Unknown:
@@ -2901,7 +2922,7 @@ namespace MiniTwitter
                             case TimelineType.Message:
                                 break;
                             case TimelineType.User:
-                                reftl= Timelines.Where(t => t.Type == TimelineType.Recent).Single();
+                                reftl = Timelines.Where(t => t.Type == TimelineType.Recent).Single();
                                 if (reftl.RecentTweetCount < 800)
                                     statusesToUpdate = (TClient.GetHomeTimeline(count: 200, maxId: reftl.MaxID));
                                 break;
@@ -2924,7 +2945,7 @@ namespace MiniTwitter
                         this.AsyncInvoke(() => reftl.Update(statusesToUpdate));
                     Interlocked.Exchange(ref Updating, 0);
                     //Updating = false;
-                },tl);
+                }, tl);
             }
             else
             {
@@ -2983,8 +3004,8 @@ namespace MiniTwitter
         private ITwitterItem GetReplyToItem()
         {
             var timeline = (Timeline)TimelineTabControl.SelectedItem;
-            return timeline != null ? 
-                (ITwitterItem)timeline.Items.FirstOrDefault(p => 
+            return timeline != null ?
+                (ITwitterItem)timeline.Items.FirstOrDefault(p =>
                     p.ID == this.Invoke<ulong?>(() => In_Reply_To_Status_Id)) :
                 null;
         }
@@ -3002,8 +3023,8 @@ namespace MiniTwitter
             if (replyTo == null)
             {
                 Timeline timeline;
-                 
-                    timeline = Timelines.TypeAt(TimelineType.Recent);
+
+                timeline = Timelines.TypeAt(TimelineType.Recent);
 
                 replyTo = timeline.Items.FirstOrDefault(p => p.ID == In_Reply_To_Status_Id);
 
@@ -3034,8 +3055,8 @@ namespace MiniTwitter
                 else
                 {
                     currentTimeline = timeline;
-                    
-                        Timelines.Update(new[] { replyTo });
+
+                    Timelines.Update(new[] { replyTo });
                 }
             }
             if (_listBox == null)
@@ -3060,8 +3081,8 @@ namespace MiniTwitter
 
             if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search && currentTimeline.Type != TimelineType.User && currentTimeline.Type != TimelineType.Conversation)
             {
-                
-                    TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
+
+                TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
             }
 
             this.AsyncInvoke(p => _listBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);
@@ -3082,7 +3103,7 @@ namespace MiniTwitter
 
         private void TweetTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (In_Reply_To_Status_User_Name==null)
+            if (In_Reply_To_Status_User_Name == null)
             {
                 return;
             }
@@ -3133,8 +3154,8 @@ namespace MiniTwitter
 
             if (currentTimeline.Type != TimelineType.List && currentTimeline.Type != TimelineType.Search && currentTimeline.Type != TimelineType.User && currentTimeline.Type != TimelineType.Conversation)
             {
-                
-                    TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
+
+                TimelineTabControl.SelectedItem = Timelines.TypeAt(TimelineType.Recent);
             }
 
             this.AsyncInvoke(p => _UpListBox.ScrollIntoView(p), replyTo, DispatcherPriority.Background);
@@ -3146,8 +3167,8 @@ namespace MiniTwitter
         {
             var value = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             if (Keyboard.GetKeyStates(Key.LeftCtrl) == KeyStates.Down ||
-                Keyboard.GetKeyStates(Key.RightCtrl) == KeyStates.Down || 
-                (((Timeline)TimelineTabControl.SelectedItem).Type == TimelineType.OtherUser && 
+                Keyboard.GetKeyStates(Key.RightCtrl) == KeyStates.Down ||
+                (((Timeline)TimelineTabControl.SelectedItem).Type == TimelineType.OtherUser &&
                     ((Timeline)TimelineTabControl.SelectedItem).Tag == value.Sender.ScreenName))
             {
                 try
@@ -3459,5 +3480,57 @@ namespace MiniTwitter
             }
         }
 
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            if (Settings.Default.EnableAero)
+            {
+                this.ExtendGlassFrame(new Thickness(-1));
+            }
+            this.AddHook((IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+            {
+                if (Settings.Default.EnableAero && msg == NativeMethods.WM_DWMCOMPOSITIONCHANGED)
+                {
+                    this.ExtendGlassFrame(new Thickness(-1));
+                    handled = true;
+                }
+                return IntPtr.Zero;
+            });
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void UpdateWithClipBoardMediaCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                var img = Clipboard.GetImage();
+                var enc = new System.Windows.Media.Imaging.PngBitmapEncoder();
+                var status = (string)e.Parameter ?? TweetTextBox.Text;
+                var ms = new System.IO.MemoryStream();
+                enc.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(img));
+                enc.Save(ms);
+                ms.Seek(0, System.IO.SeekOrigin.Begin);
+                UpdateButton.IsEnabled = false;
+                StatusText = "正在更新状态…";
+                ulong? ReplyID = In_Reply_To_Status_Id;
+                ThreadPool.QueueUserWorkItem(text =>
+                {
+                    TClient.UpdateWithMedia((string)text, ReplyID, _latitude, _longitude, ms, "png",
+                        stp =>
+                        {
+                            if (stp != OAuthBase.ProccessStep.Error)
+                                App.MainTokenSource.Token.ThrowIfCancellationRequested();
+                        });
+                    ms.Close();
+                }, status);
+                TweetTextBox.Clear();
+                UpdateButton.IsEnabled = true;
+
+            }
+        }
     }
 }

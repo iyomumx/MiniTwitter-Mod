@@ -244,7 +244,7 @@ namespace MiniTwitter.Net.Twitter
                 }
             }
         }
-        
+
         private string imageUrlSSL;
 
         [XmlElement("profile_image_url_https")]
@@ -328,16 +328,18 @@ namespace MiniTwitter.Net.Twitter
                                             {
                                                 client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.Revalidate);
                                                 var data = client.DownloadData(i);
-                                                var stream = new MemoryStream(data);
+
                                                 var bitmap = new BitmapImage();
-                                                bitmap.BeginInit();
-                                                bitmap.StreamSource = stream;
-                                                bitmap.DecodePixelHeight = 48;
-                                                bitmap.DecodePixelWidth = 48;
-                                                bitmap.EndInit();
+                                                using (var stream = new MemoryStream(data))
+                                                {
+                                                    bitmap.BeginInit();
+                                                    bitmap.StreamSource = stream;
+                                                    bitmap.DecodePixelHeight = 48;
+                                                    bitmap.DecodePixelWidth = 48;
+                                                    bitmap.EndInit();
 
-                                                bitmap.Freeze();
-
+                                                    bitmap.Freeze();
+                                                }
                                                 lock (_iconCache)
                                                 {
                                                     _iconCache[i] = bitmap;
@@ -456,7 +458,7 @@ namespace MiniTwitter.Net.Twitter
             }
             set
             {
-                if (lastModified<value)
+                if (lastModified < value)
                 {
                     lastModified = value;
                     OnPropertyChanged("LastModified");

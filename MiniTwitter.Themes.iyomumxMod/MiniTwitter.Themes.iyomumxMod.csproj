@@ -92,6 +92,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="MiniTwitter_Aero\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Resource Include="MiniTwitter_Dark\Images\account.png" />
     <Page Include="MiniTwitter_Dark\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -167,6 +171,93 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MiniTwitter_Dark\Images\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\addin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_left_focus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_reply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_reply_focus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\cross_focus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\design.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\heart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\keyword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\log.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\network.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\popup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\protect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\retweet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\star_empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MiniTwitter_Aero\Images\star_focus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

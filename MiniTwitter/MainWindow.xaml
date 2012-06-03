@@ -21,7 +21,7 @@
     x:Name="Window"
     Title="MiniTwitter Mod" Width="350" Height="450" MinWidth="150" MinHeight="100" ResizeMode="CanResizeWithGrip"
     Style="{DynamicResource MainWindowStyle}" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Microsoft YaHei, Converter={StaticResource FontConverter}}" Icon=".\Resources\MiniTwitter.ico"
-    Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed"
+    Loaded="MainWindow_Loaded" Initialized="MainWindow_Initialized" Activated="MainWindow_Activated" Closing="MainWindow_Closing" Closed="MainWindow_Closed" MouseLeftButtonDown="Window_MouseLeftButtonDown"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True" Topmost="{Binding Path=AlwaysOnTop, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=False}" DataContext="{Binding}">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="MiniTwitter">
@@ -91,6 +91,7 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.NavigateTo" Executed="NavigateToCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.ViewUserByName" Executed="ViewUserByNameCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.UpdateWithMedia" Executed="UpdateWithMediaCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.UpdateWithClipBoardMedia" Executed="UpdateWithClipBoardMediaCommand_Executed" />
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
@@ -230,16 +231,16 @@
                 </Button>
             </Grid>
         </Grid>
-        <StatusBar DockPanel.Dock="Bottom" Padding="0,0,15,0" VerticalContentAlignment="Center">
+        <StatusBar DockPanel.Dock="Bottom" Padding="0,0,15,0" VerticalContentAlignment="Center" Background="Transparent">
             <StatusBarItem>
-                <TextBlock Text="{Binding ElementName=Window, Path=StatusText}"/>
+                <TextBlock Text="{Binding ElementName=Window, Path=StatusText}" Background="Transparent"/>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <ProgressBar x:Name="APICounterProgressBar" Value="{Binding ElementName=Window, Path=TClient.RateLimitRemain, Mode=OneWay}" 
                                  Maximum="{Binding ElementName=Window, Path=TClient.TotalRateLimit, Mode=OneWay}" Minimum="0" 
                                  MouseDoubleClick="ProgressBar_MouseDoubleClick" 
-                                 Width="40" Height="14" Margin="0,0,5,0" 
+                                 Width="40" Height="14" Margin="0,0,5,0" Background="Transparent"
                                  Foreground="{Binding ElementName=Window, Path=TClient.RateLimitState, Mode=OneWay, Converter={StaticResource StateToColorConverter}}">
                         <ProgressBar.ToolTip>
                             <StackPanel Orientation="Vertical">
@@ -250,7 +251,7 @@
                         </ProgressBar.ToolTip>
                     </ProgressBar>
                     <Image Width="14" Height="14" Margin="0,0,5,0" Style="{DynamicResource PopupImageStyle}" />
-                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}" />
+                    <TextBlock Text="{Binding ElementName=TimelineTabControl, Path=SelectedContent.Items.Count, StringFormat=\{0\} 条}" Background="Transparent" />
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>

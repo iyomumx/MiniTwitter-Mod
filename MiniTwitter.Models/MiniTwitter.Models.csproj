@@ -123,6 +123,7 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

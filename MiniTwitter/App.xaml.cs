@@ -65,15 +65,22 @@ namespace MiniTwitter
 
         private void App_Startup(object sender, StartupEventArgs e)
         {
-            if (!mutex.WaitOne(0, false))
-            {
-                MessageBox.Show("已经启动了一个MiniTwitter!", App.NAME, MessageBoxButton.OK, MessageBoxImage.Information);
-                Shutdown();
-                return;
-            }
+            //if (!mutex.WaitOne(0, false))
+            //{
+            //    if (e.Args.Length > 0 && e.Args[0] == "-refresh")
+            //    {
+
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("已经启动了一个MiniTwitter!", App.NAME, MessageBoxButton.OK, MessageBoxImage.Information);
+            //    }
+            //    Shutdown();
+            //    return;
+            //}
             //LoadLanguage();
             var exeDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
+            var exePath = Assembly.GetEntryAssembly().Location;
             KeyMapping.LoadFrom(exeDirectory);
             ThemeManager.LoadFrom(exeDirectory);
 
@@ -103,6 +110,55 @@ namespace MiniTwitter
             }
 
             this.ApplyTheme(Settings.Default.Theme);
+
+            var list = new System.Windows.Shell.JumpList();
+            list.JumpItems.Add(new System.Windows.Shell.JumpTask() { 
+                ApplicationPath = exePath, 
+                CustomCategory = "操作",
+                Title = "刷新" ,
+                Arguments = "-refresh",
+                Description = "刷新所有时间线",
+                IconResourcePath = exePath,
+            });
+            list.JumpItems.Add(new System.Windows.Shell.JumpTask()
+            {
+                ApplicationPath = exePath,
+                CustomCategory = "操作",
+                Title = "发送剪贴板上的文本",
+                Arguments = "-update",
+                Description = "如果剪贴板上有文本，则将其作为内容发送",
+                IconResourcePath = exePath,
+            });
+            list.JumpItems.Add(new System.Windows.Shell.JumpTask()
+            {
+                ApplicationPath = exePath,
+                CustomCategory = "操作",
+                Title = "发送剪贴板上的图片",
+                Arguments = "-updatemedia",
+                Description = "如果剪贴板上有图片，则将其连同输入框内容一并发送",
+                IconResourcePath = exePath,
+            });
+            list.JumpItems.Add(new System.Windows.Shell.JumpTask()
+            {
+                ApplicationPath = exePath,
+                CustomCategory = "操作",
+                Title = "打开设置",
+                Arguments = "-settings",
+                Description = "打开MiniTwitter Mod设置对话框",
+                IconResourcePath = exePath,
+            });
+            foreach (var theme in ThemeManager.Themes)
+            {
+                var jumpTask = new System.Windows.Shell.JumpTask();
+                jumpTask.ApplicationPath = exePath;
+                jumpTask.Arguments = string.Format("-theme \"{0}\"", theme.Key);
+                jumpTask.Title = theme.Key;
+                jumpTask.Description = string.Format("应用主题：{0}", theme.Key);
+                jumpTask.IconResourcePath = exePath;
+                jumpTask.CustomCategory = "主题";
+                list.JumpItems.Add(jumpTask);
+            }
+            System.Windows.Shell.JumpList.SetJumpList(this, list);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 

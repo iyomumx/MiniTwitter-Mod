@@ -65,6 +65,7 @@ namespace MiniTwitter.Properties
             MaxTweetCount = 10000;
             LinkUrl = "https://twitter.com/";
             UseApiToLengthenUrl = false;
+            EnableAero = false;
         }
 
         /// <summary>
@@ -333,6 +334,8 @@ namespace MiniTwitter.Properties
                 }
             }
         }
+
+        public bool EnableAero { get; set; }
 
         //功能
 

@@ -31,6 +31,13 @@ namespace MiniTwitter.Input
             get { return Commands.updateWithMedia; }
         }
 
+        private static readonly RoutedCommand updateWithClipBoardMedia = new RoutedCommand("UpdateWithClipBoardMedia", typeof(Commands));
+
+        public static RoutedCommand UpdateWithClipBoardMedia
+        {
+            get { return Commands.updateWithClipBoardMedia; }
+        }
+
         private static readonly RoutedCommand refresh = new RoutedCommand("Refresh", typeof(Commands));
 
         public static RoutedCommand Refresh
