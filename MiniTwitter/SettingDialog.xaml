@@ -21,7 +21,7 @@
     xmlns:MiniTwitter_Net_Twitter="clr-namespace:MiniTwitter.Net.Twitter;assembly=MiniTwitter.Models"
     xmlns:System_Deployment_Application="clr-namespace:System.Deployment.Application;assembly=System.Deployment"
     x:Class="MiniTwitter.SettingDialog"
-    Title="MiniTwitter Mod: 设置" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo, Converter={StaticResource FontConverter}}"
+    Title="{DynamicResource SettingDialogTitle}" Height="450" Width="550" ShowInTaskbar="False" FontFamily="{Binding Path=FontName, Source={x:Static MiniTwitter_Properties:Settings.Default}, FallbackValue=Meiryo, Converter={StaticResource FontConverter}}"
     ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="SettingDialog_Loaded"
     DataContext="{x:Static MiniTwitter_Properties:Settings.Default}" Style="{DynamicResource SettingDialogStyle}"
     TextOptions.TextFormattingMode="Display" UseLayoutRounding="True">
@@ -46,67 +46,67 @@
             <ListBoxItem x:Name="AccountListBoxItem" IsSelected="True">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AccountImageStyle}"/>
-                    <TextBlock Text="帐号" Margin="4,0,0,0"/>
+                    <TextBlock Text="{DynamicResource Account}" Margin="4,0,0,0"/>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="NetworkListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource NetworkImageStyle}"/>
-                    <TextBlock Text="网络" Margin="4,0,0,0"/>
+                    <TextBlock Text="{DynamicResource Network}" Margin="4,0,0,0"/>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="RefreshListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource ArrowRefreshImageStyle}"/>
-                    <TextBlock Text="更新" Margin="4,0,0,0"/>
+                    <TextBlock Text="{DynamicResource Refresh}" Margin="4,0,0,0"/>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="PopupListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource PopupImageStyle}"/>
-                    <TextBlock Text="弹出提示" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Popup}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="DesignListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource DesignImageStyle}"/>
-                    <TextBlock Text="外观" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Design}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="KeyboardListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource KeyboardImageStyle}"/>
-                    <TextBlock Text="键盘" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Keyboard}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="SoundListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource SoundImageStyle}"/>
-                    <TextBlock Text="声音" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Sound}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="KeywordListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource KeywordImageStyle}"/>
-                    <TextBlock Text="关键字" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Keyword}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="GlobalFilterListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource GlobalFilterImageStyle}"/>
-                    <TextBlock Text="全局过滤" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource GlobalFilter}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="AddInListBoxItem" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource AddInImageStyle}"/>
-                    <TextBlock Text="Addin" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Addin}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="OtherListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{DynamicResource SettingImageStyle}"/>
-                    <TextBlock Text="其他" Margin="4,0,0,0" />
+                    <TextBlock Text="{DynamicResource Other}" Margin="4,0,0,0" />
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem x:Name="TweetProccessListBoxItem">

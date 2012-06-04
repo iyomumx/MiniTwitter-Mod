@@ -29,7 +29,7 @@ namespace MiniTwitter.Themes
         public static Dictionary<string, string> Themes
         {
             get { return ThemeManager.themes; }
-        } 
+        }
 
         public static void LoadFrom(string directory)
         {
@@ -72,13 +72,13 @@ namespace MiniTwitter.Themes
             }
             currentTheme = theme;
             var rd = ThemeManager.LoadTheme(theme);
-            if (application.Resources.MergedDictionaries.Count < 4)
+            if (application.Resources.MergedDictionaries.Count < 5)
             {
                 application.Resources.MergedDictionaries.Add(rd);
             }
             else
             {
-                application.Resources.MergedDictionaries[3] = rd;
+                application.Resources.MergedDictionaries[4] = rd;
             }
         }
     }

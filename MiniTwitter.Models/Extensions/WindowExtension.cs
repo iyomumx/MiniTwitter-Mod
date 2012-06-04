@@ -43,9 +43,11 @@ namespace MiniTwitter.Extensions
             source.RemoveHook(hook);
         }
 
+        private static readonly bool DwmAvaliable = Environment.OSVersion.Version.Major >= 6;
+
         public static bool ExtendGlassFrame(this Window window, Thickness margin)
         {
-            if (!NativeMethods.DwmIsCompositionEnabled())
+            if (!DwmAvaliable || !NativeMethods.DwmIsCompositionEnabled())
                 return false;
             IntPtr hwnd = new WindowInteropHelper(window).Handle;
             if (hwnd == IntPtr.Zero)
@@ -61,7 +63,7 @@ namespace MiniTwitter.Extensions
 
         public static void UnextendGlassFrame(this Window window)
         {
-            if (!NativeMethods.DwmIsCompositionEnabled())
+            if (!DwmAvaliable || !NativeMethods.DwmIsCompositionEnabled())
                 return;
             IntPtr hwnd = new WindowInteropHelper(window).Handle;
             if (hwnd == IntPtr.Zero)

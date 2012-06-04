@@ -330,16 +330,16 @@ namespace MiniTwitter.Net.Twitter
                                                 var data = client.DownloadData(i);
 
                                                 var bitmap = new BitmapImage();
-                                                using (var stream = new MemoryStream(data))
-                                                {
-                                                    bitmap.BeginInit();
-                                                    bitmap.StreamSource = stream;
-                                                    bitmap.DecodePixelHeight = 48;
-                                                    bitmap.DecodePixelWidth = 48;
-                                                    bitmap.EndInit();
+                                                var stream = new MemoryStream(data);
 
-                                                    bitmap.Freeze();
-                                                }
+                                                bitmap.BeginInit();
+                                                bitmap.StreamSource = stream;
+                                                bitmap.DecodePixelHeight = 48;
+                                                bitmap.DecodePixelWidth = 48;
+                                                bitmap.EndInit();
+
+                                                bitmap.Freeze();
+
                                                 lock (_iconCache)
                                                 {
                                                     _iconCache[i] = bitmap;

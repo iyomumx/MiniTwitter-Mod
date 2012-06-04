@@ -78,9 +78,10 @@ namespace MiniTwitter
             //    Shutdown();
             //    return;
             //}
-            //LoadLanguage();
+            LoadLanguage();
             var exeDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var exePath = Assembly.GetEntryAssembly().Location;
+            var iconDllPath = Path.Combine(exeDirectory, "MiniTwitterNativeIcon.dll");
             KeyMapping.LoadFrom(exeDirectory);
             ThemeManager.LoadFrom(exeDirectory);
 
@@ -112,13 +113,15 @@ namespace MiniTwitter
             this.ApplyTheme(Settings.Default.Theme);
 
             var list = new System.Windows.Shell.JumpList();
-            list.JumpItems.Add(new System.Windows.Shell.JumpTask() { 
-                ApplicationPath = exePath, 
+            list.JumpItems.Add(new System.Windows.Shell.JumpTask()
+            {
+                ApplicationPath = exePath,
                 CustomCategory = "操作",
-                Title = "刷新" ,
+                Title = "刷新",
                 Arguments = "-refresh",
                 Description = "刷新所有时间线",
-                IconResourcePath = exePath,
+                IconResourcePath = iconDllPath,
+                IconResourceIndex = 1,
             });
             list.JumpItems.Add(new System.Windows.Shell.JumpTask()
             {
@@ -127,7 +130,8 @@ namespace MiniTwitter
                 Title = "发送剪贴板上的文本",
                 Arguments = "-update",
                 Description = "如果剪贴板上有文本，则将其作为内容发送",
-                IconResourcePath = exePath,
+                IconResourcePath = iconDllPath,
+                IconResourceIndex = 5,
             });
             list.JumpItems.Add(new System.Windows.Shell.JumpTask()
             {
@@ -136,7 +140,8 @@ namespace MiniTwitter
                 Title = "发送剪贴板上的图片",
                 Arguments = "-updatemedia",
                 Description = "如果剪贴板上有图片，则将其连同输入框内容一并发送",
-                IconResourcePath = exePath,
+                IconResourcePath = iconDllPath,
+                IconResourceIndex = 5,
             });
             list.JumpItems.Add(new System.Windows.Shell.JumpTask()
             {
@@ -145,7 +150,8 @@ namespace MiniTwitter
                 Title = "打开设置",
                 Arguments = "-settings",
                 Description = "打开MiniTwitter Mod设置对话框",
-                IconResourcePath = exePath,
+                IconResourcePath = iconDllPath,
+                IconResourceIndex = 2,
             });
             foreach (var theme in ThemeManager.Themes)
             {
@@ -154,7 +160,8 @@ namespace MiniTwitter
                 jumpTask.Arguments = string.Format("-theme \"{0}\"", theme.Key);
                 jumpTask.Title = theme.Key;
                 jumpTask.Description = string.Format("应用主题：{0}", theme.Key);
-                jumpTask.IconResourcePath = exePath;
+                jumpTask.IconResourcePath = iconDllPath;
+                jumpTask.IconResourceIndex = 4;
                 jumpTask.CustomCategory = "主题";
                 list.JumpItems.Add(jumpTask);
             }
@@ -187,11 +194,11 @@ namespace MiniTwitter
                 return;
             }
             var exception = (Exception)e.ExceptionObject;
-            
+
             MessageBox.Show("发生内部错误 \n\n" + exception.ToString(), App.NAME);
             if (Application.Current != null)
             {
-                Application.Current.Shutdown();                
+                Application.Current.Shutdown();
             }
 #endif
         }
@@ -253,7 +260,7 @@ namespace MiniTwitter
             {
                 MainTokenSource.Dispose();
             }
-                
+
 #if !DEBUG
             if (e.Exception == null)
             {
@@ -278,7 +285,7 @@ namespace MiniTwitter
         {
             get { return App._MainTokenSource; }
         }
-        
+
 
         private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
 
@@ -321,7 +328,7 @@ namespace MiniTwitter
         {
             get
             {
-                if (consumer_secret_mem==null)
+                if (consumer_secret_mem == null)
                 {
                     consumer_secret_mem = TwitterConsumerSecret;
                 }
@@ -336,7 +343,7 @@ namespace MiniTwitter
                 if (kanvaso_api_key_mem == null)
                 {
                     kanvaso_api_key_mem = KanvasoApiKey;
-                } 
+                }
                 return kanvaso_api_key_mem;
             }
         }
