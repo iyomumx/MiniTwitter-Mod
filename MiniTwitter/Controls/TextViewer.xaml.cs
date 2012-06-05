@@ -100,7 +100,7 @@ namespace MiniTwitter.Controls
                 return;
             }
             int index = 0;
-            List<string> imageurls=new List<string>();
+            List<string> imageurls = new List<string>();
             foreach (Match match in searchPattern.Matches(text))
             {
                 int diff = 0;
@@ -160,7 +160,8 @@ namespace MiniTwitter.Controls
                     TextBlock.Inlines.Add("@");
                     TextBlock.Inlines.Add(link);
                     link.DataContext = value;
-                    link.ContextMenuOpening += new ContextMenuEventHandler((snd, __) => {
+                    link.ContextMenuOpening += new ContextMenuEventHandler((snd, __) =>
+                    {
                         Hyperlink ctxMenu = (Hyperlink)snd;
                         this.Invoke(() => ctxMenu.ContextMenu.DataContext = value);
                     });
@@ -277,14 +278,14 @@ namespace MiniTwitter.Controls
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
                     Inserted = true;
                 }
-                else if (Regex.IsMatch(url, @"http:\/\/imgur\.com\/(.+?)$"))
+                else if (Regex.IsMatch(url, @"http:\/\/imgur\.com\/([a-zA-Z0-9]+?\/?)$"))
                 {
                     var uri = new Uri("http://i.imgur.com/" + url.Substring(17) + "l.jpg");
 
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
                     Inserted = true;
                 }
-                else if (Regex.IsMatch(url,@"^http://picplz\.com/[A-Za-z0-9]+$"))
+                else if (Regex.IsMatch(url, @"^http://picplz\.com/[A-Za-z0-9]+$"))
                 {
                     var uri = GetUri(url);
                     if (uri == null)
@@ -318,7 +319,7 @@ namespace MiniTwitter.Controls
                         CacheUrl(url, u =>
                         {
                             try
-                            {                    
+                            {
                                 var urlmatch = Regex.Match(u, "pic/(?<id>.+?)/?$");
                                 var longid = urlmatch.Groups["id"].Value;
                                 var client = new WebClient();
@@ -619,7 +620,7 @@ namespace MiniTwitter.Controls
             bitmap.EndInit();
             if (bitmap.IsDownloading)
             {
-                progress.IsOpen = true;    
+                progress.IsOpen = true;
             }
             else
             {
@@ -694,7 +695,7 @@ namespace MiniTwitter.Controls
                 }
                 catch { }
             }
-            
+
             return url;
         }
 
@@ -864,7 +865,7 @@ namespace MiniTwitter.Controls
             try
             {
                 var uri = new Uri(url);
-                
+
                 return true;
             }
             catch (Exception)
