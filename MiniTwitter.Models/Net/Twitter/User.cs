@@ -333,6 +333,7 @@ namespace MiniTwitter.Net.Twitter
                                                 var stream = new MemoryStream(data);
 
                                                 bitmap.BeginInit();
+                                                bitmap.CacheOption = BitmapCacheOption.OnLoad;
                                                 bitmap.StreamSource = stream;
                                                 bitmap.DecodePixelHeight = 48;
                                                 bitmap.DecodePixelWidth = 48;
@@ -360,6 +361,18 @@ namespace MiniTwitter.Net.Twitter
                                                             _processUsers.Remove(i);
                                                         }
                                                     }
+                                                    try
+                                                    {
+                                                        if (stream != null)
+                                                        {
+                                                            stream.Dispose();
+                                                        }
+                                                    }
+                                                    catch
+                                                    {
+
+                                                    }
+
                                                 }, bitmap, System.Windows.Threading.DispatcherPriority.Background);
                                             }
                                         }
@@ -429,6 +442,22 @@ namespace MiniTwitter.Net.Twitter
                 {
                     status = value;
                     OnPropertyChanged("Status");
+                }
+            }
+        }
+
+        private string profileBackgroundImage;
+
+        [XmlElement("profile_background_image_url")]
+        public string ProfileBackgroundImage
+        {
+            get { return profileBackgroundImage; }
+            set
+            {
+                if (profileBackgroundImage != value)
+                {
+                    profileBackgroundImage = value;
+                    OnPropertyChanged("ProfileBackgroundImage");
                 }
             }
         }

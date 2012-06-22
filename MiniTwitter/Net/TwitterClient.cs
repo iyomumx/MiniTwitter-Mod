@@ -193,6 +193,8 @@ namespace MiniTwitter.Net
 
         public event EventHandler<UpdateFailedEventArgs> UpdateFailure;
 
+        public event EventHandler Logined;
+
         public bool? Login(string token, string tokenSecret)
         {
             lock (thisLock)
@@ -209,8 +211,16 @@ namespace MiniTwitter.Net
                 _tokenSecret = tokenSecret;
 
                 LoginedUser = Validate();
-
-                return LoginedUser != null;
+                if (LoginedUser != null)
+                {
+                    if (Logined != null)
+                    {
+                        Logined(this, EventArgs.Empty);
+                    }
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 

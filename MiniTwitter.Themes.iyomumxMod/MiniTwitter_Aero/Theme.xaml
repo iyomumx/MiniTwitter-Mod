@@ -438,7 +438,84 @@
         <Setter Property="Foreground" Value="{StaticResource WindowForegroundBrush}"/>
     </Style>
 
-    <Style x:Key="MainWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <DrawingBrush x:Key="MainWindowMaskBrush">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <!--中心方块-->
+                <GeometryDrawing Brush="#FFFFFFFF" Geometry="F 1 M 1,1 H 49 V 49 H 1 Z"/>
+                <!--四角方块-->
+                <GeometryDrawing Geometry="F 1 M 0,0 h 1 v 1 h -1 Z">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush GradientOrigin="1,1" Center="1,1" MappingMode="RelativeToBoundingBox">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F 1 M 49,0 h 1 v 1 h -1 Z">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush GradientOrigin="0,1" Center="0,1" MappingMode="RelativeToBoundingBox">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F 1 M 0,49 h 1 v 1 h -1 Z">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush GradientOrigin="1,0" Center="1,0" MappingMode="RelativeToBoundingBox">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F 1 M 49,49 h 1 v 1 h -1 Z">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush GradientOrigin="0,0" Center="0,0" MappingMode="RelativeToBoundingBox">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <!--四边方块-->
+                <GeometryDrawing Geometry="F 1 M 1,0 h 48 v 1 h -48 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="Transparent" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F 1 M 1,49 h 48 v 1 h -48 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F 1 M 0,1 h 1 v 48 h -1 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="Transparent" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F 1 M 49,1 h 1 v 48 h -1 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <Style x:Key="MainWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource {x:Type Window}}">
+        <!--<Setter Property="OpacityMask" Value="{StaticResource MainWindowMaskBrush}"/>-->
+    </Style>
 
     <Style x:Key="HeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="13"/>

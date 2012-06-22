@@ -37,6 +37,8 @@ using MiniTwitter.Properties;
 using MiniTwitter.Themes;
 
 using WinForms = System.Windows.Forms;
+using System.Windows.Documents;
+using System.Windows.Media.Imaging;
 
 namespace MiniTwitter
 {
@@ -950,7 +952,57 @@ namespace MiniTwitter
             // Twitter クライアントのイベントを登録
             TClient.Updated += new EventHandler<UpdateEventArgs>(TwitterClient_Updated);
             TClient.UpdateFailure += new EventHandler<UpdateFailedEventArgs>(TwitterClient_UpdateFailure);
+            TClient.Logined += new EventHandler((_, __) =>
+            {
+                if (Settings.Default.EnableAero)
+                {
+                    ThreadPool.QueueUserWorkItem(___ =>
+                    {
+                        var wclient = new WebClient();
+                        var data = wclient.DownloadData(TClient.LoginedUser.ProfileBackgroundImage);
+                        this.AsyncInvoke(() =>
+                        {
+                            var bmp = new BitmapImage(new Uri(TClient.LoginedUser.ProfileBackgroundImage), new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.CacheIfAvailable));
+                            //var img = new Image();
+                            //img.BeginInit();
+                            //img.Source = bmp;
+                            //img.Height = bmp.Height;
+                            //img.Width = bmp.Width;
+                            //img.Stretch = Stretch.None;
+                            //img.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+                            //img.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                            //img.ClipToBounds = false;
+                            //img.IsManipulationEnabled = false;
+                            //img.Margin = new Thickness(0);
+                            //img.OverridesDefaultStyle = true;
+                            //img.SnapsToDevicePixels = this.SnapsToDevicePixels;
+                            //img.OpacityMask = (Brush)this.TryFindResource("MainWindowMaskBrush");
+                            //img.EndInit();
+                            //VisualBrush brush = new VisualBrush(img);
+                            //brush.Stretch = Stretch.UniformToFill;
+                            //brush.TileMode = TileMode.None;
+                            //brush.Opacity = 0.4;
 
+                            //brush.Viewbox = new Rect(0.0, 0.0, 0.3, 1.0);
+                            //brush.ViewboxUnits = BrushMappingMode.RelativeToBoundingBox;
+                            //brush.AlignmentX = AlignmentX.Left;
+                            //brush.AlignmentY = AlignmentY.Top;
+                            this.Background = new ImageBrush(bmp)
+                            {
+                                Viewbox = new Rect(0, 0, 0.4, 1),
+                                ViewboxUnits = BrushMappingMode.RelativeToBoundingBox,
+                                //Viewbox = new Rect(0, 0, 1, 1),
+                                //ViewboxUnits = BrushMappingMode.RelativeToBoundingBox,
+                                Stretch = Stretch.UniformToFill,
+                                Opacity = 0.4,
+                                TileMode = TileMode.None,
+                                AlignmentX = AlignmentX.Left,
+                                AlignmentY = AlignmentY.Top,
+                            };
+                        });
+                    });
+                }
+            });
             TClient.UserStreamUpdated += (_, __) =>
             {
                 this.Invoke(() =>
@@ -3531,6 +3583,17 @@ namespace MiniTwitter
                 UpdateButton.IsEnabled = true;
 
             }
+        }
+
+        private void ViewImage_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var l = (Hyperlink)e.Parameter;
+            l.DoClick();
+        }
+
+        private void CopyImage_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }

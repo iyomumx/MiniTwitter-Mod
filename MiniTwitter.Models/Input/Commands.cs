@@ -452,5 +452,19 @@ namespace MiniTwitter.Input
         {
             get { return Commands._navigateTo; }
         }
+
+        private static readonly RoutedCommand _viewImage = new RoutedCommand("ViewImage", typeof(Commands));
+
+        public static RoutedCommand ViewImage
+        {
+            get { return Commands._viewImage; }
+        }
+
+        private static readonly RoutedCommand _copyImage = new RoutedCommand("CopyImage", typeof(Commands));
+
+        public static RoutedCommand CopyImage
+        {
+            get { return Commands._copyImage; }
+        }
     }
 }

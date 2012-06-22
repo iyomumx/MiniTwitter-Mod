@@ -8,8 +8,8 @@
  * 找到
 */    
 -->
-    
-    <ResourceDictionary
+
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:System_ComponentModel="clr-namespace:System.ComponentModel;assembly=System"
@@ -21,13 +21,13 @@
     xmlns:MiniTwitter_Properties="clr-namespace:MiniTwitter.Properties">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    
+
     <MiniTwitter:FooterConverter x:Key="FooterConverter" />
 
     <MiniTwitter_Controls:TimelineStyleSelector x:Key="TimelineStyleSelector"/>
 
     <MiniTwitter:FontNameToFontFamilyConverter x:Key="FontConverter"/>
-        
+
     <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
         <Setter Property="Margin" Value="0,-2,0,-1" />
     </Style>
@@ -49,7 +49,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-        
+
     <Style x:Key="StandardMenuItemStyle" TargetType="{x:Type MenuItem}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Source={x:Static MiniTwitter_Properties:Settings.Default}, Path=TimelineStyle}" Value="Standard">
@@ -105,7 +105,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="UserTimelineMenuItemStyle" TargetType="{x:Type MenuItem}">
         <Setter Property="IsEnabled" Value="False"/>
         <Style.Triggers>
@@ -120,7 +120,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="TimelineTextStyle" TargetType="{x:Type MiniTwitter_Controls:TextViewer}">
         <Setter Property="Foreground" Value="Black" />
         <Style.Triggers>
@@ -209,7 +209,7 @@
         <MenuItem Header="全局过滤用户(_G)" Command="MiniTwitter_Input:Commands.GlobalFilterUserByName" CommandParameter="{Binding}" />
         <MenuItem Header="全局过滤并阻止用户(_L)" Command="MiniTwitter_Input:Commands.GlobalFilterAndBlockUserByName" CommandParameter="{Binding}" />
     </ContextMenu>
-        
+
     <ContextMenu x:Key="HashTagMenu">
         <MenuItem Header="{Binding}" IsEnabled="False"/>
         <Separator/>
@@ -239,6 +239,17 @@
                   Visibility="{Binding Path=IsDifferent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <MenuItem Header="复制短网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=OriginalUrl}"
                   Visibility="{Binding Path=IsDifferent, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </ContextMenu>
+
+    <ContextMenu x:Key="ImageInlineMenu">
+        <MenuItem Header="打开图片地址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding Path=ImageUrl}" />
+        <MenuItem Header="复制图片地址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=ImageUrl}"/>
+        <Separator/>
+        <MenuItem Header="打开短网址(_O)" Command="MiniTwitter_Input:Commands.NavigateTo" CommandParameter="{Binding Path=ShortUrl}" />
+        <MenuItem Header="复制短网址(_C)" Command="MiniTwitter_Input:Commands.Copy" CommandParameter="{Binding Path=ShortUrl}" />
+        <Separator/>
+        <MenuItem Header="查看图片(_V)" Command="MiniTwitter_Input:Commands.ViewImage" CommandParameter="{Binding Path=Link}" />
+        <MenuItem Header="复制图片(_I)" Command="MiniTwitter_Input:Commands.CopyImage" CommandParameter="{Binding Path=Image}"/>
     </ContextMenu>
 
     <ContextMenu x:Key="TextBoxContextMenu">
@@ -382,7 +393,7 @@
             <MenuItem Header="降序(_D)" Command="MiniTwitter_Input:Commands.SortDirection" CommandParameter="{x:Static System_ComponentModel:ListSortDirection.Descending}" Style="{StaticResource DescendingMenuItemStyle}"/>
         </MenuItem>
     </ContextMenu>
-    
+
     <ContextMenu x:Key="TimelineContextMenu">
         <MenuItem Header="添加标签页(_A)..." Command="MiniTwitter_Input:Commands.AddTimeline" />
         <MenuItem Header="改变设置(_E)..." Command="MiniTwitter_Input:Commands.EditTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
@@ -391,5 +402,5 @@
         <Separator/>
         <MenuItem Header="全部删除(_C)" Command="MiniTwitter_Input:Commands.ClearTimeline"/>
     </ContextMenu>
-  <SolidColorBrush x:Key="NavigationPageTitleBrushKey">#FF003399</SolidColorBrush>
+    <SolidColorBrush x:Key="NavigationPageTitleBrushKey">#FF003399</SolidColorBrush>
 </ResourceDictionary>

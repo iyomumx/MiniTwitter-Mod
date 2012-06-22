@@ -30,6 +30,7 @@ using System.Windows.Shapes;
 using MiniTwitter.Extensions;
 using MiniTwitter.Properties;
 using MiniTwitter.Net.Twitter;
+using Input = MiniTwitter.Input;
 
 namespace MiniTwitter.Controls
 {
@@ -237,6 +238,7 @@ namespace MiniTwitter.Controls
                 foreach (var media in Entities.Media.creative)
                 {
                     var uri = new Uri(Settings.Default.SSLUserImage ? media.media_url_https : media.media_url);
+                    CacheUrl(media.url, uri);
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, media.url));
                 }
                 Inserted = true;
@@ -248,41 +250,42 @@ namespace MiniTwitter.Controls
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/img\.ly\/(.+?)"))
                 {
                     var uri = new Uri("http://img.ly/show/medium/" + url.Substring(14));
-
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"(http:\/\/plixi\.com\/p\/(.+?))|(http:\/\/lockerz\.com\/s\/(.+?))"))
                 {
                     var uri = new Uri("http://api.plixi.com/api/tpapi.svc/imagefromurl?url=" + url + "&size=medium");
-
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/flic\.kr\/p\/(.+?)"))
                 {
                     var uri = new Uri("http://flic.kr/p/img/" + url.Substring(17) + "_m.jpg");
-
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/yfrog\.com\/(.+?)[jpbtg]$"))
                 {
                     var uri = new Uri(url + ":iphone");
-
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/imgur\.com\/([a-zA-Z0-9]+?\/?)$"))
                 {
                     var uri = new Uri("http://i.imgur.com/" + url.Substring(17) + "l.jpg");
-
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"^http://picplz\.com/[A-Za-z0-9]+$"))
@@ -397,8 +400,8 @@ namespace MiniTwitter.Controls
                 else if (Regex.IsMatch(url, @"http:\/\/gyazo\.com\/(.+?)"))
                 {
                     var uri = new Uri(url);
-
                     TextBlock.Inlines.InsertAfter(TextBlock.Inlines.LastInline, GetImageControl(uri, url));
+                    CacheUrl(url, uri);
                     Inserted = true;
                 }
                 else if (Regex.IsMatch(url, @"http:\/\/instagr\.am\/p\/(.+?)"))
@@ -432,17 +435,22 @@ namespace MiniTwitter.Controls
             }
         }
 
+        private static readonly Status NullStatus = new Status();
+
         private Inline GetImageControl(Uri uri, string url)
         {
             InlineUIContainer cacheItem = GetImage(url);
             InlineUIContainer container;
+            BitmapImage bmp;
             if (cacheItem != null)          //命中缓存
             {
                 container = cacheItem;      //取出缓存
+                bmp = (BitmapImage)((Image)container.Child).Source;
             }
             else                            //缓存未命中
             {                               //构建新的Container
-                Image img = new Image() { Width = 200, MaxHeight = 200, Source = new BitmapImage(uri) };
+                bmp = new BitmapImage(uri);
+                Image img = new Image() { Width = 200, MaxHeight = 200, Source = bmp };
                 container = new InlineUIContainer(img);
                 CacheImage(url, container); //存入缓存
             }
@@ -450,11 +458,19 @@ namespace MiniTwitter.Controls
             link.Tag = url;
             link.ToolTip = url;
             link.Click += Hyperlink_Click;
-            link.ContextMenu = (ContextMenu)Application.Current.FindResource("LinkInlineMenu");
+            link.DataContext = new
+            {
+                ImageUri = uri,
+                ImageUrl = string.Intern(uri.ToString()),
+                ShortUrl = url,
+                Image = bmp,
+                Link = link,
+            };
+            link.ContextMenu = (ContextMenu)Application.Current.FindResource("ImageInlineMenu");
             link.ContextMenuOpening += new ContextMenuEventHandler((sender_, ____) =>
             {
                 var hl = (Hyperlink)sender_;
-                hl.DataContext = hl.Tag;
+                hl.ContextMenu.DataContext = hl.DataContext;
             });
             link.TextDecorations = null;
             return link;
@@ -516,13 +532,28 @@ namespace MiniTwitter.Controls
             {
                 var hyperlink = (Hyperlink)sender;
                 var url = (string)hyperlink.Tag;
-
+                var isTwitterImage = false;
+                Uri twitterImageUri;
+                try
+                {
+                    twitterImageUri = (GetUri(url) ?? new Uri(url));
+                    isTwitterImage = twitterImageUri.ToString().IsRegexMatch(@"^https?://p\.twimg\.com/[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)?$");
+                }
+                catch (Exception)
+                {
+                    isTwitterImage = false;
+                    throw;
+                }
                 if ((Settings.Default.ImageInline && Keyboard.Modifiers != ModifierKeys.Shift) || Keyboard.Modifiers == ModifierKeys.Control)
                 {
                     Process.Start(url);
                     return;
                 }
-                if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
+                if (isTwitterImage)
+                {
+                    ShowPopup(twitterImageUri, url);
+                }
+                else if (Regex.IsMatch(url, @"http:\/\/twitpic\.com\/(.+?)"))
                 {
                     var uri = new Uri("http://twitpic.com/show/large/" + url.Substring(19));
 

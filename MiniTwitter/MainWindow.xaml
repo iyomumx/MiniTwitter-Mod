@@ -92,6 +92,8 @@
         <CommandBinding Command="MiniTwitter_Input:Commands.ViewUserByName" Executed="ViewUserByNameCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.UpdateWithMedia" Executed="UpdateWithMediaCommand_Executed" />
         <CommandBinding Command="MiniTwitter_Input:Commands.UpdateWithClipBoardMedia" Executed="UpdateWithClipBoardMediaCommand_Executed" />
+        <CommandBinding Command="MiniTwitter_Input:Commands.ViewImage" Executed="ViewImage_Executed"/>
+        <CommandBinding Command="MiniTwitter_Input:Commands.CopyImage" Executed="CopyImage_Executed"/>
     </Window.CommandBindings>
     <Window.Resources>
         <ContextMenu x:Key="notifyMenu">
