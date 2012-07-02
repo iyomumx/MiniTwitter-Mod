@@ -216,6 +216,7 @@
             <CheckBox Content="在TL中直接预览图片" Canvas.Left="20" Canvas.Top="205" IsChecked="{Binding Path=ImageInline}" />
             <TextBlock Text="每条时间线最大缓存：" Canvas.Left="20" Canvas.Top="238"/>
             <TextBox Text="{Binding Path=MaxTweetCount}" Canvas.Left="200" Canvas.Top="235" Width="70" />
+            <CheckBox Content="显示昵称" Canvas.Left="20" Canvas.Top="271" IsChecked="{Binding Path=UseNickname}"/>
         </Canvas>
         <Canvas Grid.Column="2" Grid.Row="0" Visibility="{Binding Path=IsSelected, ElementName=KeyboardListBoxItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="使用键盘快捷键映射" TextWrapping="Wrap" Canvas.Left="14" Canvas.Top="17"/>

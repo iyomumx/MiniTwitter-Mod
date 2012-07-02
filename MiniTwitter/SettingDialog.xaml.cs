@@ -38,7 +38,7 @@ namespace MiniTwitter
     {
         static SettingDialog()
         {
-            SysFonts = 
+            SysFonts =
                 new ObservableCollection<FontInfo>();
             foreach (var font in Fonts.SystemFontFamilies)
             {
@@ -328,7 +328,7 @@ namespace MiniTwitter
                 if (MessageBox.Show("有可用更新，现在进行更新吗？", App.NAME, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     deploy.UpdateAsync();
-                    
+
                     DialogResult = true;
                 }
             }
@@ -346,14 +346,14 @@ namespace MiniTwitter
                 if (UseProxyCheckBox.IsChecked.Value)
                 {
                     var proxy = new System.Net.WebProxy(ProxyAddress.Text, Convert.ToInt32(ProxyPortNumber.Text));
-                    if (!(String.IsNullOrEmpty(ProxyUsername.Text)||String.IsNullOrEmpty(ProxyPasswordBox.Password)))
+                    if (!(String.IsNullOrEmpty(ProxyUsername.Text) || String.IsNullOrEmpty(ProxyPasswordBox.Password)))
                     {
                         proxy.Credentials = new System.Net.NetworkCredential(ProxyUsername.Text, ProxyPasswordBox.Password);
                     }
                     TC.Proxy = proxy;
                 }
                 string token;
-                string tokensecret="";
+                string tokensecret = "";
                 TC.GetRequestToken(out token);
                 string url = TC.RedirectToAuthorize(token);
                 MessageBox.Show("将打开默认浏览器以获取PIN，请确认你的浏览器能正确连接Twitter（你懂的）", "即将跳转", MessageBoxButton.OK);
@@ -367,9 +367,9 @@ namespace MiniTwitter
             }
             catch (Exception ex)
             {
-                MessageBox.Show("出错啦\n"+ex.ToString(), "出错啦");
+                MessageBox.Show("出错啦\n" + ex.ToString(), "出错啦");
             }
-            
+
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
@@ -378,7 +378,7 @@ namespace MiniTwitter
             {
                 System.Diagnostics.Process.Start("http://bit.ly/a/your_api_key");
             }
-            catch 
+            catch
             {
             }
         }
@@ -584,9 +584,9 @@ namespace MiniTwitter
         public string Source
         {
             get { return _source; }
-            set 
+            set
             {
-                if (_source!=value)
+                if (_source != value)
                 {
                     _source = value;
                     OnPropertyChanged("Source");
@@ -598,9 +598,9 @@ namespace MiniTwitter
         public string Name
         {
             get { return _name; }
-            set 
+            set
             {
-                if (_name!=value)
+                if (_name != value)
                 {
                     _name = value;
                     OnPropertyChanged("Name");
@@ -618,9 +618,9 @@ namespace MiniTwitter
         public FontFamily Font
         {
             get { return _font; }
-            set 
+            set
             {
-                if (_font!=value)
+                if (_font != value)
                 {
                     _font = value;
                     OnPropertyChanged("Font");

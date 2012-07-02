@@ -66,6 +66,7 @@ namespace MiniTwitter.Properties
             LinkUrl = "https://twitter.com/";
             UseApiToLengthenUrl = false;
             EnableAero = false;
+            UseNickname = false;
         }
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace MiniTwitter.Properties
                 }
                 catch (Exception)
                 {
-                    return;    
+                    return;
                 }
             }
         }
@@ -151,12 +152,13 @@ namespace MiniTwitter.Properties
 
         private bool _acceptAllCert;
 
-        public bool AcceptAllCert { 
+        public bool AcceptAllCert
+        {
             get
             {
                 return _acceptAllCert;
             }
-            set 
+            set
             {
                 if (_acceptAllCert != value)
                 {
@@ -180,9 +182,9 @@ namespace MiniTwitter.Properties
         private string _bitlyProDomain = "bit.ly";
         public string BitlyProDomain
         {
-            get 
-            { 
-                return string.IsNullOrEmpty(_bitlyProDomain) ? "bit.ly" : _bitlyProDomain; 
+            get
+            {
+                return string.IsNullOrEmpty(_bitlyProDomain) ? "bit.ly" : _bitlyProDomain;
             }
             set
             {
@@ -207,7 +209,7 @@ namespace MiniTwitter.Properties
                 }
             }
         }
-        
+
         [XmlArray("BitlyProDomains")]
         public string[] BitlyProDomainsInternal
         {
@@ -247,9 +249,9 @@ namespace MiniTwitter.Properties
         public string ReTweetPrefix
         {
             get { return _reTweetPrefix; }
-            set 
+            set
             {
-                if (_reTweetPrefix!=value)
+                if (_reTweetPrefix != value)
                 {
                     _reTweetPrefix = value ?? "RT";
                     OnPropertyChanged("ReTweetPrefix");
@@ -285,15 +287,15 @@ namespace MiniTwitter.Properties
 
         private bool _AlwaysOnTop;
 
-        public bool AlwaysOnTop 
+        public bool AlwaysOnTop
         {
-            get 
+            get
             {
                 return _AlwaysOnTop;
             }
             set
             {
-                if (_AlwaysOnTop!=value)
+                if (_AlwaysOnTop != value)
                 {
                     _AlwaysOnTop = value;
                     OnPropertyChanged("AlwaysOnTop");
@@ -302,15 +304,15 @@ namespace MiniTwitter.Properties
         }
 
         private bool _SmoothScroll;
-        public bool SmoothScroll 
-        { 
+        public bool SmoothScroll
+        {
             get
             {
                 return _SmoothScroll;
             }
             set
             {
-                if (_SmoothScroll!=value)
+                if (_SmoothScroll != value)
                 {
                     _SmoothScroll = value;
                     OnPropertyChanged("SmoothScroll");
@@ -319,7 +321,7 @@ namespace MiniTwitter.Properties
         }
 
         private bool _RealtimeScroll;
-        public bool RealtimeScroll 
+        public bool RealtimeScroll
         {
             get
             {
@@ -327,10 +329,24 @@ namespace MiniTwitter.Properties
             }
             set
             {
-                if (_RealtimeScroll!=value)
+                if (_RealtimeScroll != value)
                 {
                     _RealtimeScroll = value;
                     OnPropertyChanged("RealtimeScroll");
+                }
+            }
+        }
+
+        private bool _useNickname;
+        public bool UseNickname
+        {
+            get { return _useNickname; }
+            set
+            {
+                if (_useNickname != value)
+                {
+                    _useNickname = value;
+                    OnPropertyChanged("UseNickname");
                 }
             }
         }
@@ -586,7 +602,7 @@ namespace MiniTwitter.Properties
             get { return _ImageInline; }
             set
             {
-                if (_ImageInline!=value)
+                if (_ImageInline != value)
                 {
                     _ImageInline = value;
                     OnPropertyChanged("ImageInline");
@@ -595,9 +611,10 @@ namespace MiniTwitter.Properties
         }
 
         private bool _EnableUnreadManager;
-        public bool EnableUnreadManager {
+        public bool EnableUnreadManager
+        {
             get { return _EnableUnreadManager; }
-            set 
+            set
             {
                 if (value != _EnableUnreadManager)
                 {
@@ -609,7 +626,7 @@ namespace MiniTwitter.Properties
 
         public bool EnableNotifyIcon { get; set; }
 
-        
+
 
         public string BrowserPath { get; set; }
 
@@ -635,7 +652,7 @@ namespace MiniTwitter.Properties
             get { return KeyBindings.Count != 0 ? KeyBindings.ToArray() : null; }
             set { KeyBindings = new ObservableCollection<KeyBinding>(value ?? Enumerable.Empty<KeyBinding>()); }
         }
-        
+
         [XmlIgnore]
         public ObservableCollection<KeyBinding> KeyBindings { get; private set; }
 
@@ -740,7 +757,7 @@ namespace MiniTwitter.Properties
         public static string BaseDirectory { get; set; }
 
         public static Settings Default { get; private set; }
-        
+
         public static void Load(string directory)
         {
             try
