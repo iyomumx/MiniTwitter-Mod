@@ -123,11 +123,11 @@ namespace MiniTwitter.Net
                 {
                     _rateLimitRemain = value;
                     double state = (double)_rateLimitRemain / (double)_totalRateLimit;
-                    if (state>0.5)
+                    if (state > 0.5)
                     {
                         RateLimitState = 0;
                     }
-                    else if(state>0.2)
+                    else if (state > 0.2)
                     {
                         RateLimitState = 1;
                     }
@@ -397,7 +397,7 @@ namespace MiniTwitter.Net
                         //卧槽DEBUG要性能能当饭吃？
                         using (var reader = new StreamReader(stream))
                         {
-                            s = reader.ReadToEnd();                     //反序列化有问题请找字符串
+                            s = reader.ReadToEnd().Replace("&#31;", "");                     //反序列化有问题请找字符串
                         }
                         XElement xml = XElement.Parse(s);
                         return Serializer<T>.Deserialize(xml.CreateReader());
@@ -585,8 +585,8 @@ namespace MiniTwitter.Net
                 request.Headers[HttpRequestHeader.Authorization] = string.Format("BASICAUTH {0}",
                     Convert.ToBase64String(
                         Encoding.UTF8.GetBytes(
-                            String.Format("{0}:{1}", 
-                                            MiniTwitter.Properties.Settings.Default.Token, 
+                            String.Format("{0}:{1}",
+                                            MiniTwitter.Properties.Settings.Default.Token,
                                             MiniTwitter.Properties.Settings.Default.TokenSecret))));
             }
             else
@@ -622,7 +622,7 @@ namespace MiniTwitter.Net
             {
                 header.AppendFormat("{0}=\"{1}\",", key, UrlEncode(parameter[key]));
             }
-            
+
             return header.ToString(0, header.Length - 1);
         }
 

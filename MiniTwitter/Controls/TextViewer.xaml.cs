@@ -826,7 +826,7 @@ namespace MiniTwitter.Controls
                 }
             }
         }
-        private static InlineUIContainer GetImage(string url)
+        internal static InlineUIContainer GetImage(string url)
         {
             lock (_cacheLock)
             {

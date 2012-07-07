@@ -994,7 +994,7 @@ namespace MiniTwitter
                                 //Viewbox = new Rect(0, 0, 1, 1),
                                 //ViewboxUnits = BrushMappingMode.RelativeToBoundingBox,
                                 Stretch = Stretch.UniformToFill,
-                                Opacity = 0.4,
+                                Opacity = 0.25,
                                 TileMode = TileMode.None,
                                 AlignmentX = AlignmentX.Left,
                                 AlignmentY = AlignmentY.Top,
@@ -3593,7 +3593,8 @@ namespace MiniTwitter
 
         private void CopyImage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var bmp = e.Parameter as BitmapImage;
+            if (bmp != null) Clipboard.SetImage(bmp);
         }
     }
 }
