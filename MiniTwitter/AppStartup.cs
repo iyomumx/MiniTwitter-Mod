@@ -31,6 +31,13 @@ namespace MiniTwitter
         protected override bool OnStartup(StartupEventArgs e)
         {
             app = new App();
+            if (e.CommandLine != null && e.CommandLine.Count != 0)
+            {
+                if (System.IO.Directory.Exists(e.CommandLine[0]))
+                {
+                    app.SettingDirectory = e.CommandLine[0];
+                }
+            }
             app.InitializeComponent();
             app.Run();
 
@@ -43,7 +50,7 @@ namespace MiniTwitter
             {
                 WPF.MessageBox.Show("已经启动了一个MiniTwitter!", App.NAME, WPF.MessageBoxButton.OK, WPF.MessageBoxImage.Information);
             }
-            else 
+            else
             {
                 if (e.CommandLine.Select(arg => arg.ToLower()).Contains("-refresh"))
                 {
@@ -54,7 +61,7 @@ namespace MiniTwitter
                 }
                 if (e.CommandLine.Select(arg => arg.ToLower()).Contains("-update"))
                 {
-                    if (UpdateRequested!=null)
+                    if (UpdateRequested != null)
                     {
                         UpdateRequested(this, EventArgs.Empty);
                     }

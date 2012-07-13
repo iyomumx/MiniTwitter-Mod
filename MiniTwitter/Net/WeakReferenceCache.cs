@@ -9,6 +9,9 @@ using MiniTwitter.Net.Twitter;
 
 namespace MiniTwitter.Net
 {
+    /// <summary>
+    /// 一个值可回收的StatusID-status字典，用作缓存
+    /// </summary>
     public class WeakReferenceCache
     {
         private ConcurrentDictionary<ulong, WeakReference> _cache;
@@ -57,7 +60,7 @@ namespace MiniTwitter.Net
 
         #endregion
 
-        public Dictionary<ulong,Status> GetDictionary()
+        public Dictionary<ulong, Status> GetDictionary()
         {
             var dic = (from kvp in _cache.AsParallel()
                        where kvp.Value.IsAlive
@@ -75,7 +78,7 @@ namespace MiniTwitter.Net
             }
         }
 
-        public List<KeyValuePair<ulong,WeakReference>> GetDeadItems()
+        public List<KeyValuePair<ulong, WeakReference>> GetDeadItems()
         {
             return _cache.AsParallel().Where(kvp => !kvp.Value.IsAlive).ToList();
         }
@@ -84,6 +87,10 @@ namespace MiniTwitter.Net
         private DateTime lastCompress = DateTime.Now;
         private const double compressInterval = 3.0;
 
+        /// <summary>
+        /// 从缓存中剔除已被回收的项
+        /// </summary>
+        /// <returns></returns>
         public long CompressCache()
         {
             if (compressing)

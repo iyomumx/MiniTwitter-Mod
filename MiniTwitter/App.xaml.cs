@@ -287,7 +287,18 @@ namespace MiniTwitter
         }
 
 
-        private readonly string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
+        private string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), NAME);
+        internal string SettingDirectory
+        {
+            get
+            {
+                return directory;
+            }
+            set
+            {
+                directory = value;
+            }
+        }
 
         public const string VERSION = "1.67.001";
         public const string NAME = "MiniTwitter Mod";
