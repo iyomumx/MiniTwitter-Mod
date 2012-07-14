@@ -28,6 +28,10 @@ using MiniTwitter.Extensions;
 using MiniTwitter.Input;
 using MiniTwitter.Net;
 using MiniTwitter.Properties;
+using System.Security.Principal;
+using System.Windows.Media.Imaging;
+using API = MiniTwitter.NativeMethods;
+using System.Runtime.InteropServices;
 
 namespace MiniTwitter
 {
@@ -47,6 +51,38 @@ namespace MiniTwitter
                     continue;
                 }
                 SysFonts.Add(new FontInfo(font));
+            }
+            try
+            {
+                BitmapSource shieldSource = null;
+
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    API.SHSTOCKICONINFO sii = new API.SHSTOCKICONINFO();
+                    sii.cbSize = (UInt32)Marshal.SizeOf(typeof(API.SHSTOCKICONINFO));
+
+                    Marshal.ThrowExceptionForHR(API.SHGetStockIconInfo(API.SHSTOCKICONID.SIID_SHIELD,
+                        API.SHGSI.SHGSI_ICON | API.SHGSI.SHGSI_SMALLICON,
+                        ref sii));
+
+                    shieldSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                        sii.hIcon,
+                        Int32Rect.Empty,
+                        BitmapSizeOptions.FromEmptyOptions());
+                    API.DestroyIcon(sii.hIcon);
+                }
+                if (shieldSource == null)
+                {
+                    shieldSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                        System.Drawing.SystemIcons.Shield.Handle,
+                        Int32Rect.Empty,
+                        BitmapSizeOptions.FromEmptyOptions());
+                }
+                ShieldIcon = shieldSource;
+            }
+            catch
+            {
+                ShieldIcon = null;
             }
         }
 
@@ -80,6 +116,20 @@ namespace MiniTwitter
         {
             private set;
             get;
+        }
+
+        public static bool IsNotAdmin
+        {
+            get
+            {
+                return !(new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator));
+            }
+        }
+
+        public static BitmapSource ShieldIcon
+        {
+            get;
+            private set;
         }
 
         private ObservableCollection<MiniTwitter.Input.KeyBinding> keyBindings;
@@ -550,6 +600,23 @@ namespace MiniTwitter
         {
             base.OnMouseLeftButtonDown(e);
             this.DragMove();
+        }
+
+        private void DoNgenButton_Click(object sender, RoutedEventArgs e)
+        {
+            var start = new System.Diagnostics.ProcessStartInfo();
+            start.CreateNoWindow = false;
+            start.FileName = System.Reflection.Assembly.GetEntryAssembly().Location;
+            start.Arguments = "NGEN";
+            start.Verb = "runas";
+            try
+            {
+                System.Diagnostics.Process proc = System.Diagnostics.Process.Start(start);
+            }
+            catch
+            {
+
+            }
         }
     }
 

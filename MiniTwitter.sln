@@ -14,11 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTwitter.Themes.DefaultT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTwitter.Themes.Netbook", "MiniTwitter.Themes.Netbook\MiniTwitter.Themes.Netbook.csproj", "{0ACFFD29-B490-4468-BC7D-CA7D2480B999}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupMiniTwitterMod", "SetupMiniTwitterMod\SetupMiniTwitterMod.vdproj", "{69996DCA-FAF2-454E-A40D-E12286E4632E}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GoogleUrlShortener", "GoogleUrlShorter\GoogleUrlShortener.vbproj", "{E4A4204A-68C2-4039-8475-1111DA1F13DF}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup MiniTwitter Mod", "Setup MiniTwitter Mod\Setup MiniTwitter Mod.vdproj", "{9977B007-D220-474D-A0DA-569158D6481D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEB5682E-A755-4C94-8E31-81888A82E929}"
 	ProjectSection(SolutionItems) = preProject
@@ -123,23 +119,6 @@ Global
 		{0ACFFD29-B490-4468-BC7D-CA7D2480B999}.Release|x64.Build.0 = Release|x64
 		{0ACFFD29-B490-4468-BC7D-CA7D2480B999}.Release|x86.ActiveCfg = Release|x86
 		{0ACFFD29-B490-4468-BC7D-CA7D2480B999}.Release|x86.Build.0 = Release|x86
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|Any CPU.ActiveCfg = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|Any CPU.Build.0 = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|Mixed Platforms.Build.0 = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|Win32.ActiveCfg = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|Win32.Build.0 = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|x64.ActiveCfg = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|x64.Build.0 = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Debug|x86.ActiveCfg = Debug
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|Any CPU.ActiveCfg = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|Any CPU.Build.0 = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|Mixed Platforms.ActiveCfg = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|Mixed Platforms.Build.0 = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|Win32.ActiveCfg = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|Win32.Build.0 = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|x64.ActiveCfg = Release
-		{69996DCA-FAF2-454E-A40D-E12286E4632E}.Release|x86.ActiveCfg = Release
 		{E4A4204A-68C2-4039-8475-1111DA1F13DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E4A4204A-68C2-4039-8475-1111DA1F13DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4A4204A-68C2-4039-8475-1111DA1F13DF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -158,19 +137,6 @@ Global
 		{E4A4204A-68C2-4039-8475-1111DA1F13DF}.Release|x64.Build.0 = Release|x64
 		{E4A4204A-68C2-4039-8475-1111DA1F13DF}.Release|x86.ActiveCfg = Release|x86
 		{E4A4204A-68C2-4039-8475-1111DA1F13DF}.Release|x86.Build.0 = Release|x86
-		{9977B007-D220-474D-A0DA-569158D6481D}.Debug|Any CPU.ActiveCfg = Debug
-		{9977B007-D220-474D-A0DA-569158D6481D}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{9977B007-D220-474D-A0DA-569158D6481D}.Debug|Win32.ActiveCfg = Debug
-		{9977B007-D220-474D-A0DA-569158D6481D}.Debug|Win32.Build.0 = Debug
-		{9977B007-D220-474D-A0DA-569158D6481D}.Debug|x64.ActiveCfg = Debug
-		{9977B007-D220-474D-A0DA-569158D6481D}.Debug|x86.ActiveCfg = Debug
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|Any CPU.ActiveCfg = Release
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|Mixed Platforms.ActiveCfg = Release
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|Win32.ActiveCfg = Release
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|Win32.Build.0 = Release
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|x64.ActiveCfg = Release
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|x64.Build.0 = Release
-		{9977B007-D220-474D-A0DA-569158D6481D}.Release|x86.ActiveCfg = Release
 		{7DD02D2F-9521-463D-BA50-1561CE605146}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{7DD02D2F-9521-463D-BA50-1561CE605146}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{7DD02D2F-9521-463D-BA50-1561CE605146}.Debug|Mixed Platforms.Build.0 = Debug|x86

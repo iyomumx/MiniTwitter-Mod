@@ -364,7 +364,15 @@
                 <TextBlock Text="Version " FontSize="22" />
                 <TextBlock x:Name="Version" FontSize="22" />
             </StackPanel>
-            <Button Click="UpdateCheckButton_Click" Canvas.Left="120" Canvas.Top="150" IsEnabled="{Binding Source={x:Static System_Deployment_Application:ApplicationDeployment.IsNetworkDeployed}}">检查更新</Button>
+            <Button Click="UpdateCheckButton_Click" Canvas.Left="120" Canvas.Top="150" Width="80" IsEnabled="{Binding Source={x:Static System_Deployment_Application:ApplicationDeployment.IsNetworkDeployed}}">检查更新</Button>
+            <Button Click="DoNgenButton_Click" Canvas.Left="210" Canvas.Top="150">
+                <StackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
+                    <Image Source="{x:Static MiniTwitter:SettingDialog.ShieldIcon}" 
+                           Visibility="{Binding Source={x:Static MiniTwitter:SettingDialog.IsNotAdmin},Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Height="15" Width="15" Margin="0,0,5,0" Stretch="UniformToFill"/>
+                    <TextBlock Text="生成本机映像"/>
+                </StackPanel>
+            </Button>
             <Label Canvas.Left="120" Canvas.Top="180">
                 <Hyperlink Click="Hyperlink_Click_1" ToolTip="点击打开">
                     <Run>设置保存目录</Run>

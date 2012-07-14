@@ -15,26 +15,26 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0741D20292A050E25F63BAC93615083B"
+        "MsmKey" = "8:_2A03ADF022788B6E4D3FAB13BBE767C3"
+        "OwnerKey" = "8:_6D478F379E0E75B2F039098D0AC32210"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2A03ADF022788B6E4D3FAB13BBE767C3"
         "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1ED804EBF6731144FFE7E37C8180786A"
-        "OwnerKey" = "8:_ADBF91EB6FC629FED329AD1D2279FBFD"
+        "MsmKey" = "8:_2A03ADF022788B6E4D3FAB13BBE767C3"
+        "OwnerKey" = "8:_5B1EFBDE296F1AE44761D70195A004BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1ED804EBF6731144FFE7E37C8180786A"
-        "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1ED804EBF6731144FFE7E37C8180786A"
-        "OwnerKey" = "8:_0741D20292A050E25F63BAC93615083B"
+        "MsmKey" = "8:_2A03ADF022788B6E4D3FAB13BBE767C3"
+        "OwnerKey" = "8:_EDA44AC9F7E8BD101647E4367E9F707C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,7 +45,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3BF857FFFAF3C65EB8D553E0EAB4605B"
+        "MsmKey" = "8:_5B1EFBDE296F1AE44761D70195A004BD"
+        "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_678826C80EDE46D09ED7AFAD5FDDC4FA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6D478F379E0E75B2F039098D0AC32210"
+        "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9D893056AD62B15A8EE89762ADA47680"
         "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,13 +75,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_ADBF91EB6FC629FED329AD1D2279FBFD"
-        "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B2A85E14B7CCAA5CA6820EC511645586"
+        "MsmKey" = "8:_C8E3BFC618E15947431F206F746D4FA6"
         "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -71,6 +83,18 @@
         {
         "MsmKey" = "8:_E13EE27A14CB43F698B9948B7F004FB6"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E5681810282E4996A5F4E90D91952F4E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EDA44AC9F7E8BD101647E4367E9F707C"
+        "OwnerKey" = "8:_FF4EA6BE5E954E0282147E8489A0215D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,31 +112,43 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0741D20292A050E25F63BAC93615083B"
+        "OwnerKey" = "8:_E5681810282E4996A5F4E90D91952F4E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ADBF91EB6FC629FED329AD1D2279FBFD"
+        "OwnerKey" = "8:_5B1EFBDE296F1AE44761D70195A004BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1ED804EBF6731144FFE7E37C8180786A"
+        "OwnerKey" = "8:_EDA44AC9F7E8BD101647E4367E9F707C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3BF857FFFAF3C65EB8D553E0EAB4605B"
+        "OwnerKey" = "8:_6D478F379E0E75B2F039098D0AC32210"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B2A85E14B7CCAA5CA6820EC511645586"
+        "OwnerKey" = "8:_2A03ADF022788B6E4D3FAB13BBE767C3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9D893056AD62B15A8EE89762ADA47680"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C8E3BFC618E15947431F206F746D4FA6"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -220,45 +256,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0741D20292A050E25F63BAC93615083B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2A03ADF022788B6E4D3FAB13BBE767C3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_0741D20292A050E25F63BAC93615083B"
-                    {
-                    "Name" = "8:MiniTwitter.Themes.Netbook.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MiniTwitter.Themes.Netbook.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1ED804EBF6731144FFE7E37C8180786A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
-                "ScatterAssemblies"
-                {
-                    "_1ED804EBF6731144FFE7E37C8180786A"
+                    "_2A03ADF022788B6E4D3FAB13BBE767C3"
                     {
                     "Name" = "8:MiniTwitter.Themes.dll"
                     "Attributes" = "3:512"
@@ -302,14 +307,76 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3BF857FFFAF3C65EB8D553E0EAB4605B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5B1EFBDE296F1AE44761D70195A004BD"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.Netbook, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_3BF857FFFAF3C65EB8D553E0EAB4605B"
+                    "_5B1EFBDE296F1AE44761D70195A004BD"
+                    {
+                    "Name" = "8:MiniTwitter.Themes.Netbook.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MiniTwitter.Themes.Netbook.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6D478F379E0E75B2F039098D0AC32210"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.2, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_6D478F379E0E75B2F039098D0AC32210"
+                    {
+                    "Name" = "8:MiniTwitter.Themes.DefaultThemes.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MiniTwitter.Themes.DefaultThemes.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9D893056AD62B15A8EE89762ADA47680"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_9D893056AD62B15A8EE89762ADA47680"
                     {
                     "Name" = "8:MiniTwitter.Models.dll"
                     "Attributes" = "3:512"
@@ -353,51 +420,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ADBF91EB6FC629FED329AD1D2279FBFD"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C8E3BFC618E15947431F206F746D4FA6"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.DefaultThemes, Version=1.5.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:GoogleUrlShortener, Version=1.0.0.3, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_ADBF91EB6FC629FED329AD1D2279FBFD"
+                    "_C8E3BFC618E15947431F206F746D4FA6"
                     {
-                    "Name" = "8:MiniTwitter.Themes.DefaultThemes.dll"
+                    "Name" = "8:GoogleUrlShortener.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:MiniTwitter.Themes.DefaultThemes.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B2A85E14B7CCAA5CA6820EC511645586"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GoogleUrlShorter, Version=1.0.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=AMD64"
-                "ScatterAssemblies"
-                {
-                    "_B2A85E14B7CCAA5CA6820EC511645586"
-                    {
-                    "Name" = "8:GoogleUrlShorter.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:GoogleUrlShorter.dll"
+            "SourcePath" = "8:GoogleUrlShortener.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
@@ -435,6 +471,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EDA44AC9F7E8BD101647E4367E9F707C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MiniTwitter.Themes.iyomumxMod, Version=1.0.0.1, Culture=neutral, PublicKeyToken=6dfea62674c620d3, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_EDA44AC9F7E8BD101647E4367E9F707C"
+                    {
+                    "Name" = "8:MiniTwitter.Themes.iyomumxMod.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MiniTwitter.Themes.iyomumxMod.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -461,6 +528,17 @@
                         {
                         }
                     }
+                }
+            }
+            "{C7E34266-2C30-44B9-A9A3-4E394ABD6E18}:_2A66148275144B81BCD28E90A081898C"
+            {
+            "Name" = "8:#1927"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:GAC"
+                "Folders"
+                {
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_4345A3B35A91480CB7EB8662CC2B1FFA"
@@ -514,7 +592,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiniTwitter Mod"
         "ProductCode" = "8:{448B9AD9-2F55-46CF-85D3-345615CA4CEE}"
-        "PackageCode" = "8:{F44C28D0-7A7A-466D-83A9-CDD1AEB12573}"
+        "PackageCode" = "8:{3DF8006B-83F2-4172-9227-CDF2AC023FAD}"
         "UpgradeCode" = "8:{4C1AF118-8513-407D-A260-58E8455AC4C6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -531,8 +609,8 @@
         "Keywords" = "8:Twitter Client"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:http://minitwitter.codeplex.com/"
-        "ARPPRODUCTICON" = "8:"
-        "ARPIconIndex" = "3:0"
+        "ARPPRODUCTICON" = "8:_678826C80EDE46D09ED7AFAD5FDDC4FA"
+        "ARPIconIndex" = "3:107"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:1"
@@ -785,7 +863,7 @@
                 {
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_235E24FC34A846C0B2042711EA987B29"
                     {
-                    "Sequence" = "3:300"
+                    "Sequence" = "3:400"
                     "DisplayName" = "8:确认安装"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -805,9 +883,135 @@
                             }
                         }
                     }
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_7005E4E52C3540B292B07747870C6739"
+                    {
+                    "Sequence" = "3:310"
+                    "DisplayName" = "8:RadioButton  (两个按钮)"
+                    "UseDynamicProperties" = "11:TRUE"
+                    "IsDependency" = "11:FALSE"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdCustom2ButtonDlg.wid"
+                        "Properties"
+                        {
+                            "BannerBitmap"
+                            {
+                            "Name" = "8:BannerBitmap"
+                            "DisplayName" = "8:#1001"
+                            "Description" = "8:#1101"
+                            "Type" = "3:8"
+                            "ContextData" = "8:Bitmap"
+                            "Attributes" = "3:4"
+                            "Setting" = "3:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "BannerText"
+                            {
+                            "Name" = "8:BannerText"
+                            "DisplayName" = "8:#1014"
+                            "Description" = "8:#1114"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:安装到公共程序集缓存"
+                            "DefaultValue" = "8:#1214"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "BodyText"
+                            {
+                            "Name" = "8:BodyText"
+                            "DisplayName" = "8:#1015"
+                            "Description" = "8:#1115"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:可以将常用程序集安装至公共程序集缓存以获得更好的性能，但程序将无法脱离本机运行。"
+                            "DefaultValue" = "8:#1215"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button1Label"
+                            {
+                            "Name" = "8:Button1Label"
+                            "DisplayName" = "8:#1022"
+                            "Description" = "8:#1122"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:不安装到公共程序集缓存"
+                            "DefaultValue" = "8:#1222"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button1Value"
+                            {
+                            "Name" = "8:Button1Value"
+                            "DisplayName" = "8:#1018"
+                            "Description" = "8:#1118"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:1"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button2Label"
+                            {
+                            "Name" = "8:Button2Label"
+                            "DisplayName" = "8:#1023"
+                            "Description" = "8:#1123"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:安装到公共程序集缓存"
+                            "DefaultValue" = "8:#1223"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button2Value"
+                            {
+                            "Name" = "8:Button2Value"
+                            "DisplayName" = "8:#1019"
+                            "Description" = "8:#1119"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:1"
+                            "Value" = "8:2"
+                            "DefaultValue" = "8:2"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "ButtonProperty"
+                            {
+                            "Name" = "8:ButtonProperty"
+                            "DisplayName" = "8:#1017"
+                            "Description" = "8:#1117"
+                            "Type" = "3:14"
+                            "ContextData" = "8:Public"
+                            "Attributes" = "3:2"
+                            "Setting" = "3:2"
+                            "Value" = "8:INSTALLTOGAC"
+                            "DefaultValue" = "8:BUTTON2"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "DefaultValue"
+                            {
+                            "Name" = "8:DefaultValue"
+                            "DisplayName" = "8:#1016"
+                            "Description" = "8:#1116"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:1"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                        }
+                    }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_74DD234FD4C34F93B88889DACFB04480"
                     {
-                    "Sequence" = "3:110"
+                    "Sequence" = "3:200"
                     "DisplayName" = "8:许可协议"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -902,7 +1106,7 @@
                     }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_BF4D9BBE67954C0B8D53A851FF2192D4"
                     {
-                    "Sequence" = "3:200"
+                    "Sequence" = "3:300"
                     "DisplayName" = "8:安装文件夹"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -1206,6 +1410,34 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_678826C80EDE46D09ED7AFAD5FDDC4FA"
+            {
+            "SourcePath" = "8:..\\MiniTwitter\\MiniTwitterNativeIcon.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_BCCC0C160A3A4359B5EB959FAD48EEE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{22774D17-C16B-4F3D-B1A3-5BCD81AD7D2B}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_75298792DE3841DBA8B6C509169FAC52"
             {
             "SourcePath" = "8:"
@@ -1341,6 +1573,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:XmlSerializer"
             "OutputProjectGuid" = "8:{003253FA-D00D-4F51-B984-8528C02D5083}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E5681810282E4996A5F4E90D91952F4E"
+            {
+            "SourcePath" = "8:..\\GoogleUrlShorter\\obj\\x64\\Release\\GoogleUrlShortener.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2A66148275144B81BCD28E90A081898C"
+            "Condition" = "8:INSTALLTOGAC=2"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:FALSE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{E4A4204A-68C2-4039-8475-1111DA1F13DF}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Deployment.Application;
+using System.IO;
 using System.Linq;
 using System.Text;
-using WPF = System.Windows;
-
 using Microsoft.VisualBasic.ApplicationServices;
+using WPF = System.Windows;
+using System.Reflection;
+using System.Security.Principal;
 
 namespace MiniTwitter
 {
@@ -14,8 +18,73 @@ namespace MiniTwitter
         [STAThread()]
         static void Main(string[] args)
         {
+            if (args.Length == 1 && args[0] != null && args[0].ToUpper() == "NGEN")
+            {
+                try
+                {
+                    if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                    {
+                        DoNgenWorkaround();
+                    }
+                }
+                catch { }
+                return;
+            }
             wrapper = new SingleInstanceApplicationWrapper();
             wrapper.Run(args);
+        }
+
+        static void DoNgenWorkaround()
+        {
+            bool Success = false;
+            //if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                string appPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                string winPath = Environment.GetEnvironmentVariable("WINDIR");
+                string ngenPath = GetNgenPath(winPath);
+                using (Process proc = new Process())
+                {
+                    System.IO.Directory.SetCurrentDirectory(appPath);
+
+                    proc.EnableRaisingEvents = false;
+                    proc.StartInfo.CreateNoWindow = false;
+                    proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+                    proc.StartInfo.FileName = ngenPath;
+                    proc.StartInfo.Arguments = "uninstall MiniTwitter.exe /nologo /silent";
+
+                    proc.Start();
+                    proc.WaitForExit();
+
+                    proc.StartInfo.FileName = ngenPath;
+                    proc.StartInfo.Arguments = "install MiniTwitter.exe /nologo /silent";
+
+                    proc.Start();
+                    proc.WaitForExit();
+                    if (proc.ExitCode == 0)
+                    {
+                        Success = true;
+                    }
+                }
+            }
+            WPF.MessageBox.Show(string.Format("本机映像生成{0}！", Success ? "成功" : "失败"), App.NAME, WPF.MessageBoxButton.OK, WPF.MessageBoxImage.Information);
+        }
+
+        static string GetNgenPath(string winPath)
+        {
+            var arch = Environment.Is64BitProcess ? "64" : "";
+            var basePath = Path.Combine(winPath, @"Microsoft.NET\Framework" + arch);
+            if (!Directory.Exists(basePath))
+            {
+                basePath = Path.Combine(winPath, @"Microsoft.NET\Framework");
+                if (!Directory.Exists(basePath))
+                {
+                    return null;
+                }
+            }
+            var v4dir = from dir in Directory.GetDirectories(basePath).AsParallel() where Path.GetFileName(dir).StartsWith("v4") select Path.Combine(dir, "ngen.exe");
+
+            return v4dir.FirstOrDefault(dir => File.Exists(dir));
         }
     }
 
