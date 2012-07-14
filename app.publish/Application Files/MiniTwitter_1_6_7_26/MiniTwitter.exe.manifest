@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly manifestVersion="1.0" xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity version="1.6.7.26" name="MiniTwitter.exe" publicKeyToken="83e2ffee46f73431" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="Resources\MiniTwitter.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="MiniTwitter" version="1.6.6.9" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+    <commandLine file="MiniTwitter.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet class="System.Security.PermissionSet" version="1" ID="Custom" SameSite="site" Unrestricted="true" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC 清单选项
+            如果要更改 Windows 用户帐户控制级别，请用以下节点之一替换 
+            requestedExecutionLevel 节点。
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            指定 requestedExecutionLevel 节点将会禁用文件和注册表虚拟化。
+            如果要利用文件和注册表虚拟化实现向后 
+            兼容性，则删除 requestedExecutionLevel 节点。
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GoogleUrlShortener.dll" size="29696">
+      <assemblyIdentity name="GoogleUrlShortener" version="1.0.0.3" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>89SPoZSpyD1sumRbn2HKdI/Ou1s=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniTwitter.exe" size="316928">
+      <assemblyIdentity name="MiniTwitter" version="1.6.6.9" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>RUbQMMDLGaiguCHlItnlqfPmcJU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniTwitter.Models.dll" size="71680">
+      <assemblyIdentity name="MiniTwitter.Models" version="1.0.0.0" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>cWVeSlkqkSGaEKgLRpzupAjD/qE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ja-JP\MiniTwitter.resources.dll" size="450560">
+      <assemblyIdentity name="MiniTwitter.resources" version="1.6.6.9" publicKeyToken="6DFEA62674C620D3" language="ja-JP" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>Elcc6eH3DwwByV0h22V2Y8D1Apw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniTwitter.Themes.dll" size="5120">
+      <assemblyIdentity name="MiniTwitter.Themes" version="1.5.0.1" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>NU8ZMxgtlHJBVfhxiJxJY5vxRwk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniTwitter.Themes.DefaultThemes.dll" size="37376">
+      <assemblyIdentity name="MiniTwitter.Themes.DefaultThemes" version="1.5.0.2" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>tKoAmSTkCwTLaUqgwh/7n3UBZsk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniTwitter.Themes.iyomumxMod.dll" size="71680">
+      <assemblyIdentity name="MiniTwitter.Themes.iyomumxMod" version="1.0.0.1" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>l6e1niJckEKaImNRvY626+Y2LQc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniTwitter.Themes.Netbook.dll" size="33280">
+      <assemblyIdentity name="MiniTwitter.Themes.Netbook" version="1.5.0.1" publicKeyToken="6DFEA62674C620D3" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>nhNemrv/ZBaLg/U1nG9YaoH/QP8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="License.txt" size="9134">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>Pxiq41dG8CB9nDKb2KRqKZ+Cl0Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="MiniTwitter.xml" size="910">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>lu8AJVpKxuXmjwczXEp7P5pNw+o=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="MiniTwitterNativeIcon.dll" size="63488">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>vAzhloggFeyBGwjxnLfS8z6ckYs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="readme.txt" size="1225">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>FeY2WI+LXAdjOzF8mLKxdJiy/wo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\MiniTwitter.ico" size="50557">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>xQRxrs659lsif3Tfo5yBh+az7Ug=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Tween.xml" size="802">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>fnHXOCTNwzvzslWMZellg/JkWBQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- 此应用程序设计使用的所有 Windows 版本的列表。Windows 将会自动选择最兼容的环境。-->
+      <!-- 如果应用程序设计使用 Windows 7，请取消注释以下 supportedOS 节点-->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>-->
+    </application>
+  </compatibility>
+<publisherIdentity name="CN=iyome" issuerKeyHash="47877c93d2e6a3a4e687e65c4b5950e22583d081" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>c3+NyuQXiA/pXpM/jP94f0k+tz8=</DigestValue></Reference></SignedInfo><SignatureValue>L1jx5eh1hl+NcV3Bd4zL5/jDLYC7b6PM6bnSK9AP043N7ZNeYT6rA3MeYJb7gn5JqMut++viEpx6dix6A6DSjJI6m6RIbiZVSFLJ5hX6hLctaDqohStMD/e9BEIbAb6oufnbfxN78u8PlpX+IzcFtWwQi2FWCkK8/zAOBUVRruE=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sH8njwl3p/MJMhFeBt5xgZkTdzrweTo8mnEQ+ssrtNt5FUCBu+ukB4Sh7daGBJG21l0Bd2oYt4TOzhis3xsPncGvrTKtvpQDTjSe/Awg5rR8zf8dh1SjnL7U4p1ROGJq8TRRG1ccZL+SOKpsivMddDArvsfwc25q1HrGqY/rLLs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="3fb73e497f78ff8c3f935ee90f8817e4ca8d7f73" Description="" Url=""><as:assemblyIdentity version="1.6.7.26" name="MiniTwitter.exe" publicKeyToken="83e2ffee46f73431" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=iyome</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>ypvVPIvPUlHRWGPYuNyVqtzCYmk=</DigestValue></Reference></SignedInfo><SignatureValue>eCQN9JCxKNhfmgMW1w3A6aM9PORWCFbddR5d71sE6y58DX+rfmGNseL7C+bl2kQyb9yNt0g7DDSKoIpMCEraMVk6IhKgr3DcQHxUhtHwkpn/pak+wgJyHqOhR0C6BTOEVIH9F1077SaS492jjZNS1JRWhzEXjoNTW7sDyVUPJsU=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sH8njwl3p/MJMhFeBt5xgZkTdzrweTo8mnEQ+ssrtNt5FUCBu+ukB4Sh7daGBJG21l0Bd2oYt4TOzhis3xsPncGvrTKtvpQDTjSe/Awg5rR8zf8dh1SjnL7U4p1ROGJq8TRRG1ccZL+SOKpsivMddDArvsfwc25q1HrGqY/rLLs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIICGTCCAYagAwIBAgIQKBs+j0spZqNGlx4vknMGBjAJBgUrDgMCHQUAMBAxDjAMBgNVBAMTBWl5b21lMB4XDTEwMDcwNjE2MDAwMFoXDTEyMTIyMTE2MDAwMFowEDEOMAwGA1UEAxMFaXlvbWUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALB/J48Jd6fzCTIRXgbecYGZE3c68Hk6PJpxEPrLK7TbeRVAgbvrpAeEoe3WhgSRttZdAXdqGLeEzs4YrN8bD53Br60yrb6UA040nvwMIOa0fM3/HYdUo5y+1OKdUThiavE0URtXHGS/kjiqbIrzHXQwK77H8HNuatR6xqmP6yy7AgMBAAGjfDB6MCAGA1UdBAEB/wQWMBQwDjAMBgorBgEEAYI3AgEVAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAzBBBgNVHQEEOjA4gBDvK4lIR65DduInmctarvNZoRIwEDEOMAwGA1UEAxMFaXlvbWWCECgbPo9LKWajRpceL5JzBgYwCQYFKw4DAh0FAAOBgQAnzYHD5OIgKs5wh5srCiBpEC2+BMXfyVh8eWaEIAgxUpvRZBG2Su65WRX1Ar+7jxhN2FYHzKlw1tuGzxTg0IQaAxYRtzqXLuxCZ/w06NzLi3K/1xcnbEN6rHPFH7muUfzCohk7LFZe7u6w1FCl/oxpv1FbFHrpmq99Xs1/mtvvCQ==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
