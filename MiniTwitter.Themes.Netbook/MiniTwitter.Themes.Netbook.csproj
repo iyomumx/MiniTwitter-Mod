@@ -94,7 +94,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>themekey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore">
@@ -174,7 +174,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniTwitterMod_tmpkey.pfx" />
+    <None Include="themekey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MiniTwitter_Netbook\Images\filter.png" />

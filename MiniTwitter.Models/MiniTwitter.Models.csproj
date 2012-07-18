@@ -129,7 +129,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>mtmodelskey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -197,7 +197,7 @@
     <Compile Include="TimelineType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniTwitterMod_tmpkey.pfx" />
+    <None Include="mtmodelskey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

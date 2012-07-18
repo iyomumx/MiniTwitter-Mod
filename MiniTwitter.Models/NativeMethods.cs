@@ -37,10 +37,10 @@ namespace MiniTwitter
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DwmIsCompositionEnabled();
 
-        [DllImport("Shell32.dll", SetLastError = false)]
-        public static extern Int32 SHGetStockIconInfo(SHSTOCKICONID siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
+        [DllImport("Shell32.dll", SetLastError = false, CharSet = CharSet.Unicode)]
+        internal static extern Int32 SHGetStockIconInfo(SHSTOCKICONID siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
 
-        public enum SHSTOCKICONID : uint
+        internal enum SHSTOCKICONID : uint
         {
             SIID_DOCNOASSOC = 0,
             SIID_DOCASSOC = 1,
@@ -139,7 +139,7 @@ namespace MiniTwitter
         }
 
         [Flags]
-        public enum SHGSI : uint
+        internal enum SHGSI : uint
         {
             SHGSI_ICONLOCATION = 0,
             SHGSI_ICON = 0x000000100,
@@ -152,17 +152,45 @@ namespace MiniTwitter
         }
 
         [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct SHSTOCKICONINFO
+        internal struct SHSTOCKICONINFO
         {
             public UInt32 cbSize;
-            public IntPtr hIcon;
+            private IntPtr hIcon;
             public Int32 iSysIconIndex;
             public Int32 iIcon;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH)]
             public string szPath;
+            public IntPtr HICON
+            {
+                get
+                {
+                    return hIcon;
+                }
+            }
         }
 
         const int MAX_PATH = 260;
+
+        public static System.Windows.Media.Imaging.BitmapSource GetShieldIcon()
+        {
+            System.Windows.Media.Imaging.BitmapSource shield = null;
+            SHSTOCKICONINFO sii = new SHSTOCKICONINFO();
+            sii.cbSize = (UInt32)Marshal.SizeOf(typeof(SHSTOCKICONINFO));
+
+            Marshal.ThrowExceptionForHR(SHGetStockIconInfo(SHSTOCKICONID.SIID_SHIELD,
+                SHGSI.SHGSI_ICON | SHGSI.SHGSI_SMALLICON,
+                ref sii));
+
+            shield = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                sii.HICON,
+                Int32Rect.Empty,
+                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            DestroyIcon(sii.HICON);
+            return shield;
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool DestroyIcon(IntPtr hIcon);
 
         public const int WM_ACTIVATE = 0x0006;
         public const int WM_HOTKEY = 0x0312;
@@ -252,7 +280,5 @@ namespace MiniTwitter
             public int Bottom;
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool DestroyIcon(IntPtr hIcon);
     }
 }

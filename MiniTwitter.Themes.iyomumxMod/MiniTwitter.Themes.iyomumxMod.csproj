@@ -62,7 +62,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>themekey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -166,8 +166,8 @@
     <Resource Include="MiniTwitter_Dark\Images\star_empty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniTwitterMod_tmpkey.pfx" />
     <None Include="ReadMe.txt" />
+    <None Include="themekey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MiniTwitter_Dark\Images\filter.png" />

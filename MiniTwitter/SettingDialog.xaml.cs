@@ -58,18 +58,8 @@ namespace MiniTwitter
 
                 if (Environment.OSVersion.Version.Major >= 6)
                 {
-                    API.SHSTOCKICONINFO sii = new API.SHSTOCKICONINFO();
-                    sii.cbSize = (UInt32)Marshal.SizeOf(typeof(API.SHSTOCKICONINFO));
-
-                    Marshal.ThrowExceptionForHR(API.SHGetStockIconInfo(API.SHSTOCKICONID.SIID_SHIELD,
-                        API.SHGSI.SHGSI_ICON | API.SHGSI.SHGSI_SMALLICON,
-                        ref sii));
-
-                    shieldSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                        sii.hIcon,
-                        Int32Rect.Empty,
-                        BitmapSizeOptions.FromEmptyOptions());
-                    API.DestroyIcon(sii.hIcon);
+                    shieldSource = typeof(API).GetMethod("GetShieldIcon").Invoke(null, null) as BitmapSource;
+                    //shieldSource = API.GetShieldIcon();
                 }
                 if (shieldSource == null)
                 {

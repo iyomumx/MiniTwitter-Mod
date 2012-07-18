@@ -33,7 +33,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
-    <PublishUrl>E:\My Documents\Visual Studio 2010\Projects\MiniTwitterPages\app.publish\</PublishUrl>
+    <PublishUrl>http://localhost/Publish/MiniTwitter/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -43,17 +43,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://iyomumx.github.com/MiniTwitter-Mod/app.publish/</InstallUrl>
     <SupportUrl>https://github.com/iyomumx/MiniTwitter-Mod/wiki</SupportUrl>
-    <ErrorReportUrl>https://github.com/iyomumx/MiniTwitter-Mod/wiki</ErrorReportUrl>
+    <ErrorReportUrl>https://github.com/iyomumx/MiniTwitter-Mod/issues</ErrorReportUrl>
     <ProductName>MiniTwitter Mod</ProductName>
-    <PublisherName>MiniTwitter Mod</PublisherName>
-    <SuiteName>MiniTwitter Mod</SuiteName>
+    <PublisherName>Iyomumx</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>minitwitter_publish.htm</WebPage>
-    <ApplicationRevision>26</ApplicationRevision>
+    <TrustUrlParameters>true</TrustUrlParameters>
+    <ApplicationRevision>33</ApplicationRevision>
     <ApplicationVersion>1.6.7.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
+    <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -107,7 +106,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E773F743A10BCE0DB547EEC59AC7C9FA37B9D96C</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0C776ACC5CC08855CB44037AF3DAD65B56CD83E5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>
@@ -153,7 +152,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MiniTwitterMod_tmpkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>mainkey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -166,6 +165,9 @@
     <Win32Resource>
     </Win32Resource>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
@@ -430,8 +432,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.Private.cs" />
-    <None Include="MiniTwitterMod_tmpkey.pfx" />
     <None Include="Properties\app.manifest" />
+    <None Include="mainkey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\arrow_refresh.png" />
@@ -1212,22 +1214,22 @@
   <ItemGroup>
     <PublishFile Include="MiniTwitter.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Tween.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
