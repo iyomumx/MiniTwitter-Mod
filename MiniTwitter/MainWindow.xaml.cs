@@ -2115,7 +2115,7 @@ namespace MiniTwitter
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
             try
             {
-                Process.Start(string.Format("{2}{0}/statuses/{1}", item.Sender.ScreenName, item.ID, Settings.Default.LinkUrl));
+                Process.Start(string.Format("{2}{0}/statuses/{1}", item.Sender.ScreenName, item.ID.ToString(), Settings.Default.LinkUrl));
             }
             catch
             {
@@ -2128,7 +2128,7 @@ namespace MiniTwitter
             var item = (Status)(e.Parameter ?? GetSelectedItem());
             try
             {
-                Process.Start(string.Format("{2}{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID, Settings.Default.LinkUrl));
+                Process.Start(string.Format("{2}{0}/statuses/{1}", item.InReplyToScreenName, item.InReplyToStatusID.ToString(), Settings.Default.LinkUrl));
             }
             catch
             {
@@ -2192,7 +2192,7 @@ namespace MiniTwitter
         private void CopyUrlCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var item = (ITwitterItem)e.Parameter ?? GetSelectedItem();
-            Clipboard.SetText(string.Format("{2}{0}/statuses/{1}", item.Sender.ScreenName, item.ID, Settings.Default.LinkUrl));
+            Clipboard.SetText(string.Format("{2}{0}/statuses/{1}", item.Sender.ScreenName, item.ID.ToString(), Settings.Default.LinkUrl));
         }
 
         private void SortCategoryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -2242,6 +2242,8 @@ namespace MiniTwitter
             {
                 ThreadPool.QueueUserWorkItem(state =>
                 {
+                    var tmpList = TClient.Lists;
+                    this.Invoke(p => this.lists = p, tmpList);
                     this.Invoke(p => timeline.Update(p), TClient.GetListStatuses(timeline.Tag, timeline.SinceID));
                 });
             }
@@ -2252,7 +2254,7 @@ namespace MiniTwitter
 
         private void EditTimelineCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var timeline = (Timeline)TimelineTabControl.SelectedItem;
+            var timeline = e.Parameter as Timeline ?? (Timeline)TimelineTabControl.SelectedItem;
             if (timeline.Type != TimelineType.User && timeline.Type != TimelineType.List && timeline.Type != TimelineType.Search)
             {
                 MessageBox.Show("无法编辑此标签页", App.NAME);
@@ -2288,7 +2290,7 @@ namespace MiniTwitter
 
         private void DeleteTimelineCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var timeline = (Timeline)TimelineTabControl.SelectedItem;
+            var timeline = e.Parameter as Timeline ?? (Timeline)TimelineTabControl.SelectedItem;
             if (timeline.Type != TimelineType.User && timeline.Type != TimelineType.List && timeline.Type != TimelineType.Search)
             {
                 return;
@@ -2804,7 +2806,7 @@ namespace MiniTwitter
             var oasis = XNamespace.Get("urn:oasis:names:tc:ciq:xsdschema:xAL:2.0");
 
             var document = XDocument.Load(string.Format("http://maps.google.com/maps/geo?ll={0},{1}&output=xml&key={2}&hl=ja&oe=UTF8",
-                position.Location.Latitude, position.Location.Longitude, API_KEY));
+                position.Location.Latitude.ToString(), position.Location.Longitude.ToString(), API_KEY));
 
             _latitude = position.Location.Latitude;
             _longitude = position.Location.Longitude;
@@ -3588,7 +3590,7 @@ namespace MiniTwitter
         private void ViewImage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var l = (Hyperlink)e.Parameter;
-            l.DoClick();
+            l.RaiseEvent(new RoutedEventArgs(Hyperlink.ClickEvent, this));
         }
 
         private void CopyImage_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -3596,5 +3598,6 @@ namespace MiniTwitter
             var bmp = e.Parameter as BitmapImage;
             if (bmp != null) Clipboard.SetImage(bmp);
         }
+
     }
 }

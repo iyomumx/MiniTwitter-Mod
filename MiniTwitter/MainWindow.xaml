@@ -259,7 +259,8 @@
         </StatusBar>
         <TabControl x:Name="TimelineTabControl" DockPanel.Dock="Top" SelectedIndex="0"
                     ItemsSource="{Binding ElementName=Window, Path=Timelines}" Style="{DynamicResource TimelineTabControlStyle}"
-                    ItemContainerStyle="{DynamicResource TimelineTabItemStyle}" IsSynchronizedWithCurrentItem="True" SelectionChanged="TimelineTabControl_SelectionChanged">
+                    ItemContainerStyle="{DynamicResource TimelineTabItemStyle}" IsSynchronizedWithCurrentItem="True" 
+                    SelectionChanged="TimelineTabControl_SelectionChanged">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

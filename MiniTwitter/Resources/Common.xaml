@@ -396,9 +396,9 @@
 
     <ContextMenu x:Key="TimelineContextMenu">
         <MenuItem Header="添加标签页(_A)..." Command="MiniTwitter_Input:Commands.AddTimeline" />
-        <MenuItem Header="改变设置(_E)..." Command="MiniTwitter_Input:Commands.EditTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
+        <MenuItem Header="改变设置(_E)..." Command="MiniTwitter_Input:Commands.EditTimeline" CommandParameter="{Binding}" Style="{StaticResource UserTimelineMenuItemStyle}"/>
         <Separator/>
-        <MenuItem Header="删除(_D)" Command="MiniTwitter_Input:Commands.DeleteTimeline" Style="{StaticResource UserTimelineMenuItemStyle}"/>
+        <MenuItem Header="删除(_D)" Command="MiniTwitter_Input:Commands.DeleteTimeline" CommandParameter="{Binding}" Style="{StaticResource UserTimelineMenuItemStyle}"/>
         <Separator/>
         <MenuItem Header="全部删除(_C)" Command="MiniTwitter_Input:Commands.ClearTimeline"/>
     </ContextMenu>

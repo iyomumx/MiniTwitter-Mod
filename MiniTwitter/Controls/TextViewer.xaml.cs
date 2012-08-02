@@ -544,7 +544,7 @@ namespace MiniTwitter.Controls
                     isTwitterImage = false;
                     throw;
                 }
-                if ((Settings.Default.ImageInline && Keyboard.Modifiers != ModifierKeys.Shift) || Keyboard.Modifiers == ModifierKeys.Control)
+                if (((Settings.Default.ImageInline && Keyboard.Modifiers != ModifierKeys.Shift) || Keyboard.Modifiers == ModifierKeys.Control) && !(e.OriginalSource is Window))
                 {
                     Process.Start(url);
                     return;
