@@ -37,3 +37,7 @@ _ReSharper*/
 /.revert/
 /.backup/
 *.ignore/
+/MiniTwitter.opensdf
+/MiniTwitter.sdf
+/MiniTwitter/MiniTwitterNativeIcon.dll
+/ipch/minitwittericons-b4193605/minitwitternativeicon-5523a796.ipch
