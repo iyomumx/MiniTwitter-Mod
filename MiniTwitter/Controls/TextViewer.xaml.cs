@@ -775,7 +775,7 @@ namespace MiniTwitter.Controls
                     {
                         var location = GetRedirect(url2);
 
-                        if ((!location.IsNullOrEmpty() && location != url) || redirectFailCount > 5)
+                        if ((!location.IsNullOrEmpty() && location == url) || redirectFailCount > 5)
                             this.Invoke(() =>
                             {
                                 hyperlink.ToolTip = new TextBlock { Text = location };
@@ -786,7 +786,7 @@ namespace MiniTwitter.Controls
                             this.Invoke(() =>
                             {
                                 redirectFailCount++;
-                                hyperlink.ToolTip = url;
+                                hyperlink.ToolTip = IsUrl(location) ? location : url;
                             });
                     }
                     catch { }
